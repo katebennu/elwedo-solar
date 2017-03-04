@@ -11,7 +11,7 @@ class Apartment(models.Model):
                                                   MaxValueValidator(999.99)])
     inhabitants = models.fields.IntegerField(validators=[MinValueValidator(0),
                                                          MaxValueValidator(99)])
-    building = models.ForeignKey(Building)
+    building = models.ForeignKey('Building')
 
 
 class Building(models.Model):
@@ -49,7 +49,7 @@ class ProductionMeasurement(models.Model):
                                 decimal_places=2,
                                 validators=[MinValueValidator(0.0),
                                             MaxValueValidator(999999.99)])
-    grid = models.ForeignKey(Grid)
+    grid = models.ForeignKey('Grid')
 
 
 class Grid(models.Model):
