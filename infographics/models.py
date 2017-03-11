@@ -36,7 +36,7 @@ class ConsumptionMeasurement(models.Model):
     # one of the two is obligatory
     apartment = models.ForeignKey(Apartment, null=True)
     building = models.ForeignKey(Building, null=True)
-    time = models.DateTimeField
+    time = models.DateTimeField()
     value = models.DecimalField(max_digits=8,
                                 decimal_places=2,
                                 validators=[MinValueValidator(0.0),
