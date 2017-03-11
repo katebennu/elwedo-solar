@@ -7,10 +7,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.run()
-        self.stdout.write(self.style.SUCCESS('Successfully inserted dummy data'))
+        self.stdout.write(self.style.SUCCESS('Successfully inserted dummy base data'))
 
     def run(self):
-        building = Building.objects.create(
+        building, created = Building.objects.get_or_create(
             address='Fregatti',
             total_apartments=60,
             total_area=3000,
@@ -24,7 +24,7 @@ class Command(BaseCommand):
         area = round(total_area / total_apartments)
         inhabitants = round(total_inhabitants / total_apartments)
         for n in range(total_apartments):
-            Apartment.objects.create(number=n + 1, area=area, inhabitants=inhabitants, building=building)
+            Apartment.objects.get_or_create(number=n + 1, area=area, inhabitants=inhabitants, building=building)
 
-        Grid.objects.create(name='Suvilahti', total_units=194)
+        Grid.objects.get_or_create(name='Suvilahti', total_units=194)
 
