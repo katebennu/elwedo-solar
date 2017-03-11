@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from infographics.models import Building, Apartment
+from infographics.models import Building, Apartment, Grid
 
 
 building = Building.objects.all()[0]
@@ -16,6 +16,10 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('Successfully inserted dummy data'))
 
     def run(self):
+        building
+
+
+
         area = round(total_area / total_apartments)
         inhabitants = round(total_inhabitants / total_apartments)
 

@@ -54,5 +54,5 @@ class ProductionMeasurement(models.Model):
 
 class Grid(models.Model):
     name = models.fields.CharField(max_length=50, unique=True)
-    total_units = models.fields.IntegerFieldvalidators=[MinValueValidator(0),
-                                                              MaxValueValidator(999999)]
+    total_units = models.fields.IntegerField(validators=[MinValueValidator(0),
+                                                              MaxValueValidator(999999)])
