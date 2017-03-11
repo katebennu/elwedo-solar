@@ -1,6 +1,9 @@
 from django.core.management.base import BaseCommand
 from infographics.models import Building, ConsumptionMeasurement
-import csv, os
+import csv
+import os
+from django.utils.dateparse import parse_datetime
+from dateutil.parser import parse
 from datetime import datetime
 
 
