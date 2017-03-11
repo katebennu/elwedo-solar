@@ -4,6 +4,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class Apartment(models.Model):
+    def __str__(self):
+        return str(self.building.address) + ', Apartment #' + str(self.number)
     number = models.fields.IntegerField(unique=True, primary_key=True)
     area = models.fields.DecimalField(max_digits=5,
                                       decimal_places=2,
@@ -15,6 +17,8 @@ class Apartment(models.Model):
 
 
 class Building(models.Model):
+    def __str__(self):
+        return 'Building ' + str(self.address)
     address = models.fields.CharField(max_length=50, unique=True)
     total_apartments = models.fields.IntegerField(validators=[MinValueValidator(0),
                                                               MaxValueValidator(9999)])
@@ -36,7 +40,7 @@ class ConsumptionMeasurement(models.Model):
     # one of the two is obligatory
     apartment = models.ForeignKey(Apartment, null=True)
     building = models.ForeignKey(Building, null=True)
-    time = models.DateTimeField
+    time = models.DateTimeField(null=True)
     value = models.DecimalField(max_digits=8,
                                 decimal_places=2,
                                 validators=[MinValueValidator(0.0),
@@ -44,7 +48,7 @@ class ConsumptionMeasurement(models.Model):
 
 
 class ProductionMeasurement(models.Model):
-    time = models.DateTimeField
+    time = models.DateTimeField(null=True)
     value_per_unit = models.DecimalField(max_digits=8,
                                 decimal_places=2,
                                 validators=[MinValueValidator(0.0),
@@ -53,6 +57,7 @@ class ProductionMeasurement(models.Model):
 
 
 class Grid(models.Model):
+    def __str__(self):
+        return 'Grid ' + str(self.name)
     name = models.fields.CharField(max_length=50, unique=True)
-    total_units = models.fields.IntegerFieldvalidators=[MinValueValidator(0),
-                                                              MaxValueValidator(999999)]
+    total_units = models.fields.IntegerField(default=200)
