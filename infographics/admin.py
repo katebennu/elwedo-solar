@@ -1,3 +1,6 @@
 from django.contrib import admin
+from infographics.models import Building, Apartment, Grid, ConsumptionMeasurement, ProductionMeasurement
 
-# Register your models here.
+admin.site.register(Building)
+admin.site.register(Apartment)
+admin.site.register(Grid)
