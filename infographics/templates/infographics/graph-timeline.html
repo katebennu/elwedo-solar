@@ -1,6 +1,11 @@
 {% load static %}
 
 <h3>Timeline graph test</h3>
+<p>{{ context }}</p>
+
+{% for i in data %}
+    <p>{{ i.time }} {{ i.value }}</p>
+{% endfor %}
 
 <svg width="960" height="500"></svg>
 
