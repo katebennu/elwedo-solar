@@ -40,7 +40,7 @@ class ConsumptionMeasurement(models.Model):
     # one of the two is obligatory
     apartment = models.ForeignKey(Apartment, null=True)
     building = models.ForeignKey(Building, null=True)
-    time = models.DateTimeField(null=True)
+    timestamp = models.DateTimeField(null=True)
     value = models.DecimalField(max_digits=8,
                                 decimal_places=2,
                                 validators=[MinValueValidator(0.0),
@@ -48,7 +48,7 @@ class ConsumptionMeasurement(models.Model):
 
 
 class ProductionMeasurement(models.Model):
-    time = models.DateTimeField(null=True)
+    timestamp = models.DateTimeField(null=True)
     value_per_unit = models.DecimalField(max_digits=8,
                                 decimal_places=2,
                                 validators=[MinValueValidator(0.0),
