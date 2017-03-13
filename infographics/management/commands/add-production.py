@@ -26,6 +26,6 @@ class Command(BaseCommand):
                     value_per_unit = 0
                 _, created = ProductionMeasurement.objects.get_or_create(
                     grid=grid,
-                    time=datetime.strptime(row[0], '%Y-%m-%dT%H:%M:%S'),
-                    value_per_unit=value_per_units
+                    timestamp=datetime.strptime(row[0], '%Y-%m-%dT%H:%M:%S'),
+                    value_per_unit=float(value_per_unit)
                 )
