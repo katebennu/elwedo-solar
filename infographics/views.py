@@ -11,7 +11,7 @@ def index(request):
     context_data = []
 
     for i in data:
-        context_data.append({'timestamp': i.timestamp.isoformat() + 'Z', 'value': i.value })
+        context_data.append({'timestamp': i.timestamp.isoformat() + 'Z', 'value': float(i.value)})
 
     context['context_data'] = context_data
 
