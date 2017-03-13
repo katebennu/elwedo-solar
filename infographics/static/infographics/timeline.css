@@ -1,11 +1,8 @@
-.timeline-chart {
-    background: lightgray;
-}
 
 rect {
-    fill: steelblue;
+    fill: #56eda8;
 }
 
 rect:hover {
-    fill: turquoise;
+    fill: #efe79c;
 }
