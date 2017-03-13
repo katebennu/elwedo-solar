@@ -73,7 +73,7 @@
         .data(data)
         .enter()
         .append('rect')
-        .attr('x', d => d.timestamp * width / data.length)
+        .attr('x', d => d.timestamp * width / data.length + 2)
         .attr('y', d => height - d.value * height / maxY)
         .attr('width', d => width / data.length - 2)
         .attr('height', d => d.value * height / maxY);
