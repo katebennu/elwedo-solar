@@ -68,14 +68,15 @@
         .attr('transform', `translate(0, ${height})`)
         .call(xAxis);
 
+
     svg.selectAll('rect')
         .data(data)
         .enter()
         .append('rect')
-        .attr('x', d => d.timestamp)
-        .attr('y', d => d.value)
-        .attr('width', d => width / data.length)
-        .attr('height', d => d.value);
+        .attr('x', d => d.timestamp * width / data.length)
+        .attr('y', d => height - d.value * height / maxY)
+        .attr('width', d => width / data.length - 2)
+        .attr('height', d => d.value * height / maxY);
 
     function responsivefy(svg) {
         // get container + svg aspect ratio
