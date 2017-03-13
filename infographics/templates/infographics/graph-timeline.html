@@ -15,7 +15,10 @@
 <script>
     var margin = {top: 10, right: 20, bottom: 60, left: 30};
     var width = 400 - margin.left - margin.right;
-    var height = 565 - margin.top - margin.bottom;
+    var height = 200 - margin.top - margin.bottom;
+
+    // Parse the date / time
+    var	parseTime = d3.timeParse("%H-%M");
 
     var svg = d3.select('.timeline-chart')
         .append('svg')
@@ -27,8 +30,16 @@
 
     var data = {{ context_data|safe }};
 
+    d3.json(data, function (error, data) {
+        if (error) throw error;
+        data.forEach(function (d) {
+            d.timestamp = parseTime(d.timestamp);
+            d.value = +d.value;
+        })
+    })
+
     var yScale = d3.scaleLinear()
-        .domain([0, 100])
+        .domain([0, 40])
         .range([height, 0]);
     var yAxis = d3.axisLeft(yScale);
     svg.call(yAxis);
@@ -38,23 +49,25 @@
         .range([0, width]);
 
     var xAxis = d3.axisBottom(xScale)
-        .ticks(5)
+        .ticks(data.length)
         .tickSize(10)
-        .tickPadding(5);
+        .tickPadding(5)
+        .tickFormat(d3.timeFormat("%H"));
+
     svg
         .append('g')
         .attr('transform', `translate(0, ${height})`)
-        .call(xAxis)
+        .call(xAxis);
 
-    {% comment %}svg.selectAll('rect')
+    svg.selectAll('rect')
         .data(data)
         .enter()
         .append('rect')
-        .attr('x', d)
+        .attr('x', d.timestamp)
 
-    .attr('y', d)
+    .attr('y', d.value)
     .attr('width', d)
-    .attr('height', d);{% endcomment %}
+    .attr('height', d);
 
     function responsivefy(svg) {
         // get container + svg aspect ratio
