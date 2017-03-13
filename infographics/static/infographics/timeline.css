@@ -9,10 +9,3 @@ rect {
 rect:hover {
     fill: turquoise;
 }
-
-path,
-line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
-}
