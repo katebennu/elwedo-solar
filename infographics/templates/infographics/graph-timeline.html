@@ -4,6 +4,8 @@
 
 <h3>Timeline graph test</h3>
 
+<p id="formatted">Formatted</p>
+
 <div class="timeline-chart"></div>
 
 {% for i in context_data %}
@@ -13,12 +15,15 @@
 
 
 <script>
+
+{#    var data = {{ context_data|safe }};#}
+
+    var data = [{'timestamp': '2016-05-15T00:00:00+00:00Z', 'value': 20.43}, {'timestamp': '2016-05-15T01:00:00+00:00Z', 'value': 18.49}, {'timestamp': '2016-05-15T02:00:00+00:00Z', 'value': 17.61}, {'timestamp': '2016-05-15T03:00:00+00:00Z', 'value': 16.69}, {'timestamp': '2016-05-15T04:00:00+00:00Z', 'value': 16.53}, {'timestamp': '2016-05-15T05:00:00+00:00Z', 'value': 16.32}, {'timestamp': '2016-05-15T06:00:00+00:00Z', 'value': 16.86}, {'timestamp': '2016-05-15T07:00:00+00:00Z', 'value': 19.47}, {'timestamp': '2016-05-15T08:00:00+00:00Z', 'value': 23.93}, {'timestamp': '2016-05-15T09:00:00+00:00Z', 'value': 22.93}, {'timestamp': '2016-05-15T10:00:00+00:00Z', 'value': 30.34}, {'timestamp': '2016-05-15T11:00:00+00:00Z', 'value': 37.72}, {'timestamp': '2016-05-15T12:00:00+00:00Z', 'value': 37.64}, {'timestamp': '2016-05-15T13:00:00+00:00Z', 'value': 37.58}, {'timestamp': '2016-05-15T14:00:00+00:00Z', 'value': 36.8}, {'timestamp': '2016-05-15T15:00:00+00:00Z', 'value': 34.84}, {'timestamp': '2016-05-15T16:00:00+00:00Z', 'value': 39.1}, {'timestamp': '2016-05-15T17:00:00+00:00Z', 'value': 44.55}, {'timestamp': '2016-05-15T18:00:00+00:00Z', 'value': 42.14}, {'timestamp': '2016-05-15T19:00:00+00:00Z', 'value': 48.26}, {'timestamp': '2016-05-15T20:00:00+00:00Z', 'value': 38.5}, {'timestamp': '2016-05-15T21:00:00+00:00Z', 'value': 28.38}, {'timestamp': '2016-05-15T22:00:00+00:00Z', 'value': 20.23}, {'timestamp': '2016-05-15T23:00:00+00:00Z', 'value': 18.72}];
+
     var margin = {top: 10, right: 20, bottom: 60, left: 30};
     var width = 400 - margin.left - margin.right;
     var height = 200 - margin.top - margin.bottom;
 
-    // Parse the date / time
-    var	parseTime = d3.timeParse("%H-%M");
 
     var svg = d3.select('.timeline-chart')
         .append('svg')
@@ -28,32 +33,30 @@
         .append('g')
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
-    var data = {{ context_data|safe }};
+    var formatTime = d3.timeFormat('%H');
+    var isoParse = d3.utcParse("%Y-%m-%dT%H:%M:%S%ZZ");
 
-    d3.json(data, function (error, data) {
-        if (error) throw error;
-        data.forEach(function (d) {
-            d.timestamp = parseTime(d.timestamp);
-            d.value = +d.value;
-        })
-    })
+    data.forEach(function (d) {
+        d.timestamp = formatTime(isoParse(d.timestamp));
+        d.value = +d.value;
+    });
+
+    var out = document.getElementById('formatted');
+    out.innerHTML = JSON.stringify(data);
 
     var yScale = d3.scaleLinear()
         .domain([0, 40])
         .range([height, 0]);
     var yAxis = d3.axisLeft(yScale);
     svg.call(yAxis);
-
     var xScale = d3.scaleTime()
         .domain([new Date(2016, 5, 15, 1), new Date(2016, 5, 15, 23)])
         .range([0, width]);
-
     var xAxis = d3.axisBottom(xScale)
         .ticks(data.length)
         .tickSize(10)
         .tickPadding(5)
         .tickFormat(d3.timeFormat("%H"));
-
     svg
         .append('g')
         .attr('transform', `translate(0, ${height})`)
@@ -63,11 +66,8 @@
         .data(data)
         .enter()
         .append('rect')
-        .attr('x', d.timestamp)
-
-    .attr('y', d.value)
-    .attr('width', d)
-    .attr('height', d);
+        .attr('x', d => xScale(d.timestamp))
+        .attr('y', d => yScale(d.value))
 
     function responsivefy(svg) {
         // get container + svg aspect ratio
@@ -75,19 +75,16 @@
             width = parseInt(svg.style("width")),
             height = parseInt(svg.style("height")),
             aspect = width / height;
-
         // add viewBox and preserveAspectRatio properties,
         // and call resize so that svg resizes on inital page load
         svg.attr("viewBox", "0 0 " + width + " " + height)
             .attr("preserveAspectRatio", "xMinYMid")
             .call(resize);
-
         // to register multiple listeners for same event type,
         // you need to add namespace, i.e., 'click.foo'
         // necessary if you call invoke this function for multiple svgs
         // api docs: https://github.com/mbostock/d3/wiki/Selections#on
         d3.select(window).on("resize." + container.attr("id"), resize);
-
         // get width of container and resize svg to fit it
         function resize() {
             var targetWidth = parseInt(container.style("width"));
@@ -95,5 +92,4 @@
             svg.attr("height", Math.round(targetWidth / aspect));
         }
     }
-
 </script>
