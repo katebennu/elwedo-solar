@@ -21,6 +21,6 @@ class Command(BaseCommand):
             for row in reader:
                 _, created = ConsumptionMeasurement.objects.get_or_create(
                     building=building,
-                    time=datetime.strptime(row[0], '%d.%m.%Y %H:%M:%S'),
-                    value=row[1]
+                    timestamp=datetime.strptime(row[0], '%d.%m.%Y %H:%M:%S'),
+                    value=float(row[1])
                 )
