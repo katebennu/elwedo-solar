@@ -32,7 +32,7 @@
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
     var formatTime = d3.timeFormat('%H');
-    var isoParse = d3.utcParse("%Y-%m-%dT%H:%M:%S%ZZ");
+    var isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
 
     data.forEach(function (d) {
         d.timestamp = formatTime(isoParse(d.timestamp));
@@ -54,15 +54,16 @@
 
     var domainData = {{ context_data|safe }};
 
-    var xScale = d3.scaleTime()
-        .domain([isoParse(domainData[0]['timestamp']), isoParse(domainData[domainData.length-1]['timestamp'])])
+    var xScale = d3.scaleBand()
+        .padding(0.2)
+        .domain(data.map(d => d.timestamp))
         .range([0, width]);
 
     var xAxis = d3.axisBottom(xScale)
         .ticks(data.length)
         .tickSize(10)
         .tickPadding(5)
-        .tickFormat(d3.timeFormat("%H"));
+
     svg
         .append('g')
         .attr('transform', `translate(0, ${height})`)
