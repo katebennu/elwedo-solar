@@ -28,7 +28,7 @@ DEBUG = True
 
 # TODO: add when IP is known
 # https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-16-04
-ALLOWED_HOSTS = ['aqueous-stream-42635.herokuapp.com', 'localhost', '127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
