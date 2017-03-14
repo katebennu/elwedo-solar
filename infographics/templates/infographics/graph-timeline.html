@@ -54,15 +54,16 @@
 
     var domainData = {{ context_data|safe }};
 
-    var xScale = d3.scaleTime()
-        .domain([isoParse(domainData[0]['timestamp']), isoParse(domainData[domainData.length-1]['timestamp'])])
+    var xScale = d3.scaleBand()
+        .padding(0.2)
+        .domain(data.map(d => d.timestamp))
         .range([0, width]);
 
     var xAxis = d3.axisBottom(xScale)
-        .ticks(data.length)
+        .ticks(24)
         .tickSize(10)
         .tickPadding(5)
-        .tickFormat(d3.timeFormat("%H"));
+
     svg
         .append('g')
         .attr('transform', `translate(0, ${height})`)
