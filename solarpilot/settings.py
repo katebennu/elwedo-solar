@@ -27,6 +27,7 @@ DEBUG = False
 # https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-16-04
 ALLOWED_HOSTS = ['*']
 
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -69,23 +70,21 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'solarpilot.wsgi.application'
 
+
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'solar',
-    #     'USER': 'elwedo',
-    #     'PASSWORD': 'Kalasatama_PILOT',
-    #     'HOST': 'localhost',
-    #     'PORT': '',
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'solar',
+        'USER': 'elwedo',
+        'PASSWORD': 'Kalasatama_PILOT',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -104,6 +103,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
@@ -135,3 +135,4 @@ STATIC_URL = '/static/'
 # # https://warehouse.python.org/project/whitenoise/
 #
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
