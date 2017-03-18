@@ -1,6 +1,8 @@
 .navbar-default {
     background-color: #56eda8;
     border-color: #56eda8;
+    font-family: 'Karla', sans-serif;
+    font-weight: bold;
 }
 
 .navbar-default .navbar-brand {
@@ -118,4 +120,24 @@ rect {
 
 rect:hover {
     fill: #efe79c;
+}
+
+.welcome {
+    width: 100%;
+    background-color: #F4F1E4;
+    text-align: center;
+    color: #6D6A5C;
+    font-family: 'Karla', sans-serif;
+    padding: 20px;
+}
+.welcome > h2 {
+    font-weight: bold;
+    font-size: 18px;
+}
+.welcome > p {
+    font-size: 12px;
+}
+
+h1 {
+    font-family:'Quicksand', sans-serif;
 }
