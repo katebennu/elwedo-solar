@@ -18,13 +18,11 @@
 
     <div class="container-fluid">
         <h1 id="timeline-heading">ENERGY USAGE AND SAVINGS</h1>
-        <div class="container-fluid">
-            <div class="row">
+        <div class="row">
 
 
-                    {% include 'infographics/graph-timeline.html' %}
+            {% include 'infographics/graph-timeline.html' %}
 
-            </div>
         </div>
     </div>
 
@@ -34,16 +32,15 @@
         <p>Gives information relevant to the data giving some sort of interpretation.</p>
     </div>
 
-    <div class="container-fluid">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-2 col-md-1 col-sm-1 col-xs-0"></div>
-                <div class="col-lg-8 col-md-9 col-sm-10 col-xs-12">
-
-                </div>
+    <div id="small-graphs-div" class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2 col-md-1 col-sm-1 col-xs-0"></div>
+            <div class="col-lg-8 col-md-9 col-sm-10 col-xs-12">
+                {% include 'infographics/graph-carousel.html' %}
             </div>
         </div>
     </div>
+
 
 
 {% endblock %}

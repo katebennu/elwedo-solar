@@ -231,8 +231,8 @@ rect:hover {
     #timeline-menu > div {
         display: inline-block;
         float: none;
-        width: 93px;
+        width: 97px;
         font-size: 12px;
-        margin-right: 2px;
+        margin-right: 5px;
     }
 }
