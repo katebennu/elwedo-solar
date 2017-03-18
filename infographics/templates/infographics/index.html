@@ -1,6 +1,6 @@
 {% extends 'infographics/base.html' %}
 {% block title %} Elwedo Solar {% endblock %}
-
+{% load staticfiles %}
 
 {% block body %}
     <div class="ribbon welcome">
@@ -20,16 +20,29 @@
         <h1>ENERGY USAGE AND SAVINGS</h1>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-2 col-md-1 col-sm-1 col-xs-0"></div>
-                <div class="col-lg-8 col-md-9 col-sm-10 col-xs-12">
+
+
                     {% include 'infographics/graph-timeline.html' %}
-                </div>
+
             </div>
         </div>
     </div>
+
+
     <div class="ribbon blue-ribbon explanation">
         <h1>TEXT THAT EXPLAINS DATA</h1>
         <p>Gives information relevant to the data giving some sort of interpretation.</p>
+    </div>
+
+    <div class="container-fluid">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-2 col-md-1 col-sm-1 col-xs-0"></div>
+                <div class="col-lg-8 col-md-9 col-sm-10 col-xs-12">
+
+                </div>
+            </div>
+        </div>
     </div>
 
 

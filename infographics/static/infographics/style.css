@@ -166,6 +166,7 @@ rect:hover {
     border-style: solid;
     border-color: #FFFFFF;
     border-radius: 100px;
+    font-weight: bold;
 }
 
 .solar-switch > div {
@@ -183,6 +184,8 @@ rect:hover {
 .no-solar {
     background-color: #F4F1E4;
 }
+
+#timeline-menu > di
 
 .explanation {
     padding-top: 57px;
