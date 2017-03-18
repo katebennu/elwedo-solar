@@ -143,7 +143,7 @@ rect:hover {
     padding: 31px;
 }
 
-.welcome > h2 {
+.welcome > h4 {
     font-weight: bold;
     font-size: 18px;
 }
@@ -175,10 +175,16 @@ rect:hover {
     padding-bottom: 20px;
     font-weight: bold;
     font-size: 20px;
+    margin-bottom: 56px;
 }
 .solar {
     background-color: #efe79c;
 }
 .no-solar {
     background-color: #F4F1E4;
+}
+
+.explanation {
+    padding-top: 57px;
+    padding-bottom: 64px;
 }
