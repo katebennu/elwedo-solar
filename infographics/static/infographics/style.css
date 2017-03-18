@@ -140,7 +140,7 @@ rect:hover {
     margin-top: -20px;
     background-color: #F4F1E4;
     color: #6D6A5C;
-    padding: 20px;
+    padding: 31px;
 }
 
 .welcome > h2 {
@@ -171,6 +171,10 @@ rect:hover {
 .solar-switch > div {
     display: inline-block;
     width: 50%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-weight: bold;
+    font-size: 20px;
 }
 .solar {
     background-color: #efe79c;
