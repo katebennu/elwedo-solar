@@ -137,6 +137,7 @@ rect:hover {
 }
 
 .welcome {
+    margin-top: -20px;
     background-color: #F4F1E4;
     color: #6D6A5C;
     padding: 20px;
