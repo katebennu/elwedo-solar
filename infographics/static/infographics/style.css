@@ -176,7 +176,6 @@ rect:hover {
     padding-bottom: 20px;
     font-weight: bold;
     font-size: 20px;
-    margin-bottom: 56px;
 }
 
 .solar {
@@ -185,6 +184,11 @@ rect:hover {
 
 .no-solar {
     background-color: #F4F1E4;
+}
+
+#timeline-heading {
+    margin-top: 56px;
+    margin-bottom: 32px;
 }
 
 #timeline-menu > div {
