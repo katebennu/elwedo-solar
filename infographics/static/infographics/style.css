@@ -378,3 +378,10 @@ rect:hover {
         float: left;
     }
 }
+
+.weather > div {
+    display: inline-block;
+    width: 125px;
+    margin-top: 49px;
+    margin-bottom: 69px;
+}

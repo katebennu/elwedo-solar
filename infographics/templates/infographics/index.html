@@ -7,11 +7,14 @@
         <h4>Welcome Antti!</h4>
         <p>Last updated 18/03/17</p>
     </div>
+
+
     <div class="ribbon blue-ribbon sticky-ribbon">
         <div>DAY</div>
         <div>WEEK</div>
         <div>MONTH</div>
     </div>
+
     <div class="ribbon solar-switch">
         <div class="solar">WITH SOLAR</div><div class="no-solar">WITHOUT SOLAR</div>
     </div>
@@ -19,10 +22,7 @@
     <div class="container-fluid">
         <h1 id="timeline-heading">ENERGY USAGE AND SAVINGS</h1>
         <div class="row">
-
-
             {% include 'infographics/graph-timeline.html' %}
-
         </div>
     </div>
 
@@ -33,9 +33,19 @@
     </div>
 
     <div id="small-graphs-div">
-                {% include 'infographics/graph-carousel.html' %}
+        {% include 'infographics/graph-carousel.html' %}
     </div>
 
+
+    <div class="ribbon blue-ribbon weather">
+        <div>TOMORROW</div>
+        <div>TUE 21/03</div>
+        <div>WED 22/03</div>
+        <div>THU 23/03</div>
+        <div>FRI 24/03</div>
+        <div>SAT 25/03</div>
+        <div>SUN 26/03</div>
+    </div>
 
 
 {% endblock %}
