@@ -1,7 +1,16 @@
+body {
+    font-family: 'Karla', sans-serif;
+}
+
+h1 {
+    font-family:'Quicksand', sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+
 .navbar-default {
     background-color: #56eda8;
     border-color: #56eda8;
-    font-family: 'Karla', sans-serif;
     font-weight: bold;
 }
 
@@ -122,12 +131,14 @@ rect:hover {
     fill: #efe79c;
 }
 
-.welcome {
+.ribbon {
     width: 100%;
-    background-color: #F4F1E4;
     text-align: center;
+}
+
+.welcome {
+    background-color: #F4F1E4;
     color: #6D6A5C;
-    font-family: 'Karla', sans-serif;
     padding: 20px;
 }
 .welcome > h2 {
@@ -138,6 +149,18 @@ rect:hover {
     font-size: 12px;
 }
 
-h1 {
-    font-family:'Quicksand', sans-serif;
+.blue-ribbon {
+    background-color: #26B5DB;
+    color: #FFFFFF;
+}
+
+.sticky-ribbon > div {
+    width: 118px;
+    display: inline-block;
+    margin: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-style: solid;
+    border-color: #FFFFFF;
+    border-radius: 100px;
 }
