@@ -3,7 +3,7 @@ body {
 }
 
 h1 {
-    font-family:'Quicksand', sans-serif;
+    font-family: 'Quicksand', sans-serif;
     font-weight: bold;
     text-align: center;
 }
@@ -12,6 +12,7 @@ h1 {
     background-color: #56eda8;
     border-color: #56eda8;
     font-weight: bold;
+    font-size: 20px;
 }
 
 .navbar-default .navbar-brand {
@@ -122,7 +123,6 @@ h1 {
     box-shadow: none;
 }
 
-
 rect {
     fill: #56eda8;
 }
@@ -142,10 +142,12 @@ rect:hover {
     color: #6D6A5C;
     padding: 20px;
 }
+
 .welcome > h2 {
     font-weight: bold;
     font-size: 18px;
 }
+
 .welcome > p {
     font-size: 12px;
 }
@@ -164,4 +166,15 @@ rect:hover {
     border-style: solid;
     border-color: #FFFFFF;
     border-radius: 100px;
+}
+
+.solar-switch > div {
+    display: inline-block;
+    width: 50%;
+}
+.solar {
+    background-color: #efe79c;
+}
+.no-solar {
+    background-color: #F4F1E4;
 }

@@ -8,7 +8,12 @@
         <p>Last updated 18/03/17</p>
     </div>
     <div class="ribbon blue-ribbon sticky-ribbon">
-    <div>DAY</div><div>WEEK</div><div>MONTH</div>
+        <div>DAY</div>
+        <div>WEEK</div>
+        <div>MONTH</div>
+    </div>
+        <div class="ribbon solar-switch">
+        <div class="solar">WITH SOLAR</div><div class="no-solar">WITHOUT SOLAR</div>
     </div>
 
     <div class="container-fluid">
@@ -17,10 +22,12 @@
             <div class="row">
                 <div class="col-lg-2 col-md-1 col-sm-1 col-xs-0"></div>
                 <div class="col-lg-8 col-md-9 col-sm-10 col-xs-12">
-                {% include 'infographics/graph-timeline.html' %}
+                    {% include 'infographics/graph-timeline.html' %}
                 </div>
             </div>
         </div>
     </div>
+
+
 
 {% endblock %}
