@@ -185,7 +185,17 @@ rect:hover {
     background-color: #F4F1E4;
 }
 
-#timeline-menu > di
+#timeline-menu > div {
+    margin-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #56eda8;
+    border-radius: 100px;
+     font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+
+}
 
 .explanation {
     padding-top: 57px;
