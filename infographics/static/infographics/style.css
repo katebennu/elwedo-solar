@@ -206,7 +206,23 @@ rect:hover {
 
 }
 
+
+
+.explanation {
+    padding-top: 57px;
+    padding-bottom: 64px;
+}
+
 @media screen and (max-width: 770px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    .explanation {
+        padding-left: 33px;
+        padding-right: 33px;
+    }
+
     #timeline-menu {
         width: 100%;
         text-align: center;
@@ -219,9 +235,4 @@ rect:hover {
         font-size: 12px;
         margin-right: 2px;
     }
-}
-
-.explanation {
-    padding-top: 57px;
-    padding-bottom: 64px;
 }
