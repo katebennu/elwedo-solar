@@ -158,7 +158,7 @@ rect:hover {
 }
 
 .sticky-ribbon > div {
-    width: 118px;
+    width: 100px;
     display: inline-block;
     margin: 5px;
     padding-top: 10px;
@@ -178,23 +178,43 @@ rect:hover {
     font-size: 20px;
     margin-bottom: 56px;
 }
+
 .solar {
     background-color: #efe79c;
 }
+
 .no-solar {
     background-color: #F4F1E4;
 }
 
 #timeline-menu > div {
+    width: 120px;
+    float: right;
     margin-bottom: 15px;
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: #56eda8;
     border-radius: 100px;
-     font-weight: bold;
+    font-weight: bold;
     color: #FFFFFF;
     text-align: center;
+    white-space: nowrap;
 
+}
+
+@media screen and (max-width: 770px) {
+    #timeline-menu {
+        width: 100%;
+        text-align: center;
+    }
+
+    #timeline-menu > div {
+        display: inline-block;
+        float: none;
+        width: 93px;
+        font-size: 12px;
+        margin-right: 2px;
+    }
 }
 
 .explanation {
