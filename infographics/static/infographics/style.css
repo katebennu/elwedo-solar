@@ -456,10 +456,20 @@ rect:hover {
 
 }
 
-.weather > div {
+.weather-img {
     display: inline-block;
-    width: 125px;
+    width: 140px;
     margin-top: 49px;
     margin-bottom: 69px;
     font-weight: bold;
+    vertical-align: text-top;
+}
+
+.weather-img > div {
+    margin-top: 28px;
+    height: 96px;
+}
+
+.weather-img img {
+    vertical-align: bottom;
 }
