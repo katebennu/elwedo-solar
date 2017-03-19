@@ -131,6 +131,39 @@ rect:hover {
     fill: #efe79c;
 }
 
+.legend {
+    margin-top: 37px;
+    margin-bottom: 50px;
+}
+
+.legend-element {
+    text-align: center;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 40px;
+    margin-left: 40px;
+
+}
+
+.legend-element > div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.square {
+    height: 20px;
+    width: 20px;
+    margin-right: 18px;
+}
+
+.blue {
+    background-color: #26B5DB;
+}
+
+.green {
+    background-color: #56eda8;
+}
+
 .ribbon {
     width: 100%;
     text-align: center;
@@ -214,6 +247,10 @@ rect:hover {
 .explanation {
     padding-top: 57px;
     padding-bottom: 64px;
+}
+
+#small-graphs-div {
+    height: 500px;
 }
 
 @media screen and (max-width: 770px) {
@@ -377,6 +414,28 @@ rect:hover {
         width: 33%;
         float: left;
     }
+
+    /* Next & previous buttons */
+    .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
 }
 
 .weather > div {
