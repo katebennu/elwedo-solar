@@ -134,6 +134,7 @@ rect:hover {
 .legend {
     margin-top: 37px;
     margin-bottom: 50px;
+    text-align: center;
 }
 
 .legend-element {
@@ -156,12 +157,24 @@ rect:hover {
     margin-right: 18px;
 }
 
+.line {
+    height: 4px;
+}
+
 .blue {
     background-color: #26B5DB;
 }
 
 .green {
     background-color: #56eda8;
+}
+
+.gray {
+    background-color: #F4F1E4;
+}
+
+.yellow {
+    background-color: #efe79c;
 }
 
 .ribbon {
