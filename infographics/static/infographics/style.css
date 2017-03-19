@@ -1,6 +1,23 @@
+body {
+    font-family: 'Karla', sans-serif;
+}
+
+h1 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: bold;
+    text-align: center;
+}
+
+.navbar-brand {
+    margin-top: -6px;
+    margin-left: 20px;
+}
+
 .navbar-default {
     background-color: #56eda8;
     border-color: #56eda8;
+    font-weight: bold;
+    font-size: 20px;
 }
 
 .navbar-default .navbar-brand {
@@ -109,4 +126,381 @@
     border: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
+}
+
+rect {
+    fill: #56eda8;
+}
+
+rect:hover {
+    fill: #efe79c;
+}
+
+.legend {
+    margin-top: 37px;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.legend-element {
+    text-align: center;
+    font-weight: bold;
+    display: inline-block;
+    margin-right: 40px;
+    margin-left: 40px;
+
+}
+
+.legend-element > div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.square {
+    height: 20px;
+    width: 20px;
+    margin-right: 18px;
+}
+
+.line {
+    height: 4px;
+}
+
+.blue {
+    background-color: #26B5DB;
+}
+
+.green {
+    background-color: #56eda8;
+}
+
+.gray {
+    background-color: #F4F1E4;
+}
+
+.yellow {
+    background-color: #efe79c;
+}
+
+.ribbon {
+    width: 100%;
+    text-align: center;
+}
+
+.welcome {
+    margin-top: -20px;
+    background-color: #F4F1E4;
+    color: #6D6A5C;
+    padding: 31px;
+}
+
+.welcome > h4 {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.welcome > p {
+    font-size: 12px;
+}
+
+.blue-ribbon {
+    background-color: #26B5DB;
+    color: #FFFFFF;
+}
+
+.sticky-ribbon > div {
+    width: 100px;
+    display: inline-block;
+    margin: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-style: solid;
+    border-color: #FFFFFF;
+    border-radius: 100px;
+    font-weight: bold;
+}
+
+.solar-switch > div {
+    display: inline-block;
+    width: 50%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.solar {
+    background-color: #efe79c;
+}
+
+.no-solar {
+    background-color: #F4F1E4;
+}
+
+#timeline-heading {
+    margin-top: 56px;
+    margin-bottom: 32px;
+}
+
+#timeline-menu > div {
+    width: 150px;
+    float: right;
+    margin-top: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: #56eda8;
+    border-radius: 100px;
+    font-weight: bold;
+    color: #FFFFFF;
+    text-align: center;
+    white-space: nowrap;
+
+}
+
+#timeline-chart {
+    margin-top: 15px;
+    max-width: 800px;
+}
+
+.explanation {
+    padding-top: 57px;
+    padding-bottom: 64px;
+}
+
+#small-graphs-div {
+    height: 500px;
+}
+
+@media screen and (max-width: 770px) {
+    h1 {
+        font-size: 20px;
+    }
+
+    .explanation {
+        padding-left: 33px;
+        padding-right: 33px;
+    }
+
+    #timeline-menu {
+        width: 100%;
+        text-align: center;
+    }
+
+    #timeline-menu > div {
+        display: inline-block;
+        float: none;
+        width: 97px;
+        font-size: 12px;
+        margin-right: 5px;
+    }
+}
+
+#slider-wrapper {
+    text-align: center;
+    height: 325px;
+}
+
+.slide > h3 {
+    font-weight: bold;
+    margin-bottom: 40px;
+}
+
+/*NO SLIDER*/
+@media screen and (min-width: 940px) {
+
+    .inner-wrapper > input, label {
+        display: none;
+    }
+
+    .slide {
+        width: 290px;
+        margin-right: 10px;
+        margin-top: 100px;
+        display: inline-block;
+    }
+}
+
+/*SLIDER*/
+@media screen and (max-width: 939px) {
+
+    #slider-wrapper {
+        width: 320px;
+        margin: 50px auto;
+        position: relative;
+        margin-bottom: 0px;
+        overflow: hidden;
+    }
+
+    #s1 {
+        padding: 6px;
+        background: #000000;
+        position: absolute;
+        left: 50%;
+        bottom: 25px;
+        margin-left: -36px;
+        border-radius: 20px;
+        opacity: 0.3;
+        cursor: pointer;
+        z-index: 999;
+    }
+
+    #s2 {
+        padding: 6px;
+        background: #000000;
+        position: absolute;
+        left: 50%;
+        bottom: 25px;
+        margin-left: -12px;
+        border-radius: 20px;
+        opacity: 0.3;
+        cursor: pointer;
+        z-index: 999;
+    }
+
+    #s3 {
+        padding: 6px;
+        background: #000000;
+        position: absolute;
+        left: 50%;
+        bottom: 25px;
+        margin-left: 12px;
+        border-radius: 20px;
+        opacity: 0.3;
+        cursor: pointer;
+        z-index: 999;
+    }
+
+    #s1:hover,
+    #s2:hover,
+    #s3:hover {
+        opacity: .50;
+    }
+
+    .inner-wrapper {
+        width: 300px;
+        height: 325px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin-bottom: 0px;
+        overflow: hidden;
+    }
+
+    .control {
+        display: none;
+    }
+
+    #Slide1:checked ~ .overflow-wrapper {
+        margin-left: 0%;
+    }
+
+    #Slide2:checked ~ .overflow-wrapper {
+        margin-left: -100%;
+    }
+
+    #Slide3:checked ~ .overflow-wrapper {
+        margin-left: -200%;
+    }
+
+    #Slide1:checked + #s1 {
+        opacity: 1;
+    }
+
+    #Slide2:checked + #s2 {
+        opacity: 1;
+    }
+
+    #Slide3:checked + #s3 {
+        opacity: 1;
+    }
+
+    .overflow-wrapper {
+        width: 300%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        overflow-y: hidden;
+        z-index: 1;
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        -o-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .slide {
+        width: 33%;
+        float: left;
+    }
+
+    /* Next & previous buttons */
+    .prev, .next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -22px;
+        color: white;
+        font-weight: bold;
+        font-size: 18px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+    }
+
+    /* Position the "next button" to the right */
+    .next {
+        right: 0;
+        border-radius: 3px 0 0 3px;
+    }
+
+}
+
+.weather-img {
+    display: inline-block;
+    width: 140px;
+    margin-top: 49px;
+    margin-bottom: 69px;
+    font-weight: bold;
+    vertical-align: text-top;
+}
+
+.weather-img > div {
+    margin-top: 28px;
+    height: 96px;
+}
+
+.weather-img img {
+    vertical-align: bottom;
+}
+
+#car-section {
+    padding-top: 77px;
+    padding-bottom: 77px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+#car-section h1 {
+    font-size: 48px;
+}
+
+#car-section img {
+    width: 236px;
+    height: auto;
+    margin-top: 50px;
+    margin-bottom: 50px
+}
+
+.footer {
+    background-color: #56eda8;
+    bottom: 0;
+    width: 100%;
+    padding-top: 11px;
+}
+
+.text-muted {
+  text-align: center;
+    font-weight: bold;
+    font-size: 12px;
 }

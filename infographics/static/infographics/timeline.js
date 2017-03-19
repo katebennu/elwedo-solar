@@ -1,78 +1,57 @@
-{% comment %}<p id="formatted">Formatted</p>{% endcomment %}
-<div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>
+var data = {{ context_data|safe }};
 
-<div id="timeline-menu" class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-    <div>APARTMENT</div>
-    <div>SAVINGS</div>
-    <div>ELECTRIC CAR</div>
-</div>
-
-<div class="col-lg-8 col-md-8 col-sm-9 col-xs-12">
-    <div id="timeline-chart"></div>
-</div>
-
-<div class="legend">
-    <div class="legend-element">
-        <div class="square gray"></div>
-        <div>consumption</div>
-    </div>
-    <div class="legend-element">
-        <div class="square green"></div>
-        <div>savings</div>
-    </div>
-        <div class="legend-element">
-        <div class="square line yellow"></div>
-        <div>production</div>
-    </div>
-</div>
-
-{% comment %}{% for i in context_data %}
-    <p>{{ i.timestamp }} {{ i.value }}</p>
-{% endfor %}{% endcomment %}
-
-
-
-<script>
-    var data = {{ context_data|safe }};
     var margin = {top: 10, right: 20, bottom: 60, left: 30};
     var width = 400 - margin.left - margin.right;
     var height = 200 - margin.top - margin.bottom;
-    var svg = d3.select('#timeline-chart')
+
+
+    var svg = d3.select('.timeline-chart')
         .append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
         .call(responsivefy)
         .append('g')
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+
     var formatTime = d3.timeFormat('%H');
     var isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
+
     data.forEach(function (d) {
         d.timestamp = formatTime(isoParse(d.timestamp));
         d.value = +d.value;
     });
+
     var maxY = d3.max(data.map(function (d) { return d.value; }))
-{% comment %}//DEBUG
+
+/*//DEBUG
     var out = document.getElementById('formatted');
     out.innerHTML = JSON.stringify(data);
-//DEBUG{% endcomment %}
+//DEBUG{*/
+
     var yScale = d3.scaleLinear()
         .domain([0, maxY])
         .range([height, 0]);
     var yAxis = d3.axisLeft(yScale);
     svg.call(yAxis);
+
     var domainData = {{ context_data|safe }};
+
     var xScale = d3.scaleBand()
         .padding(0.2)
         .domain(data.map(d => d.timestamp))
         .range([0, width]);
+
     var xAxis = d3.axisBottom(xScale)
         .ticks(data.length)
         .tickSize(10)
         .tickPadding(5)
+
     svg
         .append('g')
         .attr('transform', `translate(0, ${height})`)
         .call(xAxis);
+
+
     svg.selectAll('rect')
         .data(data)
         .enter()
@@ -81,6 +60,7 @@
         .attr('y', d => height - d.value * height / maxY)
         .attr('width', d => width / data.length - 2)
         .attr('height', d => d.value * height / maxY);
+
     function responsivefy(svg) {
         // get container + svg aspect ratio
         var container = d3.select(svg.node().parentNode),
@@ -104,4 +84,3 @@
             svg.attr("height", Math.round(targetWidth / aspect));
         }
     }
-</script>
