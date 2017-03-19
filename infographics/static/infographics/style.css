@@ -8,6 +8,11 @@ h1 {
     text-align: center;
 }
 
+.navbar-brand {
+    margin-top: -6px;
+    margin-left: 20px;
+}
+
 .navbar-default {
     background-color: #56eda8;
     border-color: #56eda8;
