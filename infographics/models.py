@@ -31,9 +31,10 @@ class Building(models.Model):
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours in the database"""
         # get latest timestamps
-
+        latest_consumption = self.consumptionmeasurement_set.order_by('-timestamp').first().timestamp
+        latest_production = self.productionmeasurement_set.order_by('-timestamp').first().timestamp
         # compare timestamps and find out which is the earliest of the two
-
+        latest = max(latest_consumption, latest_production)
 
         # retrieve consumption for 24 hours before that timestamp
 
