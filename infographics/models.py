@@ -29,7 +29,7 @@ class Building(models.Model):
     total_inhabitants = models.fields.IntegerField(validators=[MinValueValidator(0),
                                                                MaxValueValidator(9999)])
     def get_day_data(self):
-        """ Returns consumption and production data for latest 24 hours in the database"""
+        """ Returns consumption and production data for latest 24 hours that both in the database"""
         # get latest timestamps
         latest_consumption = self.consumptionmeasurement_set.order_by('-timestamp').first().timestamp
         latest_production = ProductionMeasurement.objects.order_by('-timestamp').first().timestamp
@@ -38,9 +38,9 @@ class Building(models.Model):
 
         # retrieve consumption for 24 hours before that timestamp
 
-        result_consumption = self.consumptionmeasurement_set.exclude(timestamp__gt=latest).order_by('-timestamp')[:24]
-        result_production = ProductionMeasurement.objects.exclude(timestamp__gt=latest).order_by('-timestamp')[:24]
-        pass
+        result_consumption = list(self.consumptionmeasurement_set.exclude(timestamp__gt=latest).order_by('-timestamp')[:24])
+        result_production = list(ProductionMeasurement.objects.exclude(timestamp__gt=latest).order_by('-timestamp')[:24])
+        return {'consumption': result_consumption, 'production': result_production}
 
     def get_week_data(self):
         """ Returns consumption and production data for latest 7 days in the database"""
