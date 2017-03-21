@@ -32,12 +32,14 @@ class Building(models.Model):
         """ Returns consumption and production data for latest 24 hours in the database"""
         # get latest timestamps
         latest_consumption = self.consumptionmeasurement_set.order_by('-timestamp').first().timestamp
-        latest_production = self.productionmeasurement_set.order_by('-timestamp').first().timestamp
+        latest_production = ProductionMeasurement.objects.order_by('-timestamp').first().timestamp
         # compare timestamps and find out which is the earliest of the two
         latest = max(latest_consumption, latest_production)
 
         # retrieve consumption for 24 hours before that timestamp
 
+        result_consumption = self.consumptionmeasurement_set.order_by('-timestamp')[:24]
+        result_production = ProductionMeasurement.objects.order_by('-timestamp')[:24]
         pass
 
     def get_week_data(self):
@@ -69,6 +71,8 @@ class UserMethods(User):
 
 
 class ConsumptionMeasurement(models.Model):
+    def __str__(self):
+        return 'Consumption on ' + str(self.timestamp)
     # one of the two is obligatory
     apartment = models.ForeignKey(Apartment, null=True)
     building = models.ForeignKey(Building, null=True)
@@ -80,6 +84,8 @@ class ConsumptionMeasurement(models.Model):
 
 
 class ProductionMeasurement(models.Model):
+    def __str__(self):
+        return 'Production on ' + str(self.timestamp)
     timestamp = models.DateTimeField(null=True)
     value_per_unit = models.DecimalField(max_digits=8,
                                 decimal_places=2,
