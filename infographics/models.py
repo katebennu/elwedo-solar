@@ -28,7 +28,38 @@ class Building(models.Model):
                                                         MaxValueValidator(999999.99)])
     total_inhabitants = models.fields.IntegerField(validators=[MinValueValidator(0),
                                                                MaxValueValidator(9999)])
+    def get_day_data(self):
+        """ Returns consumption and production data for latest 24 hours in the database"""
+        # get latest timestamps
 
+        # compare timestamps and find out which is the earliest of the two
+
+
+        # retrieve consumption for 24 hours before that timestamp
+
+        pass
+
+    def get_week_data(self):
+        """ Returns consumption and production data for latest 7 days in the database"""
+        # get latest timestamps
+
+        # compare timestamps and find out which is the earliest of the two
+
+
+        # retrieve consumption for 7 days before that timestamp
+
+        pass
+
+    def get_month_data(self):
+        """ Returns consumption and production data for latest 30 days in the database"""
+        # get latest timestamps
+
+        # compare timestamps and find out which is the earliest of the two
+
+
+        # retrieve consumption for 30 days before that timestamp
+
+        pass
 
 # if one account per apartment, rewrite for one-to-one relation
 class UserMethods(User):
