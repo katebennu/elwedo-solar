@@ -38,7 +38,7 @@ class Building(models.Model):
 
         # retrieve consumption for 24 hours before that timestamp
 
-        result_consumption = self.consumptionmeasurement_set.order_by('-timestamp')[:24]
+        result_consumption = self.consumptionmeasurement_set.exclude(timestamp__gt=latest).order_by('-timestamp')[:24]
         result_production = ProductionMeasurement.objects.order_by('-timestamp')[:24]
         pass
 
