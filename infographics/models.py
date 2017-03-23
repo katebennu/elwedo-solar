@@ -28,6 +28,7 @@ class Building(models.Model):
                                                         MaxValueValidator(999999.99)])
     total_inhabitants = models.fields.IntegerField(validators=[MinValueValidator(0),
                                                                MaxValueValidator(9999)])
+
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
         # get latest timestamps

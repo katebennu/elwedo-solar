@@ -1,9 +1,12 @@
 
 //TODO: change /day/ to a virable obtained from day/week/month switch
-var data = $.getJSON('/timeline-update/', {'timeframe': 'day'}, function(data, jqXHR) {
+var data = $.getJSON('/timeline-update/', function(data, jqXHR) {
     return data;
     });
+    console.log(data['consumption']);
 
+var out = document.getElementById('formatted');
+out.innerHTML = JSON.stringify(data);
 
 //var data = {{ context_data|safe }};
     var margin = {top: 10, right: 20, bottom: 60, left: 30};
@@ -18,11 +21,11 @@ var data = $.getJSON('/timeline-update/', {'timeframe': 'day'}, function(data, j
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
     var formatTime = d3.timeFormat('%H');
     var isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
-    data.forEach(function (d) {
+    data['consumption'].forEach(function (d) {
         d.timestamp = formatTime(isoParse(d.timestamp));
         d.value = +d.value;
     });
-    var maxY = d3.max(data.map(function (d) { return d.value; }))
+    var maxY = d3.max(data['consumption'].map(function (d) { return d.value; }))
 
      var out = document.getElementById('formatted');
      out.innerHTML = JSON.stringify(data);
@@ -34,10 +37,10 @@ var data = $.getJSON('/timeline-update/', {'timeframe': 'day'}, function(data, j
     svg.call(yAxis);
     var xScale = d3.scaleBand()
         .padding(0.2)
-        .domain(data.map(d => d.timestamp))
+        .domain(data['consumption'].map(d => d.timestamp))
         .range([0, width]);
     var xAxis = d3.axisBottom(xScale)
-        .ticks(data.length)
+        .ticks(data['consumption'].length)
         .tickSize(10)
         .tickPadding(5)
     svg
@@ -45,12 +48,12 @@ var data = $.getJSON('/timeline-update/', {'timeframe': 'day'}, function(data, j
         .attr('transform', `translate(0, ${height})`)
         .call(xAxis);
     svg.selectAll('rect')
-        .data(data)
+        .data(data['consumption'])
         .enter()
         .append('rect')
-        .attr('x', d => d.timestamp * width / data.length + 2)
+        .attr('x', d => d.timestamp * width / data['consumption'].length + 2)
         .attr('y', d => height - d.value * height / maxY)
-        .attr('width', d => width / data.length - 2)
+        .attr('width', d => width / data['consumption'].length - 2)
         .attr('height', d => d.value * height / maxY);
     function responsivefy(svg) {
         // get container + svg aspect ratio
