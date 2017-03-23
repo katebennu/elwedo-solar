@@ -1,12 +1,11 @@
 
 //TODO: change /day/ to a virable obtained from day/week/month switch
-var data = $.getJSON('/timeline-update/', function(data, jqXHR) {
-    return data;
-    });
-    console.log(data['consumption']);
+$.getJSON('/timeline-update/', function(d, jqXHR) {
+    var data = JSON.stringify(d);
+
 
 var out = document.getElementById('formatted');
-out.innerHTML = JSON.stringify(data);
+out.innerHTML = data;
 
 //var data = {{ context_data|safe }};
     var margin = {top: 10, right: 20, bottom: 60, left: 30};
@@ -26,9 +25,6 @@ out.innerHTML = JSON.stringify(data);
         d.value = +d.value;
     });
     var maxY = d3.max(data['consumption'].map(function (d) { return d.value; }))
-
-     var out = document.getElementById('formatted');
-     out.innerHTML = JSON.stringify(data);
 
     var yScale = d3.scaleLinear()
         .domain([0, maxY])
@@ -79,3 +75,4 @@ out.innerHTML = JSON.stringify(data);
         }
     }
 
+});
