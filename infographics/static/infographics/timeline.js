@@ -30,11 +30,15 @@ out.innerHTML = JSON.stringify(data['consumption']);
     var yAxis = d3.axisLeft(yScale);
     svg.call(yAxis);
 
+    var timestamps = function () {
+
+    }
+
     var xScale = d3.scaleTime()
-        .domain(data['consumption'].map(d => d.timestamp))
+        .domain(d3.extent(data['consumption'].map(d => isoParse(d.timestamp))))
         .range([0, width]);
     var xAxis = d3.axisBottom(xScale)
-        .ticks(data['consumption'].length)
+        //.ticks(data['consumption'].length)
         .tickSize(10)
         .tickPadding(5)
     svg
