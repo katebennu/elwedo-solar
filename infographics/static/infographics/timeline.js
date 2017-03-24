@@ -1,12 +1,13 @@
+
 //TODO: change /day/ to a virable obtained from day/week/month switch
-$.getJSON('/timeline-update/', function (data, jqXHR) {
+$.getJSON('/timeline-update/', function(data, jqXHR) {
     var d = JSON.stringify(data);
 
 
-    var out = document.getElementById('formatted');
-    out.innerHTML = JSON.stringify(data['consumption']);
+var out = document.getElementById('formatted');
+out.innerHTML = JSON.stringify(data['production']);
 
-//var data = {{ context_data|safe }};
+// BAR CHART
     var margin = {top: 10, right: 20, bottom: 60, left: 30};
     var width = 400 - margin.left - margin.right;
     var height = 200 - margin.top - margin.bottom;
@@ -22,9 +23,7 @@ $.getJSON('/timeline-update/', function (data, jqXHR) {
     var isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
 
 //TODO: get max from both consumption and production
-    var maxY = d3.max((data['consumption']).map(function (d) {
-        return d['value'];
-    }));
+    var maxY = d3.max((data['consumption']).map(function (d) { return d['value']; }));
 
     var yScale = d3.scaleLinear()
         .domain([0, maxY])
@@ -33,10 +32,10 @@ $.getJSON('/timeline-update/', function (data, jqXHR) {
     svg.call(yAxis);
 
     var xScale = d3.scaleTime()
-        .domain(d3.extent(data['consumption'].map(d = > isoParse(d.timestamp))))
-    .range([0, width]);
-
+        .domain(d3.extent(data['consumption'].map(d => isoParse(d.timestamp))))
+        .range([0, width]);
     var xAxis = d3.axisBottom(xScale)
+        //.ticks(data['consumption'].length)
         .tickSize(10)
         .tickPadding(5)
     svg
@@ -47,10 +46,31 @@ $.getJSON('/timeline-update/', function (data, jqXHR) {
         .data(data['consumption'])
         .enter()
         .append('rect')
-        .attr('x', d = > formatTime(isoParse(d.timestamp)) * width / data['consumption'].length + 2)
-    .attr('y', d = > height - d.value * height / maxY)
-    .attr('width', d = > width / data['consumption'].length - 2)
-    .attr('height', d = > d.value * height / maxY);
+        .attr('x', d => formatTime(isoParse(d.timestamp)) * width / data['consumption'].length + 2)
+        .attr('y', d => height - d.value * height / maxY)
+        .attr('width', d => width / data['consumption'].length - 2)
+        .attr('height', d => d.value * height / maxY);
+
+
+
+
+// LINE CHART
+    var line = d3.line()
+    .x(d => formatTime(isoParse(d.timestamp)) * width / data['production'].length + 2)
+    .y(d => height - d.value * height / maxY);
+
+    svg.selectAll('line')
+        .data(data['production'])
+        .enter()
+        .append('path')
+        .attr('class', 'line')
+        .attr("fill", "none")
+        .attr(d => line(d.value))  // REPLACE values
+        .style('stroke', '#efe79c')
+        .style('stroke-width', 4)
+
+
+
     function responsivefy(svg) {
         var container = d3.select(svg.node().parentNode),
             width = parseInt(svg.style("width")),
@@ -58,7 +78,8 @@ $.getJSON('/timeline-update/', function (data, jqXHR) {
             aspect = width / height;
         svg.attr("viewBox", "0 0 " + width + " " + height)
             .attr("preserveAspectRatio", "xMinYMid")
-         d3.select(window).on("resize." + container.attr("id"), resize);
+            .call(resize);
+        d3.select(window).on("resize." + container.attr("id"), resize);
         function resize() {
             var targetWidth = parseInt(container.style("width"));
             svg.attr("width", targetWidth);
