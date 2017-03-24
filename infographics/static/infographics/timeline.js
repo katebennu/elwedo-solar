@@ -19,6 +19,7 @@ out.innerHTML = JSON.stringify(data['consumption']);
         .append('g')
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
+    var formatTime = d3.timeFormat('%H');
     var isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
 
 //TODO: get max from both consumption and production
@@ -49,7 +50,7 @@ out.innerHTML = JSON.stringify(data['consumption']);
         .data(data['consumption'])
         .enter()
         .append('rect')
-        .attr('x', d => d.timestamp * width / data['consumption'].length + 2)
+        .attr('x', d => formatTime(isoParse(d.timestamp)) * width / data['consumption'].length + 2)
         .attr('y', d => height - d.value * height / maxY)
         .attr('width', d => width / data['consumption'].length - 2)
         .attr('height', d => d.value * height / maxY);
