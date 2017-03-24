@@ -31,7 +31,6 @@ out.innerHTML = JSON.stringify(data['consumption']);
     svg.call(yAxis);
 
     var xScale = d3.scaleTime()
-        .padding(0.2)
         .domain(data['consumption'].map(d => d.timestamp))
         .range([0, width]);
     var xAxis = d3.axisBottom(xScale)
