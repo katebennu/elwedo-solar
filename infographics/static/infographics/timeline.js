@@ -1,11 +1,11 @@
 
 //TODO: change /day/ to a virable obtained from day/week/month switch
-$.getJSON('/timeline-update/', function(d, jqXHR) {
-    var data = JSON.stringify(d);
+$.getJSON('/timeline-update/', function(data, jqXHR) {
+    var d = JSON.stringify(data);
 
 
 var out = document.getElementById('formatted');
-out.innerHTML = data;
+out.innerHTML = JSON.stringify(data['consumption']);
 
 //var data = {{ context_data|safe }};
     var margin = {top: 10, right: 20, bottom: 60, left: 30};
@@ -18,20 +18,19 @@ out.innerHTML = data;
         .call(responsivefy)
         .append('g')
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
-    var formatTime = d3.timeFormat('%H');
+
     var isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
-    data['consumption'].forEach(function (d) {
-        d.timestamp = formatTime(isoParse(d.timestamp));
-        d.value = +d.value;
-    });
-    var maxY = d3.max(data['consumption'].map(function (d) { return d.value; }))
+
+//TODO: get max from both consumption and production
+    var maxY = d3.max((data['consumption']).map(function (d) { return d['value']; }));
 
     var yScale = d3.scaleLinear()
         .domain([0, maxY])
         .range([height, 0]);
     var yAxis = d3.axisLeft(yScale);
     svg.call(yAxis);
-    var xScale = d3.scaleBand()
+
+    var xScale = d3.scaleTime()
         .padding(0.2)
         .domain(data['consumption'].map(d => d.timestamp))
         .range([0, width]);
