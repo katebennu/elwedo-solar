@@ -19,11 +19,21 @@ out.innerHTML = JSON.stringify(data['production']);
         .append('g')
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
+// PARSE DATA
     var formatTime = d3.timeFormat('%H');
     var isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
 
+    data['consumption'].forEach(function (d) {
+        d.timestamp = isoParse(d.timestamp);
+        d.value = +d.value;
+    });
+    data['production'].forEach(function (d) {
+        d.timestamp = isoParse(d.timestamp);
+        d.value = +d.value;
+    });
+
 //TODO: get max from both consumption and production
-    var maxY = d3.max((data['consumption']).map(function (d) { return d['value']; }));
+    var maxY = d3.max((data['consumption']).map(d => d.value));
 
     var yScale = d3.scaleLinear()
         .domain([0, maxY])
@@ -32,7 +42,7 @@ out.innerHTML = JSON.stringify(data['production']);
     svg.call(yAxis);
 
     var xScale = d3.scaleTime()
-        .domain(d3.extent(data['consumption'].map(d => isoParse(d.timestamp))))
+        .domain(d3.extent(data['consumption'].map(d =>d.timestamp)))
         .range([0, width]);
     var xAxis = d3.axisBottom(xScale)
         //.ticks(data['consumption'].length)
@@ -46,7 +56,7 @@ out.innerHTML = JSON.stringify(data['production']);
         .data(data['consumption'])
         .enter()
         .append('rect')
-        .attr('x', d => formatTime(isoParse(d.timestamp)) * width / data['consumption'].length + 2)
+        .attr('x', d => formatTime(d.timestamp) * width / data['consumption'].length + 2)
         .attr('y', d => height - d.value * height / maxY)
         .attr('width', d => width / data['consumption'].length - 2)
         .attr('height', d => d.value * height / maxY);
@@ -65,7 +75,7 @@ out.innerHTML = JSON.stringify(data['production']);
         .append('path')
         .attr('class', 'line')
         .attr("fill", "none")
-        .attr(d => line(d.value))  // REPLACE values
+        .attr('d', d => line(d.production))  // REPLACE values
         .style('stroke', '#efe79c')
         .style('stroke-width', 4)
 
