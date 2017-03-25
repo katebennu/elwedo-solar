@@ -65,6 +65,15 @@ class Building(models.Model):
 
         pass
 
+
+class PanelsToInstall(models.Model):
+    def __str__(self):
+        return str(self.number_of_units) + ' Panels estimation for building ' + str(self.building.address)
+    building = models.ForeignKey(Building)
+    number_of_units = models.IntegerField(validators=[MinValueValidator(0),
+                                                              MaxValueValidator(999999)])
+
+
 # if one account per apartment, rewrite for one-to-one relation
 class UserMethods(User):
     def owns_apartment(self, apartment):
