@@ -1,11 +1,76 @@
-var data = {{ context_data|safe }};
+//TODO: change /day/ to a virable obtained from day/week/month switch
 
-    var margin = {top: 10, right: 20, bottom: 60, left: 30};
-    var width = 400 - margin.left - margin.right;
-    var height = 200 - margin.top - margin.bottom;
+function responsivefy(svg) {
+    let container = d3.select(svg.node().parentNode),
+        width = parseInt(svg.style("width")),
+        height = parseInt(svg.style("height")),
+        aspect = width / height;
+    svg.attr("viewBox", "0 0 " + width + " " + height)
+        .attr("preserveAspectRatio", "xMinYMid")
+        .call(resize);
+    d3.select(window).on("resize." + container.attr("id"), resize);
+    function resize() {
+        let targetWidth = parseInt(container.style("width"));
+        svg.attr("width", targetWidth);
+        svg.attr("height", Math.round(targetWidth / aspect));
+    }
+}
 
 
-    var svg = d3.select('.timeline-chart')
+function barChart(svg, data, width, height, maxY){
+    let formatTime = d3.timeFormat('%H');
+    svg.selectAll('rect')
+        .data(data['consumption'])
+        .enter()
+        .append('rect')
+        .attr('x', d => formatTime(d.timestamp) * width / data['consumption'].length + 2)
+        .attr('y', d => height - d.value * height / maxY)
+        .attr('width', d => width / data['consumption'].length - 2)
+        .attr('height', d => d.value * height / maxY);
+}
+
+
+function lineChart(svg, data, xScale, yScale) {
+    let line = d3.line()
+        .x(d => xScale(d.timestamp))
+        .y(d => yScale(d.value));
+
+    svg.append('path')
+        .data(data['production'])
+        .enter()
+        .attr('class', 'line')
+        .attr("fill", "none")
+        .attr('d', d => line(d))
+        .attr('stroke', '#efe79c')
+        .attr('stroke-width', 4);
+}
+
+
+function parseData(data) {
+    let isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
+
+    let process = function (d) {
+        d.timestamp = isoParse(d.timestamp);
+    };
+
+    data['consumption'].forEach(process);
+    data['production'].forEach(process);
+
+    return data;
+}
+
+
+$.getJSON('/timeline-update/', function (data, jqXHR) {
+    data = parseData(data);
+    let d = JSON.stringify(data);
+
+    let out = document.getElementById('formatted');
+    out.innerHTML = JSON.stringify(data['production']);
+
+    let margin = {top: 10, right: 20, bottom: 60, left: 30};
+    let width = 400 - margin.left - margin.right;
+    let height = 200 - margin.top - margin.bottom;
+    let svg = d3.select('#timeline-chart')
         .append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
@@ -13,74 +78,30 @@ var data = {{ context_data|safe }};
         .append('g')
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
-    var formatTime = d3.timeFormat('%H');
-    var isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
+//TODO: get max from both consumption and production
+    let maxY = d3.max(data['consumption'].map(d => d.value));
 
-    data.forEach(function (d) {
-        d.timestamp = formatTime(isoParse(d.timestamp));
-        d.value = +d.value;
-    });
-
-    var maxY = d3.max(data.map(function (d) { return d.value; }))
-
-/*//DEBUG
-    var out = document.getElementById('formatted');
-    out.innerHTML = JSON.stringify(data);
-//DEBUG{*/
-
-    var yScale = d3.scaleLinear()
+    let yScale = d3.scaleLinear()
         .domain([0, maxY])
         .range([height, 0]);
-    var yAxis = d3.axisLeft(yScale);
-    svg.call(yAxis);
+    let yAxis = d3.axisLeft(yScale);
 
-    var domainData = {{ context_data|safe }};
-
-    var xScale = d3.scaleBand()
-        .padding(0.2)
-        .domain(data.map(d => d.timestamp))
+    let xScale = d3.scaleTime()
+        .domain(d3.extent(data['consumption'].map(d => d.timestamp)))
         .range([0, width]);
-
-    var xAxis = d3.axisBottom(xScale)
-        .ticks(data.length)
+    let xAxis = d3.axisBottom(xScale)
+    //.ticks(data['consumption'].length)
         .tickSize(10)
-        .tickPadding(5)
+        .tickPadding(5);
 
-    svg
-        .append('g')
-        .attr('transform', `translate(0, ${height})`)
-        .call(xAxis);
+    svg.call(yAxis)
+       .append('g')
+       .attr('transform', `translate(0, ${height})`)
+       .call(xAxis);
 
 
-    svg.selectAll('rect')
-        .data(data)
-        .enter()
-        .append('rect')
-        .attr('x', d => d.timestamp * width / data.length + 2)
-        .attr('y', d => height - d.value * height / maxY)
-        .attr('width', d => width / data.length - 2)
-        .attr('height', d => d.value * height / maxY);
+    barChart(svg, data, width, height, maxY);
+    lineChart(svg, data, xScale, yScale);
 
-    function responsivefy(svg) {
-        // get container + svg aspect ratio
-        var container = d3.select(svg.node().parentNode),
-            width = parseInt(svg.style("width")),
-            height = parseInt(svg.style("height")),
-            aspect = width / height;
-        // add viewBox and preserveAspectRatio properties,
-        // and call resize so that svg resizes on inital page load
-        svg.attr("viewBox", "0 0 " + width + " " + height)
-            .attr("preserveAspectRatio", "xMinYMid")
-            .call(resize);
-        // to register multiple listeners for same event type,
-        // you need to add namespace, i.e., 'click.foo'
-        // necessary if you call invoke this function for multiple svgs
-        // api docs: https://github.com/mbostock/d3/wiki/Selections#on
-        d3.select(window).on("resize." + container.attr("id"), resize);
-        // get width of container and resize svg to fit it
-        function resize() {
-            var targetWidth = parseInt(container.style("width"));
-            svg.attr("width", targetWidth);
-            svg.attr("height", Math.round(targetWidth / aspect));
-        }
-    }
+});
+

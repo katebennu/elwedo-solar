@@ -10,7 +10,7 @@ h1 {
 
 .navbar-brand {
     margin-top: -6px;
-    margin-left: 20px;
+    margin-left: 6px;
 }
 
 .navbar-default {
@@ -146,8 +146,9 @@ rect:hover {
     text-align: center;
     font-weight: bold;
     display: inline-block;
-    margin-right: 40px;
-    margin-left: 40px;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 10px;
 
 }
 
