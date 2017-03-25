@@ -73,6 +73,7 @@ class PanelsToInstall(models.Model):
     number_of_units = models.IntegerField(validators=[MinValueValidator(0),
                                                               MaxValueValidator(999999)])
     name = models.CharField(max_length=100, unique=True, default="default")
+    use = models.BooleanField(default=True)
 
 
 # if one account per apartment, rewrite for one-to-one relation

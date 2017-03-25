@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from infographics.models import ConsumptionMeasurement, Building, Apartment
+from infographics.models import ConsumptionMeasurement, Building, Apartment, PanelsToInstall
 import json
 from django.http import JsonResponse
 
@@ -20,9 +20,7 @@ def timeline_update(request):
         context_data['consumption'].append({'timestamp': i.timestamp.isoformat() + 'Z', 'value': float(i.value)})
 
     for i in data['production']:
-
-# TODO: replace 200 with a number of units planned per actual building
-        i.value = i.value_per_unit * 200
+        i.value = i.value_per_unit * PanelsToInstall.objects.filter(name='default').number_of_units
         context_data['production'].append({'timestamp': i.timestamp.isoformat() + 'Z', 'value': float(i.value)})
 
 
