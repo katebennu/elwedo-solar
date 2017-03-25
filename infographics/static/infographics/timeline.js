@@ -53,7 +53,7 @@ out.innerHTML = JSON.stringify(data['production']);
         .attr('transform', `translate(0, ${height})`)
         .call(xAxis);
     svg.selectAll('rect')
-        .data(consumption)
+        .data(consipation)
         .enter()
         .append('rect')
         .attr('x', d => formatTime(d.timestamp) * width / consumption.length + 2)
