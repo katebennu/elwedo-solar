@@ -20,7 +20,10 @@ def timeline_update(request):
         context_data['consumption'].append({'timestamp': i.timestamp.isoformat() + 'Z', 'value': float(i.value)})
 
     for i in data['production']:
-        context_data['production'].append({'timestamp': i.timestamp.isoformat() + 'Z', 'value_per_unit': float(i.value_per_unit)})
+
+# TODO: replace 200 with a number of units planned per actual building
+        i.value = i.value_per_unit * 200
+        context_data['production'].append({'timestamp': i.timestamp.isoformat() + 'Z', 'value': float(i.value)})
 
 
     return JsonResponse(context_data)

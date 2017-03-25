@@ -30,7 +30,7 @@ function barChart(svg, data, width, height, maxY){
 }
 
 
-function lineChart(svg, data) {
+function lineChart(svg, data, xScale, yScale) {
     let line = d3.line()
         .x(d => xScale(d.timestamp))
         .y(d => yScale(d.value));
@@ -40,7 +40,7 @@ function lineChart(svg, data) {
         .enter()
         .attr('class', 'line')
         .attr("fill", "none")
-        .attr('d', d => line(d))  // REPLACE values
+        .attr('d', d => line(d))
         .attr('stroke', '#efe79c')
         .attr('stroke-width', 4);
 }
@@ -101,7 +101,7 @@ $.getJSON('/timeline-update/', function (data, jqXHR) {
 
 
     barChart(svg, data, width, height, maxY);
-    lineChart(svg, data);
+    lineChart(svg, data, xScale, yScale);
 
 });
 
