@@ -68,7 +68,7 @@ class Building(models.Model):
 
 class PanelsToInstall(models.Model):
     def __str__(self):
-        return str(self.number_of_units) + ' Panels estimation for building ' + str(self.building.address)
+        return str(self.number_of_units) + ' Panels estimation, building ' + str(self.building.address) + ', name ' + str(self.name)
     building = models.ForeignKey(Building)
     number_of_units = models.IntegerField(validators=[MinValueValidator(0),
                                                               MaxValueValidator(999999)])
