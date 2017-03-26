@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import Sum
 from django.db.models.functions import Trunc
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -40,62 +41,44 @@ class Building(models.Model):
         # compare timestamps and find out which is the earliest of the two
         return max(latest_consumption, latest_production)
 
-    def query_data
+    def query_consumption(self, earliest, latest):
+        return self.consumptionmeasurement_set.filter(timestamp__range=[earliest, latest])
 
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
         latest = self.get_latest_time()
         earliest = latest - timedelta(days=1)
-
-
-        # retrieve consumption for 24 hours before that timestamp
-        result_consumption = list(
-            self.consumptionmeasurement_set.filter(timestamp__range=[earliest, latest]))
-        result_production = list(
-            ProductionMeasurement.objects.filter(timestamp__range=[earliest, latest]))
+        result_consumption = self.query_consumption(earliest, latest)
+        result_production = query_production(earliest, latest)
         return {'consumption': result_consumption, 'production': result_production}
 
     def get_week_data(self):
-
         """ Returns consumption and production data for latest 7 days in the database"""
         latest = self.get_latest_time()
         # get date of week ago to get the range (to get only needed results in query,
         # because splitted query cannot be filtered later and has to be made again)
         earliest = (latest - timedelta(days=7)).replace(hour=0)
+        q_consumption = self.query_consumption(earliest, latest)
+        q_production = query_production(earliest, latest)
 
-
-
-
-
-
-
-        # # retrieve consumption for 7 days before that timestamp
-        # result_consumption = self.consumptionmeasurement_set.exclude(timestamp__gt=latest).order_by('-timestamp')[:192]
-        # # add annotation day
-        # annotate_days = result_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
-        # # get a set of days
-        # days_list = list(set([i.day for i in annotate_days]))
-        # days_list.sort()
-        # # get total for each day in set
-        # for d in days_list:
-        #     annotate_days.filter(timestamp__day=d.day)
-        #
-        #
-        #
-        # result_production = list(
-        #     ProductionMeasurement.objects.exclude(timestamp__gt=latest).order_by('-timestamp')[:24])
-        #return {'consumption': result_consumption, 'production': result_production}
-        pass
+        # add annotation day
+        consumption_annotate_days = q_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
+        production_annotate_days = q_production.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
+        # get a set of days
+        days_list = list(set([i.day for i in consumption_annotate_days]))
+        days_list.sort()
+        # get total for each day in set
+        result_consumption = []
+        result_production = []
+        for d in days_list:
+            consumption_value = consumption_annotate_days.filter(timestamp__day=d.day).aggregate(Sum('value'))
+            production_value = production_annotate_days.filter(timestamp__day=d.day).aggregate(Sum('value_per_unit'))
+            result_consumption.append({'timestamp': d, 'value': consumption_value})
+            result_production.append({'timestamp': d, 'value_per_unit': production_value})
+        return {'consumption': result_consumption, 'production': result_production}
 
     def get_month_data(self):
         """ Returns consumption and production data for latest 30 days in the database"""
-        # get latest timestamps
-
-        # compare timestamps and find out which is the earliest of the two
-
-
-        # retrieve consumption for 30 days before that timestamp
-
         pass
 
 
@@ -141,6 +124,10 @@ class ProductionMeasurement(models.Model):
                                          validators=[MinValueValidator(0.0),
                                                      MaxValueValidator(999999.99)])
     grid = models.ForeignKey('Grid')
+
+
+def query_production(earliest, latest):
+    return ProductionMeasurement.objects.filter(timestamp__range=[earliest, latest])
 
 
 class Grid(models.Model):
