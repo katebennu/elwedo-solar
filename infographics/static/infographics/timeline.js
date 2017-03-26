@@ -62,11 +62,12 @@ function parseData(data) {
 
 $.getJSON('/timeline-update/', function (data, jqXHR) {
     data = parseData(data);
-    let d = JSON.stringify(data);
 
+// DEBUG
+    let d = JSON.stringify(data);
     let out = document.getElementById('formatted');
     out.innerHTML = JSON.stringify(data['production']);
-
+//
     let margin = {top: 10, right: 20, bottom: 60, left: 30};
     let width = 400 - margin.left - margin.right;
     let height = 200 - margin.top - margin.bottom;

@@ -73,8 +73,8 @@ class Building(models.Model):
         for d in days_list:
             consumption_value = consumption_annotate_days.filter(timestamp__day=d.day).aggregate(Sum('value'))
             production_value = production_annotate_days.filter(timestamp__day=d.day).aggregate(Sum('value_per_unit'))
-            result_consumption.append({'timestamp': d, 'value': consumption_value})
-            result_production.append({'timestamp': d, 'value_per_unit': production_value})
+            result_consumption.append({'timestamp': d, 'value': consumption_value['value__sum']})
+            result_production.append({'timestamp': d, 'value_per_unit': production_value['value_per_unit__sum']})
         return {'consumption': result_consumption, 'production': result_production}
 
     def get_month_data(self):
