@@ -17,15 +17,17 @@ function responsivefy(svg) {
 }
 
 
-function barChart(svg, data, width, height, maxY){
-    let formatTime = d3.timeFormat('%H');
-    let formatDay = d3.timeFormat('%d');
+function barChart(svg, data, width, height, maxY, timeFrame){
+    let tf = '%d';
+    if (timeFrame == 'day') tf = '%H';
+    let timeFormat = d3.timeFormat(tf);
+
     let earliest = data['consumption'][0].timestamp;
     svg.selectAll('rect')
         .data(data['consumption'])
         .enter()
         .append('rect')
-        .attr('x', d => (formatDay(d.timestamp) - formatDay(earliest)) * width / data['consumption'].length + 2)
+        .attr('x', d => (timeFormat(d.timestamp) - timeFormat(earliest)) * width / data['consumption'].length + 2)
         .attr('y', d => height - d.value * height / maxY)
         .attr('width', d => width / data['consumption'].length - 2)
         .attr('height', d => d.value * height / maxY);
@@ -64,7 +66,7 @@ function parseData(data) {
 // TODO: change with buttons
 let timeFrame = 'month';
 
-$.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
+$.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, timeFrame, jqXHR) {
     data = parseData(data);
 
 // DEBUG
