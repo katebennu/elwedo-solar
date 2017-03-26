@@ -84,7 +84,28 @@ class Building(models.Model):
 
     def get_month_data(self):
         """ Returns consumption and production data for latest 30 days in the database"""
-        pass
+        latest = self.get_latest_time()
+        # get date of week ago to get the range (to get only needed results in query,
+        # because splitted query cannot be filtered later and has to be made again)
+        earliest = (latest - timedelta(days=30)).replace(hour=0)
+        q_consumption = self.query_consumption(earliest, latest)
+        q_production = query_production(earliest, latest)
+
+        # add annotation day
+        consumption_annotate_days = q_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
+        production_annotate_days = q_production.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
+        # get a set of days
+        days_list = list(set([i.day for i in consumption_annotate_days]))
+        days_list.sort()
+        # get total for each day in set
+        result_consumption = []
+        result_production = []
+        for d in days_list:
+            consumption_value = consumption_annotate_days.filter(timestamp__day=d.day).aggregate(Sum('value'))
+            production_value = production_annotate_days.filter(timestamp__day=d.day).aggregate(Sum('value_per_unit'))
+            result_consumption.append({'timestamp': d, 'value': consumption_value['value__sum']})
+            result_production.append({'timestamp': d, 'value_per_unit': production_value['value_per_unit__sum']})
+        return {'consumption': result_consumption, 'production': result_production}
 
 
 class PanelsToInstall(models.Model):

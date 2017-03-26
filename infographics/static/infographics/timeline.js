@@ -17,7 +17,7 @@ function responsivefy(svg) {
 }
 
 
-function barChart(svg, data, width, height, maxY, xScale, yScale){
+function barChart(svg, data, width, height, maxY){
     let formatTime = d3.timeFormat('%H');
     let formatDay = d3.timeFormat('%d');
     let earliest = data['consumption'][0].timestamp;
