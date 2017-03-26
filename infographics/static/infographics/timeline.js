@@ -61,8 +61,10 @@ function parseData(data) {
     return data;
 }
 
+// TODO: change with buttons
+let timeFrame = 'month';
 
-$.getJSON('/timeline-update/', function (data, jqXHR) {
+$.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
     data = parseData(data);
 
 // DEBUG

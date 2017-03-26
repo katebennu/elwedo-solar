@@ -14,7 +14,10 @@ def timeline_update(request):
     # SECOND_STAGE: replace with apartment / or building associated with ther request's user
     building = Building.objects.first()
 
-    data = building.get_month_data()
+    data = building.get_week_data()
+
+    if request.GET.get('timeFrame') == 'month':
+        data = building.get_month_data()
 
     # format timestamp only
 
