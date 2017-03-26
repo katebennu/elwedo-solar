@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.functions import Trunc
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
+from datetime import datetime, timedelta
 
 
 class Apartment(models.Model):
@@ -41,31 +42,48 @@ class Building(models.Model):
 
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
-        latest = self.get_latest_time().day
+        latest = self.get_latest_time()
+        earliest = latest - timedelta(days=1)
+
+
         # retrieve consumption for 24 hours before that timestamp
         result_consumption = list(
-            self.consumptionmeasurement_set.exclude(timestamp__gt=latest).order_by('-timestamp')[:24])
+            self.consumptionmeasurement_set.filter(timestamp__range=[earliest, latest]))
         result_production = list(
-            ProductionMeasurement.objects.exclude(timestamp__gt=latest).order_by('-timestamp')[:24])
+            ProductionMeasurement.objects.filter(timestamp__range=[earliest, latest]))
         return {'consumption': result_consumption, 'production': result_production}
 
     def get_week_data(self):
-        """ Returns consumption and production data for latest 7 days in the database"""
-        latest = self.get_latest_time()
-        # retrieve consumption for 7 days before that timestamp
-        result_consumption = self.consumptionmeasurement_set.exclude(timestamp__gt=latest).order_by('-timestamp')[:192]
-        # add annotation day
-        annotate_days = result_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
-        # get a set of days
-        days_list = list(set([i.day for i in annotate_days]))
-        days_list.sort()
-        # get total for each day in set
-
-
-
-        result_production = list(
-            ProductionMeasurement.objects.exclude(timestamp__gt=latest).order_by('-timestamp')[:24])
-        return {'consumption': result_consumption, 'production': result_production}
+        #
+        # """ Returns consumption and production data for latest 7 days in the database"""
+        # latest = self.get_latest_time()
+        # # get date of week ago to get the range (to get only needed results in query,
+        # # because splitted query cannot be filtered later and has to be made again)
+        # earliest = latest - timedelta(days=7)
+        #
+        #
+        #
+        #
+        #
+        #
+        #
+        # # retrieve consumption for 7 days before that timestamp
+        # result_consumption = self.consumptionmeasurement_set.exclude(timestamp__gt=latest).order_by('-timestamp')[:192]
+        # # add annotation day
+        # annotate_days = result_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
+        # # get a set of days
+        # days_list = list(set([i.day for i in annotate_days]))
+        # days_list.sort()
+        # # get total for each day in set
+        # for d in days_list:
+        #     annotate_days.filter(timestamp__day=d.day)
+        #
+        #
+        #
+        # result_production = list(
+        #     ProductionMeasurement.objects.exclude(timestamp__gt=latest).order_by('-timestamp')[:24])
+        #return {'consumption': result_consumption, 'production': result_production}
+        pass
 
     def get_month_data(self):
         """ Returns consumption and production data for latest 30 days in the database"""
