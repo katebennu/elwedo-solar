@@ -64,7 +64,7 @@ function parseData(data) {
 }
 
 // TODO: change with buttons
-let timeFrame = 'month';
+let timeFrame = 'day';
 
 $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, timeFrame, jqXHR) {
     data = parseData(data);

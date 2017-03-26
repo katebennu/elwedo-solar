@@ -16,8 +16,16 @@ def timeline_update(request):
 
     data = building.get_week_data()
 
-    if request.GET.get('timeFrame') == 'month':
+    time_frame = request.GET.get('timeFrame')
+
+    if time_frame == 'month':
         data = building.get_month_data()
+
+    if time_frame == 'week':
+        data = building.get_week_data()
+
+    if time_frame == 'day':
+        data = building.get_day_data()
 
     # format timestamp only
 
