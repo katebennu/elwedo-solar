@@ -40,6 +40,8 @@ class Building(models.Model):
         # compare timestamps and find out which is the earliest of the two
         return max(latest_consumption, latest_production)
 
+    def query_data
+
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
         latest = self.get_latest_time()
@@ -54,19 +56,19 @@ class Building(models.Model):
         return {'consumption': result_consumption, 'production': result_production}
 
     def get_week_data(self):
-        #
-        # """ Returns consumption and production data for latest 7 days in the database"""
-        # latest = self.get_latest_time()
-        # # get date of week ago to get the range (to get only needed results in query,
-        # # because splitted query cannot be filtered later and has to be made again)
-        # earliest = latest - timedelta(days=7)
-        #
-        #
-        #
-        #
-        #
-        #
-        #
+
+        """ Returns consumption and production data for latest 7 days in the database"""
+        latest = self.get_latest_time()
+        # get date of week ago to get the range (to get only needed results in query,
+        # because splitted query cannot be filtered later and has to be made again)
+        earliest = (latest - timedelta(days=7)).replace(hour=0)
+
+
+
+
+
+
+
         # # retrieve consumption for 7 days before that timestamp
         # result_consumption = self.consumptionmeasurement_set.exclude(timestamp__gt=latest).order_by('-timestamp')[:192]
         # # add annotation day
