@@ -14,14 +14,19 @@ def timeline_update(request):
     # SECOND_STAGE: replace with apartment / or building associated with ther request's user
     building = Building.objects.first()
 
-    data = building.get_day_data()
-    context_data = {'consumption':[], 'production':[]}
+    data = building.get_week_data()
+
+    # format timestamp only
+
+
+    # context_data = {'consumption':[], 'production':[]}
     for i in data['consumption']:
-        context_data['consumption'].append({'timestamp': i.timestamp.isoformat() + 'Z', 'value': float(i.value)})
+        i['timestamp'] = i['timestamp'].isoformat() + 'Z'
+        i['value'] = float(i['value'])
+    #
+    # for i in data['production']:
+    #     i.value = i.value_per_unit * PanelsToInstall.objects.filter(name='default')[0].number_of_units
+    #     context_data['production'].append({'timestamp': i.timestamp.isoformat() + 'Z', 'value': float(i.value)})
 
-    for i in data['production']:
-        i.value = i.value_per_unit * PanelsToInstall.objects.filter(name='default')[0].number_of_units
-        context_data['production'].append({'timestamp': i.timestamp.isoformat() + 'Z', 'value': float(i.value)})
 
-
-    return JsonResponse(context_data)
+    return JsonResponse(data)

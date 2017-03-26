@@ -51,6 +51,9 @@ class Building(models.Model):
         result_consumption = self.query_consumption(earliest, latest)
         result_production = query_production(earliest, latest)
 
+        # for i in result_consumption:
+
+
 # TODO NEXT: rewrite to get in same form as get_week_data (not a queryset) and test with the frontend
         return {'consumption': result_consumption, 'production': result_production}
 

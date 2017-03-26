@@ -66,7 +66,7 @@ $.getJSON('/timeline-update/', function (data, jqXHR) {
 // DEBUG
     let d = JSON.stringify(data);
     let out = document.getElementById('formatted');
-    out.innerHTML = JSON.stringify(data['production']);
+    out.innerHTML = JSON.stringify(data['consumption']);
 //
     let margin = {top: 10, right: 20, bottom: 60, left: 30};
     let width = 400 - margin.left - margin.right;
