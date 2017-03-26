@@ -50,6 +50,8 @@ class Building(models.Model):
         earliest = latest - timedelta(days=1)
         result_consumption = self.query_consumption(earliest, latest)
         result_production = query_production(earliest, latest)
+
+# TODO NEXT: rewrite to get in same form as get_week_data (not a queryset) and test with the frontend
         return {'consumption': result_consumption, 'production': result_production}
 
     def get_week_data(self):
