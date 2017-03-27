@@ -38,13 +38,14 @@ function responsivefy(svg) {
 
 function barChart(svg, data, width, height, maxY, xScale, yScale){
     svg.selectAll('rect')
-        .data(data['consumption'])
+        .data(data)
         .enter()
         .append('rect')
-        .attr('x', d => xScale(d.timestamp))
-        .attr('y', d => yScale(d.value))
+        .attr('class', 'production-rect')
+        .attr('x', d => xScale(d['consumption'].timestamp))
+        .attr('y', d => yScale(d['consumption'].value))
         .attr('width', d => width / data['consumption'].length -2)
-        .attr('height', d => d.value * height / maxY);
+        .attr('height', d => d['production'].value * height / maxY);
 }
 
 
@@ -92,7 +93,7 @@ $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) 
 // DEBUG
     let d = JSON.stringify(data);
     let out = document.getElementById('formatted');
-    out.innerHTML = JSON.stringify(timeFrame);
+    out.innerHTML = JSON.stringify(data);
 //
     let margin = {top: 10, right: 20, bottom: 60, left: 30};
     let width = 400 - margin.left - margin.right;
@@ -105,8 +106,9 @@ $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) 
         .append('g')
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
-//TODO: get max from both consumption and production
-    let maxY = d3.max(data['consumption'].map(d => d.value));
+    let maxC = d3.max(data['consumption'].map(d => d.value));
+    let maxP = d3.max(data['production'].map(d => d.value));
+    let maxY = Math.max(maxC, maxP);
 
     let yScale = d3.scaleLinear()
         .domain([0, maxY])
@@ -133,7 +135,7 @@ $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) 
 
 
     barChart(svg, data, width, height, maxY, xScale, yScale);
-    lineChart(svg, data, xScale, yScale);
+    //lineChart(svg, data, xScale, yScale);
 
 });
 }

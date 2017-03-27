@@ -133,7 +133,11 @@ h1 {
 }
 
 .consumption-rect {
-    fill: #56eda8;
+    fill: #F4F1E4;
+}
+
+.production-rect {
+    fill: #56EDA8;
 }
 
 /*rect:hover {
