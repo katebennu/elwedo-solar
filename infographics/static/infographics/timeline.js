@@ -1,7 +1,7 @@
 //TODO: change /day/ to a virable obtained from day/week/month switch
 
 // TODO: change with buttons
-let timeFrame = 'month';
+let timeFrame = 'week';
 
 
 function responsivefy(svg) {
@@ -26,7 +26,7 @@ function countDays() {
 }
 
 
-function barChart(svg, data, width, height, maxY, timeFrame, xScale){
+function barChart(svg, data, width, height, maxY, timeFrame, xScale, yScale){
     let t = '%d';
     if (timeFrame == 'day') t = '%H';
     let formatTime = d3.timeFormat(t);
@@ -37,8 +37,8 @@ function barChart(svg, data, width, height, maxY, timeFrame, xScale){
         .enter()
         .append('rect')
 // TODO: calculate for 24 hour data from two calendar days
-        .attr('x', d => xScale(d.timestamp))/* * width / data['consumption'].length + 2)*/
-        .attr('y', d => height - d.value * height / maxY)
+        .attr('x', d => xScale(d.timestamp))
+        .attr('y', d => yScale(d.value))
         .attr('width', d => width / data['consumption'].length - 2)
         .attr('height', d => d.value * height / maxY);
 }
@@ -114,7 +114,7 @@ $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, timeFra
        .call(xAxis);
 
 
-    barChart(svg, data, width, height, maxY, timeFrame, xScale);
+    barChart(svg, data, width, height, maxY, timeFrame, xScale, yScale);
     lineChart(svg, data, xScale, yScale);
 
 });
