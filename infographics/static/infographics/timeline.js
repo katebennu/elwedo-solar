@@ -70,8 +70,7 @@ function parseData(data) {
         d.timestamp = isoParse(d.timestamp);
     };
 
-    data['consumption'].forEach(process);
-    data['production'].forEach(process);
+    data.forEach(process);
 
     return data;
 }

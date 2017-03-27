@@ -79,7 +79,7 @@ class Building(models.Model):
         consumption_by_days = q_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
         production_by_days = q_production.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
         # get a set of days
-        days_list = list(set([i.day for i in consumption_annotate_days]))
+        days_list = list(set([i.day for i in consumption_by_days]))
         days_list.sort()
         # get total for each day in set
         result_consumption = []
