@@ -513,3 +513,9 @@ h1 {
     font-weight: bold;
     font-size: 12px;
 }
+
+.valueline {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 2px;
+}

@@ -32,46 +32,70 @@ function responsivefy(svg) {
     }
 }
 
-function noSolarBarChart(svg, data, width, height, maxY, xScale, yScale) {
+function noSolarBarChart(svg, data, width, height, maxY, x, y) {
     svg.selectAll('rect')
         .data(data)
         .enter()
         .append('rect')
         .attr('class', 'consumption-rect')
-        .attr('x', d => xScale(d.timestamp))
-        .attr('y', d => yScale(d.consumption))
+        .attr('x', d => x(d.timestamp))
+        .attr('y', d => y(d.consumption))
         .attr('width', d => width / data.length - 2)
         .attr('height', d => d.consumption * height / maxY);
 }
 
-function SolarBarChart(svg, data, width, height, maxY, xScale, yScale) {
+function color(n) {
+    let colors = ['#56EDA8', '#F4F1E4'];
+    return colors[n];
+}
+
+function SolarBarChart(d3, svg, data, width, height, maxY, x, y) {
 
 // make a stacked chart http://www.adeveloperdiary.com/d3-js/create-stacked-bar-chart-using-d3-js/
 
-    svg.selectAll('rect')
-        .data(data)
-        .enter()
-        .append('rect')
-        .attr('class', 'consumption-rect')
-        .attr('x', d => xScale(d.timestamp))
-        .attr('y', d => yScale(d.consumption))
+    /*    let dataIntermediate = ['savings', 'consumptionLessSavings'].map(function (key) {
+     return data.map(function (d) {
+     return {x: d['timestamp'], y: d[key]};
+     });
+     });
+
+     let dataStackLayout = d3.stack()(dataIntermediate);*/
+
+    let stack = d3.stack()
+        .keys(['savings', 'consumptionLessSavings'])
+        .order(d3.stackOrderNone)
+        .offset(d3.stackOffsetNone);
+
+    let series = stack(data);
+
+    let layer = svg.selectAll('.stack')
+        .data(series)
+        .enter().append('g')
+        .attr('class', 'stack')
+        .style('fill', (d, i) => color(i));
+
+    layer.selectAll('rect')
+        .data(d => d)
+        .enter().append('rect')
+        .attr('x', d => x(d.x))
+        .attr('y', d => y(d.y + d.y0))
         .attr('width', d => width / data.length - 2)
-        .attr('height', d => d.consumption * height / maxY);
+        .attr('height', d => y(d.y0) - y(d.y + d.y0));
 }
 
-function lineChart(svg, data, xScale, yScale) {
-    let line = d3.line()
-        .x(d => xScale(d.timestamp))
-        .y(d => yScale(d.value));
+function lineChart(svg, data, width, height, x, y) {
+
+    let valueline = d3.line()
+        .x(d => x(d.timestamp))
+        .y(d => y(d.production));
 
     svg.append('path')
-        .data(data['production'])
-        .enter()
-        .attr('class', 'line')
-        .attr("fill", "none")
-        .attr('d', d => line(d))
-        .attr('stroke', '#efe79c')
-        .attr('stroke-width', 4);
+        .data(data)
+        .attr('class', 'valueline')
+        /*        .attr("fill", "none")*/
+        .attr("d", valueline);
+    /*        .attr('stroke', '#efe79c')
+     .attr('stroke-width', 4);*/
 }
 
 function parseData(data) {
@@ -86,10 +110,10 @@ function parseData(data) {
     return data;
 }
 
-
+// TODO: passing in wSolar doesn't work, fix it
 function updateTimeLine(timeFrame, wSolar) {
 
-    $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
+    $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, wSolar, jqXHR) {
         // clean existing chart
         document.getElementById('timeline-chart').innerHTML = '';
 
@@ -99,9 +123,16 @@ function updateTimeLine(timeFrame, wSolar) {
         if (timeFrame == 'day') t = '%H:00';
         let formatTime = d3.timeFormat(t);
 
+        let stack = d3.stack()
+            .keys(['savings', 'consumptionLessSavings'])
+            .order(d3.stackOrderNone)
+            .offset(d3.stackOffsetNone);
+
+        let series = stack(data);
+
 // DEBUG
         let out = document.getElementById('formatted');
-        out.innerHTML = JSON.stringify(data);
+        out.innerHTML = JSON.stringify(series);
 //
         let margin = {top: 10, right: 20, bottom: 60, left: 30};
         let width = 400 - margin.left - margin.right;
@@ -118,15 +149,15 @@ function updateTimeLine(timeFrame, wSolar) {
         let maxP = d3.max(data.map(d => d.production));
         let maxY = Math.max(maxC, maxP);
 
-        let yScale = d3.scaleLinear()
+        let y = d3.scaleLinear()
             .domain([0, maxY])
             .range([height, 0]);
-        let yAxis = d3.axisLeft(yScale);
+        let yAxis = d3.axisLeft(y);
 
-        let xScale = d3.scaleTime()
+        let x = d3.scaleTime()
             .domain(d3.extent(data.map(d => d.timestamp)))
             .range([0, width]);
-        let xAxis = d3.axisBottom(xScale)
+        let xAxis = d3.axisBottom(x)
             .ticks(5)
             .tickSize(4)
             .tickPadding(5)
@@ -135,14 +166,16 @@ function updateTimeLine(timeFrame, wSolar) {
         let z = d3.scaleOrdinal()
             .range(["#F8F6E8", "#56EDA8"]);
 
+
+        /*if (wSolar == false) */
+        noSolarBarChart(svg, data, width, height, maxY, x, y);
+        //else SolarBarChart(d3, svg, data, width, height, maxY, x, y);
+        lineChart(svg, data, width, height, x, y);
+
         svg.call(yAxis)
             .append('g')
             .attr('transform', `translate(0, ${height})`)
             .call(xAxis);
-
-        if (wSolar == false) noSolarBarChart(svg, data, width, height, maxY, xScale, yScale);
-        else SolarBarChart(svg, data, width, height, maxY, xScale, yScale);
-        //lineChart(svg, data, xScale, yScale);
 
     });
 }
