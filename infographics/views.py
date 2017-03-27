@@ -34,7 +34,10 @@ def timeline_update(request):
     for i in data['consumption']:
         i['timestamp'] = i['timestamp'].isoformat() + 'Z'
         i['value'] = float(i['value'])
-    #
+
+    for i in data['production']:
+        i['timestamp'] = i['timestamp'].isoformat() + 'Z'
+        i['value'] = float(i['value_per_unit']) * 200  #
     # for i in data['production']:
     #     i.value = i.value_per_unit * PanelsToInstall.objects.filter(name='default')[0].number_of_units
     #     context_data['production'].append({'timestamp': i.timestamp.isoformat() + 'Z', 'value': float(i.value)})

@@ -64,12 +64,9 @@ class Building(models.Model):
     def get_week_data(self):
         """ Returns consumption and production data for latest 7 days in the database"""
         latest = self.get_latest_time()
-        # get date of week ago to get the range (to get only needed results in query,
-        # because splitted query cannot be filtered later and has to be made again)
         earliest = (latest - timedelta(days=7)).replace(hour=0)
         q_consumption = self.query_consumption(earliest, latest)
         q_production = query_production(earliest, latest)
-
         # add annotation day
         consumption_annotate_days = q_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
         production_annotate_days = q_production.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
@@ -89,12 +86,9 @@ class Building(models.Model):
     def get_month_data(self):
         """ Returns consumption and production data for latest 30 days in the database"""
         latest = self.get_latest_time()
-        # get date of week ago to get the range (to get only needed results in query,
-        # because splitted query cannot be filtered later and has to be made again)
         earliest = (latest - timedelta(days=30)).replace(hour=0)
         q_consumption = self.query_consumption(earliest, latest)
         q_production = query_production(earliest, latest)
-
         # add annotation day
         consumption_annotate_days = q_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
         production_annotate_days = q_production.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))

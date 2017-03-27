@@ -27,6 +27,7 @@ function barChart(svg, data, width, height, maxY, timeFrame){
         .data(data['consumption'])
         .enter()
         .append('rect')
+// TODO: calculate for 24 hour data from two calendar days
         .attr('x', d => (timeFormat(d.timestamp) - timeFormat(earliest)) * width / data['consumption'].length + 2)
         .attr('y', d => height - d.value * height / maxY)
         .attr('width', d => width / data['consumption'].length - 2)
@@ -64,7 +65,7 @@ function parseData(data) {
 }
 
 // TODO: change with buttons
-let timeFrame = 'day';
+let timeFrame = 'month';
 
 $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, timeFrame, jqXHR) {
     data = parseData(data);
@@ -72,7 +73,7 @@ $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, timeFra
 // DEBUG
     let d = JSON.stringify(data);
     let out = document.getElementById('formatted');
-    out.innerHTML = JSON.stringify(data['consumption']);
+    out.innerHTML = JSON.stringify(data);
 //
     let margin = {top: 10, right: 20, bottom: 60, left: 30};
     let width = 400 - margin.left - margin.right;
