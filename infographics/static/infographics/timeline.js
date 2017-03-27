@@ -37,14 +37,14 @@ function barChart(svg, data, width, height, maxY, xScale, yScale) {
 // make a stacked chart http://www.adeveloperdiary.com/d3-js/create-stacked-bar-chart-using-d3-js/
 
     svg.selectAll('rect')
-        .data(data['consumption'])
+        .data(data)
         .enter()
         .append('rect')
         .attr('class', 'consumption-rect')
         .attr('x', d => xScale(d.timestamp))
-        .attr('y', d => yScale(d.value))
-        .attr('width', d => width / data['consumption'].length - 2)
-        .attr('height', d => d.value * height / maxY);
+        .attr('y', d => yScale(d.consumption))
+        .attr('width', d => width / data.length - 2)
+        .attr('height', d => d.consumption * height / maxY);
 }
 
 function lineChart(svg, data, xScale, yScale) {
@@ -106,8 +106,8 @@ function updateTimeLine(timeFrame) {
             .append('g')
             .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
-        let maxC = d3.max(data['consumption'].map(d => d.value));
-        let maxP = d3.max(data['production'].map(d => d.value));
+        let maxC = d3.max(data.map(d => d.consumption));
+        let maxP = d3.max(data.map(d => d.production));
         let maxY = Math.max(maxC, maxP);
 
         let yScale = d3.scaleLinear()
@@ -116,10 +116,9 @@ function updateTimeLine(timeFrame) {
         let yAxis = d3.axisLeft(yScale);
 
         let xScale = d3.scaleTime()
-            .domain(d3.extent(data['consumption'].map(d => d.timestamp)))
+            .domain(d3.extent(data.map(d => d.timestamp)))
             .range([0, width]);
         let xAxis = d3.axisBottom(xScale)
-        //.ticks(data['consumption'].length)
             .ticks(5)
             .tickSize(4)
             .tickPadding(5)
