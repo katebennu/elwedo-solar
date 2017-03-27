@@ -1,6 +1,3 @@
-//TODO: change /day/ to a virable obtained from day/week/month switch
-
-// TODO: change with buttons
 let timeFrame = 'day';
 
 updateTimeLine(timeFrame);
@@ -44,7 +41,6 @@ function barChart(svg, data, width, height, maxY, xScale, yScale){
         .data(data['consumption'])
         .enter()
         .append('rect')
-// TODO: calculate for 24 hour data from two calendar days
         .attr('x', d => xScale(d.timestamp))
         .attr('y', d => yScale(d.value))
         .attr('width', d => width / data['consumption'].length -2)
@@ -126,6 +122,9 @@ $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) 
         .tickSize(4)
         .tickPadding(5)
         .tickFormat(formatTime);
+
+    let z = d3.scaleOrdinal()
+        .range(["#F8F6E8", "#56EDA8"]);
 
     svg.call(yAxis)
        .append('g')

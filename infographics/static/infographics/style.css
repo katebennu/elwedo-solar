@@ -9,7 +9,7 @@ h1 {
 }
 
 .pointer {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .navbar-brand {
@@ -132,13 +132,13 @@ h1 {
     box-shadow: none;
 }
 
-rect {
+.consumption-rect {
     fill: #56eda8;
 }
 
-rect:hover {
+/*rect:hover {
     fill: #efe79c;
-}
+}*/
 
 .legend {
     margin-top: 37px;
@@ -505,7 +505,7 @@ rect:hover {
 }
 
 .text-muted {
-  text-align: center;
+    text-align: center;
     font-weight: bold;
     font-size: 12px;
 }
