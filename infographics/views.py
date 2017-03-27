@@ -18,10 +18,10 @@ def timeline_update(request):
     time_frame = request.GET.get('timeFrame')
 
     if time_frame == 'month':
-        data = building.get_month_data()
+        data = building.get_multiple_days_data(29)
 
     if time_frame == 'week':
-        data = building.get_week_data()
+        data = building.get_multiple_days_data(6)
 
     if time_frame == 'day':
         data = building.get_day_data()

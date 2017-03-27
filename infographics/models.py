@@ -44,6 +44,9 @@ class Building(models.Model):
     def query_consumption(self, earliest, latest):
         return self.consumptionmeasurement_set.filter(timestamp__range=[earliest, latest])
 
+    def get_panels_estimate(self):
+        return PanelsToInstall.objects.filter(building=self, use=True)[0].number_of_units
+
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
         latest = self.get_latest_time()
@@ -51,7 +54,8 @@ class Building(models.Model):
         q_consumption = self.query_consumption(earliest, latest)
         q_production = query_production(earliest, latest)
 
-        panels = PanelsToInstall.objects.filter(use=True)[0].number_of_units
+        panels = self.get_panels_estimate()
+
         result = []
         for i in q_consumption:
             production = q_production.filter(timestamp=i.timestamp)[0].value_per_unit * panels
@@ -69,10 +73,10 @@ class Building(models.Model):
                 'earnings': earnings})
         return result
 
-    def get_week_data(self):
-        """ Returns consumption and production data for latest 7 days in the database"""
+    def get_multiple_days_data(self, days):
+        """ Returns consumption and production data for latest N days in the database"""
         latest = self.get_latest_time()
-        earliest = (latest - timedelta(days=6)).replace(hour=0)
+        earliest = (latest - timedelta(days=days)).replace(hour=0)
         q_consumption = self.query_consumption(earliest, latest)
         q_production = query_production(earliest, latest)
         # add annotation day
@@ -84,9 +88,18 @@ class Building(models.Model):
         # get total for each day in set
         result_consumption = []
         result_production = []
+
+        ###
+        result = []
         for d in days_list:
             consumption_value = consumption_by_days.filter(timestamp__day=d.day).aggregate(Sum('value'))
             production_value = production_by_days.filter(timestamp__day=d.day).aggregate(Sum('value_per_unit'))
+
+
+
+
+
+        ###
             result_consumption.append({'timestamp': d, 'value': consumption_value['value__sum']})
             result_production.append({'timestamp': d, 'value_per_unit': production_value['value_per_unit__sum']})
         return {'consumption': result_consumption, 'production': result_production}
