@@ -1,12 +1,22 @@
 //TODO: change /day/ to a virable obtained from day/week/month switch
 
 // TODO: change with buttons
-let timeFrame = 'month';
+let timeFrame = 'day';
 
 updateTimeLine(timeFrame);
 
 document.getElementById("daySwitch").addEventListener('click', function(timeFrame) {
     timeFrame = 'day';
+    updateTimeLine(timeFrame);
+});
+
+document.getElementById("weekSwitch").addEventListener('click', function(timeFrame) {
+    timeFrame = 'week';
+    updateTimeLine(timeFrame);
+});
+
+document.getElementById("monthSwitch").addEventListener('click', function(timeFrame) {
+    timeFrame = 'month';
     updateTimeLine(timeFrame);
 });
 
