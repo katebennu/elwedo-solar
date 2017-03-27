@@ -1,7 +1,15 @@
 //TODO: change /day/ to a virable obtained from day/week/month switch
 
 // TODO: change with buttons
-let timeFrame = 'day';
+let timeFrame = 'month';
+
+updateTimeLine(timeFrame);
+
+document.getElementById("daySwitch").addEventListener('click', function(timeFrame) {
+    timeFrame = 'day';
+    updateTimeLine(timeFrame);
+});
+
 
 
 function responsivefy(svg) {
@@ -18,11 +26,6 @@ function responsivefy(svg) {
         svg.attr("width", targetWidth);
         svg.attr("height", Math.round(targetWidth / aspect));
     }
-}
-
-
-function countDays() {
-
 }
 
 
@@ -67,8 +70,13 @@ function parseData(data) {
 
     return data;
 }
+function updateTimeLine(timeFrame) {
+
 
 $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
+    // clean existing chart
+    document.getElementById('timeline-chart').innerHTML = '';
+
     data = parseData(data);
 
     let t = '%d.%m';
@@ -119,4 +127,4 @@ $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) 
     lineChart(svg, data, xScale, yScale);
 
 });
-
+}
