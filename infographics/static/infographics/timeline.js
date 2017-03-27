@@ -1,7 +1,7 @@
 //TODO: change /day/ to a virable obtained from day/week/month switch
 
 // TODO: change with buttons
-let timeFrame = 'week';
+let timeFrame = 'day';
 
 
 function responsivefy(svg) {
@@ -26,12 +26,7 @@ function countDays() {
 }
 
 
-function barChart(svg, data, width, height, maxY, timeFrame, xScale, yScale){
-    let t = '%d';
-    if (timeFrame == 'day') t = '%H';
-    let formatTime = d3.timeFormat(t);
-
-    let earliest = data['consumption'][0].timestamp;
+function barChart(svg, data, width, height, maxY, xScale, yScale){
     svg.selectAll('rect')
         .data(data['consumption'])
         .enter()
@@ -39,7 +34,7 @@ function barChart(svg, data, width, height, maxY, timeFrame, xScale, yScale){
 // TODO: calculate for 24 hour data from two calendar days
         .attr('x', d => xScale(d.timestamp))
         .attr('y', d => yScale(d.value))
-        .attr('width', d => width / data['consumption'].length - 2)
+        .attr('width', d => width / data['consumption'].length -2)
         .attr('height', d => d.value * height / maxY);
 }
 
@@ -61,7 +56,7 @@ function lineChart(svg, data, xScale, yScale) {
 
 
 function parseData(data) {
-    let isoParse = d3.utcParse("%Y-%m-%dT%H:%M:%S+00:00Z");
+    let isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
 
     let process = function (d) {
         d.timestamp = isoParse(d.timestamp);
@@ -73,13 +68,17 @@ function parseData(data) {
     return data;
 }
 
-$.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, timeFrame, jqXHR) {
+$.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
     data = parseData(data);
+
+    let t = '%d.%m';
+    if (timeFrame == 'day') {t = '%H:00';}
+    let formatTime = d3.timeFormat(t);
 
 // DEBUG
     let d = JSON.stringify(data);
     let out = document.getElementById('formatted');
-    out.innerHTML = JSON.stringify(data);
+    out.innerHTML = JSON.stringify(timeFrame);
 //
     let margin = {top: 10, right: 20, bottom: 60, left: 30};
     let width = 400 - margin.left - margin.right;
@@ -105,8 +104,10 @@ $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, timeFra
         .range([0, width]);
     let xAxis = d3.axisBottom(xScale)
     //.ticks(data['consumption'].length)
-        .tickSize(10)
-        .tickPadding(5);
+        .ticks(5)
+        .tickSize(4)
+        .tickPadding(5)
+        .tickFormat(formatTime);
 
     svg.call(yAxis)
        .append('g')
@@ -114,7 +115,7 @@ $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, timeFra
        .call(xAxis);
 
 
-    barChart(svg, data, width, height, maxY, timeFrame, xScale, yScale);
+    barChart(svg, data, width, height, maxY, xScale, yScale);
     lineChart(svg, data, xScale, yScale);
 
 });

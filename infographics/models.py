@@ -64,7 +64,7 @@ class Building(models.Model):
     def get_week_data(self):
         """ Returns consumption and production data for latest 7 days in the database"""
         latest = self.get_latest_time()
-        earliest = (latest - timedelta(days=7)).replace(hour=0)
+        earliest = (latest - timedelta(days=6)).replace(hour=0)
         q_consumption = self.query_consumption(earliest, latest)
         q_production = query_production(earliest, latest)
         # add annotation day
@@ -86,7 +86,7 @@ class Building(models.Model):
     def get_month_data(self):
         """ Returns consumption and production data for latest 30 days in the database"""
         latest = self.get_latest_time()
-        earliest = (latest - timedelta(days=30)).replace(hour=0)
+        earliest = (latest - timedelta(days=29)).replace(hour=0)
         q_consumption = self.query_consumption(earliest, latest)
         q_production = query_production(earliest, latest)
         # add annotation day
