@@ -1,5 +1,9 @@
 //TODO: change /day/ to a virable obtained from day/week/month switch
 
+// TODO: change with buttons
+let timeFrame = 'month';
+
+
 function responsivefy(svg) {
     let container = d3.select(svg.node().parentNode),
         width = parseInt(svg.style("width")),
@@ -17,10 +21,15 @@ function responsivefy(svg) {
 }
 
 
-function barChart(svg, data, width, height, maxY, timeFrame){
-    let tf = '%d';
-    if (timeFrame == 'day') tf = '%H';
-    let timeFormat = d3.timeFormat(tf);
+function countDays() {
+
+}
+
+
+function barChart(svg, data, width, height, maxY, timeFrame, xScale){
+    let t = '%d';
+    if (timeFrame == 'day') t = '%H';
+    let formatTime = d3.timeFormat(t);
 
     let earliest = data['consumption'][0].timestamp;
     svg.selectAll('rect')
@@ -28,7 +37,7 @@ function barChart(svg, data, width, height, maxY, timeFrame){
         .enter()
         .append('rect')
 // TODO: calculate for 24 hour data from two calendar days
-        .attr('x', d => (timeFormat(d.timestamp) - timeFormat(earliest)) * width / data['consumption'].length + 2)
+        .attr('x', d => xScale(d.timestamp))/* * width / data['consumption'].length + 2)*/
         .attr('y', d => height - d.value * height / maxY)
         .attr('width', d => width / data['consumption'].length - 2)
         .attr('height', d => d.value * height / maxY);
@@ -52,7 +61,7 @@ function lineChart(svg, data, xScale, yScale) {
 
 
 function parseData(data) {
-    let isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
+    let isoParse = d3.utcParse("%Y-%m-%dT%H:%M:%S+00:00Z");
 
     let process = function (d) {
         d.timestamp = isoParse(d.timestamp);
@@ -63,9 +72,6 @@ function parseData(data) {
 
     return data;
 }
-
-// TODO: change with buttons
-let timeFrame = 'month';
 
 $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, timeFrame, jqXHR) {
     data = parseData(data);
@@ -108,7 +114,7 @@ $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, timeFra
        .call(xAxis);
 
 
-    barChart(svg, data, width, height, maxY);
+    barChart(svg, data, width, height, maxY, timeFrame, xScale);
     lineChart(svg, data, xScale, yScale);
 
 });

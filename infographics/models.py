@@ -47,7 +47,7 @@ class Building(models.Model):
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
         latest = self.get_latest_time()
-        earliest = latest - timedelta(days=1)
+        earliest = latest - timedelta(hours=23)
         q_consumption = self.query_consumption(earliest, latest)
         q_production = query_production(earliest, latest)
         result_consumption = []
