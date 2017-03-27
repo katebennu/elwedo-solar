@@ -13,7 +13,7 @@ def timeline_update(request):
     # SECOND_STAGE: replace with apartment / or building associated with their request's user
     building = Building.objects.first()
 
-    data = building.get_week_data()
+    data = building.get_day_data()
 
     time_frame = request.GET.get('timeFrame')
 

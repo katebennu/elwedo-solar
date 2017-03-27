@@ -1,4 +1,5 @@
 let timeFrame = 'day';
+let wSolar = false;
 
 updateTimeLine(timeFrame);
 
@@ -31,9 +32,20 @@ function responsivefy(svg) {
     }
 }
 
-function barChart(svg, data, width, height, maxY, xScale, yScale) {
+function noSolarBarChart(svg, data, width, height, maxY, xScale, yScale) {
+    svg.selectAll('rect')
+        .data(data)
+        .enter()
+        .append('rect')
+        .attr('class', 'consumption-rect')
+        .attr('x', d => xScale(d.timestamp))
+        .attr('y', d => yScale(d.consumption))
+        .attr('width', d => width / data.length - 2)
+        .attr('height', d => d.consumption * height / maxY);
+}
 
-// TODO: generate new dataset with fields timestamp, consumption and savings,
+function SolarBarChart(svg, data, width, height, maxY, xScale, yScale) {
+
 // make a stacked chart http://www.adeveloperdiary.com/d3-js/create-stacked-bar-chart-using-d3-js/
 
     svg.selectAll('rect')
@@ -62,7 +74,6 @@ function lineChart(svg, data, xScale, yScale) {
         .attr('stroke-width', 4);
 }
 
-
 function parseData(data) {
     let isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
 
@@ -76,7 +87,7 @@ function parseData(data) {
 }
 
 
-function updateTimeLine(timeFrame) {
+function updateTimeLine(timeFrame, wSolar) {
 
     $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
         // clean existing chart
@@ -85,13 +96,10 @@ function updateTimeLine(timeFrame) {
         data = parseData(data);
 
         let t = '%d.%m';
-        if (timeFrame == 'day') {
-            t = '%H:00';
-        }
+        if (timeFrame == 'day') t = '%H:00';
         let formatTime = d3.timeFormat(t);
 
 // DEBUG
-        let d = JSON.stringify(data);
         let out = document.getElementById('formatted');
         out.innerHTML = JSON.stringify(data);
 //
@@ -132,7 +140,8 @@ function updateTimeLine(timeFrame) {
             .attr('transform', `translate(0, ${height})`)
             .call(xAxis);
 
-        barChart(svg, data, width, height, maxY, xScale, yScale);
+        if (wSolar == false) noSolarBarChart(svg, data, width, height, maxY, xScale, yScale);
+        else SolarBarChart(svg, data, width, height, maxY, xScale, yScale);
         //lineChart(svg, data, xScale, yScale);
 
     });
