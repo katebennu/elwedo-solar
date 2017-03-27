@@ -1,5 +1,27 @@
 //TODO: change /day/ to a virable obtained from day/week/month switch
 
+// TODO: change with buttons
+let timeFrame = 'day';
+
+updateTimeLine(timeFrame);
+
+document.getElementById("daySwitch").addEventListener('click', function(timeFrame) {
+    timeFrame = 'day';
+    updateTimeLine(timeFrame);
+});
+
+document.getElementById("weekSwitch").addEventListener('click', function(timeFrame) {
+    timeFrame = 'week';
+    updateTimeLine(timeFrame);
+});
+
+document.getElementById("monthSwitch").addEventListener('click', function(timeFrame) {
+    timeFrame = 'month';
+    updateTimeLine(timeFrame);
+});
+
+
+
 function responsivefy(svg) {
     let container = d3.select(svg.node().parentNode),
         width = parseInt(svg.style("width")),
@@ -17,15 +39,15 @@ function responsivefy(svg) {
 }
 
 
-function barChart(svg, data, width, height, maxY){
-    let formatTime = d3.timeFormat('%H');
+function barChart(svg, data, width, height, maxY, xScale, yScale){
     svg.selectAll('rect')
         .data(data['consumption'])
         .enter()
         .append('rect')
-        .attr('x', d => formatTime(d.timestamp) * width / data['consumption'].length + 2)
-        .attr('y', d => height - d.value * height / maxY)
-        .attr('width', d => width / data['consumption'].length - 2)
+// TODO: calculate for 24 hour data from two calendar days
+        .attr('x', d => xScale(d.timestamp))
+        .attr('y', d => yScale(d.value))
+        .attr('width', d => width / data['consumption'].length -2)
         .attr('height', d => d.value * height / maxY);
 }
 
@@ -58,15 +80,24 @@ function parseData(data) {
 
     return data;
 }
+function updateTimeLine(timeFrame) {
 
 
-$.getJSON('/timeline-update/', function (data, jqXHR) {
+$.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
+    // clean existing chart
+    document.getElementById('timeline-chart').innerHTML = '';
+
     data = parseData(data);
+
+    let t = '%d.%m';
+    if (timeFrame == 'day') {t = '%H:00';}
+    let formatTime = d3.timeFormat(t);
+
+// DEBUG
     let d = JSON.stringify(data);
-
     let out = document.getElementById('formatted');
-    out.innerHTML = JSON.stringify(data['production']);
-
+    out.innerHTML = JSON.stringify(timeFrame);
+//
     let margin = {top: 10, right: 20, bottom: 60, left: 30};
     let width = 400 - margin.left - margin.right;
     let height = 200 - margin.top - margin.bottom;
@@ -91,8 +122,10 @@ $.getJSON('/timeline-update/', function (data, jqXHR) {
         .range([0, width]);
     let xAxis = d3.axisBottom(xScale)
     //.ticks(data['consumption'].length)
-        .tickSize(10)
-        .tickPadding(5);
+        .ticks(5)
+        .tickSize(4)
+        .tickPadding(5)
+        .tickFormat(formatTime);
 
     svg.call(yAxis)
        .append('g')
@@ -100,8 +133,8 @@ $.getJSON('/timeline-update/', function (data, jqXHR) {
        .call(xAxis);
 
 
-    barChart(svg, data, width, height, maxY);
+    barChart(svg, data, width, height, maxY, xScale, yScale);
     lineChart(svg, data, xScale, yScale);
 
 });
-
+}
