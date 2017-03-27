@@ -50,16 +50,24 @@ class Building(models.Model):
         earliest = latest - timedelta(hours=23)
         q_consumption = self.query_consumption(earliest, latest)
         q_production = query_production(earliest, latest)
-        result_consumption = []
-        result_production = []
+
+        panels = PanelsToInstall.objects.filter(use=True)[0].number_of_units
+        result = []
         for i in q_consumption:
-            result_consumption.append({'timestamp': i.timestamp, 'value': i.value})
-        for i in q_production:
-            result_production.append({'timestamp': i.timestamp, 'value_per_unit': i.value_per_unit})        # for i in result_consumption:
-
-
-# TODO NEXT: rewrite to get in same form as get_week_data (not a queryset) and test with the frontend
-        return {'consumption': result_consumption, 'production': result_production}
+            production = q_production.filter(timestamp=i.timestamp)[0].value_per_unit * panels
+            savings = i.value - production
+            if savings < 0:
+                savings = i.value
+            earnings = production - i.value
+            if earnings < 0:
+                earnings = 0
+            result.append({
+                'timestamp': i.timestamp,
+                'consumption': i.value,
+                'production': production,
+                'savings': savings,
+                'earnings': earnings})
+        return result
 
     def get_week_data(self):
         """ Returns consumption and production data for latest 7 days in the database"""
@@ -68,8 +76,8 @@ class Building(models.Model):
         q_consumption = self.query_consumption(earliest, latest)
         q_production = query_production(earliest, latest)
         # add annotation day
-        consumption_annotate_days = q_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
-        production_annotate_days = q_production.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
+        consumption_by_days = q_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
+        production_by_days = q_production.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
         # get a set of days
         days_list = list(set([i.day for i in consumption_annotate_days]))
         days_list.sort()
@@ -77,8 +85,8 @@ class Building(models.Model):
         result_consumption = []
         result_production = []
         for d in days_list:
-            consumption_value = consumption_annotate_days.filter(timestamp__day=d.day).aggregate(Sum('value'))
-            production_value = production_annotate_days.filter(timestamp__day=d.day).aggregate(Sum('value_per_unit'))
+            consumption_value = consumption_by_days.filter(timestamp__day=d.day).aggregate(Sum('value'))
+            production_value = production_by_days.filter(timestamp__day=d.day).aggregate(Sum('value_per_unit'))
             result_consumption.append({'timestamp': d, 'value': consumption_value['value__sum']})
             result_production.append({'timestamp': d, 'value_per_unit': production_value['value_per_unit__sum']})
         return {'consumption': result_consumption, 'production': result_production}
