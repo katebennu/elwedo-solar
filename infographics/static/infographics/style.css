@@ -8,6 +8,10 @@ h1 {
     text-align: center;
 }
 
+.pointer {
+    cursor:pointer;
+}
+
 .navbar-brand {
     margin-top: -6px;
     margin-left: 6px;
