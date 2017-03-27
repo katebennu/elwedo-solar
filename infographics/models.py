@@ -48,10 +48,14 @@ class Building(models.Model):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
         latest = self.get_latest_time()
         earliest = latest - timedelta(days=1)
-        result_consumption = self.query_consumption(earliest, latest)
-        result_production = query_production(earliest, latest)
-
-        # for i in result_consumption:
+        q_consumption = self.query_consumption(earliest, latest)
+        q_production = query_production(earliest, latest)
+        result_consumption = []
+        result_production = []
+        for i in q_consumption:
+            result_consumption.append({'timestamp': i.timestamp, 'value': i.value})
+        for i in q_production:
+            result_production.append({'timestamp': i.timestamp, 'value_per_unit': i.value_per_unit})        # for i in result_consumption:
 
 
 # TODO NEXT: rewrite to get in same form as get_week_data (not a queryset) and test with the frontend
