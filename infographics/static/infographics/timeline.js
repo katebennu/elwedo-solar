@@ -162,8 +162,8 @@ function updateTimeLine(timeFrame, wSolar) {
          let series = stack(data);*/
 
 // DEBUG
-        let out = document.getElementById('formatted');
-        out.innerHTML = JSON.stringify(totals);
+//         let out = document.getElementById('formatted');
+//         out.innerHTML = JSON.stringify(totals);
 //
         let margin = {top: 10, right: 20, bottom: 60, left: 30};
         let width = 400 - margin.left - margin.right;
@@ -176,9 +176,10 @@ function updateTimeLine(timeFrame, wSolar) {
             .append('g')
             .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
-        let maxC = d3.max(data.map(d => d.consumption));
-        let maxP = d3.max(data.map(d => d.production));
-        let maxY = Math.max(maxC, maxP);
+        // let maxC = d3.max(data.map(d => d.consumption));
+        // let maxP = d3.max(data.map(d => d.production));
+        // let maxY = Math.max(maxC, maxP);
+        let maxY = d3.max(data.map(d => d.consumption));
 
         let y = d3.scaleLinear()
             .domain([0, maxY])
