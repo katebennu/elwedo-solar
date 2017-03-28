@@ -108,9 +108,6 @@ function parseData(data) {
     return data;
 }
 
-function carSection() {
-
-}
 
 function dataTotal(data) {
     let consumptionTotal = 0, productionTotal = 0, savingsTotal = 0, earningsTotal = 0;
@@ -128,6 +125,15 @@ function dataTotal(data) {
     };
 }
 
+function carSection(totals) {
+    let timeSpan = '';
+    if (timeFrame == 'month') timeSpan = 'THIS MONTH';
+    if (timeFrame == 'day') timeSpan = 'TODAY';
+    if (timeFrame == 'week') timeSpan = 'THIS WEEK';
+    document.getElementById('produced-text').innerHTML = timeSpan;
+    document.getElementById('produced-number').innerHTML = totals['productionTotal'];
+}
+
 // TODO: passing in wSolar doesn't work, fix it
 function updateTimeLine(timeFrame, wSolar) {
 
@@ -137,8 +143,11 @@ function updateTimeLine(timeFrame, wSolar) {
         data = parseData(data);
         let totals = dataTotal(data);
 
+        // update header
+        document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(data[data.length - 1]['timestamp']);
+        // update car section
 
-        document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(data[data.length-1]['timestamp']);
+        carSection(totals, timeFrame);
 
         // time format for X axis
         let t = '%d.%m';
