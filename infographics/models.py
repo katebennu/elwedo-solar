@@ -44,66 +44,73 @@ class Building(models.Model):
     def query_consumption(self, earliest, latest):
         return self.consumptionmeasurement_set.filter(timestamp__range=[earliest, latest])
 
+    def get_panels_estimate(self):
+        return PanelsToInstall.objects.filter(building=self, use=True)[0].number_of_units
+
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
         latest = self.get_latest_time()
         earliest = latest - timedelta(hours=23)
         q_consumption = self.query_consumption(earliest, latest)
         q_production = query_production(earliest, latest)
-        result_consumption = []
-        result_production = []
+
+        panels = self.get_panels_estimate()
+
+        result = []
         for i in q_consumption:
-            result_consumption.append({'timestamp': i.timestamp, 'value': i.value})
-        for i in q_production:
-            result_production.append({'timestamp': i.timestamp, 'value_per_unit': i.value_per_unit})        # for i in result_consumption:
+            production = q_production.filter(timestamp=i.timestamp)[0].value_per_unit * panels
+            savings = i.value - production
+            if savings < 0:
+                savings = i.value
+            earnings = production - i.value
+            if earnings < 0:
+                earnings = 0
+            result.append({
+                'timestamp': i.timestamp,
+                'consumption': i.value,
+                'production': production,
+                'savings': savings,
+                'consumptionLessSavings': i.value - savings,
+                'earnings': earnings})
+        return result
 
-
-# TODO NEXT: rewrite to get in same form as get_week_data (not a queryset) and test with the frontend
-        return {'consumption': result_consumption, 'production': result_production}
-
-    def get_week_data(self):
-        """ Returns consumption and production data for latest 7 days in the database"""
+    def get_multiple_days_data(self, days):
+        """ Returns consumption and production data for the latest N days in the database"""
         latest = self.get_latest_time()
-        earliest = (latest - timedelta(days=6)).replace(hour=0)
+        earliest = (latest - timedelta(days=days)).replace(hour=0)
         q_consumption = self.query_consumption(earliest, latest)
         q_production = query_production(earliest, latest)
         # add annotation day
-        consumption_annotate_days = q_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
-        production_annotate_days = q_production.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
+        consumption_by_days = q_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
+        production_by_days = q_production.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
         # get a set of days
-        days_list = list(set([i.day for i in consumption_annotate_days]))
+        days_list = list(set([i.day for i in consumption_by_days]))
         days_list.sort()
-        # get total for each day in set
-        result_consumption = []
-        result_production = []
-        for d in days_list:
-            consumption_value = consumption_annotate_days.filter(timestamp__day=d.day).aggregate(Sum('value'))
-            production_value = production_annotate_days.filter(timestamp__day=d.day).aggregate(Sum('value_per_unit'))
-            result_consumption.append({'timestamp': d, 'value': consumption_value['value__sum']})
-            result_production.append({'timestamp': d, 'value_per_unit': production_value['value_per_unit__sum']})
-        return {'consumption': result_consumption, 'production': result_production}
 
-    def get_month_data(self):
-        """ Returns consumption and production data for latest 30 days in the database"""
-        latest = self.get_latest_time()
-        earliest = (latest - timedelta(days=29)).replace(hour=0)
-        q_consumption = self.query_consumption(earliest, latest)
-        q_production = query_production(earliest, latest)
-        # add annotation day
-        consumption_annotate_days = q_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
-        production_annotate_days = q_production.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
-        # get a set of days
-        days_list = list(set([i.day for i in consumption_annotate_days]))
-        days_list.sort()
-        # get total for each day in set
-        result_consumption = []
-        result_production = []
+        panels = self.get_panels_estimate()
+
+        result = []
         for d in days_list:
-            consumption_value = consumption_annotate_days.filter(timestamp__day=d.day).aggregate(Sum('value'))
-            production_value = production_annotate_days.filter(timestamp__day=d.day).aggregate(Sum('value_per_unit'))
-            result_consumption.append({'timestamp': d, 'value': consumption_value['value__sum']})
-            result_production.append({'timestamp': d, 'value_per_unit': production_value['value_per_unit__sum']})
-        return {'consumption': result_consumption, 'production': result_production}
+            consumption_value = consumption_by_days.filter(timestamp__day=d.day).aggregate(Sum('value'))
+            production_value = production_by_days.filter(timestamp__day=d.day).aggregate(Sum('value_per_unit'))
+            consumption = consumption_value['value__sum']
+            production = production_value['value_per_unit__sum'] * panels
+
+            savings = consumption - production
+            if savings < 0:
+                savings = consumption
+            earnings = production - consumption
+            if earnings < 0:
+                earnings = 0
+
+            result.append({'timestamp': d,
+                           'consumption': consumption,
+                           'production': production,
+                           'savings': savings,
+                           'consumptionLessSavings': consumption - savings,
+                           'earnings': earnings
+                           })
+        return result
 
 
 class PanelsToInstall(models.Model):

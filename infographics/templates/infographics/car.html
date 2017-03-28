@@ -1,11 +1,11 @@
 {% load staticfiles %}
 
-<div class="col-sm-4 col-xs-12 car-col"><h4>TODAY YOU HAVE PRODUCED</h4>
-    <h1>0.17kWH</h1>
+<div class="col-sm-4 col-xs-12 car-col"><h4><span id="produced-text">TODAY</span> YOU HAVE PRODUCED</h4>
+    <h1><span id="produced-number">0.17</span>kWH</h1>
 </div>
 <div class="col-sm-4 col-xs-12 car-col">
     <img src="{% static 'infographics/images/car@3x.png' %}">
 </div>
 <div class="col-sm-4 col-xs-12 car-col"><h4>ENOUGH TO TRAVEL WITH <br/>AN ELECTRIC CAR FOR</h4>
-    <h1>3km</h1>
+    <h1 id="produced-km">3km</h1>
 </div>

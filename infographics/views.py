@@ -13,33 +13,24 @@ def timeline_update(request):
     # SECOND_STAGE: replace with apartment / or building associated with their request's user
     building = Building.objects.first()
 
-    data = building.get_week_data()
+    data = building.get_day_data()
 
     time_frame = request.GET.get('timeFrame')
 
     if time_frame == 'month':
-        data = building.get_month_data()
+        data = building.get_multiple_days_data(29)
 
     if time_frame == 'week':
-        data = building.get_week_data()
+        data = building.get_multiple_days_data(6)
 
     if time_frame == 'day':
         data = building.get_day_data()
 
-    # format timestamp only
-
-
-    # context_data = {'consumption':[], 'production':[]}
-    for i in data['consumption']:
+    for i in data:
         i['timestamp'] = i['timestamp'].isoformat() + 'Z'
-        i['value'] = float(i['value'])
+        i['consumption'] = float(i['consumption'])
+        i['production'] = float(i['production'])
+        i['savings'] = float(i['savings'])
+        i['earnings'] = float(i['earnings'])
 
-    for i in data['production']:
-        i['timestamp'] = i['timestamp'].isoformat() + 'Z'
-        i['value'] = float(i['value_per_unit']) * PanelsToInstall.objects.filter(use=True)[0].number_of_units  #
-    # for i in data['production']:
-    #     i.value = i.value_per_unit * PanelsToInstall.objects.filter(name='default')[0].number_of_units
-    #     context_data['production'].append({'timestamp': i.timestamp.isoformat() + 'Z', 'value': float(i.value)})
-
-
-    return JsonResponse(data)
+    return JsonResponse(data, safe=False)
