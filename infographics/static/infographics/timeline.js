@@ -16,6 +16,7 @@ document.getElementById("monthSwitch").addEventListener('click', function (timeF
     updateTimeLine(timeFrame);
 });
 
+
 function responsivefy(svg) {
     let container = d3.select(svg.node().parentNode),
         width = parseInt(svg.style("width")),
@@ -100,14 +101,31 @@ function lineChart(svg, data, width, height, x, y) {
 
 function parseData(data) {
     let isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
-
     let process = function (d) {
         d.timestamp = isoParse(d.timestamp);
     };
-
     data.forEach(process);
-
     return data;
+}
+
+function carSection() {
+
+}
+
+function dataTotal(data) {
+    let consumptionTotal = 0, productionTotal = 0, savingsTotal = 0, earningsTotal = 0;
+    for (let i = 0; i < data.length; i++) {
+        consumptionTotal += data[i]['consumption'];
+        productionTotal += data[i]['production'];
+        savingsTotal += data[i]['savings'];
+        earningsTotal += data[i]['earnings'];
+    }
+    return {
+        'consumptionTotal': consumptionTotal,
+        'productionTotal': productionTotal,
+        'savingsTotal': savingsTotal,
+        'earningsTotal': earningsTotal
+    };
 }
 
 // TODO: passing in wSolar doesn't work, fix it
@@ -116,23 +134,27 @@ function updateTimeLine(timeFrame, wSolar) {
     $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, wSolar, jqXHR) {
         // clean existing chart
         document.getElementById('timeline-chart').innerHTML = '';
-
         data = parseData(data);
+        let totals = dataTotal(data);
 
+
+        document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(data[data.length-1]['timestamp']);
+
+        // time format for X axis
         let t = '%d.%m';
         if (timeFrame == 'day') t = '%H:00';
         let formatTime = d3.timeFormat(t);
 
-        let stack = d3.stack()
-            .keys(['savings', 'consumptionLessSavings'])
-            .order(d3.stackOrderNone)
-            .offset(d3.stackOffsetNone);
+        /*        let stack = d3.stack()
+         .keys(['savings', 'consumptionLessSavings'])
+         .order(d3.stackOrderNone)
+         .offset(d3.stackOffsetNone);
 
-        let series = stack(data);
+         let series = stack(data);*/
 
 // DEBUG
         let out = document.getElementById('formatted');
-        out.innerHTML = JSON.stringify(series);
+        out.innerHTML = JSON.stringify(totals);
 //
         let margin = {top: 10, right: 20, bottom: 60, left: 30};
         let width = 400 - margin.left - margin.right;
