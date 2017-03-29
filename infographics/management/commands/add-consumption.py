@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from infographics.models import Building, ConsumptionMeasurement
+from infographics.models import Building, Apartment, ConsumptionMeasurement
 import csv, os
 from datetime import datetime
 from pytz import timezone
@@ -15,6 +15,8 @@ class Command(BaseCommand):
 
     def run(self):
         building = Building.objects.all()[0]
+        apartments = Apartment.objects.order_by('number')[:5]
+        rates = [0.7, 0.88, 1.1, 1.21, 1.3]
         utc = timezone('UTC')
         module_dir = os.path.dirname(os.path.abspath(__file__))
 
@@ -24,6 +26,16 @@ class Command(BaseCommand):
                 parse_time = datetime.strptime(row[0], '%d.%m.%Y %H:%M:%S')
                 _, created = ConsumptionMeasurement.objects.get_or_create(
                     building=building,
-                    timestamp=datetime(parse_time.year, parse_time.month, parse_time.day, parse_time.hour, parse_time.minute, tzinfo=utc),
+                    timestamp=datetime(2017, parse_time.month, parse_time.day, parse_time.hour, parse_time.minute, tzinfo=utc),
                     value=float(row[1])
                 )
+
+                for a, r in zip(apartments, rates):
+                    _, created = ConsumptionMeasurement.objects.get_or_create(
+                        apartment=a,
+                        timestamp=datetime(2017, parse_time.month, parse_time.day, parse_time.hour,
+                                           parse_time.minute, tzinfo=utc),
+                        value=float(row[1])
+                    )
+
+
