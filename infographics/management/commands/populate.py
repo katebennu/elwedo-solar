@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from infographics.models import Building, Apartment, Grid
+from django.contrib.auth.models import User
 
 
 class Command(BaseCommand):
@@ -24,7 +25,13 @@ class Command(BaseCommand):
         area = round(total_area / total_apartments)
         inhabitants = round(total_inhabitants / total_apartments)
         for n in range(total_apartments):
-            Apartment.objects.get_or_create(number=n + 1, area=area, inhabitants=inhabitants, building=building)
+            username = 'user_' + str(n + 1)
+            password = 'pass_' + str(n + 1)
+            u = User(username=username)
+            u.set_password(password)
+            a = Apartment(number=n + 1, area=area, inhabitants=inhabitants, building=building, user=u)
+            a.save()
+            u.save()
 
         Grid.objects.get_or_create(name='Suvilahti', total_units=194)
 

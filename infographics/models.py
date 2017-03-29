@@ -19,7 +19,7 @@ class Apartment(models.Model):
     inhabitants = models.fields.IntegerField(validators=[MinValueValidator(0),
                                                          MaxValueValidator(99)])
     building = models.ForeignKey('Building')
-    account = models.OneToOneField(User, related_name='apartment')
+    user = models.OneToOneField(User, related_name='apartment', default=1)
 
 
 class Building(models.Model):
