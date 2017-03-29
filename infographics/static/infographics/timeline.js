@@ -50,7 +50,7 @@ function color(n) {
     return colors[n];
 }
 
-function SolarBarChart(d3, svg, data, width, height, maxY, x, y) {
+function BarChart(d3, svg, data, width, height, maxY, x, y) {
 
 // make a stacked chart http://www.adeveloperdiary.com/d3-js/create-stacked-bar-chart-using-d3-js/
 
@@ -82,21 +82,6 @@ function SolarBarChart(d3, svg, data, width, height, maxY, x, y) {
         .attr('y', d => y(d.y + d.y0))
         .attr('width', d => width / data.length - 2)
         .attr('height', d => y(d.y0) - y(d.y + d.y0));
-}
-
-function lineChart(svg, data, width, height, x, y) {
-
-    let valueline = d3.line()
-        .x(d => x(d.timestamp))
-        .y(d => y(d.production));
-
-    svg.append('path')
-        .data(data)
-        .attr('class', 'valueline')
-        /*        .attr("fill", "none")*/
-        .attr("d", valueline);
-    /*        .attr('stroke', '#efe79c')
-     .attr('stroke-width', 4);*/
 }
 
 function parseData(data) {
@@ -140,6 +125,12 @@ function updateTimeLine(timeFrame, wSolar) {
     $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, wSolar, jqXHR) {
         // clean existing chart
         document.getElementById('timeline-chart').innerHTML = '';
+
+// DEBUG
+        let out = document.getElementById('formatted');
+        out.innerHTML = JSON.stringify(data);
+//
+
         data = parseData(data);
         let totals = dataTotal(data);
 
@@ -161,10 +152,7 @@ function updateTimeLine(timeFrame, wSolar) {
 
          let series = stack(data);*/
 
-// DEBUG
-//         let out = document.getElementById('formatted');
-//         out.innerHTML = JSON.stringify(totals);
-//
+
         let margin = {top: 10, right: 20, bottom: 60, left: 30};
         let width = 400 - margin.left - margin.right;
         let height = 200 - margin.top - margin.bottom;
@@ -200,9 +188,7 @@ function updateTimeLine(timeFrame, wSolar) {
 
 
         /*if (wSolar == false) */
-        noSolarBarChart(svg, data, width, height, maxY, x, y);
-        //else SolarBarChart(d3, svg, data, width, height, maxY, x, y);
-        lineChart(svg, data, width, height, x, y);
+        BarChart(svg, data, width, height, maxY, x, y);
 
         svg.call(yAxis)
             .append('g')

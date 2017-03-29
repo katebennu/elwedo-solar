@@ -20,35 +20,34 @@ def timeline_update(request):
     building = Building.objects.first()
     apartment = Apartment.objects.filter(user=request.user)[0]
 
-    data_building = building.get_day_data()
-    # data_apartment =
-
     time_frame = request.GET.get('timeFrame')
 
     if time_frame == 'month':
         data_building = building.get_multiple_days_data(29)
-        #data_apartment = apartment.get_multiple_days_data(29)
+        data_apartment = apartment.get_multiple_days_data(29)
 
     if time_frame == 'week':
         data_building = building.get_multiple_days_data(6)
-        #data_apartment = apartment.get_multiple_days_data(6)
+        data_apartment = apartment.get_multiple_days_data(6)
 
-
-    if time_frame == 'day':
+    else:
         data_building = building.get_day_data()
-        #data_apartment = apartment.get_day_data()
+        data_apartment = apartment.get_day_data()
 
     data = {}
 
 # TODO: Match or zip with corresponding apartment data
-    
-    for i in data_building:
+
+    for i, j in zip(data_building, data_apartment):
         data['timestamp'] = i['timestamp'].isoformat() + 'Z'
         data['b_consumption'] = float(i['consumption'])
         data['b_production'] = float(i['production'])
         data['b_savings'] = float(i['savings'])
         data['b_earnings'] = float(i['earnings'])
-
+        data['a_consumption'] = float(i['consumption'])
+        data['a_production'] = float(i['production'])
+        data['a_savings'] = float(i['savings'])
+        data['a_earnings'] = float(i['earnings'])
 
     return JsonResponse(data, safe=False)
 
@@ -57,10 +56,6 @@ def timeline_update(request):
 # @csrf_protect
 # @never_cache
 def login_user(request):
-    """ Wrapper view for built in login
-    Prevent legitimate users from logging in before verifying their email
-    address. Otherwise, forward request to default login.
-    """
     if request.method == "POST":
         username = request.POST['username']
         password = request.POST['password']

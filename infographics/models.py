@@ -41,7 +41,7 @@ class Apartment(models.Model):
         q_consumption = self.query_consumption(earliest, latest)
         q_production = query_production(earliest, latest)
 
-        panels = self.get_panels_estimate()
+        panels = self.building.get_panels_estimate()
 
         result = []
         for i in q_consumption:
@@ -74,7 +74,7 @@ class Apartment(models.Model):
         days_list = list(set([i.day for i in consumption_by_days]))
         days_list.sort()
 
-        panels = self.get_panels_estimate()
+        panels = self.building.get_panels_estimate()
 
         result = []
         for d in days_list:
