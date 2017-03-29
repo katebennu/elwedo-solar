@@ -17,28 +17,38 @@ def index(request):
 
 def timeline_update(request):
 
-    # SECOND_STAGE: replace with apartment / or building associated with their request's user
     building = Building.objects.first()
+    apartment = Apartment.objects.filter(user=request.user)[0]
 
-    data = building.get_day_data()
+    data_building = building.get_day_data()
+    # data_apartment =
 
     time_frame = request.GET.get('timeFrame')
 
     if time_frame == 'month':
-        data = building.get_multiple_days_data(29)
+        data_building = building.get_multiple_days_data(29)
+        #data_apartment = apartment.get_multiple_days_data(29)
 
     if time_frame == 'week':
-        data = building.get_multiple_days_data(6)
+        data_building = building.get_multiple_days_data(6)
+        #data_apartment = apartment.get_multiple_days_data(6)
+
 
     if time_frame == 'day':
-        data = building.get_day_data()
+        data_building = building.get_day_data()
+        #data_apartment = apartment.get_day_data()
 
-    for i in data:
-        i['timestamp'] = i['timestamp'].isoformat() + 'Z'
-        i['consumption'] = float(i['consumption'])
-        i['production'] = float(i['production'])
-        i['savings'] = float(i['savings'])
-        i['earnings'] = float(i['earnings'])
+    data = {}
+
+# TODO: Match or zip with corresponding apartment data
+    
+    for i in data_building:
+        data['timestamp'] = i['timestamp'].isoformat() + 'Z'
+        data['b_consumption'] = float(i['consumption'])
+        data['b_production'] = float(i['production'])
+        data['b_savings'] = float(i['savings'])
+        data['b_earnings'] = float(i['earnings'])
+
 
     return JsonResponse(data, safe=False)
 
