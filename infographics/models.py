@@ -41,7 +41,7 @@ class Building(models.Model):
         latest_consumption = self.consumptionmeasurement_set.order_by('-timestamp').first().timestamp
         latest_production = ProductionMeasurement.objects.order_by('-timestamp').first().timestamp
         # compare timestamps and find out which is the earliest of the two
-        return max(latest_consumption, latest_production)
+        return min(latest_consumption, latest_production)
 
     def query_consumption(self, earliest, latest):
         return self.consumptionmeasurement_set.filter(timestamp__range=[earliest, latest])
