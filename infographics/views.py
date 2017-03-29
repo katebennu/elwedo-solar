@@ -36,7 +36,7 @@ def timeline_update(request):
 
     data = []
 
-# TODO: Match or zip with corresponding apartment data
+# TODO: Match the timestamps
 
     for i, j in zip(data_building, data_apartment):
         row = {}

@@ -45,7 +45,7 @@ class Apartment(models.Model):
 
         result = []
         for i in q_consumption:
-            production = q_production.filter(timestamp=i.timestamp)[0].value_per_unit * panels
+            production = q_production.filter(timestamp=i.timestamp)[0].value_per_unit * panels / self.building.total_apartments
             savings = i.value - production
             if savings < 0:
                 savings = i.value
