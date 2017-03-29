@@ -36,9 +36,9 @@ def timeline_update(request):
 
     data = []
 
-# TODO: Match the timestamps
+# TODO: if possible, rewrite to cut O
 
-    for i, j in zip(data_building, data_apartment):
+    for i in data_building:
         row = {}
         data.append(row)
         row['timestamp'] = i['timestamp'].isoformat() + 'Z'
@@ -46,10 +46,12 @@ def timeline_update(request):
         row['b_production'] = float(i['production'])
         row['b_savings'] = float(i['savings'])
         row['b_earnings'] = float(i['earnings'])
-        row['a_consumption'] = float(j['consumption'])
-        row['a_production'] = float(j['production'])
-        row['a_savings'] = float(j['savings'])
-        row['a_earnings'] = float(j['earnings'])
+        for j in data_apartment:
+            if i['timestamp'] == j['timestamp']:
+                row['a_consumption'] = float(j['consumption'])
+                row['a_production'] = float(j['production'])
+                row['a_savings'] = float(j['savings'])
+                row['a_earnings'] = float(j['earnings'])
 
     return JsonResponse(data, safe=False)
 
