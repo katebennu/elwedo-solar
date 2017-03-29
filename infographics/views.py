@@ -3,6 +3,7 @@ import json
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
+from django.contrib.auth import logout
 from django.views.generic import View
 from infographics.forms import UserForm
 from django.views.decorators.cache import never_cache
@@ -65,3 +66,12 @@ def login_user(request):
 
 def login_page(request):
     return render(request, "infographics/login.html")
+
+
+def logout_user(request):
+    logout(request)
+    form = UserForm(request.POST or None)
+    context = {
+        "form": form,
+    }
+    return render(request, 'infographics/login.html', context)
