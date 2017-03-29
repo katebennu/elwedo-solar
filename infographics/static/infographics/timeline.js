@@ -1,5 +1,4 @@
 let timeFrame = 'day';
-let wSolar = false;
 
 updateTimeLine(timeFrame);
 
@@ -33,16 +32,16 @@ function responsivefy(svg) {
     }
 }
 
-function noSolarBarChart(svg, data, width, height, maxY, x, y) {
+function BarChart(svg, data, width, height, maxY, x, y) {
     svg.selectAll('rect')
         .data(data)
         .enter()
         .append('rect')
         .attr('class', 'consumption-rect')
         .attr('x', d => x(d.timestamp))
-        .attr('y', d => y(d.consumption))
+        .attr('y', d => y(d.a_consumption))
         .attr('width', d => width / data.length - 2)
-        .attr('height', d => d.consumption * height / maxY);
+        .attr('height', d => d.a_consumption * height / maxY);
 }
 
 function color(n) {
@@ -50,7 +49,7 @@ function color(n) {
     return colors[n];
 }
 
-function BarChart(d3, svg, data, width, height, maxY, x, y) {
+function stackedBarChart(d3, svg, data, width, height, maxY, x, y) {
 
 // make a stacked chart http://www.adeveloperdiary.com/d3-js/create-stacked-bar-chart-using-d3-js/
 
@@ -168,7 +167,7 @@ function updateTimeLine(timeFrame, wSolar) {
         // let maxC = d3.max(data.map(d => d.consumption));
         // let maxP = d3.max(data.map(d => d.production));
         // let maxY = Math.max(maxC, maxP);
-        let maxY = d3.max(data.map(d => d.consumption));
+        let maxY = d3.max(data.map(d => d.a_consumption));
 
         let y = d3.scaleLinear()
             .domain([0, maxY])

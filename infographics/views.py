@@ -38,6 +38,8 @@ def timeline_update(request):
 
 # TODO: if possible, rewrite to cut O
 
+# Possibly repack as two dictionaries: building and apartment if easier to implement the B/A switch
+
     for i in data_building:
         row = {}
         data.append(row)
