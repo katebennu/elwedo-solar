@@ -129,6 +129,7 @@ function updateTimeLine(timeFrame, wSolar) {
 // DEBUG
         let out = document.getElementById('formatted');
         out.innerHTML = JSON.stringify(data);
+        console.log(JSON.stringify(data));
 //
 
         data = parseData(data);

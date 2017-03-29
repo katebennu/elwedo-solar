@@ -44,10 +44,10 @@ def timeline_update(request):
         data['b_production'] = float(i['production'])
         data['b_savings'] = float(i['savings'])
         data['b_earnings'] = float(i['earnings'])
-        data['a_consumption'] = float(i['consumption'])
-        data['a_production'] = float(i['production'])
-        data['a_savings'] = float(i['savings'])
-        data['a_earnings'] = float(i['earnings'])
+        data['a_consumption'] = float(j['consumption'])
+        data['a_production'] = float(j['production'])
+        data['a_savings'] = float(j['savings'])
+        data['a_earnings'] = float(j['earnings'])
 
     return JsonResponse(data, safe=False)
 
