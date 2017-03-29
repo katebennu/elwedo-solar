@@ -45,7 +45,7 @@ def timeline_update(request):
 # @sensitive_post_parameters()
 # @csrf_protect
 # @never_cache
-def login(request):
+def login_user(request):
     """ Wrapper view for built in login
     Prevent legitimate users from logging in before verifying their email
     address. Otherwise, forward request to default login.
@@ -62,3 +62,6 @@ def login(request):
 
         else:
             return render(request, 'infographics/login.html', {'error_message': 'Invalid login'})
+
+def login_page(request):
+    return render(request, "infographics/login.html")
