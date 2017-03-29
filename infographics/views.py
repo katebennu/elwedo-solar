@@ -34,20 +34,22 @@ def timeline_update(request):
         data_building = building.get_day_data()
         data_apartment = apartment.get_day_data()
 
-    data = {}
+    data = []
 
 # TODO: Match or zip with corresponding apartment data
 
     for i, j in zip(data_building, data_apartment):
-        data['timestamp'] = i['timestamp'].isoformat() + 'Z'
-        data['b_consumption'] = float(i['consumption'])
-        data['b_production'] = float(i['production'])
-        data['b_savings'] = float(i['savings'])
-        data['b_earnings'] = float(i['earnings'])
-        data['a_consumption'] = float(j['consumption'])
-        data['a_production'] = float(j['production'])
-        data['a_savings'] = float(j['savings'])
-        data['a_earnings'] = float(j['earnings'])
+        row = {}
+        data.append(row)
+        row['timestamp'] = i['timestamp'].isoformat() + 'Z'
+        row['b_consumption'] = float(i['consumption'])
+        row['b_production'] = float(i['production'])
+        row['b_savings'] = float(i['savings'])
+        row['b_earnings'] = float(i['earnings'])
+        row['a_consumption'] = float(j['consumption'])
+        row['a_production'] = float(j['production'])
+        row['a_savings'] = float(j['savings'])
+        row['a_earnings'] = float(j['earnings'])
 
     return JsonResponse(data, safe=False)
 
