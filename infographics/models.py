@@ -10,7 +10,8 @@ class Apartment(models.Model):
     def __str__(self):
         return str(self.building.address) + ', Apartment #' + str(self.number)
 
-    number = models.fields.IntegerField(unique=True, primary_key=True)
+    number = models.fields.IntegerField(unique=True, primary_key=True, validators=[MinValueValidator(0),
+                                                                                   MaxValueValidator(9999)])
     area = models.fields.DecimalField(max_digits=5,
                                       decimal_places=2,
                                       validators=[MinValueValidator(0.0),
@@ -18,6 +19,7 @@ class Apartment(models.Model):
     inhabitants = models.fields.IntegerField(validators=[MinValueValidator(0),
                                                          MaxValueValidator(99)])
     building = models.ForeignKey('Building')
+    account = models.OneToOneField(User, related_name='apartment')
 
 
 class Building(models.Model):
@@ -128,6 +130,7 @@ class PanelsToInstall(models.Model):
 # if one account per apartment, rewrite for one-to-one relation
 class UserMethods(User):
     def owns_apartment(self, apartment):
+        """ Determine if user owns the apartment"""
         return self.apartments.filter(number=apartment.number).exists()
 
 
