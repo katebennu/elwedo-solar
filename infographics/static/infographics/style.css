@@ -214,7 +214,6 @@ h1 {
 
 .blue-ribbon {
     background-color: #26B5DB;
-    color: #FFFFFF;
 }
 
 .sticky-ribbon > div {
@@ -227,6 +226,15 @@ h1 {
     border-color: #FFFFFF;
     border-radius: 100px;
     font-weight: bold;
+}
+
+.time-control-off {
+    color: #FFFFFF;
+}
+
+.time-control-on {
+    background-color: #FFFFFF;
+    color: #26B5DB;
 }
 
 #timeline-heading {
@@ -251,11 +259,9 @@ h1 {
 .graph-control-on {
     background-color: #56eda8;
     color: #FFFFFF;
-
 }
 
 .graph-control-off {
-
     color: #56eda8;
 }
 
@@ -508,7 +514,7 @@ h1 {
 }
 
 .valueline {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 2px;
+    fill: none;
+    stroke: steelblue;
+    stroke-width: 2px;
 }
