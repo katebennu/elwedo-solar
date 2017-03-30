@@ -168,10 +168,10 @@ function parseData(data) {
 function dataTotal(data) {
     let consumptionTotal = 0, productionTotal = 0, savingsTotal = 0, earningsTotal = 0;
     for (let i = 0; i < data.length; i++) {
-        consumptionTotal += data[i]['consumption'];
-        productionTotal += data[i]['production'];
-        savingsTotal += data[i]['savings'];
-        earningsTotal += data[i]['earnings'];
+        consumptionTotal += data[i]['a_consumption'];
+        productionTotal += data[i]['a_production'];
+        savingsTotal += data[i]['a_savings'];
+        earningsTotal += data[i]['a_earnings'];
     }
     return {
         'consumptionTotal': consumptionTotal,
@@ -184,10 +184,10 @@ function dataTotal(data) {
 function carSection(totals) {
     let timeSpan = '';
     if (timeFrame == 'month') timeSpan = 'THIS MONTH';
-    if (timeFrame == 'day') timeSpan = 'TODAY';
-    if (timeFrame == 'week') timeSpan = 'THIS WEEK';
+    else if (timeFrame == 'day') timeSpan = 'TODAY';
+    else if (timeFrame == 'week') timeSpan = 'THIS WEEK';
     document.getElementById('produced-text').innerHTML = timeSpan;
-    document.getElementById('produced-number').innerHTML = totals['productionTotal'];
+    document.getElementById('produced-number').innerHTML = Math.floor(totals['productionTotal']);
 }
 
 // TODO: passing in wSolar doesn't work, fix it
@@ -217,6 +217,6 @@ function updateTimeLine(timeFrame, buildingOn) {
         BarChart(svg, data, width, height, maxY, x, y);
 
         // update car section
-        carSection(totals, timeFrame);
+        carSection(totals);
     });
 }
