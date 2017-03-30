@@ -1,20 +1,26 @@
 let timeFrame = 'day';
+let buildingOn = false;
 
-updateTimeLine(timeFrame);
+updateTimeLine(timeFrame, buildingOn);
 
 document.getElementById("daySwitch").addEventListener('click', function (timeFrame) {
     timeFrame = 'day';
-    updateTimeLine(timeFrame);
+    updateTimeLine(timeFrame, buildingOn);
 });
 document.getElementById("weekSwitch").addEventListener('click', function (timeFrame) {
     timeFrame = 'week';
-    updateTimeLine(timeFrame);
+    updateTimeLine(timeFrame, buildingOn);
 });
 document.getElementById("monthSwitch").addEventListener('click', function (timeFrame) {
     timeFrame = 'month';
-    updateTimeLine(timeFrame);
+    updateTimeLine(timeFrame, buildingOn);
 });
 
+document.getElementById('building-switch').addEventListener('click', function (e) {
+    if (buildingOn == false) buildingOn = true;
+    else if(buildingOn == true) buildingOn = false;
+    updateTimeLine(timeFrame, buildingOn);
+});
 
 function responsivefy(svg) {
     let container = d3.select(svg.node().parentNode),
@@ -119,16 +125,18 @@ function carSection(totals) {
 }
 
 // TODO: passing in wSolar doesn't work, fix it
-function updateTimeLine(timeFrame, wSolar) {
+function updateTimeLine(timeFrame, buildingOn) {
 
-    $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, wSolar, jqXHR) {
+    $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
         // clean existing chart
         document.getElementById('timeline-chart').innerHTML = '';
 
 // DEBUG
         let out = document.getElementById('formatted');
-        out.innerHTML = JSON.stringify(data);
-        console.log(JSON.stringify(data));
+        // out.innerHTML = JSON.stringify(buildingOn);
+        // console.log(JSON.stringify(buildingOn));
+        out.innerHTML = buildingOn;
+        console.log(buildingOn);
 //
 
         data = parseData(data);
@@ -195,5 +203,8 @@ function updateTimeLine(timeFrame, wSolar) {
             .attr('transform', `translate(0, ${height})`)
             .call(xAxis);
 
+
     });
+
+    return buildingOn;
 }
