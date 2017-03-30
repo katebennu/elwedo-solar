@@ -26,7 +26,7 @@ def timeline_update(request):
         data_building = building.get_multiple_days_data(29)
         data_apartment = apartment.get_multiple_days_data(29)
 
-    if time_frame == 'week':
+    elif time_frame == 'week':
         data_building = building.get_multiple_days_data(6)
         data_apartment = apartment.get_multiple_days_data(6)
 
