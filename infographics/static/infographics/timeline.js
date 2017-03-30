@@ -216,6 +216,7 @@ function carSection(totals, timeFrame) {
     else if (timeFrame == 'week') timeSpan = 'THIS WEEK';
     document.getElementById('produced-text').innerHTML = timeSpan;
     document.getElementById('produced-number').innerHTML = Math.floor(totals['productionTotal']);
+    document.getElementById('produced-km').innerHTML = Math.floor(totals['productionTotal']) * 5;
 }
 
 function updateTimeLine(timeFrame, buildingOn) {
