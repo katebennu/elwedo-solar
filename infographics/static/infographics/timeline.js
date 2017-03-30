@@ -17,8 +17,14 @@ document.getElementById("monthSwitch").addEventListener('click', function (timeF
 });
 
 document.getElementById('building-switch').addEventListener('click', function (e) {
-    if (buildingOn == false) buildingOn = true;
-    else if (buildingOn == true) buildingOn = false;
+    if (buildingOn == false) {
+        buildingOn = true;
+        $('#building-switch').removeClass('graph-control-off').addClass('graph-control-on');
+    }
+    else if (buildingOn == true) {
+        buildingOn = false;
+        $('#building-switch').removeClass('graph-control-on').addClass('graph-control-off');
+    }
     updateTimeLine(timeFrame, buildingOn);
 });
 

@@ -229,23 +229,6 @@ h1 {
     font-weight: bold;
 }
 
-.solar-switch > div {
-    display: inline-block;
-    width: 50%;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.solar {
-    background-color: #efe79c;
-}
-
-.no-solar {
-    background-color: #F4F1E4;
-}
-
 #timeline-heading {
     margin-top: 56px;
     margin-bottom: 32px;
@@ -257,13 +240,23 @@ h1 {
     margin-top: 15px;
     padding-top: 10px;
     padding-bottom: 10px;
-    background-color: #56eda8;
     border-radius: 100px;
     font-weight: bold;
-    color: #FFFFFF;
     text-align: center;
     white-space: nowrap;
+    border-style: solid;
+    border-color: #56eda8;
+}
 
+.graph-control-on {
+    background-color: #56eda8;
+    color: #FFFFFF;
+
+}
+
+.graph-control-off {
+
+    color: #56eda8;
 }
 
 #timeline-chart {
