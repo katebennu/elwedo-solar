@@ -199,9 +199,6 @@ function dataTotal(data) {
 }
 
 function CO2Chart() {
-    let svg = document.getElementById('CO2-chart').appendChild('svg');
-    svg.appendChild('circle');
-
 
 //     <svg width="100" height="100">
 //   <circle cx="20" cy="20" r="20" fill="green" />

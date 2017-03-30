@@ -140,10 +140,6 @@ h1 {
     fill: #56EDA8;
 }
 
-/*rect:hover {
-    fill: #efe79c;
-}*/
-
 .legend {
     margin-top: 37px;
     margin-bottom: 50px;
@@ -462,10 +458,6 @@ h1 {
         right: 0;
         border-radius: 3px 0 0 3px;
     }
-
-}
-
-.weather {
 
 }
 
