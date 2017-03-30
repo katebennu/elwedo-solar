@@ -39,58 +39,62 @@ function responsivefy(svg) {
 }
 
 function drawAxes(data) {
-           // time format for X axis
-        let t = '%d.%m';
-        if (timeFrame == 'day') t = '%H:00';
-        let formatTime = d3.timeFormat(t);
+    // time format for X axis
+    let t = '%d.%m';
+    if (timeFrame == 'day') t = '%H:00';
+    let formatTime = d3.timeFormat(t);
 
-        /*        let stack = d3.stack()
-         .keys(['savings', 'consumptionLessSavings'])
-         .order(d3.stackOrderNone)
-         .offset(d3.stackOffsetNone);
+    /*        let stack = d3.stack()
+     .keys(['savings', 'consumptionLessSavings'])
+     .order(d3.stackOrderNone)
+     .offset(d3.stackOffsetNone);
 
-         let series = stack(data);*/
+     let series = stack(data);*/
 
 
-        let margin = {top: 10, right: 20, bottom: 60, left: 30};
-        let width = 400 - margin.left - margin.right;
-        let height = 200 - margin.top - margin.bottom;
-        let svg = d3.select('#timeline-chart')
-            .append('svg')
-            .attr('width', width + margin.left + margin.right)
-            .attr('height', height + margin.top + margin.bottom)
-            .call(responsivefy)
-            .append('g')
-            .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+    let margin = {top: 10, right: 20, bottom: 60, left: 30};
+    let width = 400 - margin.left - margin.right;
+    let height = 200 - margin.top - margin.bottom;
+    let svg = d3.select('#timeline-chart')
+        .append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .call(responsivefy)
+        .append('g')
+        .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
-        // let maxC = d3.max(data.map(d => d.consumption));
-        // let maxP = d3.max(data.map(d => d.production));
-        // let maxY = Math.max(maxC, maxP);
-        let maxY = d3.max(data.map(d => d.a_consumption));
+    // let maxC = d3.max(data.map(d => d.consumption));
+    // let maxP = d3.max(data.map(d => d.production));
+    // let maxY = Math.max(maxC, maxP);
 
-        let y = d3.scaleLinear()
-            .domain([0, maxY])
-            .range([height, 0]);
-        let yAxis = d3.axisLeft(y);
+    let maxY = d3.max(data.map(function (d) {
+        if (buildingOn == true) return d.b_consumption;
+        else return d.a_consumption;
+    }));
 
-        let x = d3.scaleTime()
-            .domain(d3.extent(data.map(d => d.timestamp)))
-            .range([0, width]);
-        let xAxis = d3.axisBottom(x)
-            .ticks(5)
-            .tickSize(4)
-            .tickPadding(5)
-            .tickFormat(formatTime);
+    let y = d3.scaleLinear()
+        .domain([0, maxY])
+        .range([height, 0]);
+    let yAxis = d3.axisLeft(y);
 
-        let z = d3.scaleOrdinal()
-            .range(["#F8F6E8", "#56EDA8"]);
+    let x = d3.scaleTime()
+        .domain(d3.extent(data.map(d => d.timestamp)))
+        .range([0, width]);
+    let xAxis = d3.axisBottom(x)
+        .ticks(5)
+        .tickSize(4)
+        .tickPadding(5)
+        .tickFormat(formatTime);
 
-        svg.call(yAxis)
-            .append('g')
-            .attr('transform', `translate(0, ${height})`)
-            .call(xAxis);
+    let z = d3.scaleOrdinal()
+        .range(["#F8F6E8", "#56EDA8"]);
 
-        return [svg, xAxis, yAxis, width, height, maxY, x, y];
+    svg.call(yAxis)
+        .append('g')
+        .attr('transform', `translate(0, ${height})`)
+        .call(xAxis);
+
+    return [svg, xAxis, yAxis, width, height, maxY, x, y];
 }
 
 function BarChart(svg, data, width, height, maxY, x, y) {
@@ -100,9 +104,16 @@ function BarChart(svg, data, width, height, maxY, x, y) {
         .append('rect')
         .attr('class', 'consumption-rect')
         .attr('x', d => x(d.timestamp))
-        .attr('y', d => y(d.a_consumption))
+        .attr('y', function (d) {
+            if (buildingOn == true) return y(d.b_consumption);
+            else return y(d.a_consumption);
+        })
+
         .attr('width', d => width / data.length - 2)
-        .attr('height', d => d.a_consumption * height / maxY);
+        .attr('height', function (d) {
+            if (buildingOn == true) return d.b_consumption * height / maxY;
+            else return d.a_consumption * height / maxY;
+        })
 }
 
 function color(n) {
@@ -205,7 +216,7 @@ function updateTimeLine(timeFrame, buildingOn) {
         /*if (wSolar == false) */
         BarChart(svg, data, width, height, maxY, x, y);
 
-                // update car section
+        // update car section
         carSection(totals, timeFrame);
     });
 }
