@@ -4,15 +4,15 @@
 
 {% block body %}
     <div class="ribbon welcome">
-        <h4>Welcome Antti!</h4>
+        <h4>Welcome {{ user.username }}!</h4>
         <p>Last updated <span id="updated">18/03/17</span></p>
     </div>
 
 
     <div class="ribbon blue-ribbon sticky-ribbon">
-        <div class="pointer" id="daySwitch">DAY</div>
-        <div class="pointer" id="weekSwitch">WEEK</div>
-        <div class="pointer" id="monthSwitch">MONTH</div>
+        <div class="time-control-on pointer" id="daySwitch">DAY</div>
+        <div class="time-control-off pointer" id="weekSwitch">WEEK</div>
+        <div class="time-control-off pointer" id="monthSwitch">MONTH</div>
     </div>
 
     <div class="container">
@@ -23,7 +23,7 @@
     </div>
 
 
-    <div class="ribbon blue-ribbon explanation">
+    <div class="blue-ribbon explanation ribbon">
         <h1>TEXT THAT EXPLAINS DATA</h1>
         <p>Gives information relevant to the data giving some sort of interpretation.</p>
     </div>
@@ -33,8 +33,10 @@
     </div>
 
 
-    <div class="ribbon blue-ribbon weather">
+    <div class="ribbon blue-ribbon">
+        <div class="weather">
        {% include 'infographics/weather.html' %}
+        </div>
     </div>
 
 

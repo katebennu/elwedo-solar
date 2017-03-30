@@ -4,7 +4,6 @@ import csv
 import os
 from datetime import datetime
 from pytz import timezone
-import pytz
 
 
 class Command(BaseCommand):
@@ -19,13 +18,17 @@ class Command(BaseCommand):
         utc = timezone('UTC')
         module_dir = os.path.dirname(os.path.abspath(__file__))
 
-        with open(os.path.join(module_dir, "fixtures", 'Suvilahti_2016.csv')) as file:
-            reader = csv.reader(file, delimiter='\t')
+        with open(os.path.join(module_dir, "fixtures", 'Suvilahti_2017_March.csv')) as file:
+            reader = csv.reader(file, delimiter=',')
             for row in reader:
+                if 'Arvo (kWh)' in row:
+                     continue
                 try:
                     value_per_unit = float(row[1]) / grid.total_units
                 except ValueError:
                     value_per_unit = 0
+                # except IndexError:
+                #     continue
                 parse_time = datetime.strptime(row[0], '%Y-%m-%dT%H:%M:%S')
                 _, created = ProductionMeasurement.objects.get_or_create(
                     grid=grid,
