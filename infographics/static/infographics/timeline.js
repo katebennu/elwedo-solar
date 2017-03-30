@@ -209,7 +209,7 @@ function CO2Chart() {
 //      </svg>
 }
 
-function carSection(totals) {
+function carSection(totals, timeFrame) {
     let timeSpan = '';
     if (timeFrame == 'month') timeSpan = 'THIS MONTH';
     else if (timeFrame == 'day') timeSpan = 'TODAY';
@@ -246,6 +246,6 @@ function updateTimeLine(timeFrame, buildingOn) {
         //CO2Chart(data);
 
         // update car section
-        carSection(totals);
+        carSection(totals, timeFrame);
     });
 }
