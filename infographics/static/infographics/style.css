@@ -214,6 +214,7 @@ h1 {
 
 .blue-ribbon {
     background-color: #26B5DB;
+    color: #FFFFFF;
 }
 
 .sticky-ribbon > div {
@@ -461,6 +462,10 @@ h1 {
         right: 0;
         border-radius: 3px 0 0 3px;
     }
+
+}
+
+.weather {
 
 }
 

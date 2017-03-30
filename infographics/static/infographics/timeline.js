@@ -4,17 +4,28 @@ let buildingOn = false;
 updateTimeLine(timeFrame, buildingOn);
 
 document.getElementById("daySwitch").addEventListener('click', function (timeFrame) {
+    $('#daySwitch').removeClass('time-control-off').addClass('time-control-on');
+    $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
+    $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'day';
     updateTimeLine(timeFrame, buildingOn);
+
 });
 document.getElementById("weekSwitch").addEventListener('click', function (timeFrame) {
+    $('#weekSwitch').removeClass('time-control-off').addClass('time-control-on');
+    $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
+    $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'week';
     updateTimeLine(timeFrame, buildingOn);
 });
 document.getElementById("monthSwitch").addEventListener('click', function (timeFrame) {
+    $('#monthSwitch').removeClass('time-control-off').addClass('time-control-on');
+    $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
+    $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'month';
     updateTimeLine(timeFrame, buildingOn);
 });
+
 
 document.getElementById('building-switch').addEventListener('click', function (e) {
     if (buildingOn == false) {
@@ -187,6 +198,17 @@ function dataTotal(data) {
     };
 }
 
+function CO2Chart() {
+    let svg = document.getElementById('CO2-chart').appendChild('svg');
+    svg.appendChild('circle');
+
+
+//     <svg width="100" height="100">
+//   <circle cx="20" cy="20" r="20" fill="green" />
+//   <circle cx="70" cy="70" r="20" fill="purple" />
+//      </svg>
+}
+
 function carSection(totals) {
     let timeSpan = '';
     if (timeFrame == 'month') timeSpan = 'THIS MONTH';
@@ -196,7 +218,6 @@ function carSection(totals) {
     document.getElementById('produced-number').innerHTML = Math.floor(totals['productionTotal']);
 }
 
-// TODO: passing in wSolar doesn't work, fix it
 function updateTimeLine(timeFrame, buildingOn) {
 
     $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
@@ -207,8 +228,8 @@ function updateTimeLine(timeFrame, buildingOn) {
         let out = document.getElementById('formatted');
         // out.innerHTML = JSON.stringify(buildingOn);
         // console.log(JSON.stringify(buildingOn));
-        out.innerHTML = buildingOn;
-        console.log(buildingOn);
+        //out.innerHTML = buildingOn;
+        //console.log(buildingOn);
 //
 
         data = parseData(data);
@@ -221,6 +242,8 @@ function updateTimeLine(timeFrame, buildingOn) {
 
         /*if (wSolar == false) */
         BarChart(svg, data, width, height, maxY, x, y);
+
+        //CO2Chart(data);
 
         // update car section
         carSection(totals);
