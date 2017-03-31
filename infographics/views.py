@@ -65,13 +65,12 @@ def login_user(request):
         password = request.POST['password']
         user = authenticate(username=username, password=password)
 
-        if user is not None:
+        if user is None:
+            return render(request, 'infographics/login.html', {'error_message': 'Invalid login'})
+        else:
             login(request, user)
             apartment = Apartment.objects.filter(user=request.user)
             return render(request, 'infographics/index.html', {'apartment': apartment})
-
-        else:
-            return render(request, 'infographics/login.html', {'error_message': 'Invalid login'})
 
 
 def login_page(request):
