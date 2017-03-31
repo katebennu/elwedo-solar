@@ -138,39 +138,39 @@ function color(n) {
     return colors[n];
 }
 
-function stackedBarChart(d3, svg, data, width, height, maxY, x, y) {
-
-// make a stacked chart http://www.adeveloperdiary.com/d3-js/create-stacked-bar-chart-using-d3-js/
-
-    /*    let dataIntermediate = ['savings', 'consumptionLessSavings'].map(function (key) {
-     return data.map(function (d) {
-     return {x: d['timestamp'], y: d[key]};
-     });
-     });
-
-     let dataStackLayout = d3.stack()(dataIntermediate);*/
-
-    let stack = d3.stack()
-        .keys(['savings', 'consumptionLessSavings'])
-        .order(d3.stackOrderNone)
-        .offset(d3.stackOffsetNone);
-
-    let series = stack(data);
-
-    let layer = svg.selectAll('.stack')
-        .data(series)
-        .enter().append('g')
-        .attr('class', 'stack')
-        .style('fill', (d, i) => color(i));
-
-    layer.selectAll('rect')
-        .data(d => d)
-        .enter().append('rect')
-        .attr('x', d => x(d.x))
-        .attr('y', d => y(d.y + d.y0))
-        .attr('width', d => width / data.length - 2)
-        .attr('height', d => y(d.y0) - y(d.y + d.y0));
-}
+// function stackedBarChart(d3, svg, data, width, height, maxY, x, y) {
+//
+// // make a stacked chart http://www.adeveloperdiary.com/d3-js/create-stacked-bar-chart-using-d3-js/
+//
+//     /*    let dataIntermediate = ['savings', 'consumptionLessSavings'].map(function (key) {
+//      return data.map(function (d) {
+//      return {x: d['timestamp'], y: d[key]};
+//      });
+//      });
+//
+//      let dataStackLayout = d3.stack()(dataIntermediate);*/
+//
+//     let stack = d3.stack()
+//         .keys(['savings', 'consumptionLessSavings'])
+//         .order(d3.stackOrderNone)
+//         .offset(d3.stackOffsetNone);
+//
+//     let series = stack(data);
+//
+//     let layer = svg.selectAll('.stack')
+//         .data(series)
+//         .enter().append('g')
+//         .attr('class', 'stack')
+//         .style('fill', (d, i) => color(i));
+//
+//     layer.selectAll('rect')
+//         .data(d => d)
+//         .enter().append('rect')
+//         .attr('x', d => x(d.x))
+//         .attr('y', d => y(d.y + d.y0))
+//         .attr('width', d => width / data.length - 2)
+//         .attr('height', d => y(d.y0) - y(d.y + d.y0));
+// }
 
 function parseData(data) {
     let isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
