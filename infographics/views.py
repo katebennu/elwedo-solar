@@ -1,14 +1,10 @@
-from infographics.models import ConsumptionMeasurement, Building, Apartment, PanelsToInstall
-import json
-from django.http import JsonResponse
-from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login
 from django.contrib.auth import logout
-from django.views.generic import View
+from django.http import JsonResponse
+from django.shortcuts import render
+
 from infographics.forms import UserForm
-from django.views.decorators.cache import never_cache
-from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.debug import sensitive_post_parameters
+from infographics.models import Building, Apartment
 
 
 def index(request):
@@ -77,14 +73,13 @@ def login_user(request):
         else:
             return render(request, 'infographics/login.html', {'error_message': 'Invalid login'})
 
+
 def login_page(request):
     return render(request, "infographics/login.html")
 
 
 def logout_user(request):
     logout(request)
-    form = UserForm(request.POST or None)
-    context = {
-        "form": form,
-    }
-    return render(request, 'infographics/login.html', context)
+    return render(request, 'infographics/login.html', {
+        "form": UserForm(request.POST or None),
+    })
