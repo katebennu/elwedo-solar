@@ -9,6 +9,9 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^index/$', views.index, name='index'),  # default homepage
     url(r'^timeline-update/$', views.timeline_update),
-    url(r'^login/$', login, {'template_name': 'infographics/login.html'}, name='login'),
+    url(r'^login/$', login, dict(
+        template_name='infographics/login.html',
+        redirect_authenticated_user=True
+    ), name='login'),
     url(r'^logout/$', views.logout, name='logout'),
 ]
