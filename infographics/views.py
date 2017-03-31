@@ -1,4 +1,4 @@
-from django.contrib.auth import logout
+from django.contrib.auth import logout as do_logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -56,6 +56,6 @@ def timeline_update(request):
     return JsonResponse(data, safe=False)
 
 
-def logout_user(request):
-    logout(request)
+def logout(request):
+    do_logout(request)
     return redirect("index")

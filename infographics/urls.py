@@ -10,5 +10,5 @@ urlpatterns = [
     url(r'^index/$', views.index, name='index'),  # default homepage
     url(r'^timeline-update/$', views.timeline_update),
     url(r'^login/$', login, {'template_name': 'infographics/login.html'}, name='login'),
-    url(r'^logout_user/$', views.logout_user, name='logout_user'),
+    url(r'^logout/$', views.logout, name='logout'),
 ]
