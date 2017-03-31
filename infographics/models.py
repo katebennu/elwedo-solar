@@ -39,7 +39,7 @@ class Apartment(models.Model):
         latest = self.get_latest_time()
         earliest = latest - timedelta(hours=23)
         q_consumption = self.query_consumption(earliest, latest)
-        q_production = query_production(earliest, latest)
+        q_production = ProductionMeasurement.objects.query_production(earliest, latest)
 
         panels = self.building.get_panels_estimate()
 
@@ -66,7 +66,7 @@ class Apartment(models.Model):
         latest = self.get_latest_time()
         earliest = (latest - timedelta(days=days)).replace(hour=0)
         q_consumption = self.query_consumption(earliest, latest)
-        q_production = query_production(earliest, latest)
+        q_production = ProductionMeasurement.objects.query_production(earliest, latest)
         # add annotation day
         consumption_by_days = q_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
         production_by_days = q_production.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
@@ -131,7 +131,7 @@ class Building(models.Model):
         latest = self.get_latest_time()
         earliest = latest - timedelta(hours=23)
         q_consumption = self.query_consumption(earliest, latest)
-        q_production = query_production(earliest, latest)
+        q_production = ProductionMeasurement.objects.query_production(earliest, latest)
 
         panels = self.get_panels_estimate()
 
@@ -158,7 +158,7 @@ class Building(models.Model):
         latest = self.get_latest_time()
         earliest = (latest - timedelta(days=days)).replace(hour=0)
         q_consumption = self.query_consumption(earliest, latest)
-        q_production = query_production(earliest, latest)
+        q_production = ProductionMeasurement.objects.query_production(earliest, latest)
         # add annotation day
         consumption_by_days = q_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
         production_by_days = q_production.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
@@ -232,6 +232,12 @@ class ConsumptionMeasurement(models.Model):
         return 'Consumption on ' + str(self.timestamp)
 
 
+class ProductionMeasurementManager(models.Manager):
+
+    def query_production(self, earliest, latest):
+        return self.filter(timestamp__range=[earliest, latest])
+
+
 class ProductionMeasurement(models.Model):
     timestamp = models.DateTimeField(null=True)
     value_per_unit = models.DecimalField(
@@ -240,12 +246,10 @@ class ProductionMeasurement(models.Model):
         validators=[MinValueValidator(0.0), MaxValueValidator(999999.99)])
     grid = models.ForeignKey('Grid')
 
+    objects = ProductionMeasurementManager()
+
     def __str__(self):
         return 'Production on ' + str(self.timestamp)
-
-
-def query_production(earliest, latest):
-    return ProductionMeasurement.objects.filter(timestamp__range=[earliest, latest])
 
 
 class Grid(models.Model):
