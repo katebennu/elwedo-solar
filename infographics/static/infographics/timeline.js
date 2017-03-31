@@ -55,7 +55,7 @@ function responsivefy(svg) {
     }
 }
 
-function drawAxes(data) {
+function drawAxes(data, timeFrame) {
     // time format for X axis
     let t = '%d.%m';
     if (timeFrame == 'day') t = '%H:00';
@@ -236,7 +236,7 @@ function updateTimeLine(timeFrame, buildingOn) {
         // update header
         document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(data[data.length - 1]['timestamp']);
 
-        let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data);
+        let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame);
 
         /*if (wSolar == false) */
         BarChart(svg, data, width, height, maxY, x, y);
