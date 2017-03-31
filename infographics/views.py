@@ -1,4 +1,3 @@
-from django.contrib.auth import authenticate
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
@@ -55,20 +54,6 @@ def timeline_update(request):
                 row['a_consumptionLessSavings'] = float(j['consumptionLessSavings'])
 
     return JsonResponse(data, safe=False)
-
-
-def login(request):
-    if request.method == "POST":
-        user = authenticate(
-            username=request.POST.get('username', ''),
-            password=request.POST.get('password', '')
-        )
-        if user is None:
-            return render(request, 'infographics/login.html', {'error_message': 'Invalid login'})
-        else:
-            return redirect("index")
-    else:
-        return render(request, "infographics/login.html")
 
 
 def logout_user(request):
