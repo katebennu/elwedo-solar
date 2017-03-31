@@ -182,7 +182,7 @@ function parseData(data) {
 }
 
 
-function dataTotal(data) {
+function getDataTotal(data) {
     let consumptionTotal = 0, productionTotal = 0, savingsTotal = 0, earningsTotal = 0;
     for (let i = 0; i < data.length; i++) {
         consumptionTotal += data[i]['a_consumption'];
@@ -196,6 +196,18 @@ function dataTotal(data) {
         'savingsTotal': savingsTotal,
         'earningsTotal': earningsTotal
     };
+}
+
+function getStackedData(data) {
+    let result = [];
+    for (let i = 0; i < data.length; i++) {
+        let row = [];
+        row.push(data[i]['timestamp']);
+        row.push(data[i]['b_consumptionLessSavings']);
+        row.push(data[i]['b_production']);
+        result.push(row);
+    }
+    return result;
 }
 
 function CO2Chart() {
@@ -222,16 +234,20 @@ function updateTimeLine(timeFrame, buildingOn) {
         // clean existing chart
         document.getElementById('timeline-chart').innerHTML = '';
 
-// DEBUG
+
+
+        data = parseData(data);
+        let totals = getDataTotal(data);
+        let stackedData = getStackedData(data);
+
+        // DEBUG
         let out = document.getElementById('formatted');
         // out.innerHTML = JSON.stringify(buildingOn);
-        // console.log(JSON.stringify(buildingOn));
+        console.log(JSON.stringify(stackedData));
         //out.innerHTML = buildingOn;
         //console.log(buildingOn);
 //
 
-        data = parseData(data);
-        let totals = dataTotal(data);
 
         // update header
         document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(data[data.length - 1]['timestamp']);
