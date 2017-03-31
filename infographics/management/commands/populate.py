@@ -1,6 +1,10 @@
 from django.core.management.base import BaseCommand
-from infographics.models import Building, Apartment, Grid, PanelsToInstall
 from django.contrib.auth import get_user_model
+
+from infographics.models import Building, Apartment, Grid, PanelsToInstall
+
+from .progress_bar import show_progress
+
 
 User = get_user_model()
 
@@ -32,7 +36,10 @@ class Command(BaseCommand):
 
         area = round(total_area / total_apartments)
         inhabitants = round(total_inhabitants / total_apartments)
+
         for n in range(total_apartments):
+            show_progress((n / total_apartments) * 100)
+
             username = 'user_' + str(n + 1)
             password = 'pass_' + str(n + 1)
             u = User.objects.create_user(username=username)
