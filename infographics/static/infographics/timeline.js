@@ -201,11 +201,11 @@ function getDataTotal(data) {
 function getStackedData(data) {
     let result = [];
     for (let i = 0; i < data.length; i++) {
-        let row = [];
-        row.push(data[i]['timestamp']);
-        row.push(data[i]['b_consumptionLessSavings']);
-        row.push(data[i]['b_production']);
-        result.push(row);
+        // let row = [];
+        // row.push(data[i]['timestamp']);
+        // row.push(data[i]['b_consumptionLessSavings']);
+        // row.push(data[i]['b_production']);
+        result.push([data[i]['timestamp'], data[i]['b_consumptionLessSavings'], data[i]['b_production']]);
     }
     return result;
 }
