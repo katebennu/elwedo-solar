@@ -1,5 +1,5 @@
 from django.conf.urls import url
-from django.contrib.auth.views import login
+from django.contrib.auth.views import login, logout
 
 from . import views
 
@@ -13,5 +13,5 @@ urlpatterns = [
         template_name='infographics/login.html',
         redirect_authenticated_user=True
     ), name='login'),
-    url(r'^logout/$', views.logout, name='logout'),
+    url(r'^logout/$', logout, name='logout'),
 ]

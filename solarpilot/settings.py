@@ -144,4 +144,5 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 LOGIN_URL = 'infographics:login'
 LOGIN_REDIRECT_URL = 'infographics:index'
+LOGOUT_REDIRECT_URL = 'infographics:login'
 

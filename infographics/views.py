@@ -1,7 +1,6 @@
-from django.contrib.auth import logout as do_logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 from infographics.models import Building, Apartment
 
@@ -54,8 +53,3 @@ def timeline_update(request):
                 row['a_consumptionLessSavings'] = float(j['consumptionLessSavings'])
 
     return JsonResponse(data, safe=False)
-
-
-def logout(request):
-    do_logout(request)
-    return redirect("infographics:index")
