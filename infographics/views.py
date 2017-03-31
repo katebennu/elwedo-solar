@@ -1,9 +1,8 @@
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
 from django.contrib.auth import logout
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from infographics.forms import UserForm
 from infographics.models import Building, Apartment
 
 
@@ -61,16 +60,14 @@ def timeline_update(request):
 # @never_cache
 def login_user(request):
     if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-
+        user = authenticate(
+            username=request.POST.get('username', ''),
+            password=request.POST.get('password', '')
+        )
         if user is None:
             return render(request, 'infographics/login.html', {'error_message': 'Invalid login'})
         else:
-            login(request, user)
-            apartment = Apartment.objects.filter(user=request.user)
-            return render(request, 'infographics/index.html', {'apartment': apartment})
+            return redirect("index")
 
 
 def login_page(request):
@@ -79,6 +76,4 @@ def login_page(request):
 
 def logout_user(request):
     logout(request)
-    return render(request, 'infographics/login.html', {
-        "form": UserForm(request.POST or None),
-    })
+    return redirect("index")
