@@ -39,10 +39,9 @@ class Command(BaseCommand):
 
         for n in range(total_apartments):
             show_progress((n / total_apartments) * 100)
-
             username = 'user_' + str(n + 1)
             password = 'pass_' + str(n + 1)
-            u = User.objects.create_user(username=username)
+            u, _ = User.objects.get_or_create(username=username)
             u.set_password(password)
             u.save()
             a = Apartment(number=n + 1, area=area, inhabitants=inhabitants, building=building, user=u)
