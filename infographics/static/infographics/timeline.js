@@ -138,39 +138,39 @@ function color(n) {
     return colors[n];
 }
 
-function stackedBarChart(d3, svg, data, width, height, maxY, x, y) {
-
-// make a stacked chart http://www.adeveloperdiary.com/d3-js/create-stacked-bar-chart-using-d3-js/
-
-    /*    let dataIntermediate = ['savings', 'consumptionLessSavings'].map(function (key) {
-     return data.map(function (d) {
-     return {x: d['timestamp'], y: d[key]};
-     });
-     });
-
-     let dataStackLayout = d3.stack()(dataIntermediate);*/
-
-    let stack = d3.stack()
-        .keys(['savings', 'consumptionLessSavings'])
-        .order(d3.stackOrderNone)
-        .offset(d3.stackOffsetNone);
-
-    let series = stack(data);
-
-    let layer = svg.selectAll('.stack')
-        .data(series)
-        .enter().append('g')
-        .attr('class', 'stack')
-        .style('fill', (d, i) => color(i));
-
-    layer.selectAll('rect')
-        .data(d => d)
-        .enter().append('rect')
-        .attr('x', d => x(d.x))
-        .attr('y', d => y(d.y + d.y0))
-        .attr('width', d => width / data.length - 2)
-        .attr('height', d => y(d.y0) - y(d.y + d.y0));
-}
+// function stackedBarChart(d3, svg, data, width, height, maxY, x, y) {
+//
+// // make a stacked chart http://www.adeveloperdiary.com/d3-js/create-stacked-bar-chart-using-d3-js/
+//
+//     /*    let dataIntermediate = ['savings', 'consumptionLessSavings'].map(function (key) {
+//      return data.map(function (d) {
+//      return {x: d['timestamp'], y: d[key]};
+//      });
+//      });
+//
+//      let dataStackLayout = d3.stack()(dataIntermediate);*/
+//
+//     let stack = d3.stack()
+//         .keys(['savings', 'consumptionLessSavings'])
+//         .order(d3.stackOrderNone)
+//         .offset(d3.stackOffsetNone);
+//
+//     let series = stack(data);
+//
+//     let layer = svg.selectAll('.stack')
+//         .data(series)
+//         .enter().append('g')
+//         .attr('class', 'stack')
+//         .style('fill', (d, i) => color(i));
+//
+//     layer.selectAll('rect')
+//         .data(d => d)
+//         .enter().append('rect')
+//         .attr('x', d => x(d.x))
+//         .attr('y', d => y(d.y + d.y0))
+//         .attr('width', d => width / data.length - 2)
+//         .attr('height', d => y(d.y0) - y(d.y + d.y0));
+// }
 
 function parseData(data) {
     let isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
@@ -198,17 +198,31 @@ function getDataTotal(data) {
     };
 }
 
-function getStackedData(data) {
-    let result = [];
-    for (let i = 0; i < data.length; i++) {
-        // let row = [];
-        // row.push(data[i]['timestamp']);
-        // row.push(data[i]['b_consumptionLessSavings']);
-        // row.push(data[i]['b_production']);
-        result.push([data[i]['timestamp'], data[i]['b_consumptionLessSavings'], data[i]['b_production']]);
+function stackedChart(data, buildingOn) {
+    let matrix = [];
+    if (buildingOn == true) {
+        for (let i = 0; i < data.length; i++) {
+            matrix.push([data[i]['timestamp'], data[i]['b_consumptionLessSavings'], data[i]['b_savings']]);
+        }
+    } else {
+        for (let i = 0; i < data.length; i++) {
+            matrix.push([data[i]['timestamp'], data[i]['a_consumptionLessSavings'], data[i]['a_savings']]);
+        }
     }
-    return result;
+    console.log(matrix);
+
+    let remapped = ['cLS', 's'].map(function (dat, i) {
+        return matrix.map(function (d, ii) {
+            return {x: ii, y: d[i + 1]};
+        })
+    });
+
+    let stacked = d3.stack()(remapped);
+    console.log(stacked)
+
+
 }
+
 
 function CO2Chart() {
 
@@ -235,15 +249,13 @@ function updateTimeLine(timeFrame, buildingOn) {
         document.getElementById('timeline-chart').innerHTML = '';
 
 
-
         data = parseData(data);
         let totals = getDataTotal(data);
-        let stackedData = getStackedData(data);
 
         // DEBUG
         let out = document.getElementById('formatted');
         // out.innerHTML = JSON.stringify(buildingOn);
-        console.log(JSON.stringify(stackedData));
+        //console.log(JSON.stringify(data));
         //out.innerHTML = buildingOn;
         //console.log(buildingOn);
 //
@@ -255,7 +267,8 @@ function updateTimeLine(timeFrame, buildingOn) {
         let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame);
 
         /*if (wSolar == false) */
-        BarChart(svg, data, width, height, maxY, x, y);
+        //BarChart(svg, data, width, height, maxY, x, y);
+        stackedChart(data, buildingOn, svg, width, height, maxY, x, y);
 
         //CO2Chart(data);
 
