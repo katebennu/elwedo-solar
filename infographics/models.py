@@ -34,6 +34,23 @@ class Apartment(models.Model):
     def get_panels_estimate(self):
         return PanelsToInstall.objects.filter(building=self, use=True)[0].number_of_units
 
+    def _get_timestamp_data(self, timestamp, consumption, production):
+        savings = consumption - production
+        if savings < 0:
+            savings = consumption
+        earnings = production - consumption
+        if earnings < 0:
+            earnings = 0
+
+        return {
+            'timestamp': timestamp,
+            'consumption': consumption,
+            'production': production,
+            'savings': savings,
+            'consumptionLessSavings': consumption - savings,
+            'earnings': earnings
+        }
+
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
         latest = self.get_latest_time()
@@ -46,19 +63,7 @@ class Apartment(models.Model):
         result = []
         for i in q_consumption:
             production = q_production.filter(timestamp=i.timestamp)[0].value_per_unit * panels / self.building.total_apartments
-            savings = i.value - production
-            if savings < 0:
-                savings = i.value
-            earnings = production - i.value
-            if earnings < 0:
-                earnings = 0
-            result.append({
-                'timestamp': i.timestamp,
-                'consumption': i.value,
-                'production': production,
-                'savings': savings,
-                'consumptionLessSavings': i.value - savings,
-                'earnings': earnings})
+            result.append(self._get_timestamp_data(i.timestamp, i.value, production))
         return result
 
     def get_multiple_days_data(self, days):
@@ -174,21 +179,7 @@ class Building(models.Model):
             production_value = production_by_days.filter(timestamp__day=d.day).aggregate(Sum('value_per_unit'))
             consumption = consumption_value['value__sum']
             production = production_value['value_per_unit__sum'] * panels
-
-            savings = consumption - production
-            if savings < 0:
-                savings = consumption
-            earnings = production - consumption
-            if earnings < 0:
-                earnings = 0
-
-            result.append({'timestamp': d,
-                           'consumption': consumption,
-                           'production': production,
-                           'savings': savings,
-                           'consumptionLessSavings': consumption - savings,
-                           'earnings': earnings
-                           })
+            result.append(self._get_timestamp_data(d, consumption, production))
         return result
 
     def __str__(self):
