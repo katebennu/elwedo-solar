@@ -1,9 +1,14 @@
-from django.core.management.base import BaseCommand
-from infographics.models import Building, Apartment, ConsumptionMeasurement
 import csv, os
+
 from datetime import datetime
+
 from pytz import timezone
-import pytz
+
+from django.core.management.base import BaseCommand
+
+from infographics.models import Building, Apartment, ConsumptionMeasurement
+
+from .progress_bar import show_progress
 
 
 class Command(BaseCommand):
@@ -22,7 +27,12 @@ class Command(BaseCommand):
 
         with open(os.path.join(module_dir, "fixtures", 'Fregatti_short.csv')) as file:
             reader = csv.reader(file)
-            for row in reader:
+            rows = list(reader)
+            total_rows = len(rows)
+            cursor = 0
+            for row in rows:
+                show_progress(cursor, total_rows)
+
                 parse_time = datetime.strptime(row[0], '%d.%m.%Y %H:%M:%S')
                 _, created = ConsumptionMeasurement.objects.get_or_create(
                     building=building,
@@ -38,4 +48,4 @@ class Command(BaseCommand):
                         value=float(row[1]) / building.total_apartments * r
                     )
 
-
+                cursor += 1

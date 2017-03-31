@@ -38,7 +38,7 @@ class Command(BaseCommand):
         inhabitants = round(total_inhabitants / total_apartments)
 
         for n in range(total_apartments):
-            show_progress((n / total_apartments) * 100)
+            show_progress(n, total_apartments)
             username = 'user_' + str(n + 1)
             password = 'pass_' + str(n + 1)
             u, _ = User.objects.get_or_create(username=username)

@@ -1,7 +1,8 @@
 import sys
 
 
-def show_progress(percentage, bars=25):
+def show_progress(current, total, bars=25):
+    percentage = (current / total) * 100
     sys.stdout.write("\r")
     percents_per_bar = (100 / bars)
     number_of_bars = int(percentage / percents_per_bar)
