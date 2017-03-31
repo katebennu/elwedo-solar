@@ -1,11 +1,13 @@
 from django.contrib.auth import authenticate
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 
 from infographics.models import Building, Apartment
 
 
+@login_required
 def index(request):
     return render(request, "infographics/index.html")
 
@@ -55,10 +57,7 @@ def timeline_update(request):
     return JsonResponse(data, safe=False)
 
 
-# @sensitive_post_parameters()
-# @csrf_protect
-# @never_cache
-def login_user(request):
+def login(request):
     if request.method == "POST":
         user = authenticate(
             username=request.POST.get('username', ''),
@@ -68,10 +67,8 @@ def login_user(request):
             return render(request, 'infographics/login.html', {'error_message': 'Invalid login'})
         else:
             return redirect("index")
-
-
-def login_page(request):
-    return render(request, "infographics/login.html")
+    else:
+        return render(request, "infographics/login.html")
 
 
 def logout_user(request):
