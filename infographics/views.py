@@ -13,7 +13,7 @@ def index(request):
 def timeline_update(request):
 
     building = Building.objects.first()
-    apartment = Apartment.objects.filter(user=request.user)[0]
+    apartment = Apartment.objects.get(user=request.user)
 
     time_frame = request.GET.get('timeFrame')
 
