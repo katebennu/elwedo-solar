@@ -142,5 +142,6 @@ STATIC_URL = '/static/'
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 
-LOGIN_URL = '/infographics/login/'
+LOGIN_URL = 'infographics:login'
+LOGIN_REDIRECT_URL = 'infographics:index'
 

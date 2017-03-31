@@ -58,4 +58,4 @@ def timeline_update(request):
 
 def logout(request):
     do_logout(request)
-    return redirect("index")
+    return redirect("infographics:index")
