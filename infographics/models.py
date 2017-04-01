@@ -25,7 +25,7 @@ def get_data_for_range(
     latest_consumption = consumption_measurement_query_set.order_by('-timestamp').first().timestamp
     latest_production = ProductionMeasurement.objects.order_by('-timestamp').first().timestamp
 
-    number_of_panels = PanelsToInstall.objects.get(building=building, use=True).number_of_units
+    number_of_panels = PanelsToInstall.objects.filter(building=building, use=True)[0].number_of_units
 
     for time_range in range_generator(lambda: min(latest_consumption, latest_production)):
         consumption_measurements = consumption_measurement_query_set.filter(timestamp__range=time_range)
@@ -44,7 +44,7 @@ def get_data_for_range(
             earnings = 0
 
         yield {
-            'timestamp': pytz.UTC.localize(time_range.end),
+            'timestamp': time_range.end,
             'consumption': float(consumption),
             'production': float(production),
             'savings': float(savings),
