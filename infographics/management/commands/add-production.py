@@ -42,3 +42,5 @@ class Command(BaseCommand):
                     timestamp=datetime(parse_time.year, parse_time.month, parse_time.day, parse_time.hour, parse_time.minute, tzinfo=utc),
                              value_per_unit = float(value_per_unit)
                 )
+
+                cursor += 1
