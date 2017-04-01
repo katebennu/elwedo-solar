@@ -20,7 +20,7 @@ class Command(BaseCommand):
         utc = timezone('UTC')
         module_dir = os.path.dirname(os.path.abspath(__file__))
 
-        with open(os.path.join(module_dir, "fixtures", 'Suvilahti_2017_March.csv')) as file:
+        with open(os.path.join(module_dir, "fixtures", 'production_tiny.csv')) as file:
             reader = csv.reader(file, delimiter=',')
             rows = list(reader)
             total_rows = len(rows)

@@ -25,7 +25,7 @@ class Command(BaseCommand):
         utc = timezone('UTC')
         module_dir = os.path.dirname(os.path.abspath(__file__))
 
-        with open(os.path.join(module_dir, "fixtures", 'Fregatti_short.csv')) as file:
+        with open(os.path.join(module_dir, "fixtures", 'consumption_tiny.csv')) as file:
             reader = csv.reader(file)
             rows = list(reader)
             total_rows = len(rows)
