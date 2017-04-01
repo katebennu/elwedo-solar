@@ -43,11 +43,11 @@ def get_data_for_range(
 
         yield {
             'timestamp': time_range.end,
-            'consumption': consumption,
-            'production': production,
-            'savings': savings,
-            'consumptionLessSavings': consumption - savings,
-            'earnings': earnings
+            'consumption': float(consumption),
+            'production': float(production),
+            'savings': float(savings),
+            'consumptionLessSavings': float(consumption - savings),
+            'earnings': float(earnings)
         }
 
 
