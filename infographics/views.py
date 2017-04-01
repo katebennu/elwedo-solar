@@ -55,7 +55,7 @@ def timeline_update(request):
                 row['a_production'] = float(j['production'])
                 row['a_savings'] = float(j['savings'])
                 row['a_earnings'] = float(j['earnings'])
-                row['a_consumptionLessSavings'] = float(i['consumptionLessSavings'])
+                row['a_consumptionLessSavings'] = float(j['consumptionLessSavings'])
 
     return JsonResponse(data, safe=False)
 

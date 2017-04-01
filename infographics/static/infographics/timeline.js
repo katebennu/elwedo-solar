@@ -1,9 +1,10 @@
 let timeFrame = 'day';
 let buildingOn = false;
+let savingsOn = true;
 
-updateTimeLine(timeFrame, buildingOn);
+updateTimeLine(timeFrame = 'day', buildingOn = false);
 
-document.getElementById("daySwitch").addEventListener('click', function (timeFrame) {
+document.getElementById("daySwitch").addEventListener('click', function (timeFrame, buildingOn) {
     $('#daySwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
@@ -11,14 +12,14 @@ document.getElementById("daySwitch").addEventListener('click', function (timeFra
     updateTimeLine(timeFrame, buildingOn);
 
 });
-document.getElementById("weekSwitch").addEventListener('click', function (timeFrame) {
+document.getElementById("weekSwitch").addEventListener('click', function (timeFrame, buildingOn) {
     $('#weekSwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'week';
     updateTimeLine(timeFrame, buildingOn);
 });
-document.getElementById("monthSwitch").addEventListener('click', function (timeFrame) {
+document.getElementById("monthSwitch").addEventListener('click', function (timeFrame, buildingOn) {
     $('#monthSwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
@@ -31,6 +32,7 @@ document.getElementById('building-switch').addEventListener('click', function (e
     if (buildingOn == false) {
         buildingOn = true;
         $('#building-switch').removeClass('graph-control-off').addClass('graph-control-on');
+
     }
     else if (buildingOn == true) {
         buildingOn = false;
@@ -39,7 +41,7 @@ document.getElementById('building-switch').addEventListener('click', function (e
     updateTimeLine(timeFrame, buildingOn);
 });
 
-function responsivefy(svg) {
+function responsivefy(svg, timeFrame) {
     let container = d3.select(svg.node().parentNode),
         width = parseInt(svg.style("width")),
         height = parseInt(svg.style("height")),
@@ -55,19 +57,11 @@ function responsivefy(svg) {
     }
 }
 
-function drawAxes(data, timeFrame) {
+function drawAxes(data, timeFrame, buildingOn) {
     // time format for X axis
     let t = '%d.%m';
     if (timeFrame == 'day') t = '%H:00';
     let formatTime = d3.timeFormat(t);
-
-    /*        let stack = d3.stack()
-     .keys(['savings', 'consumptionLessSavings'])
-     .order(d3.stackOrderNone)
-     .offset(d3.stackOffsetNone);
-
-     let series = stack(data);*/
-
 
     let margin = {top: 10, right: 20, bottom: 60, left: 30};
     let width = 400 - margin.left - margin.right;
@@ -79,10 +73,6 @@ function drawAxes(data, timeFrame) {
         .call(responsivefy)
         .append('g')
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
-
-    // let maxC = d3.max(data.map(d => d.consumption));
-    // let maxP = d3.max(data.map(d => d.production));
-    // let maxY = Math.max(maxC, maxP);
 
     let maxY = d3.max(data.map(function (d) {
         if (buildingOn == true) return d.b_consumption;
@@ -102,9 +92,6 @@ function drawAxes(data, timeFrame) {
         .tickSize(4)
         .tickPadding(5)
         .tickFormat(formatTime);
-
-    let z = d3.scaleOrdinal()
-        .range(["#F8F6E8", "#56EDA8"]);
 
     svg.call(yAxis)
         .append('g')
@@ -133,45 +120,6 @@ function BarChart(svg, data, width, height, maxY, x, y) {
         })
 }
 
-function color(n) {
-    let colors = ['#56EDA8', '#F4F1E4'];
-    return colors[n];
-}
-
-// function stackedBarChart(d3, svg, data, width, height, maxY, x, y) {
-//
-// // make a stacked chart http://www.adeveloperdiary.com/d3-js/create-stacked-bar-chart-using-d3-js/
-//
-//     /*    let dataIntermediate = ['savings', 'consumptionLessSavings'].map(function (key) {
-//      return data.map(function (d) {
-//      return {x: d['timestamp'], y: d[key]};
-//      });
-//      });
-//
-//      let dataStackLayout = d3.stack()(dataIntermediate);*/
-//
-//     let stack = d3.stack()
-//         .keys(['savings', 'consumptionLessSavings'])
-//         .order(d3.stackOrderNone)
-//         .offset(d3.stackOffsetNone);
-//
-//     let series = stack(data);
-//
-//     let layer = svg.selectAll('.stack')
-//         .data(series)
-//         .enter().append('g')
-//         .attr('class', 'stack')
-//         .style('fill', (d, i) => color(i));
-//
-//     layer.selectAll('rect')
-//         .data(d => d)
-//         .enter().append('rect')
-//         .attr('x', d => x(d.x))
-//         .attr('y', d => y(d.y + d.y0))
-//         .attr('width', d => width / data.length - 2)
-//         .attr('height', d => y(d.y0) - y(d.y + d.y0));
-// }
-
 function parseData(data) {
     let isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
     let process = function (d) {
@@ -181,8 +129,7 @@ function parseData(data) {
     return data;
 }
 
-
-function dataTotal(data) {
+function getDataTotal(data) {
     let consumptionTotal = 0, productionTotal = 0, savingsTotal = 0, earningsTotal = 0;
     for (let i = 0; i < data.length; i++) {
         consumptionTotal += data[i]['a_consumption'];
@@ -197,6 +144,60 @@ function dataTotal(data) {
         'earningsTotal': earningsTotal
     };
 }
+
+function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
+    data = [];
+    if (buildingOn == true) {
+        for (let i = 0; i < fullData.length; i++) {
+            data.push({
+                'timestamp': fullData[i]['timestamp'],
+                'savings': fullData[i]['b_savings'],
+                'consumptionLessSavings': fullData[i]['b_consumptionLessSavings']
+            });
+        }
+    } else {
+        for (let i = 0; i < fullData.length; i++) {
+            data.push({
+                'timestamp': fullData[i]['timestamp'],
+                'savings': fullData[i]['a_savings'],
+                'consumptionLessSavings': fullData[i]['a_consumptionLessSavings']
+            });
+        }
+    }
+    data.push({'columns': ['timestamp', 'savings', 'consumptionLessSavings']});
+
+    let keys = ['savings', 'consumptionLessSavings'];
+    let z = d3.scaleOrdinal()
+        .range(["#F4F1E4", "#56eda8"]);
+    z.domain(keys);
+
+    svg.append("g")
+        .selectAll("g")
+        .data(d3.stack().keys(keys)(data))
+        .enter().append("g")
+        .attr("fill", function (d) {
+            return z(d.key);
+        })
+        .selectAll("rect")
+        .data(function (d) {
+            return d;
+        })
+        .enter().append("rect")
+        .attr("x", function (d) {
+            return x(d.data.timestamp);
+        })
+        .attr("y", function (d) {
+            return y(d[1]);
+        })
+        .attr("height", function (d) {
+            return y(d[0]) - y(d[1]);
+        })
+        .attr("width", d => width / data.length - 2);
+
+
+    return data;
+}
+
 
 function CO2Chart() {
 
@@ -222,28 +223,33 @@ function updateTimeLine(timeFrame, buildingOn) {
         // clean existing chart
         document.getElementById('timeline-chart').innerHTML = '';
 
-// DEBUG
-        let out = document.getElementById('formatted');
-        // out.innerHTML = JSON.stringify(buildingOn);
-        // console.log(JSON.stringify(buildingOn));
-        //out.innerHTML = buildingOn;
-        //console.log(buildingOn);
-//
 
         data = parseData(data);
-        let totals = dataTotal(data);
+        let totals = getDataTotal(data);
+
 
         // update header
         document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(data[data.length - 1]['timestamp']);
 
-        let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame);
+        let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame, buildingOn);
 
         /*if (wSolar == false) */
-        BarChart(svg, data, width, height, maxY, x, y);
+        //BarChart(svg, data, width, height, maxY, x, y);
+        let stackedData = stackedChart(data, buildingOn, svg, width, height, maxY, x, y);
+
+// DEBUG
+        let out = document.getElementById('formatted');
+        // out.innerHTML = JSON.stringify(buildingOn);
+        //console.log(JSON.stringify(data));
+        //out.innerHTML = buildingOn;
+        console.log(stackedData);
+//
+
 
         //CO2Chart(data);
 
         // update car section
         carSection(totals, timeFrame);
     });
+    return [timeFrame, buildingOn]
 }
