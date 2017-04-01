@@ -175,7 +175,7 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
         .range(["#98abc5", "#8a89a6"]);
     z.domain(keys);
 
-    g.append("g")
+    svg.append("g")
         .selectAll("g")
         .data(d3.stack().keys(keys)(data))
     .enter().append("g")
@@ -186,7 +186,7 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
       .attr("x", function(d) { return x(d.data.timestamp); })
       .attr("y", function(d) { return y(d[1]); })
       .attr("height", function(d) { return y(d[0]) - y(d[1]); })
-      .attr("width", x.bandwidth());
+      .attr("width", d => width / data.length - 2);
 
 
 
