@@ -1,10 +1,41 @@
-from datetime import timedelta, datetime
-
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import Sum
-from django.db.models.functions import Trunc
+
+from .utils.range import daily, hourly
+
+
+def get_data_for_range(consumption_measurement_query_set, end_limit_function, building, apartment_divisor):
+    latest_consumption = consumption_measurement_query_set.order_by('-timestamp').first().timestamp
+    latest_production = ProductionMeasurement.objects.order_by('-timestamp').first().timestamp
+
+    number_of_panels = PanelsToInstall.objects.get(building=building, use=True).number_of_units
+
+    for range in end_limit_function(lambda: min(latest_consumption, latest_production)):
+        consumption_measurements = consumption_measurement_query_set.filter(
+            timestamp__range=[range.start, range.end])
+        production_measurements = ProductionMeasurement.objects.query_production(
+            range.start, range.end)
+
+        consumption = consumption_measurements.aggregate(Sum('value'))
+        production = production_measurements.aggregate(Sum('value_per_unit')) * number_of_panels / apartment_divisor
+
+        savings = consumption - production
+        if savings < 0:
+            savings = consumption
+        earnings = production - consumption
+        if earnings < 0:
+            earnings = 0
+
+        yield {
+            'timestamp': range.end,
+            'consumption': consumption,
+            'production': production,
+            'savings': savings,
+            'consumptionLessSavings': consumption - savings,
+            'earnings': earnings
+        }
 
 
 class Apartment(models.Model):
@@ -21,86 +52,21 @@ class Apartment(models.Model):
     building = models.ForeignKey('Building')
     user = models.OneToOneField(User, related_name='apartment', default=1)
 
-    def get_latest_time(self):
-        # get latest timestamps
-        latest_consumption = self.consumptionmeasurement_set.order_by('-timestamp').first().timestamp
-        latest_production = ProductionMeasurement.objects.order_by('-timestamp').first().timestamp
-        # compare timestamps and find out which is the earliest of the two
-        return min(latest_consumption, latest_production)
-
-    def query_consumption(self, earliest, latest):
-        return self.consumptionmeasurement_set.filter(timestamp__range=[earliest, latest])
-
-    def get_panels_estimate(self):
-        return PanelsToInstall.objects.filter(building=self, use=True)[0].number_of_units
-
-    def _get_timestamp_data(self, timestamp, consumption, production):
-        savings = consumption - production
-        if savings < 0:
-            savings = consumption
-        earnings = production - consumption
-        if earnings < 0:
-            earnings = 0
-
-        return {
-            'timestamp': timestamp,
-            'consumption': consumption,
-            'production': production,
-            'savings': savings,
-            'consumptionLessSavings': consumption - savings,
-            'earnings': earnings
-        }
-
-    def _get_range(self, step_in_seconds, number_of_steps):
-        base = datetime.now()
-
-        for i in range(0, number_of_steps):
-            yield base - timedelta(seconds=(number_of_steps - i) * step_in_seconds)
-
+    def _get_data_estimates(self, end_limit_function):
+        return list(get_data_for_range(
+            consumption_measurement_query_set=self.consumptionmeasurement_set,
+            end_limit_function=end_limit_function,
+            building=self.building,
+            apartment_divisor=self.building.total_apartments
+        ))
 
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
-        latest = self.get_latest_time()
-        earliest = latest - timedelta(hours=23)
-        q_consumption = self.query_consumption(earliest, latest)
-        q_production = ProductionMeasurement.objects.query_production(earliest, latest)
-
-        panels = self.building.get_panels_estimate()
-
-        #for frame self._get_range(60*60, 23)
-
-        result = []
-        for i in q_consumption:
-            result.append(self._get_timestamp_data(
-                timestamp=i.timestamp,
-                consumption=i.value,
-                production=q_production.filter(timestamp=i.timestamp)[0].value_per_unit * panels /
-                           self.building.total_apartments
-            ))
-        return result
+        return self._get_data_estimates(hourly)
 
     def get_multiple_days_data(self, days):
         """ Returns consumption and production data for the latest N days in the database"""
-        latest = self.get_latest_time()
-        earliest = (latest - timedelta(days=days)).replace(hour=0)
-        q_consumption = self.query_consumption(earliest, latest)
-        q_production = ProductionMeasurement.objects.query_production(earliest, latest)
-        # add annotation day
-        consumption_by_days = q_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
-        production_by_days = q_production.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
-
-        panels = self.building.get_panels_estimate()
-
-        result = []
-        for d in consumption_by_days.order_by("timestamp__day").distinct("timestamp__day"):
-            consumption_value = consumption_by_days.filter(timestamp__day=d.day).aggregate(Sum('value'))
-            production_value = production_by_days.filter(timestamp__day=d.day).aggregate(Sum('value_per_unit'))
-            result.append(self._get_timestamp_data(
-                timestamp=d,
-                consumption=consumption_value['value__sum'],
-                production=production_value['value_per_unit__sum'] * panels
-            ))
-        return result
+        return self._get_data_estimates(daily)
 
     def __str__(self):
         return str(self.building.address) + ', Apartment #' + str(self.number)
@@ -117,69 +83,21 @@ class Building(models.Model):
     total_inhabitants = models.fields.IntegerField(validators=[MinValueValidator(0),
                                                                MaxValueValidator(9999)])
 
-    def get_latest_time(self):
-        # get latest timestamps
-        latest_consumption = self.consumptionmeasurement_set.order_by('-timestamp').first().timestamp
-        latest_production = ProductionMeasurement.objects.order_by('-timestamp').first().timestamp
-        # compare timestamps and find out which is the earliest of the two
-        return min(latest_consumption, latest_production)
-
-    def query_consumption(self, earliest, latest):
-        return self.consumptionmeasurement_set.filter(timestamp__range=[earliest, latest])
-
-    def get_panels_estimate(self):
-        return PanelsToInstall.objects.filter(building=self, use=True)[0].number_of_units
+    def _get_data_estimates(self, end_limit_function):
+        return list(get_data_for_range(
+            consumption_measurement_query_set=self.consumptionmeasurement_set,
+            end_limit_function=end_limit_function,
+            building=self,
+            apartment_divisor=0
+        ))
 
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
-        latest = self.get_latest_time()
-        earliest = latest - timedelta(hours=23)
-        q_consumption = self.query_consumption(earliest, latest)
-        q_production = ProductionMeasurement.objects.query_production(earliest, latest)
-
-        panels = self.get_panels_estimate()
-
-        result = []
-        for i in q_consumption:
-            production = q_production.filter(timestamp=i.timestamp)[0].value_per_unit * panels
-            savings = i.value - production
-            if savings < 0:
-                savings = i.value
-            earnings = production - i.value
-            if earnings < 0:
-                earnings = 0
-            result.append({
-                'timestamp': i.timestamp,
-                'consumption': i.value,
-                'production': production,
-                'savings': savings,
-                'consumptionLessSavings': i.value - savings,
-                'earnings': earnings})
-        return result
+        return self._get_data_estimates(hourly)
 
     def get_multiple_days_data(self, days):
         """ Returns consumption and production data for the latest N days in the database"""
-        latest = self.get_latest_time()
-        earliest = (latest - timedelta(days=days)).replace(hour=0)
-        q_consumption = self.query_consumption(earliest, latest)
-        q_production = ProductionMeasurement.objects.query_production(earliest, latest)
-        # add annotation day
-        consumption_by_days = q_consumption.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
-        production_by_days = q_production.annotate(day=Trunc('timestamp', 'day', output_field=models.DateTimeField()))
-        # get a set of days
-        days_list = list(set([i.day for i in consumption_by_days]))
-        days_list.sort()
-
-        panels = self.get_panels_estimate()
-
-        result = []
-        for d in days_list:
-            consumption_value = consumption_by_days.filter(timestamp__day=d.day).aggregate(Sum('value'))
-            production_value = production_by_days.filter(timestamp__day=d.day).aggregate(Sum('value_per_unit'))
-            consumption = consumption_value['value__sum']
-            production = production_value['value_per_unit__sum'] * panels
-            result.append(self._get_timestamp_data(d, consumption, production))
-        return result
+        return self._get_data_estimates(daily)
 
     def __str__(self):
         return 'Building ' + str(self.address)
@@ -222,12 +140,6 @@ class ConsumptionMeasurement(models.Model):
         return 'Consumption on ' + str(self.timestamp)
 
 
-class ProductionMeasurementManager(models.Manager):
-
-    def query_production(self, earliest, latest):
-        return self.filter(timestamp__range=[earliest, latest])
-
-
 class ProductionMeasurement(models.Model):
     timestamp = models.DateTimeField(null=True)
     value_per_unit = models.DecimalField(
@@ -235,8 +147,6 @@ class ProductionMeasurement(models.Model):
         decimal_places=2,
         validators=[MinValueValidator(0.0), MaxValueValidator(999999.99)])
     grid = models.ForeignKey('Grid')
-
-    objects = ProductionMeasurementManager()
 
     def __str__(self):
         return 'Production on ' + str(self.timestamp)
