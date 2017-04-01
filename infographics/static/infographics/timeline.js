@@ -235,7 +235,7 @@ function updateTimeLine(timeFrame, buildingOn) {
 // DEBUG
         let out = document.getElementById('formatted');
         // out.innerHTML = JSON.stringify(buildingOn);
-        //console.log(JSON.stringify(data));
+        console.log(JSON.stringify(data));
         //out.innerHTML = buildingOn;
         console.log(stackedData);
 //
