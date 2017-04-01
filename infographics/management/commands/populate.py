@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from infographics.models import Building, Apartment, Grid
+from infographics.models import Building, Apartment, Grid, PanelsToInstall
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -18,6 +18,12 @@ class Command(BaseCommand):
             total_apartments=60,
             total_area=3000,
             total_inhabitants=120,
+        )
+
+        PanelsToInstall.objects.get_or_create(
+            building=building,
+            number_of_units=100,
+            name='from populator'
         )
 
         total_apartments = building.total_apartments

@@ -120,11 +120,6 @@ function BarChart(svg, data, width, height, maxY, x, y) {
         })
 }
 
-// function color(n) {
-//     let colors = ['#56EDA8', '#F4F1E4'];
-//     return colors[n];
-// }
-
 function parseData(data) {
     let isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
     let process = function (d) {
