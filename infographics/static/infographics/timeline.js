@@ -61,14 +61,6 @@ function drawAxes(data, timeFrame) {
     if (timeFrame == 'day') t = '%H:00';
     let formatTime = d3.timeFormat(t);
 
-    /*        let stack = d3.stack()
-     .keys(['savings', 'consumptionLessSavings'])
-     .order(d3.stackOrderNone)
-     .offset(d3.stackOffsetNone);
-
-     let series = stack(data);*/
-
-
     let margin = {top: 10, right: 20, bottom: 60, left: 30};
     let width = 400 - margin.left - margin.right;
     let height = 200 - margin.top - margin.bottom;
@@ -79,10 +71,6 @@ function drawAxes(data, timeFrame) {
         .call(responsivefy)
         .append('g')
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
-
-    // let maxC = d3.max(data.map(d => d.consumption));
-    // let maxP = d3.max(data.map(d => d.production));
-    // let maxY = Math.max(maxC, maxP);
 
     let maxY = d3.max(data.map(function (d) {
         if (buildingOn == true) return d.b_consumption;
@@ -103,12 +91,10 @@ function drawAxes(data, timeFrame) {
         .tickPadding(5)
         .tickFormat(formatTime);
 
-    let z = d3.scaleOrdinal()
-        .range(["#F8F6E8", "#56EDA8"]);
-
     svg.call(yAxis)
         .append('g')
         .attr('transform', `translate(0, ${height})`)
+        .attr("fill", "#000")
         .call(xAxis);
 
     return [svg, xAxis, yAxis, width, height, maxY, x, y];
@@ -133,43 +119,9 @@ function BarChart(svg, data, width, height, maxY, x, y) {
         })
 }
 
-function color(n) {
-    let colors = ['#56EDA8', '#F4F1E4'];
-    return colors[n];
-}
-
-// function stackedBarChart(d3, svg, data, width, height, maxY, x, y) {
-//
-// // make a stacked chart http://www.adeveloperdiary.com/d3-js/create-stacked-bar-chart-using-d3-js/
-//
-//     /*    let dataIntermediate = ['savings', 'consumptionLessSavings'].map(function (key) {
-//      return data.map(function (d) {
-//      return {x: d['timestamp'], y: d[key]};
-//      });
-//      });
-//
-//      let dataStackLayout = d3.stack()(dataIntermediate);*/
-//
-//     let stack = d3.stack()
-//         .keys(['savings', 'consumptionLessSavings'])
-//         .order(d3.stackOrderNone)
-//         .offset(d3.stackOffsetNone);
-//
-//     let series = stack(data);
-//
-//     let layer = svg.selectAll('.stack')
-//         .data(series)
-//         .enter().append('g')
-//         .attr('class', 'stack')
-//         .style('fill', (d, i) => color(i));
-//
-//     layer.selectAll('rect')
-//         .data(d => d)
-//         .enter().append('rect')
-//         .attr('x', d => x(d.x))
-//         .attr('y', d => y(d.y + d.y0))
-//         .attr('width', d => width / data.length - 2)
-//         .attr('height', d => y(d.y0) - y(d.y + d.y0));
+// function color(n) {
+//     let colors = ['#56EDA8', '#F4F1E4'];
+//     return colors[n];
 // }
 
 function parseData(data) {
@@ -180,7 +132,6 @@ function parseData(data) {
     data.forEach(process);
     return data;
 }
-
 
 function getDataTotal(data) {
     let consumptionTotal = 0, productionTotal = 0, savingsTotal = 0, earningsTotal = 0;
@@ -217,6 +168,28 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
             });
         }
     }
+    data.push({'columns': ['timestamp', 'savings', 'consumptionLessSavings']});
+
+    let keys = ['savings', 'consumptionLessSavings'];
+    let z = d3.scaleOrdinal()
+        .range(["#98abc5", "#8a89a6"]);
+    z.domain(keys);
+
+    g.append("g")
+        .selectAll("g")
+        .data(d3.stack().keys(keys)(data))
+    .enter().append("g")
+      .attr("fill", function(d) { return z(d.key); })
+    .selectAll("rect")
+    .data(function(d) { return d; })
+    .enter().append("rect")
+      .attr("x", function(d) { return x(d.data.timestamp); })
+      .attr("y", function(d) { return y(d[1]); })
+      .attr("height", function(d) { return y(d[0]) - y(d[1]); })
+      .attr("width", x.bandwidth());
+
+
+
     return data;
 }
 
@@ -262,7 +235,7 @@ function updateTimeLine(timeFrame, buildingOn) {
 // DEBUG
         let out = document.getElementById('formatted');
         // out.innerHTML = JSON.stringify(buildingOn);
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
         //out.innerHTML = buildingOn;
         console.log(stackedData);
 //
