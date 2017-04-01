@@ -2,9 +2,9 @@ let timeFrame = 'day';
 let buildingOn = false;
 let savingsOn = true;
 
-updateTimeLine(timeFrame, buildingOn);
+updateTimeLine(timeFrame = 'day', buildingOn = false);
 
-document.getElementById("daySwitch").addEventListener('click', function (timeFrame) {
+document.getElementById("daySwitch").addEventListener('click', function (timeFrame, buildingOn) {
     $('#daySwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
@@ -12,14 +12,14 @@ document.getElementById("daySwitch").addEventListener('click', function (timeFra
     updateTimeLine(timeFrame, buildingOn);
 
 });
-document.getElementById("weekSwitch").addEventListener('click', function (timeFrame) {
+document.getElementById("weekSwitch").addEventListener('click', function (timeFrame, buildingOn) {
     $('#weekSwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'week';
     updateTimeLine(timeFrame, buildingOn);
 });
-document.getElementById("monthSwitch").addEventListener('click', function (timeFrame) {
+document.getElementById("monthSwitch").addEventListener('click', function (timeFrame, buildingOn) {
     $('#monthSwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
@@ -179,16 +179,25 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
     svg.append("g")
         .selectAll("g")
         .data(d3.stack().keys(keys)(data))
-    .enter().append("g")
-      .attr("fill", function(d) { return z(d.key); })
-    .selectAll("rect")
-    .data(function(d) { return d; })
-    .enter().append("rect")
-      .attr("x", function(d) { return x(d.data.timestamp); })
-      .attr("y", function(d) { return y(d[1]); })
-      .attr("height", function(d) { return y(d[0]) - y(d[1]); })
-      .attr("width", d => width / data.length - 2);
-
+        .enter().append("g")
+        .attr("fill", function (d) {
+            return z(d.key);
+        })
+        .selectAll("rect")
+        .data(function (d) {
+            return d;
+        })
+        .enter().append("rect")
+        .attr("x", function (d) {
+            return x(d.data.timestamp);
+        })
+        .attr("y", function (d) {
+            return y(d[1]);
+        })
+        .attr("height", function (d) {
+            return y(d[0]) - y(d[1]);
+        })
+        .attr("width", d => width / data.length - 2);
 
 
     return data;
@@ -236,7 +245,7 @@ function updateTimeLine(timeFrame, buildingOn) {
 // DEBUG
         let out = document.getElementById('formatted');
         // out.innerHTML = JSON.stringify(buildingOn);
-        console.log(JSON.stringify(data));
+        //console.log(JSON.stringify(data));
         //out.innerHTML = buildingOn;
         console.log(stackedData);
 //
@@ -247,4 +256,5 @@ function updateTimeLine(timeFrame, buildingOn) {
         // update car section
         carSection(totals, timeFrame);
     });
+    return [timeFrame, buildingOn]
 }
