@@ -1,5 +1,7 @@
 import datetime
 
+import pytz
+
 from collections import namedtuple
 
 Range = namedtuple("Range", ("start", "end"))
@@ -15,7 +17,7 @@ def get_ranges(step, number_of_steps, end_limit_function):
     """
     start = end_limit_function() - (step * number_of_steps)
 
-    cursor = start
+    cursor = pytz.UTC.localize(start)
     for i in range(number_of_steps):
         previous_cursor = cursor
         cursor += step
