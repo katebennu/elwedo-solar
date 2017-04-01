@@ -26,13 +26,13 @@ def get_data_for_range(
     number_of_panels = PanelsToInstall.objects.get(building=building, use=True).number_of_units
 
     for time_range in range_generator(lambda: min(latest_consumption, latest_production)):
-        consumption_measurements = consumption_measurement_query_set.filter(
-            timestamp__range=[time_range.start, time_range.end])
-        production_measurements = ProductionMeasurement.objects.query_production(
-            time_range.start, time_range.end)
+        consumption_measurements = consumption_measurement_query_set.filter(timestamp__range=time_range)
+        production_measurements = ProductionMeasurement.objects.filter(timestamp__range=time_range)
 
-        consumption = consumption_measurements.aggregate(Sum('value'))
-        production = production_measurements.aggregate(Sum('value_per_unit')) * number_of_panels / apartment_divisor
+        consumption = consumption_measurements.aggregate(Sum('value'))["value__sum"]
+
+        production = production_measurements \
+            .aggregate(Sum('value_per_unit'))["value_per_unit__sum"] * number_of_panels / apartment_divisor
 
         savings = consumption - production
         if savings < 0:

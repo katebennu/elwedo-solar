@@ -41,7 +41,7 @@ class Command(BaseCommand):
             show_progress(n, total_apartments)
             username = 'user_' + str(n + 1)
             password = 'pass_' + str(n + 1)
-            u, _ = User.objects.get_or_create(username=username)
+            u, _ = User.objects.get_or_create(username=username, is_active=True)
             u.set_password(password)
             u.save()
             a = Apartment(number=n + 1, area=area, inhabitants=inhabitants, building=building, user=u)
