@@ -5,6 +5,8 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import Sum
 
+import pytz
+
 from .utils.range import daily, hourly
 
 
@@ -42,7 +44,7 @@ def get_data_for_range(
             earnings = 0
 
         yield {
-            'timestamp': time_range.end,
+            'timestamp': pytz.UTC.localize(time_range.end),
             'consumption': float(consumption),
             'production': float(production),
             'savings': float(savings),

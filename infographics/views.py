@@ -38,6 +38,7 @@ def timeline_update(request):
     for i in data_building:
         row = {}
         data.append(row)
+
         row['timestamp'] = i['timestamp'].isoformat() + 'Z'
         row['b_consumption'] = float(i['consumption'])
         row['b_production'] = float(i['production'])
@@ -51,8 +52,5 @@ def timeline_update(request):
                 row['a_savings'] = float(j['savings'])
                 row['a_earnings'] = float(j['earnings'])
                 row['a_consumptionLessSavings'] = float(j['consumptionLessSavings'])
-
-    from pprint import pprint
-    pprint(data)
 
     return JsonResponse(data, safe=False)

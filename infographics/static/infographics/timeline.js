@@ -4,7 +4,7 @@ let savingsOn = true;
 
 updateTimeLine(timeFrame = 'day', buildingOn = false);
 
-document.getElementById("daySwitch").addEventListener('click', function (timeFrame, buildingOn) {
+document.getElementById("daySwitch").addEventListener('click', function (e) {
     $('#daySwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
@@ -12,14 +12,14 @@ document.getElementById("daySwitch").addEventListener('click', function (timeFra
     updateTimeLine(timeFrame, buildingOn);
 
 });
-document.getElementById("weekSwitch").addEventListener('click', function (timeFrame, buildingOn) {
+document.getElementById("weekSwitch").addEventListener('click', function (e) {
     $('#weekSwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'week';
     updateTimeLine(timeFrame, buildingOn);
 });
-document.getElementById("monthSwitch").addEventListener('click', function (timeFrame, buildingOn) {
+document.getElementById("monthSwitch").addEventListener('click', function (e) {
     $('#monthSwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
