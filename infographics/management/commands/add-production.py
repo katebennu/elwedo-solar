@@ -5,6 +5,8 @@ import os
 from datetime import datetime
 from pytz import timezone
 
+from .progress_bar import show_progress
+
 
 class Command(BaseCommand):
     help = 'Parse and save example production data'
@@ -20,7 +22,12 @@ class Command(BaseCommand):
 
         with open(os.path.join(module_dir, "fixtures", 'Suvilahti_2017_March.csv')) as file:
             reader = csv.reader(file, delimiter=',')
-            for row in reader:
+            rows = list(reader)
+            total_rows = len(rows)
+            cursor = 0
+            for row in rows:
+                show_progress(cursor, total_rows)
+
                 if 'Arvo (kWh)' in row:
                      continue
                 try:
