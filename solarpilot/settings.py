@@ -77,6 +77,10 @@ WSGI_APPLICATION = 'solarpilot.wsgi.application'
 
 DATABASES = {
     'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'sqlite.db',
+    },
+    'prod': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'solar',
         'USER': 'elwedo',
@@ -136,4 +140,9 @@ STATIC_URL = '/static/'
 # # https://warehouse.python.org/project/whitenoise/
 #
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+
+LOGIN_URL = 'infographics:login'
+LOGIN_REDIRECT_URL = 'infographics:index'
+LOGOUT_REDIRECT_URL = 'infographics:login'
 

@@ -1,4 +1,6 @@
 from django.conf.urls import url
+from django.contrib.auth.views import login, logout
+
 from . import views
 
 app_name = 'infographics'
@@ -7,7 +9,9 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^index/$', views.index, name='index'),  # default homepage
     url(r'^timeline-update/$', views.timeline_update),
-    url(r'^login_user/$', views.login_user, name='login_user'),
-    url(r'^login/$', views.login_page, name='login_page'),
-    url(r'^logout_user/$', views.logout_user, name='logout_user'),
+    url(r'^login/$', login, dict(
+        template_name='infographics/login.html',
+        redirect_authenticated_user=True
+    ), name='login'),
+    url(r'^logout/$', logout, name='logout'),
 ]

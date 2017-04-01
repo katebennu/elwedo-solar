@@ -9,8 +9,10 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ['username', 'password']
 
+
 class LoginForm(forms.ModelForm):
     """ Form for registering a new user """
+
     password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)
     is_developer = forms.BooleanField(label="Sign up as developer",
@@ -25,8 +27,10 @@ class LoginForm(forms.ModelForm):
         model = User
         fields = ['username', 'password']
 
+
 class EditProfileForm(forms.ModelForm):
     """ Form for editing an existing user """
+
     new_username = forms.CharField(required=False)
     password = forms.CharField(widget=forms.PasswordInput, help_text="Please provide password to apply changes")
 
@@ -34,8 +38,10 @@ class EditProfileForm(forms.ModelForm):
         model = User
         fields = ['new_username', 'password']
 
+
 class ChangePasswordForm(forms.ModelForm):
     """ Form for changing password of an existing user """
+
     current_password = forms.CharField(widget=forms.PasswordInput)
     new_password = forms.CharField(widget=forms.PasswordInput)
     confirm_password = forms.CharField(widget=forms.PasswordInput)

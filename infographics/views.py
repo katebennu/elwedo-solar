@@ -1,16 +1,11 @@
-from infographics.models import ConsumptionMeasurement, Building, Apartment, PanelsToInstall
-import json
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
-from django.contrib.auth import logout
-from django.views.generic import View
-from infographics.forms import UserForm
-from django.views.decorators.cache import never_cache
-from django.views.decorators.csrf import csrf_protect
-from django.views.decorators.debug import sensitive_post_parameters
+from django.shortcuts import render
+
+from infographics.models import Building, Apartment
 
 
+@login_required
 def index(request):
     return render(request, "infographics/index.html")
 
@@ -18,7 +13,7 @@ def index(request):
 def timeline_update(request):
 
     building = Building.objects.first()
-    apartment = Apartment.objects.filter(user=request.user)[0]
+    apartment = Apartment.objects.get(user=request.user)
 
     time_frame = request.GET.get('timeFrame')
 
@@ -43,6 +38,7 @@ def timeline_update(request):
     for i in data_building:
         row = {}
         data.append(row)
+
         row['timestamp'] = i['timestamp'].isoformat() + 'Z'
         row['b_consumption'] = float(i['consumption'])
         row['b_production'] = float(i['production'])
@@ -58,33 +54,3 @@ def timeline_update(request):
                 row['a_consumptionLessSavings'] = float(j['consumptionLessSavings'])
 
     return JsonResponse(data, safe=False)
-
-
-# @sensitive_post_parameters()
-# @csrf_protect
-# @never_cache
-def login_user(request):
-    if request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(username=username, password=password)
-
-        if user is not None:
-            login(request, user)
-            apartment = Apartment.objects.filter(user=request.user)
-            return render(request, 'infographics/index.html', {'apartment': apartment})
-
-        else:
-            return render(request, 'infographics/login.html', {'error_message': 'Invalid login'})
-
-def login_page(request):
-    return render(request, "infographics/login.html")
-
-
-def logout_user(request):
-    logout(request)
-    form = UserForm(request.POST or None)
-    context = {
-        "form": form,
-    }
-    return render(request, 'infographics/login.html', context)
