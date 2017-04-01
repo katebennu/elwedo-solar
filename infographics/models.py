@@ -81,7 +81,7 @@ class Apartment(models.Model):
             consumption_value = consumption_by_days.filter(timestamp__day=d.day).aggregate(Sum('value'))
             production_value = production_by_days.filter(timestamp__day=d.day).aggregate(Sum('value_per_unit'))
             consumption = consumption_value['value__sum']
-            production = production_value['value_per_unit__sum'] * panels
+            production = production_value['value_per_unit__sum'] * panels / self.building.total_apartments
 
             savings = consumption - production
             if savings < 0:

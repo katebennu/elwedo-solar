@@ -1,5 +1,6 @@
 let timeFrame = 'day';
 let buildingOn = false;
+let savingsOn = true;
 
 updateTimeLine(timeFrame, buildingOn);
 
@@ -31,6 +32,7 @@ document.getElementById('building-switch').addEventListener('click', function (e
     if (buildingOn == false) {
         buildingOn = true;
         $('#building-switch').removeClass('graph-control-off').addClass('graph-control-on');
+
     }
     else if (buildingOn == true) {
         buildingOn = false;
@@ -55,7 +57,7 @@ function responsivefy(svg, timeFrame) {
     }
 }
 
-function drawAxes(data, timeFrame) {
+function drawAxes(data, timeFrame, buildingOn) {
     // time format for X axis
     let t = '%d.%m';
     if (timeFrame == 'day') t = '%H:00';
@@ -94,7 +96,6 @@ function drawAxes(data, timeFrame) {
     svg.call(yAxis)
         .append('g')
         .attr('transform', `translate(0, ${height})`)
-        .attr("fill", "#000")
         .call(xAxis);
 
     return [svg, xAxis, yAxis, width, height, maxY, x, y];
@@ -172,7 +173,7 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
 
     let keys = ['savings', 'consumptionLessSavings'];
     let z = d3.scaleOrdinal()
-        .range(["#98abc5", "#8a89a6"]);
+        .range(["#F4F1E4", "#56eda8"]);
     z.domain(keys);
 
     svg.append("g")
@@ -226,7 +227,7 @@ function updateTimeLine(timeFrame, buildingOn) {
         // update header
         document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(data[data.length - 1]['timestamp']);
 
-        let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame);
+        let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame, buildingOn);
 
         /*if (wSolar == false) */
         //BarChart(svg, data, width, height, maxY, x, y);
