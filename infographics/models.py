@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
@@ -51,6 +51,13 @@ class Apartment(models.Model):
             'earnings': earnings
         }
 
+    def _get_range(self, step_in_seconds, number_of_steps):
+        base = datetime.now()
+
+        for i in range(0, number_of_steps):
+            yield base - timedelta(seconds=(number_of_steps - i) * step_in_seconds)
+
+
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
         latest = self.get_latest_time()
@@ -59,6 +66,8 @@ class Apartment(models.Model):
         q_production = ProductionMeasurement.objects.query_production(earliest, latest)
 
         panels = self.building.get_panels_estimate()
+
+        #for frame self._get_range(60*60, 23)
 
         result = []
         for i in q_consumption:
