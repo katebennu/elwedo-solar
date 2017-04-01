@@ -39,7 +39,7 @@ document.getElementById('building-switch').addEventListener('click', function (e
     updateTimeLine(timeFrame, buildingOn);
 });
 
-function responsivefy(svg) {
+function responsivefy(svg, timeFrame) {
     let container = d3.select(svg.node().parentNode),
         width = parseInt(svg.style("width")),
         height = parseInt(svg.style("height")),
@@ -198,29 +198,26 @@ function getDataTotal(data) {
     };
 }
 
-function stackedChart(data, buildingOn) {
-    let matrix = [];
+function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
+    data = [];
     if (buildingOn == true) {
-        for (let i = 0; i < data.length; i++) {
-            matrix.push([data[i]['timestamp'], data[i]['b_consumptionLessSavings'], data[i]['b_savings']]);
+        for (let i = 0; i < fullData.length; i++) {
+            data.push({
+                'timestamp': fullData[i]['timestamp'],
+                'savings': fullData[i]['b_savings'],
+                'consumptionLessSavings': fullData[i]['b_consumptionLessSavings']
+            });
         }
     } else {
-        for (let i = 0; i < data.length; i++) {
-            matrix.push([data[i]['timestamp'], data[i]['a_consumptionLessSavings'], data[i]['a_savings']]);
+        for (let i = 0; i < fullData.length; i++) {
+            data.push({
+                'timestamp': fullData[i]['timestamp'],
+                'savings': fullData[i]['a_savings'],
+                'consumptionLessSavings': fullData[i]['a_consumptionLessSavings']
+            });
         }
     }
-    console.log(matrix);
-
-    let remapped = ['cLS', 's'].map(function (dat, i) {
-        return matrix.map(function (d, ii) {
-            return {x: ii, y: d[i + 1]};
-        })
-    });
-
-    let stacked = d3.stack()(remapped);
-    console.log(stacked)
-
-
+    return data;
 }
 
 
@@ -252,14 +249,6 @@ function updateTimeLine(timeFrame, buildingOn) {
         data = parseData(data);
         let totals = getDataTotal(data);
 
-        // DEBUG
-        let out = document.getElementById('formatted');
-        // out.innerHTML = JSON.stringify(buildingOn);
-        //console.log(JSON.stringify(data));
-        //out.innerHTML = buildingOn;
-        //console.log(buildingOn);
-//
-
 
         // update header
         document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(data[data.length - 1]['timestamp']);
@@ -268,7 +257,16 @@ function updateTimeLine(timeFrame, buildingOn) {
 
         /*if (wSolar == false) */
         //BarChart(svg, data, width, height, maxY, x, y);
-        stackedChart(data, buildingOn, svg, width, height, maxY, x, y);
+        let stackedData = stackedChart(data, buildingOn, svg, width, height, maxY, x, y);
+
+// DEBUG
+        let out = document.getElementById('formatted');
+        // out.innerHTML = JSON.stringify(buildingOn);
+        console.log(JSON.stringify(data));
+        //out.innerHTML = buildingOn;
+        console.log(stackedData);
+//
+
 
         //CO2Chart(data);
 
