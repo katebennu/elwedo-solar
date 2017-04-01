@@ -9,7 +9,7 @@ def get_ranges(step, number_of_steps, end_limit_function):
     """
     :param step: timedelta specifying partitioning for the
     :param number_of_steps: number of steps to go backward in time
-    :param end_limit_function: function generating the end date for the generator
+    :param end_limit_function: function generating returning the end date for the range sequence
 
     :return: a generator over date Ranges
     """

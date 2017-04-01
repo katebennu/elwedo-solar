@@ -1,3 +1,5 @@
+from functools import partial
+
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
@@ -6,17 +8,28 @@ from django.db.models import Sum
 from .utils.range import daily, hourly
 
 
-def get_data_for_range(consumption_measurement_query_set, end_limit_function, building, apartment_divisor):
+def get_data_for_range(
+        range_generator,
+        consumption_measurement_query_set,
+        building,
+        apartment_divisor=1):
+    """
+    :param range_generator: function producing a set of datetime ranges, must accept a date time parameter as a limit
+    :param consumption_measurement_query_set: query set of consumption values
+    :param building: building object where the measurements were taken
+    :param apartment_divisor: the number of apartments if the measurements were per apartment - 1 if for a building
+    :return: generator of values
+    """
     latest_consumption = consumption_measurement_query_set.order_by('-timestamp').first().timestamp
     latest_production = ProductionMeasurement.objects.order_by('-timestamp').first().timestamp
 
     number_of_panels = PanelsToInstall.objects.get(building=building, use=True).number_of_units
 
-    for range in end_limit_function(lambda: min(latest_consumption, latest_production)):
+    for time_range in range_generator(lambda: min(latest_consumption, latest_production)):
         consumption_measurements = consumption_measurement_query_set.filter(
-            timestamp__range=[range.start, range.end])
+            timestamp__range=[time_range.start, time_range.end])
         production_measurements = ProductionMeasurement.objects.query_production(
-            range.start, range.end)
+            time_range.start, time_range.end)
 
         consumption = consumption_measurements.aggregate(Sum('value'))
         production = production_measurements.aggregate(Sum('value_per_unit')) * number_of_panels / apartment_divisor
@@ -29,7 +42,7 @@ def get_data_for_range(consumption_measurement_query_set, end_limit_function, bu
             earnings = 0
 
         yield {
-            'timestamp': range.end,
+            'timestamp': time_range.end,
             'consumption': consumption,
             'production': production,
             'savings': savings,
@@ -52,21 +65,21 @@ class Apartment(models.Model):
     building = models.ForeignKey('Building')
     user = models.OneToOneField(User, related_name='apartment', default=1)
 
-    def _get_data_estimates(self, end_limit_function):
+    def _get_data_estimates(self, range_generator):
         return list(get_data_for_range(
             consumption_measurement_query_set=self.consumptionmeasurement_set,
-            end_limit_function=end_limit_function,
+            range_generator=range_generator,
             building=self.building,
             apartment_divisor=self.building.total_apartments
         ))
 
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
-        return self._get_data_estimates(hourly)
+        return self._get_data_estimates(partial(hourly, 24))
 
     def get_multiple_days_data(self, days):
         """ Returns consumption and production data for the latest N days in the database"""
-        return self._get_data_estimates(daily)
+        return self._get_data_estimates(partial(daily, days))
 
     def __str__(self):
         return str(self.building.address) + ', Apartment #' + str(self.number)
@@ -83,21 +96,20 @@ class Building(models.Model):
     total_inhabitants = models.fields.IntegerField(validators=[MinValueValidator(0),
                                                                MaxValueValidator(9999)])
 
-    def _get_data_estimates(self, end_limit_function):
+    def _get_data_estimates(self, range_generator):
         return list(get_data_for_range(
             consumption_measurement_query_set=self.consumptionmeasurement_set,
-            end_limit_function=end_limit_function,
-            building=self,
-            apartment_divisor=0
+            range_generator=range_generator,
+            building=self
         ))
 
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
-        return self._get_data_estimates(hourly)
+        return self._get_data_estimates(partial(hourly, 24))
 
     def get_multiple_days_data(self, days):
         """ Returns consumption and production data for the latest N days in the database"""
-        return self._get_data_estimates(daily)
+        return self._get_data_estimates(partial(daily, days))
 
     def __str__(self):
         return 'Building ' + str(self.address)
