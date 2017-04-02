@@ -145,15 +145,15 @@ function parseData(data) {
 }
 
 function getDataTotal(data) {
-    let consumptionTotal = 0, productionTotal = 0, consumptionLessSavingsTotal = 0;
+    let consumptionTotal = 0, productionTotal = 0, consumptionLessSavingsTotal = 0, savingsTotal = 0;
     for (let i = 0; i < data.length; i++) {
         consumptionTotal += data[i]['a_consumption'];
         consumptionLessSavingsTotal += data[i]['a_consumptionLessSavings'];
         productionTotal += data[i]['a_production'];
-
     }
 
-    return [[{'value': consumptionTotal, title: 'consumptionTotal'},
+    return [savingsTotal / consumptionTotal,
+            [{'value': consumptionTotal, title: 'consumptionTotal'},
             {'value': consumptionLessSavingsTotal, title: 'consumptionLessSavingsTotal'}],
             productionTotal];
 }
@@ -290,7 +290,8 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
 
 
         data = parseData(data);
-        let [totals, productionTotal] = getDataTotal(data);
+
+        let [savingsRate, totals, productionTotal] = getDataTotal(data);
 
 
         // update header
