@@ -151,10 +151,12 @@ function getDataTotal(data) {
         productionTotal += data[i]['a_production'];
         savingsTotal += data[i]['a_savings'];
     }
-    return [{'value': consumptionLessSavingsTotal, title: 'consumptionLessSavingsTotal'},
-            {'value': savingsTotal, title: 'savingsTotal'},]
 
+    return [[{'value': consumptionLessSavingsTotal, title: 'consumptionLessSavingsTotal'},
+            {'value': savingsTotal, title: 'savingsTotal'},],
+            productionTotal];
 }
+
 
 function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
     data = [];
@@ -253,14 +255,14 @@ function CO2Chart() {
 
 }
 
-function carSection(totals, timeFrame) {
+function carSection(productionTotal, timeFrame) {
     let timeSpan = '';
     if (timeFrame == 'month') timeSpan = 'THIS MONTH';
     else if (timeFrame == 'day') timeSpan = 'TODAY';
     else if (timeFrame == 'week') timeSpan = 'THIS WEEK';
     document.getElementById('produced-text').innerHTML = timeSpan;
-    document.getElementById('produced-number').innerHTML = String(Math.floor(totals['productionTotal']));
-    document.getElementById('produced-km').innerHTML = String(Math.floor(totals['productionTotal']) * 5);
+    document.getElementById('produced-number').innerHTML = String(Math.floor(productionTotal));
+    document.getElementById('produced-km').innerHTML = String(Math.floor(productionTotal) * 5);
 }
 
 function updateTimeLine(timeFrame, buildingOn, savingsOn) {
@@ -272,7 +274,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
 
 
         data = parseData(data);
-        let totals = getDataTotal(data);
+        let [totals, productionTotal] = getDataTotal(data);
 
 
         // update header
@@ -296,7 +298,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         //CO2Chart(data);
 
         // update car section
-        carSection(totals, timeFrame);
+        carSection(productionTotal, timeFrame);
     });
     return [timeFrame, buildingOn]
 }
