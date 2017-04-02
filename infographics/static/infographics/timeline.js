@@ -152,10 +152,10 @@ function getDataTotal(data) {
         productionTotal += data[i]['a_production'];
     }
 
-    return [savingsTotal / consumptionTotal,
-            [{'value': consumptionTotal, title: 'consumptionTotal'},
+    return [savingsTotal / consumptionTotal * 100,
+        [{'value': consumptionTotal, title: 'consumptionTotal'},
             {'value': consumptionLessSavingsTotal, title: 'consumptionLessSavingsTotal'}],
-            productionTotal];
+        productionTotal];
 }
 
 
@@ -258,13 +258,43 @@ function euroChart(data) {
         .style('stroke-width', '2');
 
 
-
 // style="stroke:#6D6A5C;stroke-width:2
     // document.getElementById("blue-circle").setAttribute("r", 2000);
     // document.getElementById("green-circle").setAttribute("r", 2000);
 
 }
 
+function donutChart() {
+    let data = [30, 100-30];
+
+    let width = 220,
+        height = 150,
+        radius = 75;
+
+    let color = d3.scaleOrdinal()
+        .range(["#26B5DB", "#F4F1E4"]);
+
+    let arc = d3.arc()
+        .outerRadius(radius - 10)
+        .innerRadius(0);
+
+    let pie = d3.pie()
+        .sort(null)
+        .value(function (d) {
+            return d;
+        });
+
+    let svg = d3.select("#donut-chart").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    let g = svg.selectAll(".arc")
+        .data(pie(data))
+        .enter().append("g")
+        .attr("class", "arc");
+}
 
 function CO2Chart() {
 
@@ -310,6 +340,8 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         //out.innerHTML = buildingOn;
         console.log(totals);
 //
+
+        donutChart();
 
         euroChart(totals);
         //CO2Chart(data);
