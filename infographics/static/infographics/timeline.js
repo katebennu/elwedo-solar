@@ -249,14 +249,13 @@ function euroChart(data) {
         .attr('height', d => height - y(d.value))
         .style('fill', ((d, i) => color(i)));
 
-    svg.selectAll('line')
-        .append('line')
-        .attr('x1', '1')
-        .attr('y1', '189')
-        .attr('x2', '149')
-        .attr('y2', '189')
+    svg.append('line')
+        .attr('x1', 0)
+        .attr('y1', 181)
+        .attr('x2', 180)
+        .attr('y2', 181)
         .style('stroke', '#6D6A5C')
-        .style('stroke-width', 2);
+        .style('stroke-width', '2');
 
 
 
