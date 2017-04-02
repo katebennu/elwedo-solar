@@ -145,16 +145,16 @@ function parseData(data) {
 }
 
 function getDataTotal(data) {
-    let consumptionLessSavingsTotal = 0, productionTotal = 0, savingsTotal = 0, earningsTotal = 0;
+    let consumptionLessSavingsTotal = 0, productionTotal = 0, savingsTotal = 0;
     for (let i = 0; i < data.length; i++) {
         consumptionLessSavingsTotal += data[i]['a_consumption'];
+        productionTotal += data[i]['a_production'];
         savingsTotal += data[i]['a_savings'];
     }
     return {
-        'consumptionTotal': consumptionTotal,
+        'consumptionLessSavingsTotal': consumptionLessSavingsTotal,
         'productionTotal': productionTotal,
         'savingsTotal': savingsTotal,
-        'earningsTotal': earningsTotal
     };
 }
 
@@ -212,10 +212,10 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
 }
 
 
-function euroChart(totals) {
-    let margin = {top: 10, right: 10, bottom: 10, left: 10};
-    let width = 100 - margin.left - margin.right;
-    let height = 200 - margin.top - margin.bottom;
+function euroChart(data) {
+    let margin = {top: 5, right: 5, bottom: 5, left: 5};
+    let width = 80 - margin.left - margin.right;
+    let height = 100 - margin.top - margin.bottom;
     let svg = d3.select('#euro-chart')
         .append('svg')
         .attr('width', width + margin.left + margin.right)
@@ -224,22 +224,27 @@ function euroChart(totals) {
         .append('g')
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
-    let maxY = d3.max(data.map(d => d.a_consumption));
+    let maxY = data.consumptionLessSavingsTotal + data.savingsTotal;
 
     let y = d3.scaleLinear()
         .domain([0, maxY])
         .range([height, 0]);
-    let yAxis = d3.axisLeft(y)
-        .ticks(5)
-        .tickSize(4)
-        .tickPadding(5);
 
     let x = d3.scaleOrdinal()
-        .domain(d3.extent(data.map(d => d.timestamp)))
+        .domain(['consumptionLessSavingsTotal', 'savingsTotal'])
         .range([0, width]);
     let xAxis = d3.axisBottom(x)
 
-
+    svg.selectAll('rect')
+        .data(data)
+        .enter()
+        .append('rect')
+        .attr('class', 'rect')
+        .attr('fill', 'blue')
+        .attr('x', d => x(d))
+        .attr('y', d => y(d))
+        .attr('width', '30px')
+        .attr('height', d => height - y(d))
 
 
 }
@@ -256,8 +261,8 @@ function carSection(totals, timeFrame) {
     else if (timeFrame == 'day') timeSpan = 'TODAY';
     else if (timeFrame == 'week') timeSpan = 'THIS WEEK';
     document.getElementById('produced-text').innerHTML = timeSpan;
-    document.getElementById('produced-number').innerHTML = Math.floor(totals['productionTotal']);
-    document.getElementById('produced-km').innerHTML = Math.floor(totals['productionTotal']) * 5;
+    document.getElementById('produced-number').innerHTML = String(Math.floor(totals['productionTotal']));
+    document.getElementById('produced-km').innerHTML = String(Math.floor(totals['productionTotal']) * 5);
 }
 
 function updateTimeLine(timeFrame, buildingOn, savingsOn) {
@@ -285,7 +290,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         // out.innerHTML = JSON.stringify(buildingOn);
         //console.log(JSON.stringify(data));
         //out.innerHTML = buildingOn;
-        console.log(stackedData);
+        console.log(totals);
 //
 
         euroChart(totals);

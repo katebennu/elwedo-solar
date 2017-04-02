@@ -273,10 +273,6 @@ h1 {
     padding-bottom: 64px;
 }
 
-#small-graphs-div {
-    height: 500px;
-}
-
 @media screen and (max-width: 770px) {
     h1 {
         font-size: 20px;
@@ -301,9 +297,28 @@ h1 {
     }
 }
 
-#slider-wrapper {
+#small-graphs-div {
     text-align: center;
-    height: 325px;
+    height: 500px;
+}
+
+#small-graphs-div > .container {
+    height: inherit;
+}
+
+#small-graphs-div > .row {
+    height: 350px;
+}
+
+
+
+
+.slide {
+    width: 300px;
+    height: 300px;
+    margin-left: 10px;
+    margin-top: 50px;
+    display: inline-block;
 }
 
 .slide > h3 {
@@ -311,154 +326,20 @@ h1 {
     margin-bottom: 10px;
 }
 
+.slide svg {
+    width: 220px;
+    height: 190px;
+}
+
+
+
 /*NO SLIDER*/
 @media screen and (min-width: 940px) {
 
-    .inner-wrapper > input, label {
-        display: none;
-    }
-
-    .slide {
-        width: 350px;
-        margin-right: 10px;
-        margin-top: 100px;
-        display: inline-block;
-    }
 }
 
 /*SLIDER*/
 @media screen and (max-width: 939px) {
-
-    #slider-wrapper {
-        width: 320px;
-        margin: 50px auto;
-        position: relative;
-        margin-bottom: 0px;
-        overflow: hidden;
-    }
-
-    #s1 {
-        padding: 6px;
-        background: #000000;
-        position: absolute;
-        left: 50%;
-        bottom: 25px;
-        margin-left: -36px;
-        border-radius: 20px;
-        opacity: 0.3;
-        cursor: pointer;
-        z-index: 999;
-    }
-
-    #s2 {
-        padding: 6px;
-        background: #000000;
-        position: absolute;
-        left: 50%;
-        bottom: 25px;
-        margin-left: -12px;
-        border-radius: 20px;
-        opacity: 0.3;
-        cursor: pointer;
-        z-index: 999;
-    }
-
-    #s3 {
-        padding: 6px;
-        background: #000000;
-        position: absolute;
-        left: 50%;
-        bottom: 25px;
-        margin-left: 12px;
-        border-radius: 20px;
-        opacity: 0.3;
-        cursor: pointer;
-        z-index: 999;
-    }
-
-    #s1:hover,
-    #s2:hover,
-    #s3:hover {
-        opacity: .50;
-    }
-
-    .inner-wrapper {
-        width: 300px;
-        height: 325px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        margin-bottom: 0px;
-        overflow: hidden;
-    }
-
-    .control {
-        display: none;
-    }
-
-    #Slide1:checked ~ .overflow-wrapper {
-        margin-left: 0%;
-    }
-
-    #Slide2:checked ~ .overflow-wrapper {
-        margin-left: -100%;
-    }
-
-    #Slide3:checked ~ .overflow-wrapper {
-        margin-left: -200%;
-    }
-
-    #Slide1:checked + #s1 {
-        opacity: 1;
-    }
-
-    #Slide2:checked + #s2 {
-        opacity: 1;
-    }
-
-    #Slide3:checked + #s3 {
-        opacity: 1;
-    }
-
-    .overflow-wrapper {
-        width: 300%;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        overflow-y: hidden;
-        z-index: 1;
-        -webkit-transition: all 0.3s ease-in-out;
-        -moz-transition: all 0.3s ease-in-out;
-        -o-transition: all 0.3s ease-in-out;
-        transition: all 0.3s ease-in-out;
-    }
-
-    .slide {
-        width: 33%;
-        float: left;
-    }
-
-    /* Next & previous buttons */
-    .prev, .next {
-        cursor: pointer;
-        position: absolute;
-        top: 50%;
-        width: auto;
-        padding: 16px;
-        margin-top: -22px;
-        color: white;
-        font-weight: bold;
-        font-size: 18px;
-        transition: 0.6s ease;
-        border-radius: 0 3px 3px 0;
-    }
-
-    /* Position the "next button" to the right */
-    .next {
-        right: 0;
-        border-radius: 3px 0 0 3px;
-    }
 
 }
 
