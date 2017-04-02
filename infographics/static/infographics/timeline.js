@@ -145,12 +145,10 @@ function parseData(data) {
 }
 
 function getDataTotal(data) {
-    let consumptionTotal = 0, productionTotal = 0, savingsTotal = 0, earningsTotal = 0;
+    let consumptionLessSavingsTotal = 0, productionTotal = 0, savingsTotal = 0, earningsTotal = 0;
     for (let i = 0; i < data.length; i++) {
-        consumptionTotal += data[i]['a_consumption'];
-        productionTotal += data[i]['a_production'];
+        consumptionLessSavingsTotal += data[i]['a_consumption'];
         savingsTotal += data[i]['a_savings'];
-        earningsTotal += data[i]['a_earnings'];
     }
     return {
         'consumptionTotal': consumptionTotal,
