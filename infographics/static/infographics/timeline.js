@@ -294,6 +294,10 @@ function donutChart() {
         .data(pie(data))
         .enter().append("g")
         .attr("class", "arc");
+
+    g.append("path")
+      .attr("d", arc)
+      .style("fill", function(d) { return color(d.data); });
 }
 
 function CO2Chart() {
