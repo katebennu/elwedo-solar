@@ -9,7 +9,7 @@ document.getElementById("daySwitch").addEventListener('click', function (e) {
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'day';
-    updateTimeLine(timeFrame, buildingOn);
+    updateTimeLine(timeFrame, buildingOn, savingsOn);
 
 });
 document.getElementById("weekSwitch").addEventListener('click', function (e) {
@@ -17,14 +17,14 @@ document.getElementById("weekSwitch").addEventListener('click', function (e) {
     $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'week';
-    updateTimeLine(timeFrame, buildingOn);
+    updateTimeLine(timeFrame, buildingOn, savingsOn);
 });
 document.getElementById("monthSwitch").addEventListener('click', function (e) {
     $('#monthSwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'month';
-    updateTimeLine(timeFrame, buildingOn);
+    updateTimeLine(timeFrame, buildingOn, savingsOn);
 });
 
 
@@ -38,7 +38,22 @@ document.getElementById('building-switch').addEventListener('click', function (e
         buildingOn = false;
         $('#building-switch').removeClass('graph-control-on').addClass('graph-control-off');
     }
-    updateTimeLine(timeFrame, buildingOn);
+    console.log(timeFrame, buildingOn, savingsOn);
+    updateTimeLine(timeFrame, buildingOn, savingsOn);
+});
+
+document.getElementById('savings-switch').addEventListener('click', function (e) {
+    if (savingsOn == false) {
+        savingsOn = true;
+        $('#savings-switch').removeClass('graph-control-off').addClass('graph-control-on');
+
+    }
+    else if (savingsOn == true) {
+        savingsOn = false;
+        $('#savings-switch').removeClass('graph-control-on').addClass('graph-control-off');
+    }
+    console.log(timeFrame, buildingOn, savingsOn);
+    updateTimeLine(timeFrame, buildingOn, savingsOn);
 });
 
 function responsivefy(svg, timeFrame) {
@@ -217,7 +232,7 @@ function carSection(totals, timeFrame) {
     document.getElementById('produced-km').innerHTML = Math.floor(totals['productionTotal']) * 5;
 }
 
-function updateTimeLine(timeFrame, buildingOn) {
+function updateTimeLine(timeFrame, buildingOn, savingsOn) {
 
     $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
         // clean existing chart
@@ -234,8 +249,8 @@ function updateTimeLine(timeFrame, buildingOn) {
         let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame, buildingOn);
 
         /*if (wSolar == false) */
-        //BarChart(svg, data, width, height, maxY, x, y);
-        let stackedData = stackedChart(data, buildingOn, svg, width, height, maxY, x, y);
+        if (savingsOn == false) BarChart(svg, data, width, height, maxY, x, y);
+        else stackedChart(data, buildingOn, svg, width, height, maxY, x, y);
 
 // DEBUG
         let out = document.getElementById('formatted');

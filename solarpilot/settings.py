@@ -76,11 +76,11 @@ WSGI_APPLICATION = 'solarpilot.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    'default': {
+    'def': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'sqlite.db',
     },
-    'prod': {
+    'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'solar',
         'USER': 'elwedo',
