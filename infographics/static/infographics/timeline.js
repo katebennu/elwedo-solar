@@ -151,11 +151,9 @@ function getDataTotal(data) {
         productionTotal += data[i]['a_production'];
         savingsTotal += data[i]['a_savings'];
     }
-    return {
-        'consumptionLessSavingsTotal': consumptionLessSavingsTotal,
-        'productionTotal': productionTotal,
-        'savingsTotal': savingsTotal,
-    };
+    return [{'value': consumptionLessSavingsTotal, title: 'consumptionLessSavingsTotal'},
+            {'value': savingsTotal, title: 'savingsTotal'},]
+
 }
 
 function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
@@ -224,27 +222,27 @@ function euroChart(data) {
         .append('g')
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
-    let maxY = data.consumptionLessSavingsTotal + data.savingsTotal;
+    let maxY = d3.max(data.map(d => d.value));
 
     let y = d3.scaleLinear()
         .domain([0, maxY])
         .range([height, 0]);
 
-    let x = d3.scaleOrdinal()
-        .domain(['consumptionLessSavingsTotal', 'savingsTotal'])
+    let x = d3.scaleBand()
+        .padding(0.2)
+        .domain(data.map(d => d.title))
         .range([0, width]);
-    let xAxis = d3.axisBottom(x)
+    let xAxis = d3.axisBottom(x);
 
     svg.selectAll('rect')
         .data(data)
         .enter()
         .append('rect')
-        .attr('class', 'rect')
         .attr('fill', 'blue')
-        .attr('x', d => x(d))
-        .attr('y', d => y(d))
-        .attr('width', '30px')
-        .attr('height', d => height - y(d))
+        .attr('x', d => x(d.title))
+        .attr('y', d => y(d.value))
+        .attr('width', d => x.bandwidth())
+        .attr('height', d => height - y(d.value))
 
 
 }

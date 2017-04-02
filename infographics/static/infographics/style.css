@@ -300,18 +300,12 @@ h1 {
 #small-graphs-div {
     text-align: center;
     height: 500px;
+    overflow-x: scroll;
 }
 
 #small-graphs-div > .container {
     height: inherit;
 }
-
-#small-graphs-div > .row {
-    height: 350px;
-}
-
-
-
 
 .slide {
     width: 300px;
@@ -329,6 +323,10 @@ h1 {
 .slide svg {
     width: 220px;
     height: 190px;
+}
+
+.slide svg rect {
+    fill: #26B5DB;
 }
 
 
