@@ -150,9 +150,10 @@ function getDataTotal(data) {
         consumptionTotal += data[i]['a_consumption'];
         consumptionLessSavingsTotal += data[i]['a_consumptionLessSavings'];
         productionTotal += data[i]['a_production'];
+        savingsTotal += data[i]['a_savings'];
     }
 
-    return [savingsTotal / consumptionTotal * 100,
+    return [Math.floor(savingsTotal / consumptionTotal * 100),
         [{'value': consumptionTotal, title: 'consumptionTotal'},
             {'value': consumptionLessSavingsTotal, title: 'consumptionLessSavingsTotal'}],
         productionTotal];
@@ -257,22 +258,29 @@ function euroChart(data) {
         .style('stroke', '#6D6A5C')
         .style('stroke-width', '2');
 
-
-// style="stroke:#6D6A5C;stroke-width:2
-    // document.getElementById("blue-circle").setAttribute("r", 2000);
-    // document.getElementById("green-circle").setAttribute("r", 2000);
-
 }
 
-function donutChart() {
-    let data = [30, 100 - 30];
+function donutChart(savingsRate) {
+    let o = 0;
+    let n = 50;
+    let x = savingsRate;
+    let m = 50 - x;
+
+    if (x > 50) {
+        o = x - 50;
+        n = 50 - o;
+        x = 50;
+        m = 0
+    }
+    console.log(o, n, x, m);
+    let data = [o, n, 100 + x, m];
 
     let width = 215,
         height = 380,
         radius = 115;
 
     let color = d3.scaleOrdinal()
-        .range(["#26B5DB", "#F4F1E4"]);
+        .range(["#26B5DB", "#F4F1E4", "#26B5DB", "#F4F1E4"]);
 
     let arc = d3.arc()
         .outerRadius(radius - 10)
@@ -331,6 +339,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         // clean existing chart
         document.getElementById('timeline-chart').innerHTML = '';
         document.getElementById('euro-chart').innerHTML = '';
+        document.getElementById('donut-chart').innerHTML = '';
 
 
         data = parseData(data);
@@ -352,10 +361,10 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         // out.innerHTML = JSON.stringify(buildingOn);
         //console.log(JSON.stringify(data));
         //out.innerHTML = buildingOn;
-        console.log(totals);
+        console.log(savingsRate);
 //
 
-        donutChart();
+        donutChart(savingsRate);
 
         euroChart(totals);
         //CO2Chart(data);
