@@ -266,7 +266,7 @@ function donutChart(savingsRate) {
 
     let data = [o, n, 100 + x, m];
 
-    let width = 215,
+    let width = 220,
         height = 380,
         radius = 115;
 
@@ -289,13 +289,7 @@ function donutChart(savingsRate) {
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    svg.append('line')
-        .attr('x1', -100)
-        .attr('y1', -2)
-        .attr('x2', 180)
-        .attr('y2', -2)
-        .style('stroke', '#6D6A5C')
-        .style('stroke-width', '2');
+
 
 
     let g = svg.selectAll(".arc")
@@ -308,6 +302,14 @@ function donutChart(savingsRate) {
         .style("fill", function (d) {
             return color(d.data);
         });
+
+        svg.append('line')
+        .attr('x1', -130)
+        .attr('y1', -1)
+        .attr('x2', 190)
+        .attr('y2', -1)
+        .style('stroke', '#6D6A5C')
+        .style('stroke-width', '2');
 
 
 }
