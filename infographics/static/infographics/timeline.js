@@ -220,7 +220,6 @@ function euroChart(data) {
         .append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
-        .call(responsivefy)
         .append('g')
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
@@ -236,6 +235,8 @@ function euroChart(data) {
         .range([0, width]);
     let xAxis = d3.axisBottom(x);
 
+    let color = d3.scaleOrdinal().range(["#56eda8", "26B5DB"]);
+
     svg.selectAll('rect')
         .data(data)
         .enter()
@@ -245,7 +246,22 @@ function euroChart(data) {
         .attr('y', d => y(d.value))
         .attr('width', d => x.bandwidth())
         .attr('height', d => height - y(d.value))
+        .style('fill', ((d, i) => color(i)));
 
+    svg.selectAll('line')
+        .append('line')
+        .attr('x1', '1')
+        .attr('y1', '189')
+        .attr('x2', '149')
+        .attr('y2', '189')
+        .style('stroke', '#6D6A5C')
+        .style('stroke-width', 2);
+
+
+
+// style="stroke:#6D6A5C;stroke-width:2
+    // document.getElementById("blue-circle").setAttribute("r", 2000);
+    // document.getElementById("green-circle").setAttribute("r", 2000);
 
 }
 
