@@ -152,13 +152,17 @@ function getDataTotal(data) {
         productionTotal += data[i]['a_production'];
         savingsTotal += data[i]['a_savings'];
     }
+    let savingsRate = Math.floor(savingsTotal / consumptionTotal * 100);
 
-    return [Math.floor(savingsTotal / consumptionTotal * 100),
+    let consumptionRate = Math.floor(consumptionTotal / (consumptionTotal + consumptionLessSavingsTotal) * 100);
+    let consumptionLessSavingsRate = 100 - consumptionRate;
+
+    return [savingsRate,
         [{'value': consumptionTotal, title: 'consumptionTotal'},
             {'value': consumptionLessSavingsTotal, title: 'consumptionLessSavingsTotal'}],
-        productionTotal];
+        productionTotal,
+        [consumptionRate, consumptionLessSavingsRate]];
 }
-
 
 function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
     data = [];
@@ -289,9 +293,6 @@ function donutChart(savingsRate) {
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-
-
-
     let g = svg.selectAll(".arc")
         .data(pie(data))
         .enter().append("g")
@@ -314,8 +315,10 @@ function donutChart(savingsRate) {
 
 }
 
-function CO2Chart() {
+function CO2Chart(data) {
 
+    document.getElementById('green-circle').setAttribute("r", String(data[0] *0.75));
+    document.getElementById('blue-circle').setAttribute("r", String(data[1]*0.75));
 
 }
 
@@ -340,7 +343,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
 
         data = parseData(data);
 
-        let [savingsRate, totals, productionTotal] = getDataTotal(data);
+        let [savingsRate, totals, productionTotal, CO2Rates] = getDataTotal(data);
 
 
         // update header
@@ -357,13 +360,12 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         // out.innerHTML = JSON.stringify(buildingOn);
         //console.log(JSON.stringify(data));
         //out.innerHTML = buildingOn;
-        console.log(savingsRate);
+        console.log(CO2Rates);
 //
 
         donutChart(savingsRate);
-
         euroChart(totals);
-        //CO2Chart(data);
+        CO2Chart(CO2Rates);
 
         // update car section
         carSection(productionTotal, timeFrame);
