@@ -1,5 +1,6 @@
 body {
     font-family: 'Karla', sans-serif;
+    color: #6D6A5C;
 }
 
 h1 {
@@ -318,7 +319,7 @@ h1 {
     }
 
     .slide {
-        width: 290px;
+        width: 350px;
         margin-right: 10px;
         margin-top: 100px;
         display: inline-block;

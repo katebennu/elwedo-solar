@@ -214,12 +214,42 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
 }
 
 
+function euroChart(totals) {
+    let margin = {top: 10, right: 10, bottom: 10, left: 10};
+    let width = 100 - margin.left - margin.right;
+    let height = 200 - margin.top - margin.bottom;
+    let svg = d3.select('#euro-chart')
+        .append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .call(responsivefy)
+        .append('g')
+        .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+
+    let maxY = d3.max(data.map(d => d.a_consumption));
+
+    let y = d3.scaleLinear()
+        .domain([0, maxY])
+        .range([height, 0]);
+    let yAxis = d3.axisLeft(y)
+        .ticks(5)
+        .tickSize(4)
+        .tickPadding(5);
+
+    let x = d3.scaleOrdinal()
+        .domain(d3.extent(data.map(d => d.timestamp)))
+        .range([0, width]);
+    let xAxis = d3.axisBottom(x)
+
+
+
+
+}
+
+
 function CO2Chart() {
 
-//     <svg width="100" height="100">
-//   <circle cx="20" cy="20" r="20" fill="green" />
-//   <circle cx="70" cy="70" r="20" fill="purple" />
-//      </svg>
+
 }
 
 function carSection(totals, timeFrame) {
@@ -260,7 +290,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         console.log(stackedData);
 //
 
-
+        euroChart(totals);
         //CO2Chart(data);
 
         // update car section
