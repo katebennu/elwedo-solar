@@ -211,9 +211,9 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
 
 
 function euroChart(data) {
-    let margin = {top: 5, right: 5, bottom: 5, left: 5};
-    let width = 80 - margin.left - margin.right;
-    let height = 100 - margin.top - margin.bottom;
+    let margin = {top: 5, right: 5, bottom: 0, left: 5};
+    let width = 190 - margin.left - margin.right;
+    let height = 185 - margin.top - margin.bottom;
     let svg = d3.select('#euro-chart')
         .append('svg')
         .attr('width', width + margin.left + margin.right)
@@ -268,6 +268,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
     $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
         // clean existing chart
         document.getElementById('timeline-chart').innerHTML = '';
+        document.getElementById('euro-chart').innerHTML = '';
 
 
         data = parseData(data);

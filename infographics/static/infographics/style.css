@@ -300,7 +300,7 @@ h1 {
 #small-graphs-div {
     text-align: center;
     height: 500px;
-    overflow-x: scroll;
+    overflow: hidden;
 }
 
 #small-graphs-div > .container {
@@ -317,7 +317,7 @@ h1 {
 
 .slide > h3 {
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 50px;
 }
 
 .slide svg {
