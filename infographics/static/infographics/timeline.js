@@ -267,9 +267,9 @@ function euroChart(data) {
 function donutChart() {
     let data = [30, 100-30];
 
-    let width = 220,
-        height = 150,
-        radius = 75;
+    let width = 215,
+        height = 380,
+        radius = 115;
 
     let color = d3.scaleOrdinal()
         .range(["#26B5DB", "#F4F1E4"]);
