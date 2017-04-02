@@ -16,6 +16,7 @@
     </div>
 
     <div class="container">
+
         <h1 id="timeline-heading">ENERGY USAGE AND SAVINGS</h1>
         <div class="row">
             {% include 'infographics/graph-timeline.html' %}
@@ -29,13 +30,14 @@
     </div>
 
     <div id="small-graphs-div">
-        {% include 'infographics/graph-carousel.html' %}
+        <div class="container">
+            {% include 'infographics/graph-carousel.html' %}
+        </div>
     </div>
 
-
     <div class="ribbon blue-ribbon">
-        <div class="weather">
-       {% include 'infographics/weather.html' %}
+        <div class="weather container">
+            {% include 'infographics/weather.html' %}
         </div>
     </div>
 

@@ -145,19 +145,23 @@ function parseData(data) {
 }
 
 function getDataTotal(data) {
-    let consumptionTotal = 0, productionTotal = 0, savingsTotal = 0, earningsTotal = 0;
+    let consumptionTotal = 0, productionTotal = 0, consumptionLessSavingsTotal = 0, savingsTotal = 0;
     for (let i = 0; i < data.length; i++) {
         consumptionTotal += data[i]['a_consumption'];
+        consumptionLessSavingsTotal += data[i]['a_consumptionLessSavings'];
         productionTotal += data[i]['a_production'];
         savingsTotal += data[i]['a_savings'];
-        earningsTotal += data[i]['a_earnings'];
     }
-    return {
-        'consumptionTotal': consumptionTotal,
-        'productionTotal': productionTotal,
-        'savingsTotal': savingsTotal,
-        'earningsTotal': earningsTotal
-    };
+    let savingsRate = Math.floor(savingsTotal / consumptionTotal * 100);
+
+    let consumptionRate = Math.floor(consumptionTotal / (consumptionTotal + consumptionLessSavingsTotal) * 100);
+    let consumptionLessSavingsRate = 100 - consumptionRate;
+
+    return [savingsRate,
+        [{'value': consumptionTotal, title: 'consumptionTotal'},
+            {'value': consumptionLessSavingsTotal, title: 'consumptionLessSavingsTotal'}],
+        productionTotal,
+        [consumptionRate, consumptionLessSavingsRate]];
 }
 
 function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
@@ -214,52 +218,118 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
 }
 
 
-function euroChart(totals) {
-    let margin = {top: 10, right: 10, bottom: 10, left: 10};
-    let width = 100 - margin.left - margin.right;
-    let height = 200 - margin.top - margin.bottom;
+function euroChart(data) {
+    let margin = {top: 5, right: 5, bottom: 0, left: 5};
+    let width = 190 - margin.left - margin.right;
+    let height = 185 - margin.top - margin.bottom;
     let svg = d3.select('#euro-chart')
         .append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
-        .call(responsivefy)
         .append('g')
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
-    let maxY = d3.max(data.map(d => d.a_consumption));
+    let maxY = d3.max(data.map(d => d.value));
 
     let y = d3.scaleLinear()
         .domain([0, maxY])
         .range([height, 0]);
-    let yAxis = d3.axisLeft(y)
-        .ticks(5)
-        .tickSize(4)
-        .tickPadding(5);
 
-    let x = d3.scaleOrdinal()
-        .domain(d3.extent(data.map(d => d.timestamp)))
+    let x = d3.scaleBand()
+        .padding(0.5)
+        .domain(data.map(d => d.title))
         .range([0, width]);
-    let xAxis = d3.axisBottom(x)
+    let xAxis = d3.axisBottom(x);
 
+    let color = d3.scaleOrdinal().range(["#56eda8", "26B5DB"]);
 
+    svg.selectAll('rect')
+        .data(data)
+        .enter()
+        .append('rect')
+        .attr('fill', 'blue')
+        .attr('x', d => x(d.title) - 5)
+        .attr('y', d => y(d.value))
+        .attr('width', '50px')
+        .attr('height', d => height - y(d.value))
+        .style('fill', ((d, i) => color(i)));
+
+    svg.append('line')
+        .attr('x1', 0)
+        .attr('y1', 181)
+        .attr('x2', 180)
+        .attr('y2', 181)
+        .style('stroke', '#6D6A5C')
+        .style('stroke-width', '2');
+
+}
+
+function donutChart(savingsRate) {
+    let o = 0, n = 50, x = savingsRate, m = 50 - x;
+    if (x > 50) {o = x - 50; n = 50 - o; x = 50; m = 0}
+
+    let data = [o, n, 100 + x, m];
+
+    let width = 220,
+        height = 380,
+        radius = 115;
+
+    let color = d3.scaleOrdinal()
+        .range(["#26B5DB", "#F4F1E4", "#26B5DB", "#F4F1E4"]);
+
+    let arc = d3.arc()
+        .outerRadius(radius - 10)
+        .innerRadius(60);
+
+    let pie = d3.pie()
+        .sort(null)
+        .value(function (d) {
+            return d;
+        });
+
+    let svg = d3.select("#donut-chart").append("svg")
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    let g = svg.selectAll(".arc")
+        .data(pie(data))
+        .enter().append("g")
+        .attr("class", "arc");
+
+    g.append("path")
+        .attr("d", arc)
+        .style("fill", function (d) {
+            return color(d.data);
+        });
+
+        svg.append('line')
+        .attr('x1', -130)
+        .attr('y1', -1)
+        .attr('x2', 190)
+        .attr('y2', -1)
+        .style('stroke', '#6D6A5C')
+        .style('stroke-width', '2');
 
 
 }
 
+function CO2Chart(data) {
 
-function CO2Chart() {
-
+    document.getElementById('green-circle').setAttribute("r", String(data[0] *0.75));
+    document.getElementById('blue-circle').setAttribute("r", String(data[1]*0.75));
 
 }
 
-function carSection(totals, timeFrame) {
+function carSection(productionTotal, timeFrame) {
     let timeSpan = '';
     if (timeFrame == 'month') timeSpan = 'THIS MONTH';
     else if (timeFrame == 'day') timeSpan = 'TODAY';
     else if (timeFrame == 'week') timeSpan = 'THIS WEEK';
     document.getElementById('produced-text').innerHTML = timeSpan;
-    document.getElementById('produced-number').innerHTML = Math.floor(totals['productionTotal']);
-    document.getElementById('produced-km').innerHTML = Math.floor(totals['productionTotal']) * 5;
+    document.getElementById('produced-number').innerHTML = String(Math.floor(productionTotal));
+    document.getElementById('produced-km').innerHTML = String(Math.floor(productionTotal) * 5);
 }
 
 function updateTimeLine(timeFrame, buildingOn, savingsOn) {
@@ -267,10 +337,13 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
     $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
         // clean existing chart
         document.getElementById('timeline-chart').innerHTML = '';
+        document.getElementById('euro-chart').innerHTML = '';
+        document.getElementById('donut-chart').innerHTML = '';
 
 
         data = parseData(data);
-        let totals = getDataTotal(data);
+
+        let [savingsRate, totals, productionTotal, CO2Rates] = getDataTotal(data);
 
 
         // update header
@@ -287,14 +360,15 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         // out.innerHTML = JSON.stringify(buildingOn);
         //console.log(JSON.stringify(data));
         //out.innerHTML = buildingOn;
-        console.log(stackedData);
+        console.log(CO2Rates);
 //
 
+        donutChart(savingsRate);
         euroChart(totals);
-        //CO2Chart(data);
+        CO2Chart(CO2Rates);
 
         // update car section
-        carSection(totals, timeFrame);
+        carSection(productionTotal, timeFrame);
     });
     return [timeFrame, buildingOn]
 }
