@@ -232,7 +232,7 @@ function euroChart(data) {
         .range([height, 0]);
 
     let x = d3.scaleBand()
-        .padding(0.2)
+        .padding(0.5)
         .domain(data.map(d => d.title))
         .range([0, width]);
     let xAxis = d3.axisBottom(x);
@@ -244,9 +244,9 @@ function euroChart(data) {
         .enter()
         .append('rect')
         .attr('fill', 'blue')
-        .attr('x', d => x(d.title))
+        .attr('x', d => x(d.title) - 5)
         .attr('y', d => y(d.value))
-        .attr('width', d => x.bandwidth())
+        .attr('width', '50px')
         .attr('height', d => height - y(d.value))
         .style('fill', ((d, i) => color(i)));
 
@@ -261,18 +261,9 @@ function euroChart(data) {
 }
 
 function donutChart(savingsRate) {
-    let o = 0;
-    let n = 50;
-    let x = savingsRate;
-    let m = 50 - x;
+    let o = 0, n = 50, x = savingsRate, m = 50 - x;
+    if (x > 50) {o = x - 50; n = 50 - o; x = 50; m = 0}
 
-    if (x > 50) {
-        o = x - 50;
-        n = 50 - o;
-        x = 50;
-        m = 0
-    }
-    console.log(o, n, x, m);
     let data = [o, n, 100 + x, m];
 
     let width = 215,
@@ -298,6 +289,15 @@ function donutChart(savingsRate) {
         .append("g")
         .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
+    svg.append('line')
+        .attr('x1', -100)
+        .attr('y1', -2)
+        .attr('x2', 180)
+        .attr('y2', -2)
+        .style('stroke', '#6D6A5C')
+        .style('stroke-width', '2');
+
+
     let g = svg.selectAll(".arc")
         .data(pie(data))
         .enter().append("g")
@@ -309,13 +309,7 @@ function donutChart(savingsRate) {
             return color(d.data);
         });
 
-    svg.append('line')
-        .attr('x1', 0)
-        .attr('y1', 181)
-        .attr('x2', 180)
-        .attr('y2', 181)
-        .style('stroke', '#6D6A5C')
-        .style('stroke-width', '2');
+
 }
 
 function CO2Chart() {
