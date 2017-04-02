@@ -265,7 +265,7 @@ function euroChart(data) {
 }
 
 function donutChart() {
-    let data = [30, 100-30];
+    let data = [30, 100 - 30];
 
     let width = 215,
         height = 380,
@@ -276,7 +276,7 @@ function donutChart() {
 
     let arc = d3.arc()
         .outerRadius(radius - 10)
-        .innerRadius(0);
+        .innerRadius(60);
 
     let pie = d3.pie()
         .sort(null)
@@ -296,8 +296,18 @@ function donutChart() {
         .attr("class", "arc");
 
     g.append("path")
-      .attr("d", arc)
-      .style("fill", function(d) { return color(d.data); });
+        .attr("d", arc)
+        .style("fill", function (d) {
+            return color(d.data);
+        });
+
+    svg.append('line')
+        .attr('x1', 0)
+        .attr('y1', 181)
+        .attr('x2', 180)
+        .attr('y2', 181)
+        .style('stroke', '#6D6A5C')
+        .style('stroke-width', '2');
 }
 
 function CO2Chart() {
