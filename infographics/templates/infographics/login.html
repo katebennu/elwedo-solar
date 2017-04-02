@@ -2,38 +2,40 @@
 {% block title %} Welcome to Elwedo Solar {% endblock %}
 
 {% block body %}
-    <h1> Login Test </h1>
-    <div class="container-fluid">
+    <div class="container">
 
-    <div class="row">
-        <div class="col-sm-12 col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h3>Log In</h3>
-                    <form class="form-horizontal" role="form" action="{{ app_path }}" method="post" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="form-group">
-                            {{ form.username.errors }}
-                            {{ form.username.label_tag }}
-                            {{ form.username }}
-                        </div>
-                        <div class="form-group">
-                            {{ form.password.errors }}
-                            {{ form.password.label_tag }}
-                            {{ form.password }}
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
-                                <button type="submit" class="btn btn-success">Submit</button>
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <h3>Log In</h3>
+                        <div>Login: user_1, password: pass_1</div><br/>
+
+                        <form class="form-horizontal" role="form" action="{{ app_path }}" method="post"
+                              enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.username.errors }}
+                                {{ form.username.label_tag }}
+                                {{ form.username }}
                             </div>
-                        </div>
-                        <input type="hidden" name="next" value="{{ next }}" />
-                    </form>
+                            <div class="form-group">
+                                {{ form.password.errors }}
+                                {{ form.password.label_tag }}
+                                {{ form.password }}
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-success">Submit</button>
+                                </div>
+                            </div>
+                            <input type="hidden" name="next" value="{{ next }}"/>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
+
+
     </div>
-
-
-</div>
 {% endblock %}
