@@ -97,7 +97,8 @@ function drawAxes(data, timeFrame, buildingOn) {
     let y = d3.scaleLinear()
         .domain([0, maxY])
         .range([height, 0]);
-    let yAxis = d3.axisLeft(y);
+    let yAxis = d3.axisLeft(y)
+        .ticks(5);
 
     let x = d3.scaleTime()
         .domain(d3.extent(data.map(d => d.timestamp)))
@@ -108,10 +109,13 @@ function drawAxes(data, timeFrame, buildingOn) {
         .tickPadding(5)
         .tickFormat(formatTime);
 
-    svg.call(yAxis)
-        .append('g')
+    svg.append('g')
         .attr('transform', `translate(0, ${height})`)
         .call(xAxis);
+
+    svg .append('g')
+        .attr("class", "axisY")
+        .call(yAxis);
 
     return [svg, xAxis, yAxis, width, height, maxY, x, y];
 }
@@ -360,7 +364,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         // out.innerHTML = JSON.stringify(buildingOn);
         //console.log(JSON.stringify(data));
         //out.innerHTML = buildingOn;
-        console.log(CO2Rates);
+        console.log(data);
 //
 
         donutChart(savingsRate);

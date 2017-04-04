@@ -72,7 +72,7 @@ class Apartment(models.Model):
             consumption_measurement_query_set=self.consumptionmeasurement_set,
             range_generator=range_generator,
             building=self.building,
-            apartment_divisor=self.building.total_apartments
+            apartment_divisor=int(self.building.total_apartments)
         ))
 
     def get_day_data(self):

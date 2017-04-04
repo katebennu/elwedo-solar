@@ -268,6 +268,14 @@ h1 {
     max-width: 800px;
 }
 
+.axisY > g {
+    color: white;
+}
+
+.axisY .domain {
+    display: none;
+}
+
 .explanation {
     padding-top: 57px;
     padding-bottom: 64px;
@@ -329,8 +337,6 @@ h1 {
     fill: #26B5DB;
 }
 
-
-
 /*NO SLIDER*/
 @media screen and (min-width: 940px) {
 
@@ -374,7 +380,7 @@ h1 {
     width: 236px;
     height: auto;
     margin-top: 50px;
-    margin-bottom: 50pxц
+    margin-bottom: 50 pxц
 }
 
 .footer {
