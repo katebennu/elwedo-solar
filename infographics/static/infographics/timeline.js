@@ -110,14 +110,13 @@ function drawAxes(data, timeFrame, buildingOn) {
         .tickPadding(5)
         .tickFormat(formatTime);
 
-
-
     svg .append('g')
         .attr("class", "axisY")
         .call(yAxis);
 
      svg.append('g')
         .attr('transform', `translate(0, ${height})`)
+         .attr("class", "axisX")
         .call(xAxis);
 
     return [svg, xAxis, yAxis, width, height, maxY, x, y];

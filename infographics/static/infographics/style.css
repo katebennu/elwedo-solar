@@ -274,8 +274,16 @@ h1 {
 
 .axisY line {
     /*stroke: lightgrey;*/
-    /*opacity: 0.7;*/
+    /**/
     stroke: #D6D1B5;
+    stroke-width: 1px;
+    opacity: 0.5;
+}
+
+.axisY text,
+.axisX text {
+    color: #6D6A5C;
+    font-size: 8px;
 }
 
 .explanation {
