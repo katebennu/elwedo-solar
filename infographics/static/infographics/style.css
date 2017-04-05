@@ -168,10 +168,6 @@ h1 {
     margin-right: 18px;
 }
 
-.line {
-    height: 4px;
-}
-
 .blue {
     background-color: #26B5DB;
 }
@@ -275,6 +271,15 @@ h1 {
 .axisY .domain {
     display: none;
 }
+
+.axisY .tick {
+    stroke: lightgrey;
+    opacity: 0.7;
+}
+.grid path {
+      stroke-width: 0;
+}
+
 
 .explanation {
     padding-top: 57px;

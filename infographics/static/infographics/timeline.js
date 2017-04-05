@@ -98,7 +98,8 @@ function drawAxes(data, timeFrame, buildingOn) {
         .domain([0, maxY])
         .range([height, 0]);
     let yAxis = d3.axisLeft(y)
-        .ticks(5);
+        .ticks(5)
+        .tickSize(-width);
 
     let x = d3.scaleTime()
         .domain(d3.extent(data.map(d => d.timestamp)))
