@@ -39,6 +39,8 @@ document.getElementById('building-switch').addEventListener('click', function (e
         $('#building-switch').removeClass('graph-control-on').addClass('graph-control-off');
     }
     console.log(timeFrame, buildingOn, savingsOn);
+
+//// Update only timeline graph instead
     updateTimeLine(timeFrame, buildingOn, savingsOn);
 });
 
@@ -53,6 +55,8 @@ document.getElementById('savings-switch').addEventListener('click', function (e)
         $('#savings-switch').removeClass('graph-control-on').addClass('graph-control-off');
     }
     console.log(timeFrame, buildingOn, savingsOn);
+
+    //// Update only timeline graph instead
     updateTimeLine(timeFrame, buildingOn, savingsOn);
 });
 
@@ -112,7 +116,8 @@ function drawAxes(data, timeFrame, buildingOn) {
         .ticks(5)
         .tickSize(4)
         .tickPadding(5)
-        .tickFormat(formatTime);
+        .tickFormat(formatTime)
+        .tickSizeOuter(0);
 
     svg .append('g')
         .attr("class", "axisY")
