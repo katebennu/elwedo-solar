@@ -78,7 +78,7 @@ function drawAxes(data, timeFrame, buildingOn) {
     if (timeFrame == 'day') t = '%H:00';
     let formatTime = d3.timeFormat(t);
 
-    let margin = {top: 10, right: 20, bottom: 60, left: 30};
+    let margin = {top: 10, right: 60, bottom: 60, left: 30};
     let width = 400 - margin.left - margin.right;
     let height = 200 - margin.top - margin.bottom;
     let svg = d3.select('#timeline-chart')
@@ -99,7 +99,8 @@ function drawAxes(data, timeFrame, buildingOn) {
         .range([height, 0]);
     let yAxis = d3.axisLeft(y)
         .ticks(5)
-        .tickSize(-width);
+        .tickSize(-width)
+        .tickFormat(d3.format(",.2f"));
 
     let x = d3.scaleTime()
         .domain(d3.extent(data.map(d => d.timestamp)))
@@ -112,11 +113,14 @@ function drawAxes(data, timeFrame, buildingOn) {
 
     svg .append('g')
         .attr("class", "axisY")
+        .style('font-size', '8px')
+        .style('stroke-width', '1px')
         .call(yAxis);
 
      svg.append('g')
         .attr('transform', `translate(0, ${height})`)
          .attr("class", "axisX")
+         .style('font-size', '8px')
         .call(xAxis);
 
     return [svg, xAxis, yAxis, width, height, maxY, x, y];

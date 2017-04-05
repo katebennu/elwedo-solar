@@ -264,26 +264,20 @@ h1 {
     max-width: 800px;
 }
 
-.axisY > g {
-    color: white;
-}
-
 .axisY .domain {
     display: none;
 }
 
-.axisY line {
-    /*stroke: lightgrey;*/
-    /**/
+.axisY line,
+.axisY path {
     stroke: #D6D1B5;
-    stroke-width: 1px;
-    opacity: 0.5;
+    stroke-width: 1.0;
 }
 
 .axisY text,
 .axisX text {
-    color: #6D6A5C;
-    font-size: 8px;
+    /*stroke: #6D6A5C;*/
+    /*stroke-width: 1px;*/
 }
 
 .explanation {
