@@ -272,14 +272,11 @@ h1 {
     display: none;
 }
 
-.axisY .tick {
-    stroke: lightgrey;
-    opacity: 0.7;
+.axisY line {
+    /*stroke: lightgrey;*/
+    /*opacity: 0.7;*/
+    stroke: #D6D1B5;
 }
-.grid path {
-      stroke-width: 0;
-}
-
 
 .explanation {
     padding-top: 57px;
