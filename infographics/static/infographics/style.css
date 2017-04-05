@@ -359,25 +359,31 @@ h1 {
 
 }
 
-.weather {
-    overflow-x: scroll;
+@media screen and (max-width: 970px) {
+    .weather {
+        overflow-x: scroll;
+        white-space: nowrap;
+    }
 }
 
-.weather-img {
+
+
+.weather-block {
     display: inline-block;
     width: 140px;
+    white-space: normal;
     margin-top: 49px;
     margin-bottom: 69px;
     font-weight: bold;
     vertical-align: text-top;
 }
 
-.weather-img > div {
+.weather-block > div {
     margin-top: 28px;
     height: 96px;
 }
 
-.weather-img img {
+.weather-block img {
     vertical-align: bottom;
 }
 
