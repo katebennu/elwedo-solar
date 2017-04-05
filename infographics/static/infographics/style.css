@@ -324,8 +324,12 @@ h1 {
 
 #small-graphs-div > .container {
     height: inherit;
-    overflow-x: hidden;
+    /*overflow-x: scroll;*/
     white-space: nowrap;
+}
+
+.hidden {
+    display: none;
 }
 
 .arrow {
@@ -338,7 +342,6 @@ h1 {
 .slide {
     width: 300px;
     height: 300px;
-    margin-left: 10px;
     margin-top: 50px;
     display: inline-block;
     margin-bottom: 37px;
@@ -360,14 +363,15 @@ h1 {
 }
 
 /*NO SLIDER*/
-@media screen and (min-width: 940px) {
+@media screen and (min-width: 1000px) {
 
 }
 
 /*SLIDER*/
-@media screen and (max-width: 939px) {
-    .arrow {
-        display: none;
+@media screen and (max-width: 400px) {
+    .slide {
+        margin-left: -30px;
+        margin-right: -30px;
     }
 }
 
@@ -377,7 +381,6 @@ h1 {
         white-space: nowrap;
     }
 }
-
 
 .weather-block {
     display: inline-block;

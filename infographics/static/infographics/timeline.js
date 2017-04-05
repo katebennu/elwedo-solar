@@ -4,6 +4,34 @@ let savingsOn = true;
 
 updateTimeLine(timeFrame = 'day', buildingOn = false);
 
+function parseData(data) {
+    let isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
+    let process = function (d) {
+        d.timestamp = isoParse(d.timestamp);
+    };
+    data.forEach(process);
+    return data;
+}
+function getDataTotal(data) {
+    let consumptionTotal = 0, productionTotal = 0, consumptionLessSavingsTotal = 0, savingsTotal = 0;
+    for (let i = 0; i < data.length; i++) {
+        consumptionTotal += data[i]['a_consumption'];
+        consumptionLessSavingsTotal += data[i]['a_consumptionLessSavings'];
+        productionTotal += data[i]['a_production'];
+        savingsTotal += data[i]['a_savings'];
+    }
+    let savingsRate = Math.floor(savingsTotal / consumptionTotal * 100);
+
+    let consumptionRate = Math.floor(consumptionTotal / (consumptionTotal + consumptionLessSavingsTotal) * 100);
+    let consumptionLessSavingsRate = 100 - consumptionRate;
+
+    return [savingsRate,
+        [{'value': consumptionTotal, title: 'consumptionTotal'},
+            {'value': consumptionLessSavingsTotal, title: 'consumptionLessSavingsTotal'}],
+        productionTotal,
+        [consumptionRate, consumptionLessSavingsRate]];
+}
+
 document.getElementById("daySwitch").addEventListener('click', function (e) {
     $('#daySwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
@@ -27,7 +55,6 @@ document.getElementById("monthSwitch").addEventListener('click', function (e) {
     updateTimeLine(timeFrame, buildingOn, savingsOn);
 });
 
-
 document.getElementById('building-switch').addEventListener('click', function (e) {
     if (buildingOn == false) {
         buildingOn = true;
@@ -43,7 +70,6 @@ document.getElementById('building-switch').addEventListener('click', function (e
 //// Update only timeline graph instead
     updateTimeLine(timeFrame, buildingOn, savingsOn);
 });
-
 document.getElementById('savings-switch').addEventListener('click', function (e) {
     if (savingsOn == false) {
         savingsOn = true;
@@ -133,7 +159,6 @@ function drawAxes(data, timeFrame, buildingOn) {
 
     return [svg, xAxis, yAxis, width, height, maxY, x, y];
 }
-
 function BarChart(svg, data, width, height, maxY, x, y) {
     svg.selectAll('rect')
         .data(data)
@@ -152,36 +177,6 @@ function BarChart(svg, data, width, height, maxY, x, y) {
             else return d.a_consumption * height / maxY;
         })
 }
-
-function parseData(data) {
-    let isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
-    let process = function (d) {
-        d.timestamp = isoParse(d.timestamp);
-    };
-    data.forEach(process);
-    return data;
-}
-
-function getDataTotal(data) {
-    let consumptionTotal = 0, productionTotal = 0, consumptionLessSavingsTotal = 0, savingsTotal = 0;
-    for (let i = 0; i < data.length; i++) {
-        consumptionTotal += data[i]['a_consumption'];
-        consumptionLessSavingsTotal += data[i]['a_consumptionLessSavings'];
-        productionTotal += data[i]['a_production'];
-        savingsTotal += data[i]['a_savings'];
-    }
-    let savingsRate = Math.floor(savingsTotal / consumptionTotal * 100);
-
-    let consumptionRate = Math.floor(consumptionTotal / (consumptionTotal + consumptionLessSavingsTotal) * 100);
-    let consumptionLessSavingsRate = 100 - consumptionRate;
-
-    return [savingsRate,
-        [{'value': consumptionTotal, title: 'consumptionTotal'},
-            {'value': consumptionLessSavingsTotal, title: 'consumptionLessSavingsTotal'}],
-        productionTotal,
-        [consumptionRate, consumptionLessSavingsRate]];
-}
-
 function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
     data = [];
     if (buildingOn == true) {
@@ -235,7 +230,6 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
     return data;
 }
 
-
 function euroChart(data) {
     let margin = {top: 5, right: 5, bottom: 0, left: 5};
     let width = 190 - margin.left - margin.right;
@@ -281,7 +275,6 @@ function euroChart(data) {
         .style('stroke-width', '2');
 
 }
-
 function donutChart(savingsRate) {
     let o = 0, n = 50, x = savingsRate, m = 50 - x;
     if (x > 50) {o = x - 50; n = 50 - o; x = 50; m = 0}
@@ -332,13 +325,17 @@ function donutChart(savingsRate) {
 
 
 }
-
 function CO2Chart(data) {
-
     document.getElementById('green-circle').setAttribute("r", String(data[0] *0.75));
     document.getElementById('blue-circle').setAttribute("r", String(data[1]*0.75));
-
 }
+
+$(window).on('resize', function() {
+    if($(window).width() < 1000) {
+        $('#slide2').addClass('hidden');
+        $('#slide3').addClass('hidden');
+    }
+});
 
 function carSection(productionTotal, timeFrame) {
     let timeSpan = '';
