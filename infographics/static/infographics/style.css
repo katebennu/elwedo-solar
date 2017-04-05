@@ -1,6 +1,7 @@
 body {
     font-family: 'Karla', sans-serif;
     color: #6D6A5C;
+    overflow-x: hidden;
 }
 
 h1 {
@@ -262,6 +263,7 @@ h1 {
 #timeline-chart {
     margin-top: 15px;
     max-width: 800px;
+    overflow-x: scroll;
 }
 
 .axisY .domain {
