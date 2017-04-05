@@ -378,7 +378,7 @@ h1 {
     }
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1000px) {
     .weather {
         overflow-x: scroll;
         white-space: nowrap;
