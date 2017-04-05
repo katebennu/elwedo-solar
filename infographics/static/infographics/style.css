@@ -363,10 +363,10 @@ h1 {
 }
 
 /*SLIDER*/
-@media screen and (min-width: 550px) {
+@media screen and (min-width: 900px) {
     .slide {
-        margin-left: 50px;
-        margin-right: 50px;
+        margin-left: 20px;
+        margin-right: 20px;
     }
 }
 
@@ -378,7 +378,7 @@ h1 {
     }
 }
 
-@media screen and (max-width: 970px) {
+@media screen and (max-width: 900px) {
     .weather {
         overflow-x: scroll;
         white-space: nowrap;
