@@ -324,6 +324,15 @@ h1 {
 
 #small-graphs-div > .container {
     height: inherit;
+    overflow-x: hidden;
+    white-space: nowrap;
+}
+
+.arrow {
+    display: inline-block;
+    vertical-align: 350%;
+    white-space: normal;
+
 }
 
 .slide {
@@ -333,6 +342,7 @@ h1 {
     margin-top: 50px;
     display: inline-block;
     margin-bottom: 37px;
+    white-space: normal;
 }
 
 .slide > h3 {
@@ -356,7 +366,9 @@ h1 {
 
 /*SLIDER*/
 @media screen and (max-width: 939px) {
-
+    .arrow {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 970px) {
@@ -365,7 +377,6 @@ h1 {
         white-space: nowrap;
     }
 }
-
 
 
 .weather-block {
