@@ -263,7 +263,12 @@ h1 {
 #timeline-chart {
     margin-top: 15px;
     max-width: 800px;
-    overflow-x: scroll;
+}
+
+@media screen and (max-width: 620px) {
+    #timeline-chart {
+        overflow-x: scroll;
+    }
 }
 
 .axisY .domain {
@@ -351,6 +356,10 @@ h1 {
 /*SLIDER*/
 @media screen and (max-width: 939px) {
 
+}
+
+.weather {
+    overflow-x: scroll;
 }
 
 .weather-img {
