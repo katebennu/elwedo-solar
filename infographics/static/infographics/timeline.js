@@ -4,6 +4,12 @@ let savingsOn = true;
 
 updateTimeLine(timeFrame = 'day', buildingOn = false);
 
+$(window).on('resize load', function () {
+    if ($(window).width() < 1000) {
+        slide(ids);
+    }
+});
+
 function parseData(data) {
     let isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
     let process = function (d) {
@@ -145,16 +151,16 @@ function drawAxes(data, timeFrame, buildingOn) {
         .tickFormat(formatTime)
         .tickSizeOuter(0);
 
-    svg .append('g')
+    svg.append('g')
         .attr("class", "axisY")
         .style('font-size', '8px')
         .style('stroke-width', '1px')
         .call(yAxis);
 
-     svg.append('g')
+    svg.append('g')
         .attr('transform', `translate(0, ${height})`)
-         .attr("class", "axisX")
-         .style('font-size', '8px')
+        .attr("class", "axisX")
+        .style('font-size', '8px')
         .call(xAxis);
 
     return [svg, xAxis, yAxis, width, height, maxY, x, y];
@@ -277,7 +283,12 @@ function euroChart(data) {
 }
 function donutChart(savingsRate) {
     let o = 0, n = 50, x = savingsRate, m = 50 - x;
-    if (x > 50) {o = x - 50; n = 50 - o; x = 50; m = 0}
+    if (x > 50) {
+        o = x - 50;
+        n = 50 - o;
+        x = 50;
+        m = 0
+    }
 
     let data = [o, n, 100 + x, m];
 
@@ -315,7 +326,7 @@ function donutChart(savingsRate) {
             return color(d.data);
         });
 
-        svg.append('line')
+    svg.append('line')
         .attr('x1', -130)
         .attr('y1', -1)
         .attr('x2', 190)
@@ -326,16 +337,25 @@ function donutChart(savingsRate) {
 
 }
 function CO2Chart(data) {
-    document.getElementById('green-circle').setAttribute("r", String(data[0] *0.75));
-    document.getElementById('blue-circle').setAttribute("r", String(data[1]*0.75));
+    document.getElementById('green-circle').setAttribute("r", String(data[0] * 0.75));
+    document.getElementById('blue-circle').setAttribute("r", String(data[1] * 0.75));
 }
 
-$(window).on('resize', function() {
-    if($(window).width() < 1000) {
-        $('#slide2').addClass('hidden');
-        $('#slide3').addClass('hidden');
-    }
-});
+
+let ids = ['#slide1', '#slide2', '#slide3'];
+function slide(ids) {
+    console.log('test');
+    $(ids[0]).removeClass('hidden');
+    $('.arrow').removeClass('hidden');
+    $(ids[1]).addClass('hidden');
+    $(ids[2]).addClass('hidden');
+
+    return ids;
+}
+
+
+
+
 
 function carSection(productionTotal, timeFrame) {
     let timeSpan = '';
