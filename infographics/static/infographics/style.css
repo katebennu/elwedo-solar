@@ -143,7 +143,6 @@ h1 {
 }
 
 .legend {
-    margin-top: 37px;
     margin-bottom: 50px;
     text-align: center;
 }
@@ -262,6 +261,7 @@ h1 {
 
 #timeline-chart {
     margin-top: 15px;
+    margin-bottom: 37px;
     max-width: 800px;
 }
 
@@ -332,6 +332,7 @@ h1 {
     margin-left: 10px;
     margin-top: 50px;
     display: inline-block;
+    margin-bottom: 37px;
 }
 
 .slide > h3 {
