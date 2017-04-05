@@ -362,9 +362,12 @@ h1 {
     fill: #26B5DB;
 }
 
-/*NO SLIDER*/
-@media screen and (min-width: 1000px) {
-
+/*SLIDER*/
+@media screen and (min-width: 550px) {
+    .slide {
+        margin-left: 50px;
+        margin-right: 50px;
+    }
 }
 
 /*SLIDER*/

@@ -7,6 +7,10 @@ updateTimeLine(timeFrame = 'day', buildingOn = false);
 $(window).on('resize load', function () {
     if ($(window).width() < 1000) {
         slide(ids);
+    } else {
+        $('.slide').removeClass('hidden');
+        $('.arrow').addClass('hidden');
+
     }
 });
 
@@ -344,17 +348,18 @@ function CO2Chart(data) {
 
 let ids = ['#slide1', '#slide2', '#slide3'];
 function slide(ids) {
-    console.log('test');
     $(ids[0]).removeClass('hidden');
     $('.arrow').removeClass('hidden');
     $(ids[1]).addClass('hidden');
     $(ids[2]).addClass('hidden');
-
     return ids;
 }
 
-
-
+$("#arrow-left").click(function () {
+    console.log(ids);
+    ids.unshift(ids.splice[2]);
+    console.log(ids);
+});
 
 
 function carSection(productionTotal, timeFrame) {
@@ -395,7 +400,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         // out.innerHTML = JSON.stringify(buildingOn);
         //console.log(JSON.stringify(data));
         //out.innerHTML = buildingOn;
-        console.log(data);
+        //console.log(data);
 //
 
         donutChart(savingsRate);
