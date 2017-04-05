@@ -355,11 +355,19 @@ function slide(ids) {
     return ids;
 }
 
-$("#arrow-left").click(function () {
-    console.log(ids);
-    ids.unshift(ids.splice[2]);
-    console.log(ids);
-});
+function leftArrow(ids) {
+    let first = ids.pop();
+    ids.unshift(first);
+    slide(ids);
+    return ids;
+}
+
+function rightArrow(ids) {
+    let last = ids.shift();
+    ids.push(last);
+    slide(ids);
+    return ids;
+}
 
 
 function carSection(productionTotal, timeFrame) {
