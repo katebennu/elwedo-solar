@@ -166,7 +166,7 @@ function drawAxes(data, timeFrame, buildingOn) {
     return [svg, xAxis, yAxis, width, height, maxY, x, y];
 }
 function appendXAxis(svg, height, xAxis) {
-        svg.append('g')
+    svg.append('g')
         .attr('transform', `translate(0, ${height})`)
         .attr("class", "axisX")
         .style('font-size', '8px')
@@ -375,7 +375,7 @@ function rightArrow(ids) {
 
 function updateWeather() {
     let iconCodes = {
-        '01d': 'clear sky',
+        '01d': '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<svg width=\"96px\" height=\"96px\" viewBox=\"0 0 96 96\" version=\"1.1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\">\r\n    <title>clear sky<\/title>\r\n    <desc>Created with Sketch.<\/desc>\r\n    <defs><\/defs>\r\n    <g id=\"Welcome\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n        <g id=\"Weather\" transform=\"translate(-44.000000, -101.000000)\" fill=\"#EFE79C\">\r\n            <g id=\"Weather-Section\" transform=\"translate(-2.000000, -8.000000)\">\r\n                <g id=\"clear-sky\" transform=\"translate(46.000000, 109.000000)\">\r\n                    <circle id=\"Sun\" cx=\"48\" cy=\"48\" r=\"48\"><\/circle>\r\n                <\/g>\r\n            <\/g>\r\n        <\/g>\r\n    <\/g>\r\n<\/svg>',
         '02d': 'few clouds',
         '03d': 'scattered clouds',
         '04d': 'broken clouds',
@@ -384,8 +384,18 @@ function updateWeather() {
         '11d': 'thunderstorm',
         '13d': 'snow',
         '50d': 'mist'
-   }
-    // $.getJSON(
+    };
+    let days = {1:'MON', 2:'TUE', 3:'WED', 4:'THU', 5:'FRI', 6:'SAT', 7:'SUN'}
+
+    let url = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=Helsinki,FI&cnt=7&appid=cf704fd01f3c91f15bdf00a58b867142'
+    $.getJSON(url, function (json) {
+        let lst = json['list'];
+        for (let i = 1; i < 7; i++) {
+            let d = new Date(lst[i]);
+            let day = days[d.getDay()];
+        }
+
+    });
 }
 
 
