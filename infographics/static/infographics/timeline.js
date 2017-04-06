@@ -3,6 +3,7 @@ let buildingOn = false;
 let savingsOn = true;
 
 updateTimeLine(timeFrame = 'day', buildingOn = false);
+updateWeather();
 
 $(window).on('resize load', function () {
     if ($(window).width() < 1000) {
@@ -370,6 +371,21 @@ function rightArrow(ids) {
     ids.push(last);
     slide(ids);
     return ids;
+}
+
+function updateWeather() {
+    let iconCodes = {
+        '01d': 'clear sky',
+        '02d': 'few clouds',
+        '03d': 'scattered clouds',
+        '04d': 'broken clouds',
+        '09d': 'shower rain',
+        '10d': 'rain',
+        '11d': 'thunderstorm',
+        '13d': 'snow',
+        '50d': 'mist'
+   }
+    // $.getJSON(
 }
 
 
