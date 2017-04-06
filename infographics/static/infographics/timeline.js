@@ -161,14 +161,17 @@ function drawAxes(data, timeFrame, buildingOn) {
         .style('stroke-width', '1px')
         .call(yAxis);
 
-    svg.append('g')
+
+    return [svg, xAxis, yAxis, width, height, maxY, x, y];
+}
+function appendXAxis(svg, height, xAxis) {
+        svg.append('g')
         .attr('transform', `translate(0, ${height})`)
         .attr("class", "axisX")
         .style('font-size', '8px')
         .call(xAxis);
-
-    return [svg, xAxis, yAxis, width, height, maxY, x, y];
 }
+
 function BarChart(svg, data, width, height, maxY, x, y) {
     svg.selectAll('rect')
         .data(data)
@@ -402,6 +405,8 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         /*if (wSolar == false) */
         if (savingsOn == false) BarChart(svg, data, width, height, maxY, x, y);
         else stackedChart(data, buildingOn, svg, width, height, maxY, x, y);
+        appendXAxis(svg, height, xAxis);
+
 
 // DEBUG
         let out = document.getElementById('formatted');

@@ -265,6 +265,11 @@ h1 {
     max-width: 800px;
 }
 
+.axisX .domain {
+    stroke-width: 2px;
+    stroke: #6D6A5C;
+}
+
 @media screen and (max-width: 620px) {
     #timeline-chart {
         overflow-x: scroll;
@@ -286,6 +291,8 @@ h1 {
     /*stroke: #6D6A5C;*/
     /*stroke-width: 1px;*/
 }
+
+
 
 .explanation {
     padding-top: 57px;
