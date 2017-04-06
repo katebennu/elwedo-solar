@@ -458,6 +458,7 @@ h1 {
 #login-body {
     margin-top: -20px;
     background-color: #56EDA8;
+    height: inherit;
 }
 
 .row-centered {
@@ -468,17 +469,22 @@ h1 {
     display: inline-block;
     float: none;
     text-align: left;
-    margin-right: -4px;
+    /*margin-right: -4px;*/
+}
+
+#login-body > svg {
+    width: 100%;
+    height: auto;
 }
 
 @media screen and (min-width: 1024px) {
-    #login-body > svg {
-        width: 100%;
-        height: auto;
-    }
+}
+
+@media screen and (max-width: 700px) {
 }
 
 #logo {
+    margin-top: 42px;
     margin-bottom: 38px;
 }
 
@@ -496,6 +502,7 @@ h1 {
     display: inline-block;
     background-color: #FFFFFF !important;
     vertical-align: top;
+    margin-left: 8px;
 }
 
 #login-btn {
@@ -506,7 +513,7 @@ h1 {
     width: 30px;
     height: 30px;
     border-style: hidden;
-    margin-left: 10px;
+    margin-left: 5px;
     margin-top: -4px;
     margin-right: 5px;
 }
