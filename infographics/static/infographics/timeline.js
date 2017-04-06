@@ -385,16 +385,23 @@ function updateWeather() {
         '13d': 'snow',
         '50d': 'mist'
     };
-    let days = {1:'MON', 2:'TUE', 3:'WED', 4:'THU', 5:'FRI', 6:'SAT', 7:'SUN'}
+    let days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
 
     let url = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=Helsinki,FI&cnt=7&appid=cf704fd01f3c91f15bdf00a58b867142'
     $.getJSON(url, function (json) {
+        console.log(json);
         let lst = json['list'];
+        console.log(lst);
         for (let i = 1; i < 7; i++) {
-            let d = new Date(lst[i]);
+            let d = new Date(lst[i]['dt'] * 1000);
             let day = days[d.getDay()];
-        }
+            let date = String(d.getDate());
+            if (date.length == 1) date = '0' + date;
+            let month = String(d.getMonth() + 1);
+            if (month.length == 1) month = '0' + month;
+            console.log(day + ' ' + date + '/' + month);
 
+        }
     });
 }
 
