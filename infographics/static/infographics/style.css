@@ -2,6 +2,15 @@ body {
     font-family: 'Karla', sans-serif;
     color: #6D6A5C;
     overflow-x: hidden;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    position: relative;
+    min-height: 100%;
+    padding-bottom: 80px;
+}
+
+html {
+    height: 100%;
 }
 
 h1 {
@@ -426,11 +435,10 @@ h1 {
     font-size: 48px;
 }
 
-#car-section img {
-    width: 236px;
+#car-pic {
+    width: 280px;
     height: auto;
-    margin-top: 50px;
-    margin-bottom: 50 pxц
+    margin: 50px 50px 50px 50px;
 }
 
 .footer {
@@ -438,6 +446,7 @@ h1 {
     bottom: 0;
     width: 100%;
     padding-top: 11px;
+    position: absolute;
 }
 
 .text-muted {
@@ -446,24 +455,20 @@ h1 {
     font-size: 12px;
 }
 
-.panel-body {
-    padding-left: 30px;
-}
-
 #login-body {
     margin-top: -20px;
     background-color: #56EDA8;
 }
 
 .row-centered {
-    text-align:center;
+    text-align: center;
 }
 
 .col-centered {
-    display:inline-block;
-    float:none;
-    text-align:left;
-    margin-right:-4px;
+    display: inline-block;
+    float: none;
+    text-align: left;
+    margin-right: -4px;
 }
 
 @media screen and (min-width: 1024px) {
