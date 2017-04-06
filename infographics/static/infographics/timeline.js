@@ -397,10 +397,10 @@ function updateWeather() {
             if (date.length == 1) date = '0' + date;
             let month = String(d.getMonth() + 1);
             if (month.length == 1) month = '0' + month;
-            // console.log(day + ' ' + date + '/' + month);
             let id = '#weather' + i;
-            console.log(id);
             if (i != 1) $(id + '> p').text(day + ' ' + date + '/' + month);
+
+            $(id + '> div').html(iconCodes['01d']);
 
         }
     });
