@@ -11,12 +11,7 @@ class UserForm(forms.ModelForm):
 
 
 class LoginForm(forms.ModelForm):
-    """ Form for registering a new user """
-
     password = forms.CharField(widget=forms.PasswordInput)
-    confirm_password = forms.CharField(widget=forms.PasswordInput)
-    is_developer = forms.BooleanField(label="Sign up as developer",
-                                      required=False)
 
     def clean_password(self):
         if self.data['password'] != self.data['confirm_password']:

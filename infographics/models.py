@@ -132,14 +132,6 @@ class PanelsToInstall(models.Model):
             self.building.address) + ', name ' + str(self.name)
 
 
-# if one account per apartment, rewrite for one-to-one relation
-class UserMethods(User):
-
-    def owns_apartment(self, apartment):
-        """ Determine if user owns the apartment"""
-        return self.apartments.filter(number=apartment.number).exists()
-
-
 class ConsumptionMeasurement(models.Model):
     # one of the two is obligatory
     apartment = models.ForeignKey(Apartment, null=True)

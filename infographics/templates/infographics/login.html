@@ -5,7 +5,7 @@
 
     <div id="login-body">
         <?xml version="1.0" encoding="UTF-8"?>
-        <svg width="1024px" height="693px" viewBox="0 0 1024 693" version="1.1" xmlns="http://www.w3.org/2000/svg"
+        <svg width="1024px" height="380px" viewBox="0 0 1024 380" version="1.1" xmlns="http://www.w3.org/2000/svg"
              xmlns:xlink="http://www.w3.org/1999/xlink">
             <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
             <title>login_illustration</title>
@@ -216,46 +216,34 @@
                             </g>
                         </g>
 
-                        <body xmlns="http://www.w3.org/1999/xhtml">
-                        <div class="row">
-                            <div class="col-sm-12 col-md-6">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <h3>Log In</h3>
-                                        <div>Login: user_1, password: pass_1</div>
-                                        <br/>
-
-                                        <form class="form-horizontal" role="form" action="{{ app_path }}" method="post"
-                                              enctype="multipart/form-data">
-                                            {% csrf_token %}
-                                            <div class="form-group">
-                                                {{ form.username.errors }}
-                                                {{ form.username.label_tag }}
-                                                {{ form.username }}
-                                            </div>
-                                            <div class="form-group">
-                                                {{ form.password.errors }}
-                                                {{ form.password.label_tag }}
-                                                {{ form.password }}
-                                            </div>
-                                            <div class="form-group">
-                                                <div class="col-sm-offset-2 col-sm-10">
-                                                    <button type="submit" class="btn btn-success">Submit</button>
-                                                </div>
-                                            </div>
-                                            <input type="hidden" name="next" value="{{ next }}"/>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        </body>
 
                     </g>
                 </g>
             </g>
         </svg>
 
+        <div class="container login-box">
+
+            <form class="form-horizontal" role="form" action="{{ app_path }}" method="post"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-field">
+                    {{ form.username.errors }}
+                    {{ form.username }}<br>
+                </div>
+                <div class="input-field">
+                    {{ form.password.errors }}
+                    {{ form.password }}
+
+
+                    <div id="login-btn" onClick="javascript:this.form.submit();">
+                                                <?xml version="1.0" encoding="UTF-8"?>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27.06 27.06"><defs><style>.cls-1{fill:#56eda8;}.cls-2,.cls-3{fill:none;stroke:#fff;stroke-linecap:round;stroke-linejoin:round;}.cls-2{stroke-width:2px;}.cls-3{stroke-width:1.5px;}</style></defs><title>Asset 10</title><g id="Layer_2" data-name="Layer 2"><g id="Layer_1-2" data-name="Layer 1"><circle class="cls-1" cx="13.53" cy="13.53" r="13.53"/><line class="cls-2" x1="19.11" y1="13.68" x2="7.11" y2="13.68"/><polyline class="cls-3" points="13.92 8.1 19.49 13.67 13.66 19.5"/></g></g></svg>
+                    </div>
+                </div>
+
+            </form>
+        </div>
 
     </div>
 {% endblock %}

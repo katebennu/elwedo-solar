@@ -292,8 +292,6 @@ h1 {
     /*stroke-width: 1px;*/
 }
 
-
-
 .explanation {
     padding-top: 57px;
     padding-bottom: 64px;
@@ -454,6 +452,7 @@ h1 {
 
 #login-body {
     margin-top: -20px;
+    background-color: #56EDA8;
 }
 
 @media screen and (min-width: 1024px) {
@@ -461,4 +460,36 @@ h1 {
         width: 100%;
         height: auto;
     }
+}
+
+#login-box {
+    float: none;
+    margin: 0 auto;
+}
+
+.input-field {
+    background-color: #FFFFFF;
+    padding: 10px;
+    border-radius: 100px;
+    width: 219px;
+    height: 43px;
+    margin-bottom: 14px;
+}
+
+.input-field input {
+    border-style: hidden;
+    display: inline-block;
+    background-color: #FFFFFF !important;
+    vertical-align: top;
+}
+
+#login-btn {
+    display: inline-block;
+    float: right;
+    vertical-align: top;
+    width: 30px;
+    margin-left: 10px;
+    margin-top: -4px;
+
+
 }
