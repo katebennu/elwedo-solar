@@ -455,6 +455,17 @@ h1 {
     background-color: #56EDA8;
 }
 
+.row-centered {
+    text-align:center;
+}
+
+.col-centered {
+    display:inline-block;
+    float:none;
+    text-align:left;
+    margin-right:-4px;
+}
+
 @media screen and (min-width: 1024px) {
     #login-body > svg {
         width: 100%;
@@ -462,8 +473,8 @@ h1 {
     }
 }
 
-#login-box {
-
+#logo {
+    margin-bottom: 38px;
 }
 
 .input-field {
