@@ -389,9 +389,7 @@ function updateWeather() {
 
     let url = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=Helsinki,FI&cnt=7&appid=cf704fd01f3c91f15bdf00a58b867142'
     $.getJSON(url, function (json) {
-        console.log(json);
         let lst = json['list'];
-        console.log(lst);
         for (let i = 1; i < 7; i++) {
             let d = new Date(lst[i]['dt'] * 1000);
             let day = days[d.getDay()];
@@ -399,7 +397,10 @@ function updateWeather() {
             if (date.length == 1) date = '0' + date;
             let month = String(d.getMonth() + 1);
             if (month.length == 1) month = '0' + month;
-            console.log(day + ' ' + date + '/' + month);
+            // console.log(day + ' ' + date + '/' + month);
+            let id = '#weather' + i;
+            console.log(id);
+            if (i != 1) $(id + '> p').text(day + ' ' + date + '/' + month);
 
         }
     });
