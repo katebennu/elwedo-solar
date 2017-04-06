@@ -298,5 +298,11 @@
             </div>
         </div>
     </div>
-
+<script>
+    let body = $('body');
+    if (body.has('#login-body')) {
+        console.log('form');
+        body.css('background-color', '#56EDA8');
+    }
+</script>
 {% endblock %}
