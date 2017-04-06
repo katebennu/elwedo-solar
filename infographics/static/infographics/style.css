@@ -451,3 +451,14 @@ h1 {
 .panel-body {
     padding-left: 30px;
 }
+
+#login-body {
+    margin-top: -20px;
+}
+
+@media screen and (min-width: 1024px) {
+    #login-body > svg {
+        width: 100%;
+        height: auto;
+    }
+}
