@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="138px" height="97px" viewBox="0 0 138 97" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 41 (35326) - http://www.bohemiancoding.com/sketch -->
+    <title>rain</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Weather" transform="translate(-792.000000, -101.000000)">
+            <g id="Weather-Section" transform="translate(-2.000000, -8.000000)">
+                <g id="rain" transform="translate(794.000000, 109.000000)">
+                    <path d="M0.04271795,42.1976472 L137.042718,42.1976472 C137.042718,42.1976472 139.010415,17.7655302 111.004182,23.1612296 C93.4157955,-2.33410029 64.3110813,10.2666294 64.3110813,10.2666294 C61.551925,2.298965 40.2973258,-9.55331329 25.0504548,13.2923344 C-2.15898779,13.2923344 0.04271795,42.1976472 0.04271795,42.1976472 Z" id="Cloud" fill="#FFFFFF"></path>
+                    <path d="M113.254131,63.3135328 L123.808122,77.0422624" id="Path-2" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"></path>
+                    <path d="M102.725439,74.567275 L113.27943,88.2960046" id="Path-2-Copy" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"></path>
+                    <path d="M87.68445,74.567275 L98.2384413,88.2960046" id="Path-2-Copy-2" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"></path>
+                    <path d="M66.6270656,70.0657781 L77.1810568,83.7945077" id="Path-2-Copy-3" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"></path>
+                    <path d="M59.1065711,81.3195203 L69.6605624,95.0482499" id="Path-2-Copy-4" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"></path>
+                    <path d="M36.5450878,74.567275 L47.0990791,88.2960046" id="Path-2-Copy-5" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"></path>
+                    <path d="M96.7090433,40 L107.263035,53.7287296" id="Path-2" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"></path>
+                    <path d="M86.1803511,51.2537422 L96.7343424,64.9824718" id="Path-2-Copy" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"></path>
+                    <path d="M71.1393622,51.2537422 L81.6933535,64.9824718" id="Path-2-Copy-2" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"></path>
+                    <path d="M50.0819778,46.7522453 L60.6359691,60.4809749" id="Path-2-Copy-3" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"></path>
+                    <path d="M42.5614833,58.0059875 L53.1154746,71.7347171" id="Path-2-Copy-4" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"></path>
+                    <path d="M20,51.2537422 L30.5539913,64.9824718" id="Path-2-Copy-5" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
