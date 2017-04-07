@@ -274,13 +274,27 @@ function euroChart(data) {
         .style('stroke', '#6D6A5C')
         .style('stroke-width', '2');
 
+    let wS = data[0]['value'] * 8/100;
+    if (wS < 10) wS = (data[0]['value'] * 8/100).toFixed(1);
+
     svg.append("text")
         .attr('x', 45)
-        .attr('y', -8)
+        .attr('y', -8 ) // + height - height of the first rect
         .attr('fill', '#56eda8')
         .attr('font-size', 16)
         .attr('font-weight', 'bold')
-        .text('10 €');
+        .text(wS + ' €');
+
+    let wOS = data[0]['value'] * 8/100;
+    if (wOS < 10) wOS = (data[1]['value'] * 8/100).toFixed(1);
+
+        svg.append("text")
+        .attr('x', 115)
+        .attr('y', -8 ) // + height - height of the first rect
+        .attr('fill', '#26B5DB')
+        .attr('font-size', 16)
+        .attr('font-weight', 'bold')
+        .text(wOS + ' €');
 
 }
 function donutChart(savingsRate) {
