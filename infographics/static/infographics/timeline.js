@@ -274,8 +274,8 @@ function euroChart(data) {
         .style('stroke', '#6D6A5C')
         .style('stroke-width', '2');
 
-    let wS = data[0]['value'] * 8/100;
-    if (wS < 10) wS = (data[0]['value'] * 8/100).toFixed(1);
+    let wS = (data[0]['value'] * 8/100).toFixed(1);
+    if (wS >= 10) wS = Math.round(data[0]['value'] * 8/100);
 
     let wSHeight = $("#euro-chart rect:first-of-type").height();
 
@@ -287,8 +287,8 @@ function euroChart(data) {
         .attr('font-weight', 'bold')
         .text(wS + ' €');
 
-    let wOS = data[0]['value'] * 8/100;
-    if (wOS < 10) wOS = (data[1]['value'] * 8/100).toFixed(1);
+    let wOS = (data[0]['value'] * 8/100).toFixed(1);
+    if (wOS >= 10) wOS = Math.round(data[1]['value'] * 8/100);
 
     let wSOHeight = $("#euro-chart rect:nth-of-type(2)").height();
 
