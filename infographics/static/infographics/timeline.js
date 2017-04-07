@@ -231,7 +231,7 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
 }
 
 function euroChart(data) {
-    let margin = {top: 5, right: 5, bottom: 0, left: 5};
+    let margin = {top: 20, right: 5, bottom: 0, left: 5};
     let width = 190 - margin.left - margin.right;
     let height = 185 - margin.top - margin.bottom;
     let svg = d3.select('#euro-chart')
@@ -268,11 +268,19 @@ function euroChart(data) {
 
     svg.append('line')
         .attr('x1', 0)
-        .attr('y1', 181)
+        .attr('y1', 166)
         .attr('x2', 180)
-        .attr('y2', 181)
+        .attr('y2', 166)
         .style('stroke', '#6D6A5C')
         .style('stroke-width', '2');
+
+    svg.append("text")
+        .attr('x', 45)
+        .attr('y', -8)
+        .attr('fill', '#56eda8')
+        .attr('font-size', 16)
+        .attr('font-weight', 'bold')
+        .text('10 €');
 
 }
 function donutChart(savingsRate) {
