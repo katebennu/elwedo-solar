@@ -198,7 +198,7 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
 
     console.log(data);
 
-    let keys = ['consumptionLessSavings','savings'];
+    let keys = ['consumptionLessSavings', 'savings'];
     let z = d3.scaleOrdinal()
         .range(["#F4F1E4", "#56eda8"]);
     z.domain(keys);
@@ -319,6 +319,14 @@ function donutChart(savingsRate) {
         .style("fill", function (d) {
             return color(d.data);
         });
+
+    svg.append("text")
+        .attr('x', -15)
+        .attr('y', -18)
+        .attr('fill', '#26B5DB')
+        .attr('font-size', 16)
+        .attr('font-weight', 'bold')
+        .text(savingsRate +' %');
 
     svg.append('line')
         .attr('x1', -130)
