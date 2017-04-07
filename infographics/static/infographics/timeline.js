@@ -285,7 +285,7 @@ function euroChart(data) {
         .attr('font-weight', 'bold')
         .text(wS + ' €');
 
-    let wOS = (data[0]['value'] * 8 / 100).toFixed(1);
+    let wOS = (data[1]['value'] * 8 / 100).toFixed(1);
     if (wOS >= 10) wOS = Math.round(data[1]['value'] * 8 / 100);
 
     let wSOHeight = $("#euro-chart rect:nth-of-type(2)").height();
