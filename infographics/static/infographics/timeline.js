@@ -31,16 +31,14 @@ function getDataTotal(data) {
         productionTotal += data[i]['a_production'];
         savingsTotal += data[i]['a_savings'];
     }
-    let savingsRate = Math.floor(savingsTotal / consumptionTotal * 100);
+    let savingsRate = Math.round(savingsTotal / consumptionTotal * 100);
 
-    let consumptionRate = Math.floor(consumptionTotal / (consumptionTotal + consumptionLessSavingsTotal) * 100);
-    let consumptionLessSavingsRate = 100 - consumptionRate;
 
     return [savingsRate,
         [{'value': consumptionTotal, title: 'consumptionTotal'},
             {'value': consumptionLessSavingsTotal, title: 'consumptionLessSavingsTotal'}],
         productionTotal,
-        [consumptionRate, consumptionLessSavingsRate]];
+        [consumptionTotal, consumptionLessSavingsTotal]];
 }
 
 $("#daySwitch").click(function () {
@@ -274,8 +272,8 @@ function euroChart(data) {
         .style('stroke', '#6D6A5C')
         .style('stroke-width', '2');
 
-    let wS = (data[0]['value'] * 8/100).toFixed(1);
-    if (wS >= 10) wS = Math.round(data[0]['value'] * 8/100);
+    let wS = (data[0]['value'] * 8 / 100).toFixed(1);
+    if (wS >= 10) wS = Math.round(data[0]['value'] * 8 / 100);
 
     let wSHeight = $("#euro-chart rect:first-of-type").height();
 
@@ -287,15 +285,15 @@ function euroChart(data) {
         .attr('font-weight', 'bold')
         .text(wS + ' €');
 
-    let wOS = (data[0]['value'] * 8/100).toFixed(1);
-    if (wOS >= 10) wOS = Math.round(data[1]['value'] * 8/100);
+    let wOS = (data[0]['value'] * 8 / 100).toFixed(1);
+    if (wOS >= 10) wOS = Math.round(data[1]['value'] * 8 / 100);
 
     let wSOHeight = $("#euro-chart rect:nth-of-type(2)").height();
 
 
-        svg.append("text")
+    svg.append("text")
         .attr('x', 113)
-        .attr('y', -8  + height - wSOHeight) // + height - height of the first rect
+        .attr('y', -8 + height - wSOHeight) // + height - height of the first rect
         .attr('fill', '#26B5DB')
         .attr('font-size', 16)
         .attr('font-weight', 'bold')
@@ -353,7 +351,7 @@ function donutChart(savingsRate) {
         .attr('fill', '#26B5DB')
         .attr('font-size', 16)
         .attr('font-weight', 'bold')
-        .text(savingsRate +' %');
+        .text(savingsRate + ' %');
 
     svg.append('line')
         .attr('x1', -130)
@@ -366,11 +364,18 @@ function donutChart(savingsRate) {
 
 }
 function CO2Chart(data) {
-    $('#green-circle').attr("r", String(data[0] * 0.75));
-    $('#blue-circle').attr("r", String(data[1] * 0.75));
 
-    $('#co2-wO').text(Math.round(data[0]*209/100));
-    $('#co2-w').text(Math.round(data[1]*209/100));
+    let consumptionTotal = data[0];
+    let consumptionLessSavingsTotal = data[1];
+
+    let consumptionRate = Math.round(consumptionTotal / (consumptionTotal + consumptionLessSavingsTotal) * 100);
+    let consumptionLessSavingsRate = 100 - consumptionRate;
+
+    $('#green-circle').attr("r", String(consumptionRate * 0.75));
+    $('#blue-circle').attr("r", String(consumptionLessSavingsRate * 0.75));
+
+    $('#co2-wO').text(Math.round(data[0] * 209 / 100));
+    $('#co2-w').text(Math.round(data[1] * 209 / 100));
 }
 
 
