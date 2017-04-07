@@ -369,7 +369,8 @@ function CO2Chart(data) {
     $('#green-circle').attr("r", String(data[0] * 0.75));
     $('#blue-circle').attr("r", String(data[1] * 0.75));
 
-
+    $('#co2-wO').text(Math.round(data[0]*209/100));
+    $('#co2-w').text(Math.round(data[1]*209/100));
 }
 
 
