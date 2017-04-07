@@ -43,7 +43,7 @@ function getDataTotal(data) {
         [consumptionRate, consumptionLessSavingsRate]];
 }
 
-document.getElementById("daySwitch").addEventListener('click', function (e) {
+$("#daySwitch").click(function () {
     $('#daySwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
@@ -51,14 +51,14 @@ document.getElementById("daySwitch").addEventListener('click', function (e) {
     updateTimeLine(timeFrame, buildingOn, savingsOn);
 
 });
-document.getElementById("weekSwitch").addEventListener('click', function (e) {
+$("#weekSwitch").click(function () {
     $('#weekSwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'week';
     updateTimeLine(timeFrame, buildingOn, savingsOn);
 });
-document.getElementById("monthSwitch").addEventListener('click', function (e) {
+$("#monthSwitch").click(function () {
     $('#monthSwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
@@ -66,7 +66,7 @@ document.getElementById("monthSwitch").addEventListener('click', function (e) {
     updateTimeLine(timeFrame, buildingOn, savingsOn);
 });
 
-document.getElementById('building-switch').addEventListener('click', function (e) {
+$('#building-switch').click(function () {
     if (buildingOn == false) {
         buildingOn = true;
         $('#building-switch').removeClass('graph-control-off').addClass('graph-control-on');
@@ -81,7 +81,7 @@ document.getElementById('building-switch').addEventListener('click', function (e
 //// Update only timeline graph instead
     updateTimeLine(timeFrame, buildingOn, savingsOn);
 });
-document.getElementById('savings-switch').addEventListener('click', function (e) {
+$('#savings-switch').click(function () {
     if (savingsOn == false) {
         savingsOn = true;
         $('#savings-switch').removeClass('graph-control-off').addClass('graph-control-on');
@@ -196,7 +196,9 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
     }
     data.push({'columns': ['timestamp', 'savings', 'consumptionLessSavings']});
 
-    let keys = ['savings', 'consumptionLessSavings'];
+    console.log(data);
+
+    let keys = ['consumptionLessSavings','savings'];
     let z = d3.scaleOrdinal()
         .range(["#F4F1E4", "#56eda8"]);
     z.domain(keys);
@@ -432,7 +434,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         // out.innerHTML = JSON.stringify(buildingOn);
         //console.log(JSON.stringify(data));
         //out.innerHTML = buildingOn;
-        //console.log(data);
+        // console.log(data);
 //
 
         donutChart(savingsRate);

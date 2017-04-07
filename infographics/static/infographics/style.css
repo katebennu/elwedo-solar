@@ -469,7 +469,6 @@ h1 {
     display: inline-block;
     float: none;
     text-align: left;
-    /*margin-right: -4px;*/
 }
 
 #login-body > svg {
@@ -486,6 +485,7 @@ h1 {
 #logo {
     margin-top: 42px;
     margin-bottom: 38px;
+
 }
 
 .input-field {
