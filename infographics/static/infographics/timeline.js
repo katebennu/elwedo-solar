@@ -366,8 +366,10 @@ function donutChart(savingsRate) {
 
 }
 function CO2Chart(data) {
-    document.getElementById('green-circle').setAttribute("r", String(data[0] * 0.75));
-    document.getElementById('blue-circle').setAttribute("r", String(data[1] * 0.75));
+    $('#green-circle').attr("r", String(data[0] * 0.75));
+    $('#blue-circle').attr("r", String(data[1] * 0.75));
+
+
 }
 
 
