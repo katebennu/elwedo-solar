@@ -126,10 +126,14 @@ function drawAxes(data, timeFrame, buildingOn) {
         .tickFormat(d3.format(",.2f"));
 
     let xMin = data[0].timestamp;
+
     let xMax = data[data.length - 1].timestamp;
+    // xMax.setHours(xMax.getHours() + 1);
 
     let x = d3.scaleTime()
-        .domain([xMin, xMax])
+        .domain(d3.extent(data, function (d) {
+            return d.timestamp;
+        }))
         .range([0, width]);
     let xAxis = d3.axisBottom(x)
         .ticks(5)
@@ -465,6 +469,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(data[data.length - 1]['timestamp']);
 
         let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame, buildingOn);
+        $( ".tick > text:contains('0.00')" ).css( "display", "none" );
 
         /*if (wSolar == false) */
         if (savingsOn == false) BarChart(svg, data, width, height, maxY, x, y);
