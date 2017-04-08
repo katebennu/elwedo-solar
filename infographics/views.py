@@ -9,6 +9,9 @@ from infographics.models import Building, Apartment
 def index(request):
     return render(request, "infographics/index.html")
 
+def about(request):
+    return render(request, "infographics/about.html")
+
 
 def timeline_update(request):
 

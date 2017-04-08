@@ -14,4 +14,5 @@ urlpatterns = [
         redirect_authenticated_user=True
     ), name='login'),
     url(r'^logout/$', logout, name='logout'),
+    url(r'^about/$', views.about, name='about'),
 ]
