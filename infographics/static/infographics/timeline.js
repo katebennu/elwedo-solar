@@ -469,7 +469,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(data[data.length - 1]['timestamp']);
 
         let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame, buildingOn);
-        $( ".tick > text:contains('0.00')" ).css( "display", "none" );
+        $( ".tick > text").filter(function(){return $(this).text() === "0.00";}).css( "display", "none" );
 
         /*if (wSolar == false) */
         if (savingsOn == false) BarChart(svg, data, width, height, maxY, x, y);
