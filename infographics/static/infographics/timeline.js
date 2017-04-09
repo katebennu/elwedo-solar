@@ -5,6 +5,7 @@ let savingsOn = true;
 updateTimeLine(timeFrame = 'day', buildingOn = false);
 updateWeather();
 
+// small graphs - change view from one line to a carousel
 $(window).on('resize load', function () {
     if ($(window).width() < 1000) {
         slide(ids);
@@ -15,6 +16,7 @@ $(window).on('resize load', function () {
     }
 });
 
+// data preparation
 function parseData(data) {
     let isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
     let process = function (d) {
@@ -41,6 +43,7 @@ function getDataTotal(data) {
         [consumptionTotal, consumptionLessSavingsTotal]];
 }
 
+// switch timeFrame
 $("#daySwitch").click(function () {
     $('#daySwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
@@ -64,6 +67,7 @@ $("#monthSwitch").click(function () {
     updateTimeLine(timeFrame, buildingOn, savingsOn);
 });
 
+// timeline
 $('#building-switch').click(function () {
     if (buildingOn == false) {
         buildingOn = true;
@@ -232,6 +236,7 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
     return data;
 }
 
+// small charts
 function euroChart(data) {
     let margin = {top: 20, right: 5, bottom: 0, left: 5};
     let width = 190 - margin.left - margin.right;
@@ -382,7 +387,6 @@ function CO2Chart(data) {
     $('#co2-w').text(Math.round(data[1] * 209 / 100));
 }
 
-
 let ids = ['#slide1', '#slide2', '#slide3'];
 function slide(ids) {
     $(ids[0]).removeClass('hidden');
@@ -391,14 +395,12 @@ function slide(ids) {
     $(ids[2]).addClass('hidden');
     return ids;
 }
-
 function leftArrow(ids) {
     let first = ids.pop();
     ids.unshift(first);
     slide(ids);
     return ids;
 }
-
 function rightArrow(ids) {
     let last = ids.shift();
     ids.push(last);
@@ -406,6 +408,7 @@ function rightArrow(ids) {
     return ids;
 }
 
+// weather section
 function updateWeather() {
     let iconCodes = {
         '01d': '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<svg width=\"96px\" height=\"96px\" viewBox=\"0 0 96 96\" version=\"1.1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\">\r\n    <title>clear sky<\/title>\r\n    <desc>Created with Sketch.<\/desc>\r\n    <defs><\/defs>\r\n    <g id=\"Welcome\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n        <g id=\"Weather\" transform=\"translate(-44.000000, -101.000000)\" fill=\"#EFE79C\">\r\n            <g id=\"Weather-Section\" transform=\"translate(-2.000000, -8.000000)\">\r\n                <g id=\"clear-sky\" transform=\"translate(46.000000, 109.000000)\">\r\n                    <circle id=\"Sun\" cx=\"48\" cy=\"48\" r=\"48\"><\/circle>\r\n                <\/g>\r\n            <\/g>\r\n        <\/g>\r\n    <\/g>\r\n<\/svg>',
@@ -440,7 +443,7 @@ function updateWeather() {
     });
 }
 
-
+// car section
 function carSection(productionTotal, timeFrame) {
     let timeSpan = '';
     if (timeFrame == 'month') timeSpan = 'THIS MONTH';
@@ -451,6 +454,8 @@ function carSection(productionTotal, timeFrame) {
     document.getElementById('produced-km').innerHTML = String(Math.floor(productionTotal) * 5);
 }
 
+
+// main
 function updateTimeLine(timeFrame, buildingOn, savingsOn) {
 
     $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
