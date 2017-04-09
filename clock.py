@@ -21,8 +21,6 @@ def timed_job():
 
     grid = Grid.objects.all()[0]
     utc = timezone('UTC')
-    total_rows = len(rows)
-    cursor = 0
 
     for i in range(300):
         row = rows[i]
@@ -43,7 +41,6 @@ def timed_job():
             value_per_unit=float(value_per_unit)
         )
 
-        cursor += 1
     print('This job is run every two minutes.')
 
 sched.start()
