@@ -25,7 +25,7 @@ class Command(BaseCommand):
         cursor = 0
 
         for i in range(300):
-            row = rows[i]
+            row = rows[i
             row = row.split(';')
             show_progress(cursor, total_rows)
             if 'Arvo (kWh)' in row:
