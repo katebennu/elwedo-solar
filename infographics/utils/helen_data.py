@@ -3,7 +3,7 @@ from datetime import datetime
 from django.core.management.base import BaseCommand
 from pytz import timezone
 from infographics.models import Grid, ProductionMeasurement
-from .progress_bar import show_progress
+from infographics.management.commands.progress_bar import show_progress
 
 
 class Command(BaseCommand):
