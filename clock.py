@@ -1,3 +1,6 @@
+import os
+os.environ['DJANGO_SETTINGS_MODULE'] = 'solarpilot.settings'
+
 import urllib.request
 from datetime import datetime
 
