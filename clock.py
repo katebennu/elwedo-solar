@@ -1,9 +1,9 @@
 import os
 os.environ['DJANGO_SETTINGS_MODULE'] = 'solarpilot.settings'
 
-from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.schedulers.blocking import BlockingScheduler
 
-sched = BackgroundScheduler()
+sched = BlockingScheduler()
 
 
 @sched.scheduled_job('interval', minutes=2)
