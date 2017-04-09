@@ -36,16 +36,9 @@ def get_data_for_range(
         production = production_measurements \
             .aggregate(Sum('value_per_unit'))["value_per_unit__sum"] * number_of_panels / apartment_divisor
 
-        from pprint import pprint
-
         savings = production
         if production > consumption:
             savings = consumption
-        pprint(str(time_range))
-        pprint('consumption:' + str(consumption))
-        pprint('production:'+ str(production))
-        pprint('savings:'+ str(savings))
-        pprint('number of panels' + str(number_of_panels))
 
         earnings = production - consumption
         if earnings < 0:
