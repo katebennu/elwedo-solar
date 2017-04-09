@@ -4,7 +4,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'solarpilot.settings'
 import urllib.request
 from datetime import datetime
 
-from apscheduler.schedulers.background import BackgroundScheduler()
+from apscheduler.schedulers.background import BackgroundScheduler
 from pytz import timezone
 
 from infographics.models import Grid, ProductionMeasurement
