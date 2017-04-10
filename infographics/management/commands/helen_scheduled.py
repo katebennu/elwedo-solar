@@ -15,8 +15,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print('********************************************************start execution')
-        sched.start(self)
+        sched.start()
         print('Successfully updated production data')
+
 
 @sched.scheduled_job('interval', minutes=2)
 def timed_job():
