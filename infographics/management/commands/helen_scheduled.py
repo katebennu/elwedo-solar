@@ -15,7 +15,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print('********************************************************start execution')
-        sched.start()
+        sched.start(self)
         print('Successfully updated production data')
 
 
@@ -26,10 +26,14 @@ class Command(BaseCommand):
         contents = open(file).read()
         rows = contents.splitlines()
 
+        print('*************** got the data')
+
         grid = Grid.objects.all()[0]
         utc = timezone('UTC')
         total_rows = len(rows)
         cursor = 0
+
+        print('**************** got the grid')
 
         for i in range(50):
             row = rows[i]
