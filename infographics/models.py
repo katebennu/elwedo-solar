@@ -78,7 +78,7 @@ class Apartment(models.Model):
 
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
-        return self._get_data_estimates(partial(hourly, 24))
+        return self._get_data_estimates(partial(hourly, 23))
 
     def get_multiple_days_data(self, days):
         """ Returns consumption and production data for the latest N days in the database"""
@@ -108,7 +108,7 @@ class Building(models.Model):
 
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
-        return self._get_data_estimates(partial(hourly, 24))
+        return self._get_data_estimates(partial(hourly, 23))
 
     def get_multiple_days_data(self, days):
         """ Returns consumption and production data for the latest N days in the database"""

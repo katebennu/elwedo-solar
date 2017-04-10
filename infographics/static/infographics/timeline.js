@@ -154,7 +154,7 @@ function drawAxes(data, timeFrame, buildingOn) {
         .domain(data.map(d => d.timestamp))
         .range([0, width]);
     let xAxis = d3.axisBottom(x)
-        .ticks(5)
+        .ticks(3)
         .tickSize(4)
         .tickPadding(5)
         .tickFormat(formatTime)
@@ -189,10 +189,10 @@ function BarChart(svg, data, width, height, maxY, x, y) {
             else return y(d.a_consumption);
         })
 
-        .attr('width', d => width / data.length - 2)
+        .attr('width', d => x.bandwidth())
         .attr('height', function (d) {
-            if (buildingOn == true) return d.b_consumption * height / maxY;
-            else return d.a_consumption * height / maxY;
+            if (buildingOn == true) return height - y(d.b_consumption);
+            else return height - y(d.a_consumption);
         })
 }
 function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
@@ -244,7 +244,7 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
         .attr("height", function (d) {
             return y(d[0]) - y(d[1]);
         })
-        .attr("width", d => width / data.length - 2);
+        .attr("width",  d => x.bandwidth());
 
 
     return data;
