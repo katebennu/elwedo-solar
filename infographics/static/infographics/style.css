@@ -219,7 +219,7 @@ h1 {
     color: #FFFFFF;
 }
 
-.sticky-ribbon > div {
+#sticky-ribbon > div {
     width: 100px;
     display: inline-block;
     margin: 5px;
@@ -229,6 +229,13 @@ h1 {
     border-color: #FFFFFF;
     border-radius: 100px;
     font-weight: bold;
+}
+
+.stick {
+    margin-top: 0 !important;
+    position: fixed;
+    top: 0;
+    z-index: 10000;
 }
 
 .time-control-off {

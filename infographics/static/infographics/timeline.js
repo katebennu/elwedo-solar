@@ -5,6 +5,22 @@ let savingsOn = true;
 updateTimeLine(timeFrame = 'day', buildingOn = false);
 updateWeather();
 
+// stick the timeFrame switching div to the top
+$(window).scroll(function () {
+    let anchor = $('#sticky-anchor'),
+        ribbon = $('#sticky-ribbon'),
+        windowTop = $(window).scrollTop(),
+        divTop = $(anchor).offset().top;
+    if (windowTop > divTop) {
+        $(ribbon).addClass('stick');
+        $(anchor).css('display', 'block');
+    } else {
+        $(ribbon).removeClass('stick');
+        $(anchor).css('display', 'block');
+    }
+    console.log('test');
+});
+
 // small graphs - change view from one line to a carousel
 $(window).on('resize load', function () {
     if ($(window).width() < 1000) {
@@ -12,7 +28,6 @@ $(window).on('resize load', function () {
     } else {
         $('.slide').removeClass('hidden');
         $('.arrow').addClass('hidden');
-
     }
 });
 
@@ -474,7 +489,9 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(data[data.length - 1]['timestamp']);
 
         let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame, buildingOn);
-        $( ".tick > text").filter(function(){return $(this).text() === "0.00";}).css( "display", "none" );
+        $(".tick > text").filter(function () {
+            return $(this).text() === "0.00";
+        }).css("display", "none");
 
         /*if (wSolar == false) */
         if (savingsOn == false) BarChart(svg, data, width, height, maxY, x, y);
@@ -483,7 +500,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
 
 
 // DEBUG
-        let out = document.getElementById('formatted');
+        // let out = document.getElementById('formatted');
         // out.innerHTML = JSON.stringify(buildingOn);
         //console.log(JSON.stringify(data));
         //out.innerHTML = buildingOn;
