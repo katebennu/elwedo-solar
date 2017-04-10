@@ -10,7 +10,7 @@ sched = BlockingScheduler()
 
 class Command(BaseCommand):
     help = 'Parse and save example production data'
-    
+
     def handle(self, *args, **options):
 
         sched.start()

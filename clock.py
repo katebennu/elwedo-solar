@@ -12,5 +12,8 @@ sched = BlockingScheduler()
 def timed_job():
     # utils.helen_data()
 
+    from infographics.models import Grid, ProductionMeasurement
+    grid = Grid.objects.all()[0]
+    print(grid.name)
 
 sched.start()

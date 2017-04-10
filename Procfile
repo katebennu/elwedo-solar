@@ -1,2 +1,2 @@
 web: gunicorn solarpilot.wsgi --log-file -
-production: python manage.py helen_scheduled
+helen_scheduled: python manage.py helen_scheduled
