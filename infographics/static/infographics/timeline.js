@@ -119,7 +119,7 @@ function drawAxes(data, timeFrame, buildingOn) {
     if (timeFrame == 'day') t = '%H:%M';
     let formatTime = d3.timeFormat(t);
 
-    let margin = {top: 10, right: 60, bottom: 60, left: 30};
+    let margin = {top: 10, right: 10, bottom: 60, left: 30};
     let width = 700 - margin.left - margin.right;
     let height = 350 - margin.top - margin.bottom;
     let svg = d3.select('#timeline-chart')

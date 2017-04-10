@@ -36,7 +36,8 @@ def hourly(number_of_hours, end_limit_function=None):
 
     def _get_closest_full_hour():
         now = end_limit_function()
-        return datetime.datetime(day=now.day, month=now.month, year=now.year, hour=now.hour - 1)
+
+        return datetime.datetime(day=now.day, month=now.month, year=now.year, hour=now.hour) - datetime.timedelta(hours=1)
 
     return get_ranges(datetime.timedelta(hours=1), number_of_hours, _get_closest_full_hour)
 
@@ -53,6 +54,6 @@ def daily(number_of_days, end_limit_function=None):
 
     def _get_closest_full_day():
         now = end_limit_function()
-        return datetime.datetime(day=now.day - 1, month=now.month, year=now.year)
+        return datetime.datetime(day=now.day, month=now.month, year=now.year)  - datetime.timedelta(days=1)
 
     return get_ranges(datetime.timedelta(days=1), number_of_days, _get_closest_full_day)
