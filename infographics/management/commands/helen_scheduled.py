@@ -3,7 +3,6 @@ from datetime import datetime
 from django.core.management.base import BaseCommand
 from pytz import timezone
 from infographics.models import Grid, ProductionMeasurement
-from .progress_bar import show_progress
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 sched = BlockingScheduler()
@@ -21,15 +20,12 @@ def timed_job():
 
     grid = Grid.objects.all()[0]
     utc = timezone('UTC')
-    total_rows = len(rows)
-    cursor = 0
 
     print('**************** got the grid')
 
     for i in range(50):
         row = rows[i]
         row = row.split(';')
-        show_progress(cursor, total_rows)
         if 'Arvo (kWh)' in row:
             continue
         try:
@@ -45,7 +41,6 @@ def timed_job():
                                parse_time.minute, tzinfo=utc),
             value_per_unit=float(value_per_unit)
         )
-        cursor += 1
 
 
 class Command(BaseCommand):
@@ -53,9 +48,9 @@ class Command(BaseCommand):
     help = 'Parse and save example production data'
 
     def handle(self, *args, **options):
-        print('********************************************************start execution')
+        print('***************************start execution')
         sched.start()
-        print('Successfully updated production data')
+        print('*********Successfully updated production data*********')
 
 
 
