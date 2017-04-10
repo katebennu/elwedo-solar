@@ -11,14 +11,6 @@ sched = BlockingScheduler()
 @sched.scheduled_job('interval', minutes=2)
 def timed_job():
     # utils.helen_data()
-    url = 'https://www.helen.fi/sahko/kodit/aurinkosahko/suvilahti/DownloadData/'
-    file, headers = urllib.request.urlretrieve(url)
-    contents = open(file).read()
-    rows = contents.splitlines()
-    print(rows[:10])
 
-    from infographics.models import Grid, ProductionMeasurement
-    grid = Grid.objects.all()[0]
-    print(grid.name)
 
 sched.start()
