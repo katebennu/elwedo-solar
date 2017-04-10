@@ -10,7 +10,10 @@ sched = BlockingScheduler()
 @sched.scheduled_job('interval', minutes=2)
 def timed_job():
     # utils.helen_data()
-    call_command('helen_data')
-    print('This job is run every two minutes.')
+    url = 'https://www.helen.fi/sahko/kodit/aurinkosahko/suvilahti/DownloadData/'
+    file, headers = urllib.request.urlretrieve(url)
+    contents = open(file).read()
+    rows = contents.splitlines()
+    print(rows[:10])
 
 sched.start()
