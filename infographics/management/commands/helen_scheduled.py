@@ -17,7 +17,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        self.sched.start()
+        self.sched.start(self)
 
         print('Successfully updated production data')
 
