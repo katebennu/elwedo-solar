@@ -24,7 +24,7 @@ class Command(BaseCommand):
         total_rows = len(rows)
         cursor = 0
 
-        for i in range(300):
+        for i in range(100):
             row = rows[i]
             row = row.split(';')
             show_progress(cursor, total_rows)

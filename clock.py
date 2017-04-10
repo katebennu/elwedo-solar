@@ -3,6 +3,7 @@ os.environ['DJANGO_SETTINGS_MODULE'] = 'solarpilot.settings'
 
 from apscheduler.schedulers.blocking import BlockingScheduler
 from django.core.management import call_command
+import urllib.request
 
 sched = BlockingScheduler()
 
