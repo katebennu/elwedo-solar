@@ -152,7 +152,11 @@ function drawAxes(data, timeFrame, buildingOn) {
         .tickSize(4)
         .tickPadding(5)
         .tickFormat(formatTime)
-        .tickSizeOuter(0);
+        .tickSizeOuter(0)
+        .tickValues(x.domain().filter((d,i) => {
+            if (timeFrame == 'week') return !(i%2);
+            else return !(i%5);
+        }));
 
     svg.append('g')
         .attr("class", "axisY")
