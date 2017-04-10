@@ -143,12 +143,6 @@ function drawAxes(data, timeFrame, buildingOn) {
         .tickSize(-width)
         .tickFormat(d3.format(",.2f"));
 
-    let xMin = data[0].timestamp;
-
-    let xMax = data[data.length - 1].timestamp;
-    if (timeFrame == 'day') xMax.setHours(xMax.getHours() + 1);
-    else xMax.setDate(xMax.getDate() + 1);
-
     let x = d3.scaleBand()
         .padding(0.2)
         .domain(data.map(d => d.timestamp))
@@ -215,8 +209,6 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
         }
     }
     data.push({'columns': ['timestamp', 'savings', 'consumptionLessSavings']});
-
-    console.log(data);
 
     let keys = ['consumptionLessSavings', 'savings'];
     let z = d3.scaleOrdinal()
@@ -478,14 +470,15 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         document.getElementById('euro-chart').innerHTML = '';
         document.getElementById('donut-chart').innerHTML = '';
 
-
         data = parseData(data);
 
         let [savingsRate, totals, productionTotal, CO2Rates] = getDataTotal(data);
 
 
         // update header
-        document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(data[data.length - 1]['timestamp']);
+        let updated = data[data.length - 1]['timestamp'];
+        if (timeFrame != 'day') updated = updated.setDate(updated.getDate() + 1);
+        document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(updated);
 
         let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame, buildingOn);
         $(".tick > text").filter(function () {
