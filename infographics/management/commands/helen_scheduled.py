@@ -16,6 +16,7 @@ class Command(BaseCommand):
     sched = BlockingScheduler()
 
     def handle(self, *args, **options):
+        print('start execution')
 
         self.sched.start()
 
