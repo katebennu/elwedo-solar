@@ -8,9 +8,8 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 
 sched = BlockingScheduler()
 
-@sched.scheduled_job('interval', minutes=2)
+@sched.scheduled_job('interval', minutes=5)
 def timed_job():
-
     print('********************* started timed_job')
 
     url = 'https://www.helen.fi/sahko/kodit/aurinkosahko/suvilahti/DownloadData/'
@@ -46,7 +45,6 @@ def timed_job():
                                parse_time.minute, tzinfo=utc),
             value_per_unit=float(value_per_unit)
         )
-
         cursor += 1
 
 
