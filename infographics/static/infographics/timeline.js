@@ -18,7 +18,6 @@ $(window).scroll(function () {
         $(ribbon).removeClass('stick');
         $(anchor).css('display', 'block');
     }
-    console.log('test');
 });
 
 // small graphs - change view from one line to a carousel
@@ -116,8 +115,8 @@ $('#savings-switch').click(function () {
 
 function drawAxes(data, timeFrame, buildingOn) {
     // time format for X axis
-    let t = '%d.%m';
-    if (timeFrame == 'day') t = '%H:00';
+    let t = '%d.%m.';
+    if (timeFrame == 'day') t = '%H:%M';
     let formatTime = d3.timeFormat(t);
 
     let margin = {top: 10, right: 60, bottom: 60, left: 30};
@@ -147,12 +146,12 @@ function drawAxes(data, timeFrame, buildingOn) {
     let xMin = data[0].timestamp;
 
     let xMax = data[data.length - 1].timestamp;
-    // xMax.setHours(xMax.getHours() + 1);
+    if (timeFrame == 'day') xMax.setHours(xMax.getHours() + 1);
+    else xMax.setDate(xMax.getDate() + 1);
 
-    let x = d3.scaleTime()
-        .domain(d3.extent(data, function (d) {
-            return d.timestamp;
-        }))
+    let x = d3.scaleBand()
+        .padding(0.2)
+        .domain(data.map(d => d.timestamp))
         .range([0, width]);
     let xAxis = d3.axisBottom(x)
         .ticks(5)
@@ -502,7 +501,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
 // DEBUG
         // let out = document.getElementById('formatted');
         // out.innerHTML = JSON.stringify(buildingOn);
-        //console.log(JSON.stringify(data));
+        // console.log(JSON.stringify(data));
         //out.innerHTML = buildingOn;
         // console.log(data);
 //

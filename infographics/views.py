@@ -21,12 +21,12 @@ def timeline_update(request):
     time_frame = request.GET.get('timeFrame')
 
     if time_frame == 'month':
-        data_building = building.get_multiple_days_data(29)
-        data_apartment = apartment.get_multiple_days_data(29)
+        data_building = building.get_multiple_days_data(30)
+        data_apartment = apartment.get_multiple_days_data(30)
 
     elif time_frame == 'week':
-        data_building = building.get_multiple_days_data(6)
-        data_apartment = apartment.get_multiple_days_data(6)
+        data_building = building.get_multiple_days_data(7)
+        data_apartment = apartment.get_multiple_days_data(7)
 
     else:
         data_building = building.get_day_data()
