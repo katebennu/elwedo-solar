@@ -17,12 +17,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        self.sched.start(self)
+        self.sched.start()
 
         print('Successfully updated production data')
 
     @sched.scheduled_job('interval', minutes=2)
-    def timed_job(self):
+    def run(self):
         url = 'https://www.helen.fi/sahko/kodit/aurinkosahko/suvilahti/DownloadData/'
         file, headers = urllib.request.urlretrieve(url)
         contents = open(file).read()

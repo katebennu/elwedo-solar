@@ -10,10 +10,6 @@ sched = BlockingScheduler()
 
 @sched.scheduled_job('interval', minutes=2)
 def timed_job():
-    # utils.helen_data()
-
-    from infographics.models import Grid, ProductionMeasurement
-    grid = Grid.objects.all()[0]
-    print(grid.name)
+    print('test test test')
 
 sched.start()
