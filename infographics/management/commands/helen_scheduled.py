@@ -42,6 +42,7 @@ def timed_job():
                                parse_time.minute, tzinfo=utc),
             value_per_unit=float(value_per_unit)
         )
+    print('*********Successfully updated production data*********')
 
 
 class Command(BaseCommand):
@@ -51,7 +52,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         print('***************************start execution')
         sched.start()
-        print('*********Successfully updated production data*********')
+
 
 
 
