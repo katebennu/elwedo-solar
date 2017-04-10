@@ -8,17 +8,6 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 
 sched = BlockingScheduler()
 
-
-class Command(BaseCommand):
-
-    help = 'Parse and save example production data'
-
-    def handle(self, *args, **options):
-        print('********************************************************start execution')
-        sched.start()
-        print('Successfully updated production data')
-
-
 @sched.scheduled_job('interval', minutes=2)
 def timed_job():
 
@@ -59,6 +48,19 @@ def timed_job():
         )
 
         cursor += 1
+
+
+class Command(BaseCommand):
+
+    help = 'Parse and save example production data'
+
+    def handle(self, *args, **options):
+        print('********************************************************start execution')
+        sched.start()
+        print('Successfully updated production data')
+
+
+
 
 
 
