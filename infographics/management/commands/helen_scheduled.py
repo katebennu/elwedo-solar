@@ -6,14 +6,19 @@ from infographics.models import Grid, ProductionMeasurement
 from .progress_bar import show_progress
 from apscheduler.schedulers.blocking import BlockingScheduler
 
-sched = BlockingScheduler()
+
+
 
 class Command(BaseCommand):
+
     help = 'Parse and save example production data'
 
-    def handle(self, *args, **options):
+    sched = BlockingScheduler()
 
-        sched.start()
+    def handle(self, *args, **options):
+        self.timed_job()
+
+        self.sched.start()
 
         print('Successfully updated production data')
 
