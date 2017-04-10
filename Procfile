@@ -1,2 +1,2 @@
 web: gunicorn solarpilot.wsgi --log-file -
-clock: python manage.py helen_scheduled
+clock: run python manage.py helen_scheduled
