@@ -7,8 +7,6 @@ from .progress_bar import show_progress
 from apscheduler.schedulers.blocking import BlockingScheduler
 
 
-
-
 class Command(BaseCommand):
 
     help = 'Parse and save example production data'
@@ -23,7 +21,7 @@ class Command(BaseCommand):
         print('Successfully updated production data')
 
     @sched.scheduled_job('interval', minutes=2)
-    def run(self):
+    def timed_job(self):
         url = 'https://www.helen.fi/sahko/kodit/aurinkosahko/suvilahti/DownloadData/'
         file, headers = urllib.request.urlretrieve(url)
         contents = open(file).read()
