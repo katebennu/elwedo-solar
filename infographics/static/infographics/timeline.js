@@ -57,6 +57,13 @@ function getDataTotal(data) {
         [consumptionTotal, consumptionLessSavingsTotal]];
 }
 
+function updateHeader(data) {
+    let updated = data[data.length - 1]['timestamp'];
+    if (timeFrame != 'day') updated = updated.setDate(updated.getDate() + 1);
+    document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(updated);
+
+}
+
 // switch timeFrame
 $("#daySwitch").click(function () {
     $('#daySwitch').removeClass('time-control-off').addClass('time-control-on');
@@ -474,15 +481,15 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         document.getElementById('euro-chart').innerHTML = '';
         document.getElementById('donut-chart').innerHTML = '';
 
-        data = parseData(data);
+        parseData(data);
 
         let [savingsRate, totals, productionTotal, CO2Rates] = getDataTotal(data);
 
 
         // update header
-        let updated = data[data.length - 1]['timestamp'];
-        if (timeFrame != 'day') updated = updated.setDate(updated.getDate() + 1);
-        document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(updated);
+        updateHeader(data);
+        let latest = data[data.length - 1]['timestamp'];
+        if (timeFrame != 'day') latest = latest.setDate(latest.getDate() - 1);
 
         let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame, buildingOn);
         $(".tick > text").filter(function () {
