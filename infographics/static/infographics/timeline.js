@@ -482,9 +482,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         document.getElementById('donut-chart').innerHTML = '';
 
         parseData(data);
-
         let [savingsRate, totals, productionTotal, CO2Rates] = getDataTotal(data);
-
 
         // update header
         updateHeader(data);
