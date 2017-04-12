@@ -2,9 +2,6 @@
     <?xml version="1.0" encoding="UTF-8"?>
     <svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg"
          xmlns:xlink="http://www.w3.org/1999/xlink">
-        <title>Slider arrow Copy</title>
-        <desc>Created with Sketch.</desc>
-        <defs></defs>
         <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g id="Tablet-Portrait" transform="translate(-118.000000, -1439.000000)">
                 <g id="Graph-2" transform="translate(118.000000, 1282.000000)">
@@ -20,35 +17,59 @@
     </svg>
 </div>
 <div id="slide1" class="slide">
-    <h3>SAVINGS</h3>
-    <div id="donut-chart">
+    <div class="click-to-popup">
+        <h3 id="donut-heading" class="pointer">SAVINGS</h3>
+        <div id="donut-popup" class="popupbox" tabindex="-1">
+            <div class="popuptext"><b>Savings:</b><br/><br/>
+                Savings as a percentage of total spending
+            </div>
+            <div id="donut-popup-close" class="close">
+            </div>
+        </div>
+        <div id="donut-chart">
+        </div>
     </div>
 </div>
 <div id="slide2" class="slide">
-    <h3>PURCHASED GRID ENERGY</h3>
-    <div id="euro-chart">
+    <div class="click-to-popup">
+        <h3 id="euro-heading" class="pointer">PURCHASED GRID ENERGY</h3>
+        <div id="euro-popup" class="popupbox" tabindex="-1">
+            <div class="popuptext"><b>Purchased grid energy:</b><br/><br/>
+                Energy which has been purchased from the grid put in comparison with and without
+                solar energy. The comparison is expressed in Euros to visualize the apartment’s savings.
+            </div>
+            <div id="euro-popup-close" class="close">
+            </div>
+        </div>
+        <div id="euro-chart">
+        </div>
     </div>
 </div>
 <div id="slide3" class="slide">
-    <h3>CO2 EMISSIONS</h3>
-    <div id="CO2-chart">
-        <svg width="220" height="190">
-            <circle id="green-circle" cx="75" cy="115" r="50" fill="#56eda8" color="white">10</circle>
-            <text id="co2-wO" text-anchor="middle" x="75" y ="120" fill="white"></text>
-            <circle id="blue-circle" cx="145" cy="75" r="20" fill="#26B5DB" color="white">8</circle>
-            <text id="co2-w" text-anchor="middle" x="145" y ="80" fill="white"></text>
-        </svg>
+    <div class="click-to-popup">
+        <h3 id="CO2-heading" class="pointer">CO2 EMISSIONS</h3>
+        <div id="CO2-popup" class="popupbox" tabindex="-1">
+            <div class="popuptext"><b>CO2 emissions:</b><br/><br/>
+                CO2 emissions without solar energy in comparison to those where
+                part of the consumed energy is solar.
+            </div>
+            <div id="CO2-popup-close" class="close">
+            </div>
+        </div>
+        <div id="CO2-chart">
+            <svg width="220" height="190">
+                <circle id="green-circle" cx="75" cy="115" r="50" fill="#56eda8" color="white">10</circle>
+                <text id="co2-wO" text-anchor="middle" x="75" y="120" fill="white"></text>
+                <circle id="blue-circle" cx="145" cy="75" r="20" fill="#26B5DB" color="white">8</circle>
+                <text id="co2-w" text-anchor="middle" x="145" y="80" fill="white"></text>
+            </svg>
+        </div>
     </div>
 </div>
-
 <div id="arrow-right" class="arrow hidden pointer" onclick="leftArrow(ids)">
     <?xml version="1.0" encoding="UTF-8"?>
     <svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg"
          xmlns:xlink="http://www.w3.org/1999/xlink">
-        <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
-        <title>Slider arrow Copy 2</title>
-        <desc>Created with Sketch.</desc>
-        <defs></defs>
         <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g id="Tablet-Portrait" transform="translate(-614.000000, -1439.000000)">
                 <g id="Graph-2" transform="translate(118.000000, 1282.000000)">

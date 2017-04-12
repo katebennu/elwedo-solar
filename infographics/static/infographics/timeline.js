@@ -518,18 +518,18 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
     return [timeFrame, buildingOn]
 }
 
-$("#timeline-heading").click(function (e) {
-    e.preventDefault();
-    $("#timeline-popup").fadeIn(300, function () {
-        $(this).focus();
-    })
-        .css('z-index', 10);
 
-});
-
-
-// timeline description pop-up
+// timeline pop-up
 $(function () {
+    $("#timeline-heading").click(function (e) {
+        e.preventDefault();
+        $("#timeline-popup").fadeIn(300, function () {
+            $(this).focus();
+        })
+            .css('z-index', 10);
+
+    });
+
     $('#timeline-popup-close').click(function () {
         $("#timeline-popup").fadeOut();
     });
@@ -539,3 +539,55 @@ $(function () {
     });
 });
 
+// carousel-charts pop-ups
+$(function () {
+    $("#donut-heading").click(function (e) {
+        e.preventDefault();
+        $("#donut-popup").fadeIn(300, function () {
+            $(this).focus();
+        })
+            .css('z-index', 10);
+    });
+
+    $('#donut-popup-close').click(function () {
+        $("#donut-popup").fadeOut();
+    });
+
+    $('#donut-popup').on('blur', function () {
+        $("#donut-popup").fadeOut(300);
+    });
+});
+$(function () {
+    $("#euro-heading").click(function (e) {
+        e.preventDefault();
+        $("#euro-popup").fadeIn(300, function () {
+            $(this).focus();
+        })
+            .css('z-index', 10);
+    });
+
+    $('#euro-popup-close').click(function () {
+        $("#euro-popup").fadeOut();
+    });
+
+    $('#euro-popup').on('blur', function () {
+        $("#euro-popup").fadeOut(300);
+    });
+});
+$(function () {
+    $("#CO2-heading").click(function (e) {
+        e.preventDefault();
+        $("#CO2-popup").fadeIn(300, function () {
+            $(this).focus();
+        })
+            .css('z-index', 10);
+    });
+
+    $('#CO2-popup-close').click(function () {
+        $("#CO2-popup").fadeOut();
+    });
+
+    $('#CO2-popup').on('blur', function () {
+        $("#CO2-popup").fadeOut(300);
+    });
+});

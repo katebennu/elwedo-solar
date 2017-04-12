@@ -156,10 +156,17 @@ h1 {
     font-size: 18px;
     padding: 29px;
     position: absolute;
+    outline: 0;
+}
+
+#timeline-popup {
     bottom: 210px;
-    left: 290px;
-    margin-left: -80px;
-    outline:0;
+    left: 20%;
+}
+
+#euro-popup {
+    bottom: 10%;
+    left: -50%;
 }
 
 .popuptext {
@@ -174,7 +181,7 @@ h1 {
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
     border-bottom: 16px solid #F4F1E4;
-    outline:0;
+    outline: 0;
 }
 
 .close {
@@ -209,8 +216,6 @@ h1 {
 .close:after {
     transform: rotate(-45deg);
 }
-
-
 
 .consumption-rect {
     fill: #F4F1E4;
@@ -438,7 +443,7 @@ h1 {
     white-space: normal;
 }
 
-.slide > h3 {
+.slide h3 {
     font-weight: bold;
     margin-bottom: 50px;
 }
