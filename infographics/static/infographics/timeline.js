@@ -79,18 +79,7 @@ function updateHeader(data) {
 // });
 
 
-$("#timeline-heading").click(function (e) {
-    e.preventDefault();
-    $("#timeline-popup").fadeIn(300,function(){$(this).focus();});
-});
 
-$('#timeline-popup-close').click(function () {
-    $("#timeline-popup").fadeOut();
-});
-
-$('#timeline-popup').on('blur', function () {
-        $("#timeline-popup").fadeOut(300);
-});
 
 
 // switch timeFrame
@@ -546,3 +535,18 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
     });
     return [timeFrame, buildingOn]
 }
+
+$("#timeline-heading").click(function (e) {
+    e.preventDefault();
+    $("#timeline-popup").fadeIn(300,function(){$(this).focus();})
+        .css('z-index', 10);
+
+});
+
+$('#timeline-popup-close').click(function () {
+    $("#timeline-popup").fadeOut();
+});
+
+$('#timeline-popup').on('blur', function () {
+        $("#timeline-popup").fadeOut(300);
+});
