@@ -64,24 +64,6 @@ function updateHeader(data) {
 
 }
 
-// timeline description pop-up
-// $('#timeline-heading').click(function () {
-//     $("#timeline-popup").addClass("show");
-//
-// //     $('body').click(function() {
-// //     if (!$(this.target).is('#timeline-popup')){
-// //        $("#timeline-popup").removeClass("show");
-// //     }
-// // });
-// });
-// $('#timeline-popup-close').click(function () {
-//     $("#timeline-popup").removeClass("show");
-// });
-
-
-
-
-
 // switch timeFrame
 $("#daySwitch").click(function () {
     $('#daySwitch').removeClass('time-control-off').addClass('time-control-on');
@@ -538,15 +520,22 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
 
 $("#timeline-heading").click(function (e) {
     e.preventDefault();
-    $("#timeline-popup").fadeIn(300,function(){$(this).focus();})
+    $("#timeline-popup").fadeIn(300, function () {
+        $(this).focus();
+    })
         .css('z-index', 10);
 
 });
 
-$('#timeline-popup-close').click(function () {
-    $("#timeline-popup").fadeOut();
+
+// timeline description pop-up
+$(function () {
+    $('#timeline-popup-close').click(function () {
+        $("#timeline-popup").fadeOut();
+    });
+
+    $('#timeline-popup').on('blur', function () {
+        $("#timeline-popup").fadeOut(300);
+    });
 });
 
-$('#timeline-popup').on('blur', function () {
-        $("#timeline-popup").fadeOut(300);
-});
