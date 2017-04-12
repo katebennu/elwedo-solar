@@ -148,7 +148,7 @@ h1 {
 }
 
 .click-to-popup .popupbox {
-    visibility: hidden;
+    display: none;
     width: 700px;
     background-color: #F4F1E4;
     color: #6D6A5C;
@@ -156,11 +156,10 @@ h1 {
     font-size: 18px;
     padding: 29px;
     position: absolute;
-    z-index: 1;
     bottom: 210px;
     left: 290px;
     margin-left: -80px;
-    animation: fade 3s linear;
+    outline:0;
 }
 
 .popuptext {
@@ -175,54 +174,7 @@ h1 {
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
     border-bottom: 16px solid #F4F1E4;
-    animation: fade 3s linear;
-
-}
-
-/* Toggle this class - hide and show the popup */
-.click-to-popup .show {
-    visibility: visible;
-    -webkit-animation: fade 1s;
-    animation: fade 1s;
-}
-
-/* Add animation (fade in the popup) */
-@-webkit-keyframes fade {
-    0%, 100% {
-        opacity: 0
-    }
-    50% {
-        opacity: 1
-    }
-}
-
-}
-
-@keyframes fade {
-    0%, 100% {
-        opacity: 0
-    }
-    50% {
-        opacity: 1
-    }
-}
-
-@-webkit-keyframes fade {
-    0%, 100% {
-        opacity: 0
-    }
-    50% {
-        opacity: 1
-    }
-}
-
-@keyframes fade {
-    0%, 100% {
-        opacity: 0
-    }
-    50% {
-        opacity: 1
-    }
+    outline:0;
 }
 
 .close {
@@ -257,6 +209,8 @@ h1 {
 .close:after {
     transform: rotate(-45deg);
 }
+
+
 
 .consumption-rect {
     fill: #F4F1E4;

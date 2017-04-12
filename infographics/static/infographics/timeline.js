@@ -65,34 +65,32 @@ function updateHeader(data) {
 }
 
 // timeline description pop-up
-$('#timeline-heading').click(function () {
-    $("#timeline-popup").addClass("show");
-
-//     $('body').click(function() {
-//     if (!$(this.target).is('#timeline-popup')){
-//        $("#timeline-popup").removeClass("show");
-//     }
+// $('#timeline-heading').click(function () {
+//     $("#timeline-popup").addClass("show");
+//
+// //     $('body').click(function() {
+// //     if (!$(this.target).is('#timeline-popup')){
+// //        $("#timeline-popup").removeClass("show");
+// //     }
+// // });
 // });
+// $('#timeline-popup-close').click(function () {
+//     $("#timeline-popup").removeClass("show");
+// });
+
+
+$("#timeline-heading").click(function (e) {
+    e.preventDefault();
+    $("#timeline-popup").fadeIn(300,function(){$(this).focus();});
 });
+
 $('#timeline-popup-close').click(function () {
-    $("#timeline-popup").removeClass("show");
+    $("#timeline-popup").fadeOut();
 });
 
-
-
-// $("#timeline-heading").click(function(){
-//   $("#timeline-popup").fadeIn(300);
-// });
-//
-// $('#timeline-popup-close').click(function() {
-//    $("#timeline-popup").fadeOut(300);
-// });
-//
-// $('body').click(function() {
-//     if (!$(this.target).is('#timeline-popup')){
-//        $("#timeline-popup").hide();
-//     }
-// });
+$('#timeline-popup').on('blur', function () {
+        $("#timeline-popup").fadeOut(300);
+});
 
 
 // switch timeFrame
