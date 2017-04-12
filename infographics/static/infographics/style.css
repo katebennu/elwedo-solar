@@ -149,7 +149,7 @@ h1 {
 
 .click-to-popup .popupbox {
     display: none;
-    width: 700px;
+    width: 500px;
     background-color: #F4F1E4;
     color: #6D6A5C;
     text-align: left;
@@ -159,18 +159,33 @@ h1 {
     outline: 0;
 }
 
+.popuptext {
+    width: 450px;
+}
+
 #timeline-popup {
     bottom: 210px;
     left: 20%;
+    width: 700px;
+}
+
+#timeline-popup .popuptext {
+    width: 630px;
+}
+
+#donut-popup {
+    bottom: 30%;
+    left: -30%;
 }
 
 #euro-popup {
-    bottom: 10%;
+    bottom: 5%;
     left: -50%;
 }
 
-.popuptext {
-    width: 630px;
+#CO2-popup {
+    bottom: 20%;
+    left: -60%;
 }
 
 .click-to-popup .popupbox::after {
