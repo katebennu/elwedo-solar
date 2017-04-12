@@ -64,6 +64,15 @@ function updateHeader(data) {
 
 }
 
+// timeline description pop-up
+$('#timeline-heading').click(function () {
+    $("#timeline-popup").addClass("show");
+});
+$('timeline-popup-close').click(function () {
+    $("#timeline-popup").removeClass("show");
+});
+
+
 // switch timeFrame
 $("#daySwitch").click(function () {
     $('#daySwitch').removeClass('time-control-off').addClass('time-control-on');
@@ -160,9 +169,9 @@ function drawAxes(data, timeFrame, buildingOn) {
         .tickPadding(5)
         .tickFormat(formatTime)
         .tickSizeOuter(0)
-        .tickValues(x.domain().filter((d,i) => {
-            if (timeFrame == 'week') return !(i%2);
-            else return !(i%5);
+        .tickValues(x.domain().filter((d, i) => {
+            if (timeFrame == 'week') return !(i % 2);
+            else return !(i % 5);
         }));
 
     svg.append('g')
@@ -247,7 +256,7 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
         .attr("height", function (d) {
             return y(d[0]) - y(d[1]);
         })
-        .attr("width",  d => x.bandwidth());
+        .attr("width", d => x.bandwidth());
 
 
     return data;
