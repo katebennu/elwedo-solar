@@ -149,7 +149,7 @@ h1 {
 
 .click-to-popup .popupbox {
     display: none;
-    width: 500px;
+    width: 400px;
     background-color: #F4F1E4;
     color: #6D6A5C;
     text-align: left;
@@ -160,7 +160,16 @@ h1 {
 }
 
 .popuptext {
-    width: 450px;
+    width: 350px;
+}
+
+@media screen and (max-width: 900px) {
+    .popupbox {
+        width: 350px;
+    }
+    .popuptext {
+        width: 300px;
+    }
 }
 
 #timeline-popup {
@@ -175,17 +184,17 @@ h1 {
 
 #donut-popup {
     bottom: 30%;
-    left: -30%;
+    /*left: 30%;*/
 }
 
 #euro-popup {
-    bottom: 5%;
-    left: -50%;
+    bottom: -10%;
+    /*left: -50%;*/
 }
 
 #CO2-popup {
-    bottom: 20%;
-    left: -60%;
+    bottom: 10%;
+    left: -20%;
 }
 
 .click-to-popup .popupbox::after {
@@ -479,6 +488,13 @@ h1 {
 }
 
 /*SLIDER*/
+@media screen and (min-width: 900px) {
+    .slide {
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
 @media screen and (min-width: 900px) {
     .slide {
         margin-left: 20px;
