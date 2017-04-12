@@ -160,10 +160,11 @@ h1 {
     bottom: 210px;
     left: 290px;
     margin-left: -80px;
+    animation: fade 3s linear;
 }
 
 .popuptext {
-  width: 630px;
+    width: 630px;
 }
 
 .click-to-popup .popupbox::after {
@@ -174,58 +175,88 @@ h1 {
     border-left: 16px solid transparent;
     border-right: 16px solid transparent;
     border-bottom: 16px solid #F4F1E4;
+    animation: fade 3s linear;
 
 }
 
 /* Toggle this class - hide and show the popup */
 .click-to-popup .show {
     visibility: visible;
-    -webkit-animation: fadeIn 1s;
-    animation: fadeIn 1s;
+    -webkit-animation: fade 1s;
+    animation: fade 1s;
 }
 
 /* Add animation (fade in the popup) */
-@-webkit-keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity: 1;}
+@-webkit-keyframes fade {
+    0%, 100% {
+        opacity: 0
+    }
+    50% {
+        opacity: 1
+    }
 }
 
-@keyframes fadeIn {
-    from {opacity: 0;}
-    to {opacity:1 ;}
+}
+
+@keyframes fade {
+    0%, 100% {
+        opacity: 0
+    }
+    50% {
+        opacity: 1
+    }
+}
+
+@-webkit-keyframes fade {
+    0%, 100% {
+        opacity: 0
+    }
+    50% {
+        opacity: 1
+    }
+}
+
+@keyframes fade {
+    0%, 100% {
+        opacity: 0
+    }
+    50% {
+        opacity: 1
+    }
 }
 
 .close {
-  position: absolute;
-  right: 32px;
-  top: 32px;
-  width: 32px;
-  height: 32px;
-  opacity: 1;
-  z-index: 3000;
-  margin-right: 0;
-  margin-top: 0;
+    position: absolute;
+    right: 32px;
+    top: 32px;
+    width: 32px;
+    height: 32px;
+    opacity: 1;
+    z-index: 3000;
+    margin-right: 0;
+    margin-top: 0;
 }
+
 .close:hover {
-  opacity: 0.8;
+    opacity: 0.8;
 }
 
 .close:before, .close:after {
-  position: absolute;
-  left: 15px;
-  content: ' ';
-  height: 33px;
-  width: 3px;
-  background-color: #6D6A5C;
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 3px;
+    background-color: #6D6A5C;
 }
+
 .close:before {
-  transform: rotate(45deg);
+    transform: rotate(45deg);
 }
+
 .close:after {
-  transform: rotate(-45deg);
+    transform: rotate(-45deg);
 }
-
-
 
 .consumption-rect {
     fill: #F4F1E4;

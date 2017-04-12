@@ -67,10 +67,32 @@ function updateHeader(data) {
 // timeline description pop-up
 $('#timeline-heading').click(function () {
     $("#timeline-popup").addClass("show");
+
+//     $('body').click(function() {
+//     if (!$(this.target).is('#timeline-popup')){
+//        $("#timeline-popup").removeClass("show");
+//     }
+// });
 });
-$('timeline-popup-close').click(function () {
+$('#timeline-popup-close').click(function () {
     $("#timeline-popup").removeClass("show");
 });
+
+
+
+// $("#timeline-heading").click(function(){
+//   $("#timeline-popup").fadeIn(300);
+// });
+//
+// $('#timeline-popup-close').click(function() {
+//    $("#timeline-popup").fadeOut(300);
+// });
+//
+// $('body').click(function() {
+//     if (!$(this.target).is('#timeline-popup')){
+//        $("#timeline-popup").hide();
+//     }
+// });
 
 
 // switch timeFrame
