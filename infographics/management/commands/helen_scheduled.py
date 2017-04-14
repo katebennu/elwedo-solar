@@ -8,7 +8,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 sched = BlockingScheduler()
 
 
-@sched.scheduled_job('cron', minute=20)
+@sched.scheduled_job('cron', minute=10)
 def timed_job():
     print('********************* started timed_job')
 
@@ -52,3 +52,4 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         print('***************************start execution')
         sched.start()
+        print('*************************** stopped')
