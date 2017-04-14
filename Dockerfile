@@ -37,6 +37,12 @@ RUN apt-get -y install less
 
 RUN apt-get -y install postgresql-client
 
+RUN apt-get -y install wget && \
+    cd /usr/bin && \
+    wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && \
+    chmod +x wait-for-it.sh && \
+    apt-get -y remove wget
+
 # App
 
 RUN mkdir /package
@@ -59,15 +65,9 @@ COPY /solarpilot /package/solarpilot
 COPY /infographics /package/infographics
 
 ENV DJANGO_SETTINGS_MODULE solarpilot.prod_settings
-RUN python manage.py collectstatic
-
-RUN apt-get -y install wget && \
-    cd /package && \
-    wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && \
-    chmod +x wait-for-it.sh && \
-    apt-get -y remove wget
+RUN python manage.py collectstatic --noinput
 
 COPY /docker-start.sh /package/
 
-CMD ["/bin/bash", "./wait-for-it.sh", "postgres:5432", "--", "/bin/bash", "docker-start.sh"]
+CMD ["wait-for-it.sh", "postgres:5432", "--", "/bin/bash", "docker-start.sh"]
 
