@@ -21,7 +21,7 @@ PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 SECRET_KEY = 'jsx2=a2#_14w%jnpq7t*6a20#1o#6(dbfz42*6ycpwc8bu&%&q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # TODO: add when IP is known
 # https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-16-04
@@ -76,17 +76,12 @@ WSGI_APPLICATION = 'solarpilot.wsgi.application'
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
 DATABASES = {
-    'def': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'sqlite.db',
-    },
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'solar',
-        'USER': 'elwedo',
-        'PASSWORD': 'KS_pilot2017&',
-        'HOST': 'localhost',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'HOST': 'postgres',
+        'PORT': 5432
     }
 }
 
