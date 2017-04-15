@@ -8,7 +8,7 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 sched = BlockingScheduler()
 
 
-@sched.scheduled_job('cron', minute=10)
+@sched.scheduled_job('cron', minute=30)
 def timed_job():
     print('********************* started timed_job')
 
@@ -24,7 +24,7 @@ def timed_job():
 
     print('**************** got the grid')
 
-    for i in range(50):
+    for i in range(800):
         row = rows[i]
         row = row.split(';')
         if 'Arvo (kWh)' in row:
@@ -51,5 +51,8 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print('***************************start execution')
+        self.stdout.write(self.style.SUCCESS('Started updating production data'))
         sched.start()
         print('*************************** stopped')
+        self.stdout.write(self.style.SUCCESS('Successfully updated production data'))
+
