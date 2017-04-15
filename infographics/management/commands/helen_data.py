@@ -24,7 +24,7 @@ class Command(BaseCommand):
         total_rows = len(rows)
         cursor = 0
 
-        for i in range(300):
+        for i in range(800):
             row = rows[i]
             row = row.split(';')
             show_progress(cursor, total_rows)
@@ -45,35 +45,3 @@ class Command(BaseCommand):
             )
 
             cursor += 1
-
-
-
-
-
-
-
-
-
-        # for i in range(20):
-        #     print(i, ':', splt[i])
-
-
-
-
-
-# temp_file = open('test.txt', 'w')
-
-
-# with urllib.request.urlopen(url) as response:
-#     contents = open(response[0]).read()
-#     f = open('test.txt', 'w')
-#     f.write(contents)
-#     f.close()
-
-
-
-# response = urllib.urlretrieve(url)
-# contents = open(response[0]).read()
-# f = open('filename.ext','w')
-# f.write(contents)
-# f.close()

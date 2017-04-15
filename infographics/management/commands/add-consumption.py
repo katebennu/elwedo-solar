@@ -47,5 +47,4 @@ class Command(BaseCommand):
                                            parse_time.minute, tzinfo=utc),
                         value=float(row[1]) / building.total_apartments * r
                     )
-                print(parse_time)
                 cursor += 1
