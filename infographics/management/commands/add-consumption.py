@@ -25,7 +25,7 @@ class Command(BaseCommand):
         utc = timezone('UTC')
         module_dir = os.path.dirname(os.path.abspath(__file__))
 
-        with open(os.path.join(module_dir, "fixtures", 'Fregatti_2016.csv')) as file:
+        with open(os.path.join(module_dir, "fixtures", 'Fregatti_short.csv')) as file:
             reader = csv.reader(file)
             rows = list(reader)
             total_rows = len(rows)
@@ -47,5 +47,5 @@ class Command(BaseCommand):
                                            parse_time.minute, tzinfo=utc),
                         value=float(row[1]) / building.total_apartments * r
                     )
-
+                print(parse_time)
                 cursor += 1

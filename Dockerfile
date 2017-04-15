@@ -69,5 +69,5 @@ RUN python manage.py collectstatic --noinput
 
 COPY /docker-start.sh /package/
 
-CMD ["wait-for-it.sh", "postgres:5432", "--", "/bin/bash", "docker-start.sh"]
+CMD ["wait-for-it.sh", "postgres:5432", "--", "/bin/bash", "./docker-start.sh"]
 

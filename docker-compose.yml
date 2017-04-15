@@ -3,6 +3,8 @@
    postgres:
      image: postgres
    web:
+     volumes:
+       - ~/dev/SOLAR/solarpilot:/package
      build: .
      ports:
        - "80:80"
