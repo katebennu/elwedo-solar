@@ -17,6 +17,8 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('Successfully inserted dummy base data'))
 
     def run(self):
+
+
         building, created = Building.objects.get_or_create(
             address='Fregatti',
             total_apartments=60,

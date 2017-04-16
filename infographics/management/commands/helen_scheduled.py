@@ -24,7 +24,7 @@ def timed_job():
 
     print('**************** got the grid')
 
-    for i in range(800):
+    for i in range(50):
         row = rows[i]
         row = row.split(';')
         if 'Arvo (kWh)' in row:
