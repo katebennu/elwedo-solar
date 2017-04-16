@@ -143,6 +143,9 @@ class ConsumptionMeasurement(models.Model):
         decimal_places=2,
         validators=[MinValueValidator(0.0), MaxValueValidator(999999.99)])
 
+    class Meta:
+        unique_together = (('timestamp', 'apartment'), ('timestamp', 'building'))
+
     def __str__(self):
         return 'Consumption on ' + str(self.timestamp)
 
@@ -154,6 +157,9 @@ class ProductionMeasurement(models.Model):
         decimal_places=2,
         validators=[MinValueValidator(0.0), MaxValueValidator(999999.99)])
     grid = models.ForeignKey('Grid')
+
+    class Meta:
+        unique_together = ('timestamp', 'grid')
 
     def __str__(self):
         return 'Production on ' + str(self.timestamp)
