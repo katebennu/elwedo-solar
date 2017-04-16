@@ -4,6 +4,7 @@ from django.core.management.base import BaseCommand
 from pytz import timezone
 from infographics.models import Grid, ProductionMeasurement
 from .progress_bar import show_progress
+from django.db.utils import IntegrityError
 
 
 class Command(BaseCommand):
@@ -34,14 +35,18 @@ class Command(BaseCommand):
                 value_per_unit = float(row[1]) / grid.total_units
             except ValueError:
                 value_per_unit = 0
-            # except IndexError:
-            #     continue
-            parse_time = datetime.strptime(row[0], '%Y-%m-%dT%H:%M:%S')
-            _, created = ProductionMeasurement.objects.get_or_create(
-                grid=grid,
-                timestamp=datetime(parse_time.year, parse_time.month, parse_time.day, parse_time.hour,
-                                   parse_time.minute, tzinfo=utc),
-                value_per_unit=float(value_per_unit)
-            )
 
-            cursor += 1
+            parse_time = datetime.strptime(row[0], '%Y-%m-%dT%H:%M:%S')
+            try:
+                _, created = ProductionMeasurement.objects.get_or_create(
+                    grid=grid,
+                    timestamp=datetime(parse_time.year, parse_time.month, parse_time.day, parse_time.hour,
+                                       parse_time.minute, tzinfo=utc),
+                    value_per_unit=float(value_per_unit)
+                )
+
+                cursor += 1
+
+            except IntegrityError:
+                pass
+

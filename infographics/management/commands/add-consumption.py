@@ -10,6 +10,8 @@ from infographics.models import Building, Apartment, ConsumptionMeasurement
 
 from .progress_bar import show_progress
 
+from django.db.utils import IntegrityError
+
 
 class Command(BaseCommand):
     help = 'Parse and save example consumption data'
@@ -32,19 +34,22 @@ class Command(BaseCommand):
             cursor = 0
             for row in rows:
                 show_progress(cursor, total_rows)
-
                 parse_time = datetime.strptime(row[0], '%d.%m.%Y %H:%M:%S')
-                _, created = ConsumptionMeasurement.objects.get_or_create(
-                    building=building,
-                    timestamp=datetime(parse_time.year + 1, parse_time.month, parse_time.day, parse_time.hour, parse_time.minute, tzinfo=utc),
-                    value=float(row[1])
-                )
-
-                for a, r in zip(apartments, rates):
+                try:
                     _, created = ConsumptionMeasurement.objects.get_or_create(
-                        apartment=a,
-                        timestamp=datetime(parse_time.year + 1, parse_time.month, parse_time.day, parse_time.hour,
-                                           parse_time.minute, tzinfo=utc),
-                        value=float(row[1]) / building.total_apartments * r
+                        building=building,
+                        timestamp=datetime(parse_time.year + 1, parse_time.month, parse_time.day, parse_time.hour, parse_time.minute, tzinfo=utc),
+                        value=float(row[1])
                     )
-                cursor += 1
+
+                    for a, r in zip(apartments, rates):
+                        _, created = ConsumptionMeasurement.objects.get_or_create(
+                            apartment=a,
+                            timestamp=datetime(parse_time.year + 1, parse_time.month, parse_time.day, parse_time.hour,
+                                               parse_time.minute, tzinfo=utc),
+                            value=float(row[1]) / building.total_apartments * r
+                        )
+                    cursor += 1
+
+                except IntegrityError:
+                    pass
