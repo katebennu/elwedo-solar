@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 165 135.01">
+    <defs>
+        <style>
+            .cls-1,.cls-2{fill:none;stroke:#6d6a5c;stroke-miterlimit:10;}.cls-1{stroke-width:6px;}.cls-2{stroke-linecap:round;stroke-width:4px;}.cls-3{fill:#56eda8;}.cls-4{fill:#6d6a5c;}.cls-5{fill:#26b5db;}
+        </style>
+    </defs>
+    <title>car2</title>
+    <g id="Layer_2" data-name="Layer 2">
+        <g id="Layer_1-2" data-name="Layer 1">
+            <path class="cls-1"
+                  d="M66,13h65.54C148.09,13,162,27.1,162,43.65V62.17C162,78.72,148.09,92,131.54,92H126"></path>
+            <line class="cls-2" x1="24" y1="6" x2="37" y2="6"></line>
+            <line class="cls-2" x1="24" y1="21" x2="37" y2="21"></line>
+            <path class="cls-3"
+                  d="M61.37,6.86a7.17,7.17,0,0,0-1.94.27A12.73,12.73,0,0,0,48.12,0H36V27H48.12a12.65,12.65,0,0,0,11-6.15,7.18,7.18,0,1,0,2.3-14Z"></path>
+            <path class="cls-3"
+                  d="M129.66,102H128V92.8a16,16,0,0,0-15.93-16.09l.08-.26h0A33.35,33.35,0,0,0,79,43H58.92A33.24,33.24,0,0,0,25.73,76H16.34C7.45,76,0,83.92,0,92.8V118H128v-6h1.66a4.3,4.3,0,0,0,4.34-4.57v-.2C134,104.63,132.25,102,129.66,102Z"></path>
+            <circle class="cls-4" cx="31.06" cy="117.94" r="17.07"></circle>
+            <circle class="cls-4" cx="96.1" cy="117.94" r="17.07"></circle>
+            <path class="cls-5"
+                  d="M70.77,48h-4C48.71,48,34,58.44,34,76.49V77h70v-.51C104,58.44,88.81,48,70.77,48Z"></path>
+            <rect class="cls-3" x="65" y="47" width="8" height="33"></rect>
+        </g>
+    </g>
+</svg>
