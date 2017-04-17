@@ -3,3 +3,14 @@
 .env
 sqlite.db
 __pycache__
+solarpilot/settings.py
+solarpilot/prod_settings.py
+deploy.sh
+docker-compose.yml
+Dockerfile
+docker-start.sh
+Makefile
+geckodriver.log
+Procfile
+test-requirements.txt
+runtime.txt
