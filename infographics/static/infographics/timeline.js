@@ -20,16 +20,6 @@ $(window).scroll(function () {
     }
 });
 
-// small graphs - change view from one line to a carousel
-$(window).on('resize load', function () {
-    if ($(window).width() < 1000) {
-        slide(ids);
-    } else {
-        $('.slide').removeClass('hidden');
-        $('.arrow').addClass('hidden');
-    }
-});
-
 // data preparation
 function parseData(data) {
     let isoParse = d3.timeParse("%Y-%m-%dT%H:%M:%S+00:00Z");
@@ -253,7 +243,8 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
     return data;
 }
 
-// small charts
+
+// small graphs
 function euroChart(data) {
     let margin = {top: 20, right: 5, bottom: 0, left: 5};
     let width = 190 - margin.left - margin.right;
@@ -404,6 +395,15 @@ function CO2Chart(data) {
     $('#co2-w').text(Math.round(data[1] * 209 / 100));
 }
 
+// small graphs - change view from one line to a carousel
+$(window).on('resize load', function () {
+    if ($(window).width() < 1000) {
+        slide(ids);
+    } else {
+        $('.slide').removeClass('hidden');
+        $('.arrow').addClass('hidden');
+    }
+});
 let ids = ['#slide1', '#slide2', '#slide3'];
 function slide(ids) {
     $(ids[0]).removeClass('hidden');
@@ -471,8 +471,7 @@ function carSection(productionTotal, timeFrame) {
     document.getElementById('produced-km').innerHTML = String(Math.floor(productionTotal) * 5);
 }
 
-
-// main
+// MAIN
 function updateTimeLine(timeFrame, buildingOn, savingsOn) {
 
     $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
@@ -517,7 +516,6 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
     });
     return [timeFrame, buildingOn]
 }
-
 
 // timeline pop-up
 $(function () {

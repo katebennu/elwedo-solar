@@ -3,9 +3,10 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from infographics.models import Building, Apartment
+from django.contrib.auth.models import User
 
 
-@login_required
+# @login_required
 def index(request):
     return render(request, "infographics/index.html")
 
@@ -15,9 +16,14 @@ def about(request):
 
 
 def timeline_update(request):
-
+    from pprint import pprint
+    pprint(request.user)
+    if request.user.username == '':
+        user = User.objects.get(username='user_5')
+    else:
+        user = request.user
     building = Building.objects.first()
-    apartment = Apartment.objects.get(user=request.user)
+    apartment = Apartment.objects.get(user=user)
 
     time_frame = request.GET.get('timeFrame')
 
