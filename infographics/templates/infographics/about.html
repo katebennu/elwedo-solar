@@ -3,26 +3,22 @@
 {% block title %} Welcome to Elwedo Solar {% endblock %}
 
 {% block body %}
-    <img class="about-background" src="{% static '/infographics/images/about-background.png' %}">
+    <img class="about-background" src="{% static '/infographics/images/about-background.svg' %}">
 
     <div id="about-logo-box" class="img-responsive">
         <img class="logo" src="{% static 'infographics/images/logo-login.svg' %}">
         <h3>GREEN ENERGY SHAPED FOR YOU</h3>
     </div>
-    <div id="about-body">
-        <div class="container login-box">
-            <div class="row row-centered">
-                <div class="col-lg-1 col-centered">
-
-
-                </div>
-            </div>
-        </div>
+    <div id="about-body" class="container">
+        Text about elwedo.<br><br>
+        Lorem ipsum dolor sit amet, mei eu iisque euripidis assentior. His cu alii melius ullamcorper, et
+        duo blandit indoctum. Ei insolens abhorreant intellegam vel. In eripuit vivendum cum.<br><br>
+        Mei novum possim voluptatibus eu, iusto tacimates constituam his ne. Erant nonumy sensibus at usu.
     </div>
     <script>
         let body = $('body');
         if (body.has('#about-body')) {
-            body.css('background-color', '#D6D1B5')
+            body.css('background-color', '#F4F1E4')
         }
     </script>
 {% endblock %}
