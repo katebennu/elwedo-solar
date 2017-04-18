@@ -647,19 +647,25 @@ input:focus {
     padding-top: 10%;
 }
 
-#about-logo-box .background {
+.about-background {
     background-color: rgb(38, 181, 219);
     width: 100%;
+    margin-top: -6%;
+    z-index: 1;
 }
 
 #about-logo-box .logo {
     width: 30%;
+    z-index: 3;
+    margin-top: -55%;
 }
 
 #about-logo-box h3 {
     color: #FFFFFF;
     font-family: 'Karla', sans-serif;
     font-size: 2.5vw;
+    margin-top: -23%;
+    z-index: 3;
 }
 
 #about-body {
