@@ -3,9 +3,11 @@
 {% block title %} Welcome to Elwedo Solar {% endblock %}
 
 {% block body %}
-
+    <div id="about-logo-box" class="img-responsive">
+        <img src="{% static 'infographics/images/logo-login.svg' %}">
+        <h3>GREEN ENERGY SHAPED FOR YOU</h3>
+    </div>
     <div id="about-body">
-
         <div class="container login-box">
             <div class="row row-centered">
                 <div class="col-lg-1 col-centered">
@@ -20,7 +22,7 @@
         if (body.has('#about-body')) {
             body.css('background-color', '#26b5db')
                 .css('background-image', "url('{% static 'infographics/images/about-background.png' %}')")
-                .css('background-repeat','no-repeat')
+                .css('background-repeat', 'no-repeat')
                 .css('background-position', 'center 50px')
                 .css('background-size', '100%');
         }
