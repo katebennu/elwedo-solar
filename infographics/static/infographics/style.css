@@ -167,6 +167,7 @@ h1 {
     .popupbox {
         width: 350px;
     }
+
     .popuptext {
         width: 300px;
     }
@@ -646,7 +647,12 @@ input:focus {
     padding-top: 10%;
 }
 
-#about-logo-box img {
+#about-logo-box .background {
+    background-color: rgb(38, 181, 219);
+    width: 100%;
+}
+
+#about-logo-box .logo {
     width: 30%;
 }
 
@@ -656,16 +662,8 @@ input:focus {
     font-size: 2.5vw;
 }
 
+#about-body {
+    margin-top: 7%;
+    background: #D6D1B5;
+}
 
-
-
-/*#about-body {*/
-    /*margin-top: -20px;*/
-    /*background: url("images/about-background.png");*/
-/*}*/
-
-/*#about-body > svg {*/
-    /*width: 100%;*/
-    /*height: auto;*/
-    /*background-color: #26b5db;*/
-/*}*/
