@@ -641,12 +641,13 @@ input:focus {
 
 }
 
-#about-body {
-    margin-top: -20px;
-}
+/*#about-body {*/
+    /*margin-top: -20px;*/
+    /*background: url("images/about-background.png");*/
+/*}*/
 
-#about-body > svg {
-    width: 100%;
-    height: auto;
-    background-color: #26b5db;
-}
+/*#about-body > svg {*/
+    /*width: 100%;*/
+    /*height: auto;*/
+    /*background-color: #26b5db;*/
+/*}*/
