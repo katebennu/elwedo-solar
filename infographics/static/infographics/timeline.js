@@ -484,9 +484,8 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         let [savingsRate, totals, productionTotal, CO2Rates] = getDataTotal(data);
 
         // update header
-        updateHeader(data);
-        let latest = data[data.length - 1]['timestamp'];
-        if (timeFrame != 'day') latest = latest.setDate(latest.getDate() - 1);
+        const d = data.slice();
+        updateHeader(d);
 
         let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame, buildingOn);
         $(".tick > text").filter(function () {
