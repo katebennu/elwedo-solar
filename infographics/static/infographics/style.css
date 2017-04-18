@@ -167,6 +167,7 @@ h1 {
     .popupbox {
         width: 350px;
     }
+
     .popuptext {
         width: 300px;
     }
@@ -641,12 +642,40 @@ input:focus {
 
 }
 
-#about-body {
-    margin-top: -20px;
+#about-logo-box {
+    text-align: center;
+    padding-top: 10%;
 }
 
-#about-body > svg {
+.about-background {
+    background-color: rgb(38, 181, 219);
     width: 100%;
-    height: auto;
-    background-color: #26b5db;
+    margin-top: -6%;
+    z-index: 1;
 }
+
+#about-logo-box .logo {
+    width: 30%;
+    z-index: 3;
+    margin-top: -55%;
+    max-width: 450px;
+}
+
+#about-logo-box h3 {
+    color: #FFFFFF;
+    font-family: 'Karla', sans-serif;
+    font-size: 2.5vw;
+    margin-top: -23%;
+    z-index: 3;
+}
+
+@media screen and (min-width: 1500px) {
+  #about-logo-box h3 {
+     font-size: 38px;
+  }
+}
+
+#about-body {
+    font-size: 18px;
+}
+
