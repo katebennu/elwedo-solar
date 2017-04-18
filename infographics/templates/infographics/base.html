@@ -33,27 +33,26 @@
             <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="#">
-        {% include 'infographics/svg/logo-navbar.svg' %}
+            {% include 'infographics/svg/logo-navbar.svg' %}
         </a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
         <ul class="nav navbar-nav navbar-right">
-        {% if user.is_authenticated %}
             <li><a href="#">DASHBOARD</a></li>
-        {% endif %}
-            <li><a href="#">ABOUT</a></li>
+{#            <li><a href="#">ABOUT</a></li>#}
 
             {% if user.is_authenticated %}
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">LOGOUT | ACCOUNT <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Change Password</a></li>
-                    <li class="divider"></li>
-                    <li><a href="{% url 'infographics:logout' %}">Log Out</a></li>
-                </ul>
-            </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">LOGOUT | ACCOUNT <b
+                            class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Change Password</a></li>
+                        <li class="divider"></li>
+                        <li><a href="{% url 'infographics:logout' %}">Log Out</a></li>
+                    </ul>
+                </li>
             {% else %}
                 <li><a href="{% url 'infographics:login' %}">LOGIN</a></li>
             {% endif %}
@@ -71,7 +70,6 @@
 </footer>
 
 </body>
-
 
 
 </html>
