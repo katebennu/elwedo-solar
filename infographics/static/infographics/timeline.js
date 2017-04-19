@@ -48,9 +48,10 @@ function getDataTotal(data) {
 }
 
 function updateHeader(data) {
-    let updated = data[data.length - 1]['timestamp'];
-    if (timeFrame != 'day') updated = updated.setDate(updated.getDate() + 1);
-    document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(updated);
+    let latest = data[data.length - 1]['timestamp'];
+    let update = new Date(latest.getYear(), latest.getMonth(), latest.getDate());
+    if (timeFrame != 'day') update = update.setDate(update.getDate() + 1);
+    document.getElementById('updated').innerHTML = d3.timeFormat('%d/%m/%y')(update);
 
 }
 
@@ -484,8 +485,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
         let [savingsRate, totals, productionTotal, CO2Rates] = getDataTotal(data);
 
         // update header
-        const d = data.slice();
-        updateHeader(d);
+        updateHeader(data);
 
         let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame, buildingOn);
         $(".tick > text").filter(function () {
