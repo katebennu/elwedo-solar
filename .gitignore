@@ -5,3 +5,4 @@ sqlite.db
 __pycache__
 solarpilot/settings.py
 solarpilot/prod_settings.py
+geckodriver.log
