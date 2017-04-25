@@ -196,11 +196,11 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
             });
         }
     }
-    data.push({'columns': ['timestamp', 'savings', 'consumptionLessSavings']});
+    data.push({'columns': ['timestamp', 'consumptionLessSavings', 'savings']});
 
-    let keys = ['consumptionLessSavings', 'savings'];
+    let keys = ['savings', 'consumptionLessSavings'];
     let z = d3.scaleOrdinal()
-        .range(["#F4F1E4", "#56eda8"]);
+        .range(["#56eda8", "#F4F1E4"]);
     z.domain(keys);
 
     svg.append("g")
