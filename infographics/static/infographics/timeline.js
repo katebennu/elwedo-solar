@@ -80,33 +80,19 @@ $("#monthSwitch").click(function () {
 });
 
 // timeline
-$('#building-switch').click(function () {
-    if (buildingOn == false) {
-        buildingOn = true;
-        $('#building-switch').removeClass('graph-control-off').addClass('graph-control-on');
-
-    }
-    else if (buildingOn == true) {
-        buildingOn = false;
-        $('#building-switch').removeClass('graph-control-on').addClass('graph-control-off');
-    }
-    console.log(timeFrame, buildingOn, savingsOn);
-
-//// Update only timeline graph instead
+$('#apartment-switch').click(function () {
+    $('#apartment-switch').removeClass('graph-control-off').addClass('graph-control-on');
+    $('#building-switch').removeClass('graph-control-on').addClass('graph-control-off');
+    $('#eCar-switch').removeClass('graph-control-on').addClass('graph-control-off');
+    buildingOn = false;
+    //// Update only timeline graph instead
     updateTimeLine(timeFrame, buildingOn, savingsOn);
 });
-$('#savings-switch').click(function () {
-    if (savingsOn == false) {
-        savingsOn = true;
-        $('#savings-switch').removeClass('graph-control-off').addClass('graph-control-on');
-
-    }
-    else if (savingsOn == true) {
-        savingsOn = false;
-        $('#savings-switch').removeClass('graph-control-on').addClass('graph-control-off');
-    }
-    console.log(timeFrame, buildingOn, savingsOn);
-
+$('#building-switch').click(function () {
+    $('#apartment-switch').removeClass('graph-control-on').addClass('graph-control-off');
+    $('#building-switch').removeClass('graph-control-off').addClass('graph-control-on');
+    $('#eCar-switch').removeClass('graph-control-on').addClass('graph-control-off');
+    buildingOn = true;
     //// Update only timeline graph instead
     updateTimeLine(timeFrame, buildingOn, savingsOn);
 });
@@ -210,11 +196,11 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
             });
         }
     }
-    data.push({'columns': ['timestamp', 'savings', 'consumptionLessSavings']});
+    data.push({'columns': ['timestamp', 'consumptionLessSavings', 'savings']});
 
-    let keys = ['consumptionLessSavings', 'savings'];
+    let keys = ['savings', 'consumptionLessSavings'];
     let z = d3.scaleOrdinal()
-        .range(["#F4F1E4", "#56eda8"]);
+        .range(["#56eda8", "#F4F1E4"]);
     z.domain(keys);
 
     svg.append("g")
@@ -492,9 +478,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
             return $(this).text() === "0.00";
         }).css("display", "none");
 
-        /*if (wSolar == false) */
-        if (savingsOn == false) BarChart(svg, data, width, height, maxY, x, y);
-        else stackedChart(data, buildingOn, svg, width, height, maxY, x, y);
+        stackedChart(data, buildingOn, svg, width, height, maxY, x, y);
         appendXAxis(svg, height, xAxis);
 
 
