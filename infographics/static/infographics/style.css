@@ -167,6 +167,7 @@ h1 {
     .popupbox {
         width: 350px;
     }
+
     .popuptext {
         width: 300px;
     }
@@ -540,7 +541,13 @@ h1 {
     padding-top: 77px;
     padding-bottom: 77px;
     text-align: center;
-    white-space: nowrap;
+}
+
+.car-col {
+    width: 350px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
 }
 
 #car-section h1 {
@@ -550,7 +557,7 @@ h1 {
 #car-pic {
     width: 280px;
     height: auto;
-    margin: 50px 50px 50px 50px;
+    margin: 50px 0 50px 0;
 }
 
 .footer {
