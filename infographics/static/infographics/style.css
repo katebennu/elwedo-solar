@@ -544,14 +544,27 @@ h1 {
     white-space: nowrap;
 }
 
+.car-col {
+    width: 350px;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+}
+
 #car-section h1 {
     font-size: 48px;
 }
 
-#car-pic {
+#car-pic svg{
     width: 280px;
     height: auto;
-    margin: 50px 50px 50px 50px;
+    margin: 50px 0 50px 0;
+}
+
+@media screen and (max-width: 1000px) {
+    .car-col {
+        display: inline;
+    }
 }
 
 .footer {
