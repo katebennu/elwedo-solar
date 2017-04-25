@@ -541,6 +541,7 @@ h1 {
     padding-top: 77px;
     padding-bottom: 77px;
     text-align: center;
+    white-space: nowrap;
 }
 
 .car-col {
@@ -554,10 +555,16 @@ h1 {
     font-size: 48px;
 }
 
-#car-pic {
+#car-pic svg{
     width: 280px;
     height: auto;
     margin: 50px 0 50px 0;
+}
+
+@media screen and (max-width: 1000px) {
+    .car-col {
+        display: inline;
+    }
 }
 
 .footer {
