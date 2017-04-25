@@ -1,0 +1,166 @@
+1489101843614	geckodriver	INFO	Listening on 127.0.0.1:48532
+1489101844700	mozprofile::profile	INFO	Using profile path /tmp/rust_mozprofile.1kSUqNAApLuf
+1489101844700	geckodriver::marionette	INFO	Starting browser /usr/bin/firefox with args []
+1489101844734	geckodriver::marionette	INFO	Connecting to Marionette on localhost:32915
+1489101847430	Marionette	INFO	Listening on port 32915
+[PIPELIGHT:LIN:unknown] attached to process.
+[PIPELIGHT:LIN:unknown] checking environment variable PIPELIGHT_FLASH_CONFIG.
+[PIPELIGHT:LIN:unknown] searching for config file pipelight-flash.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/home/kbennu/.config/pipelight-flash'.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/etc/pipelight-flash'.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/usr/share/pipelight/configs/pipelight-flash'.
+[PIPELIGHT:LIN:unknown] sandbox not found or not installed!
+[PIPELIGHT:LIN:flash] using wine prefix directory /home/kbennu/.wine-pipelight.
+[PIPELIGHT:LIN:flash] checking plugin installation - this might take some time.
+[install-dependency] Downloading and running wine-flash-installer.
+Gtk-Message: GtkDialog mapped without a transient parent. This is discouraged.
+Gtk-Message: GtkDialog mapped without a transient parent. This is discouraged.
+Gtk-Message: GtkDialog mapped without a transient parent. This is discouraged.
+[install-dependency] ERROR: Downloading of wine-flash-installer failed multiple times. Please check:
+[install-dependency]
+[install-dependency]        * that your internet connection is working properly
+[install-dependency]
+[install-dependency]        * and that the plugin database is up-to-date. To update it just run:
+[install-dependency]            sudo pipelight-plugin --update
+[install-dependency]
+[install-dependency]        If this doesn't help then most-likely the download URLs or checksums
+[install-dependency]        have changed. We recommend to open a bug-report in this case.
+[install-dependency] ERROR: Download of wine-flash-installer failed.
+[PIPELIGHT:LIN:flash] basicplugin.c:303:checkPluginInstallation(): Plugin installer did not run correctly (exitcode = 1).
+[PIPELIGHT:LIN:flash] basicplugin.c:116:attach(): plugin not correctly installed - aborting.
+[PIPELIGHT:LIN:unknown] attached to process.
+[PIPELIGHT:LIN:unknown] checking environment variable PIPELIGHT_WIDEVINE_CONFIG.
+[PIPELIGHT:LIN:unknown] searching for config file pipelight-widevine.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/home/kbennu/.config/pipelight-widevine'.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/etc/pipelight-widevine'.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/usr/share/pipelight/configs/pipelight-widevine'.
+[PIPELIGHT:LIN:unknown] sandbox not found or not installed!
+[PIPELIGHT:LIN:widevine] using wine prefix directory /home/kbennu/.wine-pipelight.
+[PIPELIGHT:LIN:widevine] checking plugin installation - this might take some time.
+[install-dependency] wine-widevine-installer is already installed in '/home/kbennu/.wine-pipelight'.
+fixme:winediag:start_process Wine Staging 1.9.7 is a testing version containing experimental patches.
+fixme:winediag:start_process Please mention your exact version when filing bug reports on winehq.org.
+wine: DLL not found.
+err:wineboot:ProcessRunKeys Error running cmd L"C:\\windows\\system32\\winemenubuilder.exe -a -r" (1157)
+[PIPELIGHT:WIN:widevine] embedded mode         is on.
+[PIPELIGHT:WIN:widevine] windowless mode       is off.
+[PIPELIGHT:WIN:widevine] linux windowless mode is off.
+[PIPELIGHT:WIN:widevine] force SetWindow       is on.
+[PIPELIGHT:WIN:widevine] window class hook     is off.
+[PIPELIGHT:WIN:widevine] strict draw ordering  is off.
+[PIPELIGHT:WIN:widevine] replaced API function TrackPopupMenuEx.
+[PIPELIGHT:WIN:widevine] replaced API function TrackPopupMenu.
+WVMK NP_Initialize
+[PIPELIGHT:WIN:widevine] init successful!
+[PIPELIGHT:LIN:unknown] attached to process.
+[PIPELIGHT:LIN:unknown] checking environment variable PIPELIGHT_SILVERLIGHT5_1_CONFIG.
+[PIPELIGHT:LIN:unknown] searching for config file pipelight-silverlight5.1.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/home/kbennu/.config/pipelight-silverlight5.1'.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/etc/pipelight-silverlight5.1'.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/usr/share/pipelight/configs/pipelight-silverlight5.1'.
+[PIPELIGHT:LIN:unknown] sandbox not found or not installed!
+[PIPELIGHT:LIN:silverlight5.1] using wine prefix directory /home/kbennu/.wine-pipelight.
+[PIPELIGHT:LIN:silverlight5.1] checking plugin installation - this might take some time.
+[install-dependency] wine-silverlight5.1-installer is already installed in '/home/kbennu/.wine-pipelight'.
+[install-dependency] wine-mpg2splt-installer is already installed in '/home/kbennu/.wine-pipelight'.
+[PIPELIGHT:WIN:silverlight5.1] embedded mode         is on.
+[PIPELIGHT:WIN:silverlight5.1] windowless mode       is off.
+[PIPELIGHT:WIN:silverlight5.1] linux windowless mode is off.
+[PIPELIGHT:WIN:silverlight5.1] force SetWindow       is off.
+[PIPELIGHT:WIN:silverlight5.1] window class hook     is on.
+[PIPELIGHT:WIN:silverlight5.1] strict draw ordering  is off.
+[PIPELIGHT:WIN:silverlight5.1] replaced API function CreateWindowExA.
+[PIPELIGHT:WIN:silverlight5.1] replaced API function CreateWindowExW.
+[PIPELIGHT:WIN:silverlight5.1] replaced API function TrackPopupMenuEx.
+[PIPELIGHT:WIN:silverlight5.1] replaced API function TrackPopupMenu.
+fixme:ntdll:EtwRegisterTraceGuidsW (0x7b8d2127, 0x7b970120, {aa087e0e-0b35-4e28-8f3a-440c3f51eef1}, 1, 0x71f478, (null), (null), 0x7b970120): stub
+fixme:ntdll:EtwRegisterTraceGuidsW   register trace class {aa087e0e-0b35-4e28-8f3a-440c3f51eef1}
+[PIPELIGHT:WIN:silverlight5.1] init successful!
+[PIPELIGHT:WIN:silverlight5.1] OpenGL Vendor: Intel Open Source Technology Center
+[PIPELIGHT:WIN:silverlight5.1] OpenGL Renderer: Mesa DRI Intel(R) HD Graphics 520 (Skylake GT2) x86/MMX/SSE2
+[PIPELIGHT:WIN:silverlight5.1] Your GPU is in the whitelist, hardware acceleration should work.
+1489101865468	Marionette	WARN	TLS certificate errors will be ignored for this session
+fixme:advapi:UnregisterTraceGuids deadbeef: stub
+1489101999405	geckodriver	INFO	Listening on 127.0.0.1:33411
+1489102000483	mozprofile::profile	INFO	Using profile path /tmp/rust_mozprofile.dXdnPfVxhf3a
+1489102000484	geckodriver::marionette	INFO	Starting browser /usr/bin/firefox with args []
+1489102000486	geckodriver::marionette	INFO	Connecting to Marionette on localhost:40606
+1489102001476	Marionette	INFO	Listening on port 40606
+[PIPELIGHT:LIN:unknown] attached to process.
+[PIPELIGHT:LIN:unknown] checking environment variable PIPELIGHT_FLASH_CONFIG.
+[PIPELIGHT:LIN:unknown] searching for config file pipelight-flash.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/home/kbennu/.config/pipelight-flash'.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/etc/pipelight-flash'.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/usr/share/pipelight/configs/pipelight-flash'.
+[PIPELIGHT:LIN:unknown] sandbox not found or not installed!
+[PIPELIGHT:LIN:flash] using wine prefix directory /home/kbennu/.wine-pipelight.
+[PIPELIGHT:LIN:flash] checking plugin installation - this might take some time.
+[install-dependency] Downloading and running wine-flash-installer.
+Gtk-Message: GtkDialog mapped without a transient parent. This is discouraged.
+Gtk-Message: GtkDialog mapped without a transient parent. This is discouraged.
+Gtk-Message: GtkDialog mapped without a transient parent. This is discouraged.
+[install-dependency] ERROR: Downloading of wine-flash-installer failed multiple times. Please check:
+[install-dependency]
+[install-dependency]        * that your internet connection is working properly
+[install-dependency]
+[install-dependency]        * and that the plugin database is up-to-date. To update it just run:
+[install-dependency]            sudo pipelight-plugin --update
+[install-dependency]
+[install-dependency]        If this doesn't help then most-likely the download URLs or checksums
+[install-dependency]        have changed. We recommend to open a bug-report in this case.
+[install-dependency] ERROR: Download of wine-flash-installer failed.
+[PIPELIGHT:LIN:flash] basicplugin.c:303:checkPluginInstallation(): Plugin installer did not run correctly (exitcode = 1).
+[PIPELIGHT:LIN:flash] basicplugin.c:116:attach(): plugin not correctly installed - aborting.
+[PIPELIGHT:LIN:unknown] attached to process.
+[PIPELIGHT:LIN:unknown] checking environment variable PIPELIGHT_WIDEVINE_CONFIG.
+[PIPELIGHT:LIN:unknown] searching for config file pipelight-widevine.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/home/kbennu/.config/pipelight-widevine'.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/etc/pipelight-widevine'.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/usr/share/pipelight/configs/pipelight-widevine'.
+[PIPELIGHT:LIN:unknown] sandbox not found or not installed!
+[PIPELIGHT:LIN:widevine] using wine prefix directory /home/kbennu/.wine-pipelight.
+[PIPELIGHT:LIN:widevine] checking plugin installation - this might take some time.
+[install-dependency] wine-widevine-installer is already installed in '/home/kbennu/.wine-pipelight'.
+fixme:winediag:start_process Wine Staging 1.9.7 is a testing version containing experimental patches.
+fixme:winediag:start_process Please mention your exact version when filing bug reports on winehq.org.
+wine: DLL not found.
+err:wineboot:ProcessRunKeys Error running cmd L"C:\\windows\\system32\\winemenubuilder.exe -a -r" (1157)
+[PIPELIGHT:WIN:widevine] embedded mode         is on.
+[PIPELIGHT:WIN:widevine] windowless mode       is off.
+[PIPELIGHT:WIN:widevine] linux windowless mode is off.
+[PIPELIGHT:WIN:widevine] force SetWindow       is on.
+[PIPELIGHT:WIN:widevine] window class hook     is off.
+[PIPELIGHT:WIN:widevine] strict draw ordering  is off.
+[PIPELIGHT:WIN:widevine] replaced API function TrackPopupMenuEx.
+[PIPELIGHT:WIN:widevine] replaced API function TrackPopupMenu.
+WVMK NP_Initialize
+[PIPELIGHT:WIN:widevine] init successful!
+[PIPELIGHT:LIN:unknown] attached to process.
+[PIPELIGHT:LIN:unknown] checking environment variable PIPELIGHT_SILVERLIGHT5_1_CONFIG.
+[PIPELIGHT:LIN:unknown] searching for config file pipelight-silverlight5.1.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/home/kbennu/.config/pipelight-silverlight5.1'.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/etc/pipelight-silverlight5.1'.
+[PIPELIGHT:LIN:unknown] trying to load config file from '/usr/share/pipelight/configs/pipelight-silverlight5.1'.
+[PIPELIGHT:LIN:unknown] sandbox not found or not installed!
+[PIPELIGHT:LIN:silverlight5.1] using wine prefix directory /home/kbennu/.wine-pipelight.
+[PIPELIGHT:LIN:silverlight5.1] checking plugin installation - this might take some time.
+[install-dependency] wine-silverlight5.1-installer is already installed in '/home/kbennu/.wine-pipelight'.
+[install-dependency] wine-mpg2splt-installer is already installed in '/home/kbennu/.wine-pipelight'.
+[PIPELIGHT:WIN:silverlight5.1] embedded mode         is on.
+[PIPELIGHT:WIN:silverlight5.1] windowless mode       is off.
+[PIPELIGHT:WIN:silverlight5.1] linux windowless mode is off.
+[PIPELIGHT:WIN:silverlight5.1] force SetWindow       is off.
+[PIPELIGHT:WIN:silverlight5.1] window class hook     is on.
+[PIPELIGHT:WIN:silverlight5.1] strict draw ordering  is off.
+[PIPELIGHT:WIN:silverlight5.1] replaced API function CreateWindowExA.
+[PIPELIGHT:WIN:silverlight5.1] replaced API function CreateWindowExW.
+[PIPELIGHT:WIN:silverlight5.1] replaced API function TrackPopupMenuEx.
+[PIPELIGHT:WIN:silverlight5.1] replaced API function TrackPopupMenu.
+fixme:ntdll:EtwRegisterTraceGuidsW (0x7b8d2127, 0x7b970120, {aa087e0e-0b35-4e28-8f3a-440c3f51eef1}, 1, 0x71f478, (null), (null), 0x7b970120): stub
+fixme:ntdll:EtwRegisterTraceGuidsW   register trace class {aa087e0e-0b35-4e28-8f3a-440c3f51eef1}
+[PIPELIGHT:WIN:silverlight5.1] init successful!
+[PIPELIGHT:WIN:silverlight5.1] OpenGL Vendor: Intel Open Source Technology Center
+[PIPELIGHT:WIN:silverlight5.1] OpenGL Renderer: Mesa DRI Intel(R) HD Graphics 520 (Skylake GT2) x86/MMX/SSE2
+[PIPELIGHT:WIN:silverlight5.1] Your GPU is in the whitelist, hardware acceleration should work.
+1489102009987	Marionette	WARN	TLS certificate errors will be ignored for this session
+fixme:advapi:UnregisterTraceGuids deadbeef: stub
