@@ -393,6 +393,8 @@ $(window).on('resize load', function () {
 });
 let ids = ['#slide1', '#slide2', '#slide3'];
 function slide(ids) {
+    if (ids[0] == '#slide1') $('#hideSquare').addClass('hidden');
+    else $('#hideSquare').removeClass('hidden');
     $(ids[0]).removeClass('hidden');
     $('.arrow').removeClass('hidden');
     $(ids[1]).addClass('hidden');
