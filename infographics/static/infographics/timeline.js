@@ -215,6 +215,8 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
             arrow
                 .style("left", d3.event.pageX - 300 + "px")
                 .style("display", "inline-block");
+            date
+                .text((d.data.timestamp));
         })
 }
 
