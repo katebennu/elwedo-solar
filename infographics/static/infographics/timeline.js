@@ -217,7 +217,7 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
     svg.selectAll("rect")
         .on("mousemove", d => {
             arrow
-                .style("left", d3.event.pageX - 30 + "px")
+                .style("left", d3.event.pageX - 20 + "px")
                 .style("display", "inline-block");
             legendBox
                 .classed("legend-info", true);

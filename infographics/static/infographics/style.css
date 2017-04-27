@@ -410,6 +410,10 @@ h1 {
     vertical-align: middle;
 }
 
+#timeline-chart rect:hover {
+    fill: #efe79c;
+}
+
 .legend-info {
     background-color: #F4F1E4;
     -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
