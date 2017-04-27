@@ -211,7 +211,8 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
         time = d3.select("#time-info"),
         consInfo = d3.select("#consumption-info"),
         prodInfo = d3.select("#production-info"),
-        legendBox = d3.select("#timeline-legend");
+        legendBox = d3.select("#timeline-legend"),
+        square = d3.select("#frame-me");
 
 
     svg.selectAll("rect")
@@ -229,6 +230,9 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
                 .text(": " + (d.data.consumptionLessSavings + d.data.savings).toFixed(2) + " kWh");
             prodInfo
                 .text(": " + (d.data.savings).toFixed(2) + " kWh");
+            square
+                .style("border-style", "solid")
+                .style("border-width", "1px");
         })
         .on("mouseout", d => {
             arrow
@@ -243,6 +247,8 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
                 .text("");
             prodInfo
                 .text("");
+            square
+                .style("border-style", "none")
         })
 }
 
