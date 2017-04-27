@@ -159,24 +159,6 @@ function appendXAxis(svg, height, xAxis) {
         .call(xAxis);
 }
 
-function BarChart(svg, data, width, height, maxY, x, y) {
-    svg.selectAll('rect')
-        .data(data)
-        .enter()
-        .append('rect')
-        .attr('class', 'consumption-rect')
-        .attr('x', d => x(d.timestamp))
-        .attr('y', function (d) {
-            if (buildingOn == true) return y(d.b_consumption);
-            else return y(d.a_consumption);
-        })
-
-        .attr('width', d => x.bandwidth())
-        .attr('height', function (d) {
-            if (buildingOn == true) return height - y(d.b_consumption);
-            else return height - y(d.a_consumption);
-        })
-}
 function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
     data = [];
     if (buildingOn == true) {
