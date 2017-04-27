@@ -220,7 +220,7 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
                 .style("left", d3.event.pageX - 30 + "px")
                 .style("display", "inline-block");
             legendBox
-                .style("background-color", "#F4F1E4");
+                .classed("legend-info", true);
             date
                 .text(d3.timeFormat('%d %B %Y')(d.data.timestamp));
             time
@@ -234,7 +234,7 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
             arrow
                 .style("display", "none");
             legendBox
-                .style("background-color", "transparent");
+                .classed("legend-info", false);
             date
                 .text("");
             time
