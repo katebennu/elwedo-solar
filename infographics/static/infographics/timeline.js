@@ -216,7 +216,9 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
                 .style("left", d3.event.pageX - 300 + "px")
                 .style("display", "inline-block");
             date
-                .text((d3.timeFormat('%d %m %Y')(d.data.timestamp)));
+                .text((d3.timeFormat('%d %B %Y')(d.data.timestamp)));
+            time
+                .text((d3.timeFormat('%H:%M')(d.data.timestamp)));
         })
 }
 
