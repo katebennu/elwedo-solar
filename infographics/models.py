@@ -171,3 +171,31 @@ class Grid(models.Model):
 
     def __str__(self):
         return 'Grid ' + str(self.name)
+
+
+# class CO2Multiplier(models.Model):
+#     name = models.fields.CharField(max_length=50, unique=True)
+#     multiplier = models.DecimalField(
+#         max_digits=8,
+#         decimal_places=2,
+#         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
+#     use = models.BooleanField(default=True)
+#
+#
+# class KmMultiplier (models.Model):
+#     name = models.fields.CharField(max_length=50, unique=True)
+#     multiplier = models.DecimalField(
+#         max_digits=8,
+#         decimal_places=2,
+#         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
+#     use = models.BooleanField(default=True)
+#
+#
+# class EurMultiplier(models.Model):
+#     name = models.fields.CharField(max_length=50, unique=True)
+#     multiplier = models.DecimalField(
+#         max_digits=8,
+#         decimal_places=2,
+#         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
+#     use = models.BooleanField(default=True)
+#     apartment = models.ForeignKey('Apartment')

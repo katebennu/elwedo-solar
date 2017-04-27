@@ -9,20 +9,25 @@
 </div>
 
 <div class="col-lg-8 col-md-8 col-sm-9 col-xs-12">
-    <div id="timeline-chart"></div>
+    <svg id="timeline-chart" width="700" height="350"></svg>
+{#    <div id="legend-arrow-box"></div>#}
+    <div class="legend" id="timeline-legend">
+        <div class="legend-element">
+            <div id="date-info"></div>
+            <div id="time-info"></div>
+        </div>
+        <div class="legend-element">
+            <div class="square gray" id="frame-me"></div>
+            <div>consumption<span id="consumption-info"></span></div>
+        </div>
+        <div class="legend-element">
+            <div class="square green"></div>
+            <div>savings<span id="production-info"></span></div>
+        </div>
+    </div>
 </div>
 
-<div class="legend">
-    <div class="legend-element">
-        <div class="square gray"></div>
-        <div>consumption</div>
-    </div>
-    <div class="legend-element">
-        <div class="square green"></div>
-        <div>savings</div>
-    </div>
-</div>
 
-    <script src="{% static 'infographics/timeline.js' %}">
+<script src="{% static 'infographics/timeline.js' %}">
 
-    </script>
+</script>

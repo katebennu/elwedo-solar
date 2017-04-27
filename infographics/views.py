@@ -2,7 +2,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from infographics.models import Building, Apartment
+from infographics.models import Building, Apartment\
+    # , KmMultiplier, CO2Multiplier, EurMultiplier
 from django.contrib.auth.models import User
 
 
@@ -39,7 +40,12 @@ def timeline_update(request):
         data_building = building.get_day_data()
         data_apartment = apartment.get_day_data()
 
+    # km_multiplier = KmMultiplier.objects.filter(use=True)
+    # co2_multiplier = CO2Multiplier.objects.filter(use=True)
+    # eur_multiplier = EurMultiplier.objects.filter(apartment=apartment)
+
     data = []
+    # data.append({'CO2Multiplier': co2_multiplier, 'eurMultiplier': eur_multiplier, 'co2Multiplier': co2_multiplier})
 
     for i in data_building:
         row = {}

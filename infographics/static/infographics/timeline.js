@@ -1,6 +1,5 @@
 let timeFrame = 'day';
 let buildingOn = false;
-let savingsOn = true;
 
 updateTimeLine(timeFrame = 'day', buildingOn = false);
 updateWeather();
@@ -61,7 +60,7 @@ $("#daySwitch").click(function () {
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'day';
-    updateTimeLine(timeFrame, buildingOn, savingsOn);
+    updateTimeLine(timeFrame, buildingOn);
 
 });
 $("#weekSwitch").click(function () {
@@ -69,14 +68,14 @@ $("#weekSwitch").click(function () {
     $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'week';
-    updateTimeLine(timeFrame, buildingOn, savingsOn);
+    updateTimeLine(timeFrame, buildingOn);
 });
 $("#monthSwitch").click(function () {
     $('#monthSwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'month';
-    updateTimeLine(timeFrame, buildingOn, savingsOn);
+    updateTimeLine(timeFrame, buildingOn);
 });
 
 // timeline
@@ -86,7 +85,7 @@ $('#apartment-switch').click(function () {
     $('#eCar-switch').removeClass('graph-control-on').addClass('graph-control-off');
     buildingOn = false;
     //// Update only timeline graph instead
-    updateTimeLine(timeFrame, buildingOn, savingsOn);
+    updateTimeLine(timeFrame, buildingOn);
 });
 $('#building-switch').click(function () {
     $('#apartment-switch').removeClass('graph-control-on').addClass('graph-control-off');
@@ -94,7 +93,7 @@ $('#building-switch').click(function () {
     $('#eCar-switch').removeClass('graph-control-on').addClass('graph-control-off');
     buildingOn = true;
     //// Update only timeline graph instead
-    updateTimeLine(timeFrame, buildingOn, savingsOn);
+    updateTimeLine(timeFrame, buildingOn);
 });
 
 function drawAxes(data, timeFrame, buildingOn) {
@@ -107,7 +106,6 @@ function drawAxes(data, timeFrame, buildingOn) {
     let width = 700 - margin.left - margin.right;
     let height = 350 - margin.top - margin.bottom;
     let svg = d3.select('#timeline-chart')
-        .append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
         //.call(responsivefy)
@@ -159,25 +157,7 @@ function appendXAxis(svg, height, xAxis) {
         .call(xAxis);
 }
 
-function BarChart(svg, data, width, height, maxY, x, y) {
-    svg.selectAll('rect')
-        .data(data)
-        .enter()
-        .append('rect')
-        .attr('class', 'consumption-rect')
-        .attr('x', d => x(d.timestamp))
-        .attr('y', function (d) {
-            if (buildingOn == true) return y(d.b_consumption);
-            else return y(d.a_consumption);
-        })
-
-        .attr('width', d => x.bandwidth())
-        .attr('height', function (d) {
-            if (buildingOn == true) return height - y(d.b_consumption);
-            else return height - y(d.a_consumption);
-        })
-}
-function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
+function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY, x, y) {
     data = [];
     if (buildingOn == true) {
         for (let i = 0; i < fullData.length; i++) {
@@ -226,10 +206,53 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
         })
         .attr("width", d => x.bandwidth());
 
+    let arrow = d3.select("#legend-arrow-box").append("div").attr("class", "legend-arrow"),
+        date = d3.select("#date-info"),
+        time = d3.select("#time-info"),
+        consInfo = d3.select("#consumption-info"),
+        prodInfo = d3.select("#production-info"),
+        legendBox = d3.select("#timeline-legend"),
+        square = d3.select("#frame-me");
 
-    return data;
+    svg.selectAll("rect")
+        .on("mousemove", d => {
+            arrow
+                .style("left", d3.event.pageX - 20 + "px")
+                .style("display", "inline-block");
+            legendBox
+                .classed("legend-info", true);
+            date
+                .text(d3.timeFormat('%d %B %Y')(d.data.timestamp));
+            if (timeFrame == "day") {
+                time.text(d3.timeFormat('%H:%M')(d.data.timestamp));
+                legendBox.style("padding-top", "20px");
+            }
+            consInfo
+                .text(": " + (d.data.consumptionLessSavings + d.data.savings).toFixed(2) + " kWh");
+            prodInfo
+                .text(": " + (d.data.savings).toFixed(2) + " kWh");
+            square
+                .style("border-style", "solid")
+                .style("border-width", "1px");
+        })
+        .on("mouseout", d => {
+            arrow
+                .style("display", "none");
+            legendBox
+                .classed("legend-info", false)
+                .style("padding-top", "35px");
+            date
+                .text("");
+            time
+                .text("");
+            consInfo
+                .text("");
+            prodInfo
+                .text("");
+            square
+                .style("border-style", "none")
+        })
 }
-
 
 // small graphs
 function euroChart(data) {
@@ -461,10 +484,10 @@ function carSection(productionTotal, timeFrame) {
 }
 
 // MAIN
-function updateTimeLine(timeFrame, buildingOn, savingsOn) {
+function updateTimeLine(timeFrame, buildingOn) {
 
     $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
-        // clean existing chart
+        // clean existing charts
         document.getElementById('timeline-chart').innerHTML = '';
         document.getElementById('euro-chart').innerHTML = '';
         document.getElementById('donut-chart').innerHTML = '';
@@ -480,7 +503,7 @@ function updateTimeLine(timeFrame, buildingOn, savingsOn) {
             return $(this).text() === "0.00";
         }).css("display", "none");
 
-        stackedChart(data, buildingOn, svg, width, height, maxY, x, y);
+        stackedChart(data, buildingOn, timeFrame, svg, width, height, maxY, x, y);
         appendXAxis(svg, height, xAxis);
 
 
