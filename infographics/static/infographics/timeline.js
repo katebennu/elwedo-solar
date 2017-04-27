@@ -1,6 +1,5 @@
 let timeFrame = 'day';
 let buildingOn = false;
-let savingsOn = true;
 
 updateTimeLine(timeFrame = 'day', buildingOn = false);
 updateWeather();
@@ -107,7 +106,6 @@ function drawAxes(data, timeFrame, buildingOn) {
     let width = 700 - margin.left - margin.right;
     let height = 350 - margin.top - margin.bottom;
     let svg = d3.select('#timeline-chart')
-        .append('svg')
         .attr('width', width + margin.left + margin.right)
         .attr('height', height + margin.top + margin.bottom)
         //.call(responsivefy)
@@ -208,14 +206,14 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
         })
         .attr("width", d => x.bandwidth());
 
-    let arrow = d3.select("#legend-arrow-box").insert("div").attr("class", "legend-arrow");
+    let arrow = d3.select("#legend-arrow-box").append("div").attr("class", "legend-arrow");
     let date = d3.select("#date-info");
     let time = d3.select("#time-info");
 
     svg.selectAll("rect")
         .on("mousemove", d => {
             arrow
-                .style("left", d3.event.pageX - 20 + "px")
+                .style("left", d3.event.pageX - 300 + "px")
                 .style("display", "inline-block");
         })
 }
@@ -450,10 +448,10 @@ function carSection(productionTotal, timeFrame) {
 }
 
 // MAIN
-function updateTimeLine(timeFrame, buildingOn, savingsOn) {
+function updateTimeLine(timeFrame, buildingOn) {
 
     $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
-        // clean existing chart
+        // clean existing charts
         document.getElementById('timeline-chart').innerHTML = '';
         document.getElementById('euro-chart').innerHTML = '';
         document.getElementById('donut-chart').innerHTML = '';

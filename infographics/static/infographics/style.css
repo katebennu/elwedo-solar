@@ -386,8 +386,16 @@ h1 {
 
 #timeline-chart {
     margin-top: 15px;
-    margin-bottom: 37px;
-    max-width: 800px;
+    display: block;
+}
+
+#legend-arrow-box {
+    display: block;
+    height: 20px;
+}
+
+#timelineLegend {
+    display: block;
 }
 
 .axisX .domain {
