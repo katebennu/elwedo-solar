@@ -60,7 +60,7 @@ $("#daySwitch").click(function () {
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'day';
-    updateTimeLine(timeFrame, buildingOn, savingsOn);
+    updateTimeLine(timeFrame, buildingOn);
 
 });
 $("#weekSwitch").click(function () {
@@ -68,14 +68,14 @@ $("#weekSwitch").click(function () {
     $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'week';
-    updateTimeLine(timeFrame, buildingOn, savingsOn);
+    updateTimeLine(timeFrame, buildingOn);
 });
 $("#monthSwitch").click(function () {
     $('#monthSwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'month';
-    updateTimeLine(timeFrame, buildingOn, savingsOn);
+    updateTimeLine(timeFrame, buildingOn);
 });
 
 // timeline
@@ -85,7 +85,7 @@ $('#apartment-switch').click(function () {
     $('#eCar-switch').removeClass('graph-control-on').addClass('graph-control-off');
     buildingOn = false;
     //// Update only timeline graph instead
-    updateTimeLine(timeFrame, buildingOn, savingsOn);
+    updateTimeLine(timeFrame, buildingOn);
 });
 $('#building-switch').click(function () {
     $('#apartment-switch').removeClass('graph-control-on').addClass('graph-control-off');
@@ -93,7 +93,7 @@ $('#building-switch').click(function () {
     $('#eCar-switch').removeClass('graph-control-on').addClass('graph-control-off');
     buildingOn = true;
     //// Update only timeline graph instead
-    updateTimeLine(timeFrame, buildingOn, savingsOn);
+    updateTimeLine(timeFrame, buildingOn);
 });
 
 function drawAxes(data, timeFrame, buildingOn) {
@@ -216,7 +216,7 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
                 .style("left", d3.event.pageX - 300 + "px")
                 .style("display", "inline-block");
             date
-                .text((d.data.timestamp));
+                .text((d3.timeFormat('%d %m %Y')(d.data.timestamp)));
         })
 }
 
