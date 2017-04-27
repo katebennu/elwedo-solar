@@ -270,7 +270,7 @@ h1 {
     vertical-align: middle;
 }
 
-#legend-arrow {
+.legend-arrow {
     position: absolute;
     display: none;
     width: 0;

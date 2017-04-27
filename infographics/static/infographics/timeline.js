@@ -208,10 +208,17 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
         })
         .attr("width", d => x.bandwidth());
 
+    let arrow = d3.select("#legend-arrow-box").insert("div").attr("class", "legend-arrow");
+    let date = d3.select("#date-info");
+    let time = d3.select("#time-info");
 
-    return data;
+    svg.selectAll("rect")
+        .on("mousemove", d => {
+            arrow
+                .style("left", d3.event.pageX - 20 + "px")
+                .style("display", "inline-block");
+        })
 }
-
 
 // small graphs
 function euroChart(data) {
