@@ -157,7 +157,7 @@ function appendXAxis(svg, height, xAxis) {
         .call(xAxis);
 }
 
-function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
+function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY, x, y) {
     data = [];
     if (buildingOn == true) {
         for (let i = 0; i < fullData.length; i++) {
@@ -214,7 +214,6 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
         legendBox = d3.select("#timeline-legend"),
         square = d3.select("#frame-me");
 
-
     svg.selectAll("rect")
         .on("mousemove", d => {
             arrow
@@ -224,8 +223,7 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
                 .classed("legend-info", true);
             date
                 .text(d3.timeFormat('%d %B %Y')(d.data.timestamp));
-            time
-                .text(d3.timeFormat('%H:%M')(d.data.timestamp));
+            if (timeFrame == "day") time.text(d3.timeFormat('%H:%M')(d.data.timestamp));
             consInfo
                 .text(": " + (d.data.consumptionLessSavings + d.data.savings).toFixed(2) + " kWh");
             prodInfo
@@ -501,7 +499,7 @@ function updateTimeLine(timeFrame, buildingOn) {
             return $(this).text() === "0.00";
         }).css("display", "none");
 
-        stackedChart(data, buildingOn, svg, width, height, maxY, x, y);
+        stackedChart(data, buildingOn, timeFrame, svg, width, height, maxY, x, y);
         appendXAxis(svg, height, xAxis);
 
 

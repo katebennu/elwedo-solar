@@ -410,8 +410,9 @@ h1 {
     vertical-align: middle;
 }
 
-#timeline-chart rect:hover {
-    fill: #efe79c;
+#date-info, #time-info {
+    display: block;
+    text-align: left;
 }
 
 .legend-info {
