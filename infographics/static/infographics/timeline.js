@@ -223,7 +223,10 @@ function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY,
                 .classed("legend-info", true);
             date
                 .text(d3.timeFormat('%d %B %Y')(d.data.timestamp));
-            if (timeFrame == "day") time.text(d3.timeFormat('%H:%M')(d.data.timestamp));
+            if (timeFrame == "day") {
+                time.text(d3.timeFormat('%H:%M')(d.data.timestamp));
+                legendBox.style("padding-top", "20px");
+            }
             consInfo
                 .text(": " + (d.data.consumptionLessSavings + d.data.savings).toFixed(2) + " kWh");
             prodInfo
@@ -236,7 +239,8 @@ function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY,
             arrow
                 .style("display", "none");
             legendBox
-                .classed("legend-info", false);
+                .classed("legend-info", false)
+                .style("padding-top", "35px");
             date
                 .text("");
             time

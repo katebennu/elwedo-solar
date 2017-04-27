@@ -403,7 +403,6 @@ h1 {
     width: 700px;
     height: 85px;
     display: block;
-    padding-top: 15px;
 }
 
 #timeline-legend .legend-element {
@@ -416,6 +415,7 @@ h1 {
 }
 
 .legend-info {
+    padding-top: 35px;
     background-color: #F4F1E4;
     -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
     -moz-animation: fadein 1s; /* Firefox < 16 */
