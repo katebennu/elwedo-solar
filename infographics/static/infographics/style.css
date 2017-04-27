@@ -270,6 +270,16 @@ h1 {
     vertical-align: middle;
 }
 
+#legend-arrow {
+    position: absolute;
+    display: none;
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-bottom: 20px solid red;
+}
+
 .square {
     height: 20px;
     width: 20px;
@@ -555,7 +565,7 @@ h1 {
     font-size: 48px;
 }
 
-#car-pic svg{
+#car-pic svg {
     width: 280px;
     height: auto;
     margin: 50px 0 50px 0;
@@ -683,9 +693,9 @@ input:focus {
 }
 
 @media screen and (min-width: 1500px) {
-  #about-logo-box h3 {
-     font-size: 34px;
-  }
+    #about-logo-box h3 {
+        font-size: 34px;
+    }
 }
 
 #about-body {
