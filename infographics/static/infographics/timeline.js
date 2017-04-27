@@ -206,9 +206,12 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
         })
         .attr("width", d => x.bandwidth());
 
-    let arrow = d3.select("#legend-arrow-box").append("div").attr("class", "legend-arrow");
-    let date = d3.select("#date-info");
-    let time = d3.select("#time-info");
+    let arrow = d3.select("#legend-arrow-box").append("div").attr("class", "legend-arrow"),
+        date = d3.select("#date-info"),
+        time = d3.select("#time-info"),
+        consInfo = d3.select("#consumption-info"),
+        prodInfo = d3.select("#production-info");
+
 
     svg.selectAll("rect")
         .on("mousemove", d => {
@@ -216,9 +219,13 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
                 .style("left", d3.event.pageX - 300 + "px")
                 .style("display", "inline-block");
             date
-                .text((d3.timeFormat('%d %B %Y')(d.data.timestamp)));
+                .text(d3.timeFormat('%d %B %Y')(d.data.timestamp));
             time
-                .text((d3.timeFormat('%H:%M')(d.data.timestamp)));
+                .text(d3.timeFormat('%H:%M')(d.data.timestamp));
+            consInfo
+                .text(": " + (d.data.consumptionLessSavings + d.data.savings).toFixed(2) + " kWh");
+            prodInfo
+                .text(": " + (d.data.savings).toFixed(2) + " kWh");
         })
 }
 
