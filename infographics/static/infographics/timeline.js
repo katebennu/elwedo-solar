@@ -230,6 +230,20 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
             prodInfo
                 .text(": " + (d.data.savings).toFixed(2) + " kWh");
         })
+        .on("mouseout", d => {
+            arrow
+                .style("display", "none");
+            legendBox
+                .style("background-color", "transparent");
+            date
+                .text("");
+            time
+                .text("");
+            consInfo
+                .text("");
+            prodInfo
+                .text("");
+        })
 }
 
 // small graphs
