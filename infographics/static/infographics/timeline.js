@@ -210,7 +210,8 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
         date = d3.select("#date-info"),
         time = d3.select("#time-info"),
         consInfo = d3.select("#consumption-info"),
-        prodInfo = d3.select("#production-info");
+        prodInfo = d3.select("#production-info"),
+        legendBox = d3.select("#timeline-legend");
 
 
     svg.selectAll("rect")
@@ -218,6 +219,8 @@ function stackedChart(fullData, buildingOn, svg, width, height, maxY, x, y) {
             arrow
                 .style("left", d3.event.pageX - 300 + "px")
                 .style("display", "inline-block");
+            legendBox
+                .style("background-color", "#F4F1E4");
             date
                 .text(d3.timeFormat('%d %B %Y')(d.data.timestamp));
             time
