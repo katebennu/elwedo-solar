@@ -1,19 +1,7 @@
-from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from django.shortcuts import render
 
-from infographics.models import Building, Apartment\
-    # , KmMultiplier, CO2Multiplier, EurMultiplier
+from infographics.models import Building, Apartment
 from django.contrib.auth.models import User
-
-
-# @login_required
-def index(request):
-    return render(request, "infographics/index.html")
-
-
-def about(request):
-    return render(request, "infographics/about.html")
 
 
 def timeline_update(request):
