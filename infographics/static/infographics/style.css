@@ -394,7 +394,6 @@ h1 {
     max-width: 750px;
 }
 
-
 @media screen and (max-width: 750px) {
     #timeline-chart {
         overflow-x: scroll;
@@ -410,6 +409,20 @@ h1 {
     width: 700px;
     height: 85px;
     display: block;
+}
+
+@media screen and (max-width: 700px) {
+    #timeline-legend {
+        width: 100%;
+        height: 140px;
+        text-align: left;
+        padding-left: 30px;
+    }
+
+    #timeline-legend .legend-element {
+        text-align: left;
+        display: block;
+    }
 }
 
 #timeline-legend .legend-element {
@@ -480,12 +493,10 @@ h1 {
     }
 }
 
-
 .axisX .domain {
     stroke-width: 2px;
     stroke: #6D6A5C;
 }
-
 
 .axisY .domain {
     display: none;
