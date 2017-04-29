@@ -15,28 +15,9 @@
         <div class="time-control-off pointer" id="monthSwitch">MONTH</div>
     </div>
 
-    <div class="container">
-
-        <div class="click-to-popup"><h1 id="timeline-heading" class="pointer">ENERGY USAGE AND SAVINGS</h1>
-            <div id="timeline-popup" class="popupbox" tabindex="-1">
-                <div class="popuptext"><b>Graph showing the energy usage of the households.</b><br/><br/>
-                    Selecting the green buttons you will see different data sets:<br/>
-                    <b>Building</b>: compares data of your apartment and of the whole building.<br/>
-                    <b>Savings</b>: shows saved energy thanks to the use of solar energy.<br/>
-                    <b>Electric car</b>: shows estimated enrgy usage if the family owns an electric car.<br/><br/>
-                    Selecting the top blue buttons you will change the scope of the data between the previous day, week
-                    or month.
-                </div>
-                <div id="timeline-popup-close" class="close">
-                </div>
-            </div>
-            <div id="timeline-div" class="row">
-                {% include 'infographics/graph-timeline.html' %}
-            </div>
-        </div>
-    </div>
 
 
+{% include 'infographics/graph-timeline.html' %}
 
     <div class="blue-ribbon explanation ribbon">
         <h1>TEXT THAT EXPLAINS DATA</h1>
@@ -57,7 +38,7 @@
 
 
     <div class="container" id="car-section">
-            {% include 'infographics/car.html' %}
+        {% include 'infographics/car.html' %}
     </div>
 
 

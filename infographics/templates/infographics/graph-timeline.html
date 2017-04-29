@@ -1,16 +1,33 @@
 {% load staticfiles %}
+<div class="container">
 
-<div class="col-lg-1 col-md-1 col-sm-0 col-xs-0"></div>
+    <div class="click-to-popup"><h1 id="timeline-heading" class="pointer">ENERGY USAGE AND SAVINGS</h1>
+        <div id="timeline-popup" class="popupbox" tabindex="-1">
+            <div class="popuptext"><b>Graph showing the energy usage of the households.</b><br/><br/>
+                Selecting the green buttons you will see different data sets:<br/>
+                <b>Building</b>: compares data of your apartment and of the whole building.<br/>
+                <b>Savings</b>: shows saved energy thanks to the use of solar energy.<br/>
+                <b>Electric car</b>: shows estimated enrgy usage if the family owns an electric car.<br/><br/>
+                Selecting the top blue buttons you will change the scope of the data between the previous day, week
+                or month.
+            </div>
+            <div id="timeline-popup-close" class="close">
+            </div>
+        </div>
+    </div>
+    <div id="timeline-div" class="row">
+        <div id="timeline-menu" class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+            <div id="apartment-switch" class="graph-control-on pointer">APARTMENT</div>
+            <div id="building-switch" class="graph-control-off pointer">BUILDING</div>
+            <div id="eCar-switch" class="graph-control-off pointer">ELECTRIC CAR</div>
+        </div>
 
-<div id="timeline-menu" class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-    <div id="apartment-switch" class="graph-control-on pointer">APARTMENT</div>
-    <div id="building-switch" class="graph-control-off pointer">BUILDING</div>
-    <div id="eCar-switch" class="graph-control-off pointer">ELECTRIC CAR</div>
-</div>
+        <div id="timeline-chart" class="col-lg-8 col-md-8 col-sm-9 col-xs-12">
+            {#    <div id="legend-arrow-box"></div>#}
 
-<div class="col-lg-8 col-md-8 col-sm-9 col-xs-12">
-    <svg id="timeline-chart" width="700" height="350"></svg>
-{#    <div id="legend-arrow-box"></div>#}
+        </div>
+
+    </div>
     <div class="legend" id="timeline-legend">
         <div class="legend-element">
             <div id="date-info"></div>

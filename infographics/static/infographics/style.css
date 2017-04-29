@@ -391,7 +391,14 @@ h1 {
 
 #timeline-chart {
     margin-top: 15px;
-    display: block;
+    max-width: 750px;
+}
+
+
+@media screen and (max-width: 750px) {
+    #timeline-chart {
+        overflow-x: scroll;
+    }
 }
 
 #legend-arrow-box {
@@ -479,11 +486,6 @@ h1 {
     stroke: #6D6A5C;
 }
 
-@media screen and (max-width: 620px) {
-    #timeline-chart {
-        overflow-x: scroll;
-    }
-}
 
 .axisY .domain {
     display: none;
