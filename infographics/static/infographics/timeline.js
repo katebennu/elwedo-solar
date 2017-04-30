@@ -219,7 +219,7 @@ function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY,
 
     svg.selectAll("rect")
         .on("mousemove", (d, i, j) => {
-            d3.selectAll("rect.stack" + i).attr("class", "yellow-fill");
+            // d3.selectAll("rect.stack" + i).attr("class", "yellow-fill");
             arrow
                 .style("left", d3.event.pageX - 20 + "px")
                 .style("display", "inline-block");
@@ -240,7 +240,7 @@ function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY,
                 .style("border-width", "1px");
         })
         .on("mouseout", (d, i, j) => {
-            d3.selectAll("rect.stack" + i).classed("yellow-fill", false);
+            // d3.selectAll("rect.stack" + i).classed("yellow-fill", false);
             arrow
                 .style("display", "none");
             legendBox
@@ -492,8 +492,6 @@ function carSection(productionTotal, timeFrame) {
 function updateTimeLine(timeFrame, buildingOn) {
 
     $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
-
-        console.log(data);
         // clean existing charts
         document.getElementById('timeline-chart').innerHTML = '';
         document.getElementById('euro-chart').innerHTML = '';
