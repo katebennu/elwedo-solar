@@ -118,19 +118,7 @@ class Building(models.Model):
         return 'Building ' + str(self.address)
 
 
-class PanelsToInstall(models.Model):
-    building = models.ForeignKey(Building)
-    number_of_units = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(999999)])
-    name = models.CharField(
-        max_length=100,
-        unique=True,
-        default="default")
-    use = models.BooleanField(default=True)
 
-    def __str__(self):
-        return str(self.number_of_units) + ' Panels estimation, building ' + str(
-            self.building.address) + ', name ' + str(self.name)
 
 
 class ConsumptionMeasurement(models.Model):
@@ -168,9 +156,27 @@ class ProductionMeasurement(models.Model):
 class Grid(models.Model):
     name = models.fields.CharField(max_length=50, unique=True)
     total_units = models.fields.IntegerField(default=200)
+    #total capacity, KW, instead of units
 
     def __str__(self):
         return 'Grid ' + str(self.name)
+
+
+class PanelsToInstall(models.Model):
+    building = models.ForeignKey(Building)
+    number_of_units = models.IntegerField(
+        validators=[MinValueValidator(0), MaxValueValidator(999999)])
+    # estimated capacity, KW, instead of units
+
+    name = models.CharField(
+        max_length=100,
+        unique=True,
+        default="default")
+    use = models.BooleanField(default=True)
+
+    def __str__(self):
+        return str(self.number_of_units) + ' Panels estimation, building ' + str(
+            self.building.address) + ', name ' + str(self.name)
 
 
 # class CO2Multiplier(models.Model):
@@ -191,7 +197,16 @@ class Grid(models.Model):
 #     use = models.BooleanField(default=True)
 #
 #
-# class EurMultiplier(models.Model):
+# class GridPriceMultiplier(models.Model):
+#     name = models.fields.CharField(max_length=50, unique=True)
+#     multiplier = models.DecimalField(
+#         max_digits=8,
+#         decimal_places=2,
+#         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
+#     use = models.BooleanField(default=True)
+#     apartment = models.ForeignKey('Apartment')
+
+# class SolarPriceMultiplier(models.Model):
 #     name = models.fields.CharField(max_length=50, unique=True)
 #     multiplier = models.DecimalField(
 #         max_digits=8,

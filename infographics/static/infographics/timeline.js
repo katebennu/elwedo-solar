@@ -205,7 +205,9 @@ function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY,
         .attr("height", function (d) {
             return y(d[0]) - y(d[1]);
         })
-        .attr("width", d => x.bandwidth());
+        .attr("width", d => x.bandwidth())
+        .attr("class", (d, i, j) => "stack" + i);
+
 
     let arrow = d3.select("#legend-arrow-box").append("div").attr("class", "legend-arrow"),
         date = d3.select("#date-info"),
@@ -216,7 +218,8 @@ function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY,
         square = d3.select("#frame-me");
 
     svg.selectAll("rect")
-        .on("mousemove", d => {
+        .on("mousemove", (d, i, j) => {
+            d3.selectAll("rect.stack" + i).attr("class", "yellow-fill");
             arrow
                 .style("left", d3.event.pageX - 20 + "px")
                 .style("display", "inline-block");
@@ -236,7 +239,8 @@ function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY,
                 .style("border-style", "solid")
                 .style("border-width", "1px");
         })
-        .on("mouseout", d => {
+        .on("mouseout", (d, i, j) => {
+            d3.selectAll("rect.stack" + i).classed("yellow-fill", false);
             arrow
                 .style("display", "none");
             legendBox
@@ -488,6 +492,8 @@ function carSection(productionTotal, timeFrame) {
 function updateTimeLine(timeFrame, buildingOn) {
 
     $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
+
+        console.log(data);
         // clean existing charts
         document.getElementById('timeline-chart').innerHTML = '';
         document.getElementById('euro-chart').innerHTML = '';

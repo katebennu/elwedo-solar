@@ -7,7 +7,7 @@ from infographics.models import Building, Apartment\
 from django.contrib.auth.models import User
 
 
-# @login_required
+@login_required
 def index(request):
     return render(request, "infographics/index.html")
 
@@ -15,7 +15,7 @@ def index(request):
 def about(request):
     return render(request, "infographics/about.html")
 
-
+@login_required
 def timeline_update(request):
     from pprint import pprint
     pprint(request.user)

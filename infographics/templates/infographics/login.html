@@ -5,40 +5,37 @@
 
     <div id="login-body">
         {% include 'infographics/svg/login-background.svg' %}
-        <div class="container login-box">
-            <div class="row row-centered">
-                <div class="col-lg-1 col-centered">
-                    <div id="logo">
-                    {% include 'infographics/svg/logo-login.svg' %}
-                    </div>
-                    <form class="form-horizontal" role="form" action="{{ app_path }}" method="post"
-                          enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div class="input-field">
-                            {{ form.username.errors }}
-                            {{ form.username }}<br>
-                        </div>
-                        <div class="input-field">
-                            {{ form.password.errors }}
-                            {{ form.password }}
 
-                            <button type="submit" id="login-btn">
-                                <div id="login-div" onClick="this.form.submit();">
-                                {% include 'infographics/svg/submit-btn.svg' %}
-                                </div>
-                            </button>
-                        </div>
-
-                    </form>
+        <div id="logo">
+            {% include 'infographics/svg/logo-login.svg' %}
+        </div>
+        <div id="login-box">
+            <form class="form-horizontal" role="form" action="{{ app_path }}" method="post"
+                  enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="input-field">
+                    {{ form.username.errors }}
+                    {{ form.username }}<br>
                 </div>
-            </div>
+                <div class="input-field">
+                    {{ form.password.errors }}
+                    {{ form.password }}
+
+                    <button type="submit" id="login-btn">
+                        <div id="login-div" onClick="this.form.submit();">
+                            {% include 'infographics/svg/submit-btn.svg' %}
+                        </div>
+                    </button>
+                </div>
+
+            </form>
         </div>
     </div>
-<script>
-    let body = $('body');
-    if (body.has('#login-body')) {
-        console.log('form');
-        body.css('background-color', '#56EDA8');
-    }
-</script>
+    <script>
+        let body = $('body');
+        if (body.has('#login-body')) {
+            console.log('form');
+            body.css('background-color', '#56EDA8');
+        }
+    </script>
 {% endblock %}
