@@ -65,7 +65,7 @@
 
 <footer class="footer">
     <div class="container">
-        <p class="text-muted">contact: honkaantti@gmail.com</p>
+        {% if user.is_authenticated %}<p class="text-muted">contact: honkaantti@gmail.com</p>{% endif %}
     </div>
 </footer>
 
