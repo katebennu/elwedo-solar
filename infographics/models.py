@@ -3,6 +3,8 @@ import datetime
 from collections import defaultdict
 from functools import partial
 
+import pytz
+
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
@@ -28,7 +30,7 @@ def get_data_for_range(
 
     number_of_panels = PanelsToInstall.objects.filter(building=building, use=True)[0].number_of_units
 
-    for time_range in range_generator(lambda: min(latest_consumption, latest_production)):
+    for time_range in range_generator(min(latest_consumption, latest_production)):
         consumption_measurements = consumption_measurement_query_set.filter(timestamp__range=time_range)
         production_measurements = ProductionMeasurement.objects.filter(timestamp__range=time_range)
 
@@ -57,7 +59,8 @@ def sum_for_each_day(hourly_results):
         day = datetime.datetime(
             day=timestamp.day,
             month=timestamp.month,
-            year=timestamp.year)
+            year=timestamp.year,
+            tzinfo=pytz.timezone("UTC"))
         day_results[day].append(result)
 
     for day in sorted(day_results.keys()):
@@ -77,7 +80,6 @@ def sum_for_each_day(hourly_results):
             'savings': float(day_savings),
             'consumptionLessSavings': float(day_consumption - day_savings)
         }
-
 
 
 class Apartment(models.Model):

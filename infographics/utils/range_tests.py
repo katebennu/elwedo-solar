@@ -18,7 +18,7 @@ class RangeTests(unittest.TestCase):
             Range(start=datetime(2016, 11, 24, 4, 0), end=datetime(2016, 11, 24, 5, 0)),
             Range(start=datetime(2016, 11, 24, 5, 0), end=datetime(2016, 11, 24, 6, 0)),
             Range(start=datetime(2016, 11, 24, 6, 0), end=datetime(2016, 11, 24, 7, 0))
-        ], list(hourly(5, pseudo_now)))
+        ], list(hourly(5, pseudo_now())))
 
     def test_daily(self):
         self.assertEqual([
@@ -27,4 +27,4 @@ class RangeTests(unittest.TestCase):
             Range(start=datetime(2016, 11, 21, 0, 0), end=datetime(2016, 11, 22, 0, 0)),
             Range(start=datetime(2016, 11, 22, 0, 0), end=datetime(2016, 11, 23, 0, 0)),
             Range(start=datetime(2016, 11, 23, 0, 0), end=datetime(2016, 11, 24, 0, 0))
-        ], list(daily(5, pseudo_now)))
+        ], list(daily(5, pseudo_now())))
