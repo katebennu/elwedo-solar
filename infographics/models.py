@@ -1,3 +1,6 @@
+import datetime
+
+from collections import defaultdict
 from functools import partial
 
 from django.contrib.auth.models import User
@@ -5,9 +8,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import Sum
 
-import pytz
-
-from .utils.range import daily, hourly
+from .utils.range import hourly
 
 
 def get_data_for_range(
@@ -40,18 +41,43 @@ def get_data_for_range(
         if production > consumption:
             savings = consumption
 
-        earnings = production - consumption
-        if earnings < 0:
-            earnings = 0
-
         yield {
             'timestamp': time_range.end,
             'consumption': float(consumption),
             'production': float(production),
             'savings': float(savings),
-            'consumptionLessSavings': float(consumption - savings),
-            'earnings': float(earnings)
+            'consumptionLessSavings': float(consumption - savings)
         }
+
+
+def sum_for_each_day(hourly_results):
+    day_results = defaultdict(list)
+    for result in hourly_results:
+        timestamp = result["timestamp"]
+        day = datetime.datetime(
+            day=timestamp.day,
+            month=timestamp.month,
+            year=timestamp.year)
+        day_results[day].append(result)
+
+    for day in sorted(day_results.keys()):
+        day_consumption = 0.0
+        day_production = 0.0
+        day_savings = 0.0
+
+        for result in day_results[day]:
+            day_consumption += result["consumption"]
+            day_production += result["production"]
+            day_savings += result["savings"]
+
+        yield {
+            'timestamp': day,
+            'consumption': float(day_consumption),
+            'production': float(day_production),
+            'savings': float(day_savings),
+            'consumptionLessSavings': float(day_consumption - day_savings)
+        }
+
 
 
 class Apartment(models.Model):
@@ -82,7 +108,7 @@ class Apartment(models.Model):
 
     def get_multiple_days_data(self, days):
         """ Returns consumption and production data for the latest N days in the database"""
-        return self._get_data_estimates(partial(daily, days))
+        return list(sum_for_each_day(self._get_data_estimates(partial(hourly, 24 * days))))
 
     def __str__(self):
         return str(self.building.address) + ', Apartment #' + str(self.number)
@@ -112,7 +138,7 @@ class Building(models.Model):
 
     def get_multiple_days_data(self, days):
         """ Returns consumption and production data for the latest N days in the database"""
-        return self._get_data_estimates(partial(daily, days))
+        return list(sum_for_each_day(self._get_data_estimates(partial(hourly, 24 * days))))
 
     def __str__(self):
         return 'Building ' + str(self.address)
