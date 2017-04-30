@@ -55,14 +55,12 @@ def timeline_update(request):
         row['b_consumption'] = float(i['consumption'])
         row['b_production'] = float(i['production'])
         row['b_savings'] = float(i['savings'])
-        row['b_earnings'] = float(i['earnings'])
         row['b_consumptionLessSavings'] = float(i['consumptionLessSavings'])
         for j in data_apartment:
             if i['timestamp'] == j['timestamp']:
                 row['a_consumption'] = float(j['consumption'])
                 row['a_production'] = float(j['production'])
                 row['a_savings'] = float(j['savings'])
-                row['a_earnings'] = float(j['earnings'])
                 row['a_consumptionLessSavings'] = float(j['consumptionLessSavings'])
 
     return JsonResponse(data, safe=False)
