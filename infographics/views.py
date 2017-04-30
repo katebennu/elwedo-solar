@@ -29,12 +29,12 @@ def timeline_update(request):
     time_frame = request.GET.get('timeFrame')
 
     if time_frame == 'month':
-        data_building = building.get_multiple_days_data(30)
-        data_apartment = apartment.get_multiple_days_data(30)
+        data_building = building.get_multiple_days_data(31)
+        data_apartment = apartment.get_multiple_days_data(31)
 
     elif time_frame == 'week':
-        data_building = building.get_multiple_days_data(7)
-        data_apartment = apartment.get_multiple_days_data(7)
+        data_building = building.get_multiple_days_data(8)
+        data_apartment = apartment.get_multiple_days_data(8)
 
     else:
         data_building = building.get_day_data()
@@ -50,7 +50,6 @@ def timeline_update(request):
     for i in data_building:
         row = {}
         data.append(row)
-
         row['timestamp'] = i['timestamp'].isoformat() + 'Z'
         row['b_consumption'] = float(i['consumption'])
         row['b_production'] = float(i['production'])
@@ -62,5 +61,6 @@ def timeline_update(request):
                 row['a_production'] = float(j['production'])
                 row['a_savings'] = float(j['savings'])
                 row['a_consumptionLessSavings'] = float(j['consumptionLessSavings'])
+
 
     return JsonResponse(data, safe=False)

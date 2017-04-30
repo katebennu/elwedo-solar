@@ -35,15 +35,3 @@ def hourly(number_of_hours, end_limit):
     end_limit = datetime.datetime(
         day=end_limit.day, month=end_limit.month, year=end_limit.year, hour=end_limit.hour) - datetime.timedelta(hours=1)
     return get_ranges(datetime.timedelta(hours=1), number_of_hours, end_limit)
-
-
-def daily(number_of_days, end_limit):
-    """
-    Generate ranges of full days up until today. I.e. current day is excluded from the set since it is incomplete.
-
-    :param number_of_days: see number_of_steps in get_ranges
-    :param end_limit: see get_ranges
-    :return: see get_ranges
-    """
-    end_limit = datetime.datetime(day=end_limit.day, month=end_limit.month, year=end_limit.year) - datetime.timedelta(days=1)
-    return get_ranges(datetime.timedelta(days=1), number_of_days, end_limit)

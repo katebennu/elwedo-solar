@@ -492,6 +492,7 @@ function carSection(productionTotal, timeFrame) {
 function updateTimeLine(timeFrame, buildingOn) {
 
     $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
+        console.log(data);
         // clean existing charts
         document.getElementById('timeline-chart').innerHTML = '';
         document.getElementById('euro-chart').innerHTML = '';

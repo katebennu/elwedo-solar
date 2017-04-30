@@ -53,6 +53,7 @@ def get_data_for_range(
 
 
 def sum_for_each_day(hourly_results):
+
     day_results = defaultdict(list)
     for result in hourly_results:
         timestamp = result["timestamp"]
@@ -64,6 +65,8 @@ def sum_for_each_day(hourly_results):
         day_results[day].append(result)
 
     for day in sorted(day_results.keys()):
+        if len(day_results[day]) < 24:
+            continue
         day_consumption = 0.0
         day_production = 0.0
         day_savings = 0.0
