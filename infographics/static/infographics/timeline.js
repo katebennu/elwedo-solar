@@ -1,3 +1,5 @@
+(function () {
+    
 let timeFrame = 'day';
 let buildingOn = false;
 
@@ -603,3 +605,4 @@ $(function () {
         $("#CO2-popup").fadeOut(300);
     });
 });
+}());
