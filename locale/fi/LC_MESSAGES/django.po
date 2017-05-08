@@ -48,59 +48,59 @@ msgstr "yhteystiedot:"
 
 #: infographics/templates/infographics/car.html:5
 msgid "YOU HAVE PRODUCED"
-msgstr ""
+msgstr "OLET TUOTTANUT"
 
 #: infographics/templates/infographics/car.html:11
 msgid "ENOUGH TO TRAVEL WITH"
-msgstr ""
+msgstr "AJAT TUOTETULLA MÄÄRÄLLÄ"
 
 #: infographics/templates/infographics/car.html:11
 msgid "AN ELECTRIC CAR FOR"
-msgstr ""
+msgstr "SÄHKÖAUTOLLA"
 
 #: infographics/templates/infographics/graph-carousel.html:7
 msgid "SAVINGS"
-msgstr ""
+msgstr "OMA SÄHKÖ"
 
 #: infographics/templates/infographics/graph-carousel.html:21
 msgid "PURCHASED GRID ENERGY"
-msgstr ""
+msgstr "SÄHKÖLASKU"
 
 #: infographics/templates/infographics/graph-carousel.html:36
 msgid "CO2 EMISSIONS"
-msgstr ""
+msgstr "SÄHKÖNKÄYTTÖSI CO2-PÄÄSTÖT"
 
 #: infographics/templates/infographics/graph-carousel.html:62
 msgid "with solar"
-msgstr ""
+msgstr "ilman aurinkosähköä"
 
 #: infographics/templates/infographics/graph-carousel.html:66
 msgid "without solar"
-msgstr ""
+msgstr "aurinkosähköllä"
 
 #: infographics/templates/infographics/graph-timeline.html:5
 msgid "ENERGY USAGE AND SAVINGS"
-msgstr ""
+msgstr "SÄHKÖN KÄYTTÖ"
 
 #: infographics/templates/infographics/graph-timeline.html:21
 msgid "APARTMENT"
-msgstr ""
+msgstr "OMA ASUNTO"
 
 #: infographics/templates/infographics/graph-timeline.html:22
 msgid "BUILDING"
-msgstr ""
+msgstr "KOKO TALO"
 
 #: infographics/templates/infographics/graph-timeline.html:23
 msgid "ELECTRIC CAR"
-msgstr ""
+msgstr "SÄHKÖAUTO"
 
 #: infographics/templates/infographics/graph-timeline.html:42
 msgid "purchased energy"
-msgstr ""
+msgstr "ostosähkö"
 
 #: infographics/templates/infographics/graph-timeline.html:46
 msgid "produced energy"
-msgstr ""
+msgstr "oma sähkö"
 
 #: infographics/templates/infographics/index.html:8
 msgid "Welcome"
@@ -108,7 +108,7 @@ msgstr "Tervetuloa"
 
 #: infographics/templates/infographics/weather.html:4
 msgid "TOMORROW"
-msgstr ""
+msgstr "HUOMENNA"
 
 #: solarpilot/prod_settings.py:112 solarpilot/settings.py:119
 msgid "Finnish"
