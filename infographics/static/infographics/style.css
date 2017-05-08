@@ -795,3 +795,7 @@ input:focus {
     margin-bottom: 100px;
 }
 
+.info-btn {
+    width: 25px;
+    vertical-align: top;
+}
