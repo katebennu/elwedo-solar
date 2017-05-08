@@ -1,7 +1,8 @@
 {% load staticfiles %}
+{% load i18n %}
 <div class="container">
 
-    <div class="click-to-popup"><h1 id="timeline-heading" class="pointer">ENERGY USAGE AND SAVINGS</h1>
+    <div class="click-to-popup"><h1 id="timeline-heading" class="pointer">{% trans 'ENERGY USAGE AND SAVINGS' %}</h1>
         <div id="timeline-popup" class="popupbox" tabindex="-1">
             <div class="popuptext"><b>Graph showing the energy usage of the households.</b><br/><br/>
                 Selecting the green buttons you will see different data sets:<br/>
@@ -17,9 +18,9 @@
     </div>
     <div id="timeline-div" class="row">
         <div id="timeline-menu" class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
-            <div id="apartment-switch" class="graph-control-on pointer">APARTMENT</div>
-            <div id="building-switch" class="graph-control-off pointer">BUILDING</div>
-            <div id="eCar-switch" class="graph-control-off pointer">ELECTRIC CAR</div>
+            <div id="apartment-switch" class="graph-control-on pointer">{% trans 'APARTMENT' %}</div>
+            <div id="building-switch" class="graph-control-off pointer">{% trans 'BUILDING' %}</div>
+            <div id="eCar-switch" class="graph-control-off pointer">{% trans 'ELECTRIC CAR' %}</div>
         </div>
 
         <div id="timeline-chart" class="col-lg-8 col-md-8 col-sm-9 col-xs-12">
@@ -38,11 +39,11 @@
                 </div>
                 <div class="legend-element">
                     <div class="square gray" id="frame-me"></div>
-                    <div>purchased energy<span id="consumption-info"></span></div>
+                    <div>{% trans 'purchased energy' %}<span id="consumption-info"></span></div>
                 </div>
                 <div class="legend-element">
                     <div class="square green"></div>
-                    <div>produced energy<span id="production-info"></span></div>
+                    <div>{% trans 'produced energy' %}<span id="production-info"></span></div>
                 </div>
             </div>
         </div>

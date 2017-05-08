@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-04 18:12+0000\n"
+"POT-Creation-Date: 2017-05-08 16:20+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,14 +18,42 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
+#: infographics/templates/infographics/base.html:44
+msgid "DASHBOARD"
+msgstr "ETUSIVU"
+
+#: infographics/templates/infographics/base.html:45
+msgid "ABOUT"
+msgstr "LISÄTIETOA"
+
+#: infographics/templates/infographics/base.html:49
+msgid "LOGOUT | ACCOUNT"
+msgstr "KIRJAUTUMINEN | OMA TILI"
+
+#: infographics/templates/infographics/base.html:52
+msgid "Change Password"
+msgstr "Vaihda Salasana"
+
+#: infographics/templates/infographics/base.html:54
+msgid "Log Out"
+msgstr "Kirjaudu Ulos"
+
+#: infographics/templates/infographics/base.html:58
+msgid "LOGIN"
+msgstr "KIRJAUDU"
+
+#: infographics/templates/infographics/base.html:69
+msgid "contact:"
+msgstr "yhteystiedot:"
+
 #: infographics/templates/infographics/index.html:8
 msgid "Welcome"
 msgstr "Tervetuloa"
 
 #: solarpilot/prod_settings.py:112 solarpilot/settings.py:119
 msgid "Finnish"
-msgstr ""
+msgstr "Suomi"
 
 #: solarpilot/prod_settings.py:113 solarpilot/settings.py:120
 msgid "English"
-msgstr ""
+msgstr "Englanti"
