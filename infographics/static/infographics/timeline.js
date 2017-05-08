@@ -1,5 +1,3 @@
-(function () {
-    
 let timeFrame = 'day';
 let buildingOn = false;
 
@@ -104,7 +102,7 @@ function drawAxes(data, timeFrame, buildingOn) {
     if (timeFrame == 'day') t = '%H:%M';
     let formatTime = d3.timeFormat(t);
 
-    let margin = {top: 10, right: 50, bottom: 60, left: 50};
+    let margin = {top: 10, right: 10, bottom: 60, left: 30};
     let width = 700 - margin.left - margin.right;
     let height = 350 - margin.top - margin.bottom;
     let svg = d3.select('#timeline-chart')
@@ -481,10 +479,10 @@ function updateWeather() {
 
 // car section
 function carSection(productionTotal, timeFrame) {
-    let timeSpan = '';
-    if (timeFrame == 'month') timeSpan = 'THIS MONTH';
-    else if (timeFrame == 'day') timeSpan = 'TODAY';
-    else if (timeFrame == 'week') timeSpan = 'THIS WEEK';
+    // let timeSpan = '';
+    // if (timeFrame == 'month') timeSpan = 'THIS MONTH';
+    // else if (timeFrame == 'day') timeSpan = 'TODAY';
+    // else if (timeFrame == 'week') timeSpan = 'THIS WEEK';
     // document.getElementById('produced-text').innerHTML = timeSpan;
     document.getElementById('produced-number').innerHTML = String(Math.floor(productionTotal));
     document.getElementById('produced-km').innerHTML = String(Math.floor(productionTotal) * 5);
@@ -605,4 +603,3 @@ $(function () {
         $("#CO2-popup").fadeOut(300);
     });
 });
-}());
