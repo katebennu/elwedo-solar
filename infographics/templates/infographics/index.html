@@ -6,14 +6,14 @@
 {% block body %}
     <div class="ribbon welcome">
         <h4>{% trans 'Welcome' %}, {% if user.is_authenticated %}{{ user.username }}{% else %}Guest{% endif %}!</h4>
-        <p>Last updated <span id="updated"></span></p>
+        <p>{% trans 'Last updated' %} <span id="updated"></span></p>
     </div>
 
     <div id="sticky-anchor"></div>
     <div id="sticky-ribbon" class="ribbon blue-ribbon">
-        <div class="time-control-on pointer" id="daySwitch">DAY</div>
-        <div class="time-control-off pointer" id="weekSwitch">WEEK</div>
-        <div class="time-control-off pointer" id="monthSwitch">MONTH</div>
+        <div class="time-control-on pointer" id="daySwitch">{% trans 'DAY' %}</div>
+        <div class="time-control-off pointer" id="weekSwitch">{% trans 'WEEK' %}</div>
+        <div class="time-control-off pointer" id="monthSwitch">{% trans 'MONTH' %}</div>
     </div>
 
 

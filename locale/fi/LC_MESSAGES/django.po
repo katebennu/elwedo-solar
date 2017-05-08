@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-08 16:54+0000\n"
+"POT-Creation-Date: 2017-05-08 18:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,15 +46,15 @@ msgstr "KIRJAUDU"
 msgid "contact:"
 msgstr "yhteystiedot:"
 
-#: infographics/templates/infographics/car.html:5
+#: infographics/templates/infographics/car.html:6
 msgid "YOU HAVE PRODUCED"
 msgstr "OLET TUOTTANUT"
 
-#: infographics/templates/infographics/car.html:11
+#: infographics/templates/infographics/car.html:12
 msgid "ENOUGH TO TRAVEL WITH"
 msgstr "AJAT TUOTETULLA MÄÄRÄLLÄ"
 
-#: infographics/templates/infographics/car.html:11
+#: infographics/templates/infographics/car.html:12
 msgid "AN ELECTRIC CAR FOR"
 msgstr "SÄHKÖAUTOLLA"
 
@@ -105,6 +105,22 @@ msgstr "oma sähkö"
 #: infographics/templates/infographics/index.html:8
 msgid "Welcome"
 msgstr "Tervetuloa"
+
+#: infographics/templates/infographics/index.html:9
+msgid "Last updated"
+msgstr "Viimeksi päivitetty"
+
+#: infographics/templates/infographics/index.html:14
+msgid "DAY"
+msgstr "PÄIVÄ"
+
+#: infographics/templates/infographics/index.html:15
+msgid "WEEK"
+msgstr "VIIKKO"
+
+#: infographics/templates/infographics/index.html:16
+msgid "MONTH"
+msgstr "KUUKAUSI"
 
 #: infographics/templates/infographics/weather.html:4
 msgid "TOMORROW"
