@@ -1,9 +1,10 @@
+{% load i18n %}
 <div id="arrow-left" class="arrow hidden pointer" onclick="leftArrow(ids)">
 {% include 'infographics/svg/arrow-left.svg' %}
 </div>
 <div id="slide1" class="slide">
     <div class="click-to-popup">
-        <h3 id="donut-heading" class="pointer">SAVINGS</h3>
+        <h3 id="donut-heading" class="pointer">{% trans 'SAVINGS' %}</h3>
         <div id="donut-popup" class="popupbox" tabindex="-1">
             <div class="popuptext"><b>Savings:</b><br/><br/>
                 Savings as a percentage of total spending
@@ -17,7 +18,7 @@
 </div>
 <div id="slide2" class="slide">
     <div class="click-to-popup">
-        <h3 id="euro-heading" class="pointer">PURCHASED GRID ENERGY</h3>
+        <h3 id="euro-heading" class="pointer">{% trans 'PURCHASED GRID ENERGY' %}</h3>
         <div id="euro-popup" class="popupbox" tabindex="-1">
             <div class="popuptext"><b>Purchased grid energy:</b><br/><br/>
                 Energy which has been purchased from the grid put in comparison with and without
@@ -32,7 +33,7 @@
 </div>
 <div id="slide3" class="slide">
     <div class="click-to-popup">
-        <h3 id="CO2-heading" class="pointer">CO2 EMISSIONS</h3>
+        <h3 id="CO2-heading" class="pointer">{% trans 'CO2 EMISSIONS' %}</h3>
         <div id="CO2-popup" class="popupbox" tabindex="-1">
             <div class="popuptext"><b>CO2 emissions:</b><br/><br/>
                 CO2 emissions without solar energy in comparison to those where
@@ -51,18 +52,18 @@
         </div>
     </div>
 </div>
-<div id="arrow-right" class="arrow hidden pointer" onclick="leftArrow(ids)">
+<div id="arrow-right" class="arrow hidden pointer" onclick="rightArrow(ids)">
 {% include 'infographics/svg/arrow-right.svg' %}
 </div>
 
 <div class="legend">
     <div class="legend-element">
         <div class="square blue"></div>
-        <div>with solar</div>
+        <div>{% trans 'with solar' %}</div>
     </div>
     <div id="hideSquare" class="legend-element">
         <div class="square green"></div>
-        <div>without solar</div>
+        <div>{% trans 'without solar' %}</div>
     </div>
 </div>
 

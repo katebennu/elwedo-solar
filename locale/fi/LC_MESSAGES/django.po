@@ -1,0 +1,135 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-05-08 18:35+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: infographics/templates/infographics/base.html:44
+msgid "DASHBOARD"
+msgstr "ETUSIVU"
+
+#: infographics/templates/infographics/base.html:45
+msgid "ABOUT"
+msgstr "LISÄTIETOA"
+
+#: infographics/templates/infographics/base.html:49
+msgid "LOGOUT | ACCOUNT"
+msgstr "KIRJAUTUMINEN | OMA TILI"
+
+#: infographics/templates/infographics/base.html:52
+msgid "Change Password"
+msgstr "Vaihda Salasana"
+
+#: infographics/templates/infographics/base.html:54
+msgid "Log Out"
+msgstr "Kirjaudu Ulos"
+
+#: infographics/templates/infographics/base.html:58
+msgid "LOGIN"
+msgstr "KIRJAUDU"
+
+#: infographics/templates/infographics/base.html:69
+msgid "contact:"
+msgstr "yhteystiedot:"
+
+#: infographics/templates/infographics/car.html:6
+msgid "YOU HAVE PRODUCED"
+msgstr "OLET TUOTTANUT"
+
+#: infographics/templates/infographics/car.html:12
+msgid "ENOUGH TO TRAVEL WITH"
+msgstr "AJAT TUOTETULLA MÄÄRÄLLÄ"
+
+#: infographics/templates/infographics/car.html:12
+msgid "AN ELECTRIC CAR FOR"
+msgstr "SÄHKÖAUTOLLA"
+
+#: infographics/templates/infographics/graph-carousel.html:7
+msgid "SAVINGS"
+msgstr "OMA SÄHKÖ"
+
+#: infographics/templates/infographics/graph-carousel.html:21
+msgid "PURCHASED GRID ENERGY"
+msgstr "SÄHKÖLASKU"
+
+#: infographics/templates/infographics/graph-carousel.html:36
+msgid "CO2 EMISSIONS"
+msgstr "SÄHKÖNKÄYTTÖSI CO2-PÄÄSTÖT"
+
+#: infographics/templates/infographics/graph-carousel.html:62
+msgid "with solar"
+msgstr "ilman aurinkosähköä"
+
+#: infographics/templates/infographics/graph-carousel.html:66
+msgid "without solar"
+msgstr "aurinkosähköllä"
+
+#: infographics/templates/infographics/graph-timeline.html:5
+msgid "ENERGY USAGE AND SAVINGS"
+msgstr "SÄHKÖN KÄYTTÖ"
+
+#: infographics/templates/infographics/graph-timeline.html:21
+msgid "APARTMENT"
+msgstr "OMA ASUNTO"
+
+#: infographics/templates/infographics/graph-timeline.html:22
+msgid "BUILDING"
+msgstr "KOKO TALO"
+
+#: infographics/templates/infographics/graph-timeline.html:23
+msgid "ELECTRIC CAR"
+msgstr "SÄHKÖAUTO"
+
+#: infographics/templates/infographics/graph-timeline.html:42
+msgid "purchased energy"
+msgstr "ostosähkö"
+
+#: infographics/templates/infographics/graph-timeline.html:46
+msgid "produced energy"
+msgstr "oma sähkö"
+
+#: infographics/templates/infographics/index.html:8
+msgid "Welcome"
+msgstr "Tervetuloa"
+
+#: infographics/templates/infographics/index.html:9
+msgid "Last updated"
+msgstr "Viimeksi päivitetty"
+
+#: infographics/templates/infographics/index.html:14
+msgid "DAY"
+msgstr "PÄIVÄ"
+
+#: infographics/templates/infographics/index.html:15
+msgid "WEEK"
+msgstr "VIIKKO"
+
+#: infographics/templates/infographics/index.html:16
+msgid "MONTH"
+msgstr "KUUKAUSI"
+
+#: infographics/templates/infographics/weather.html:4
+msgid "TOMORROW"
+msgstr "HUOMENNA"
+
+#: solarpilot/prod_settings.py:112 solarpilot/settings.py:119
+msgid "Finnish"
+msgstr "Suomi"
+
+#: solarpilot/prod_settings.py:113 solarpilot/settings.py:120
+msgid "English"
+msgstr "Englanti"

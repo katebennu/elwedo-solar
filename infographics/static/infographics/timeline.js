@@ -1,5 +1,3 @@
-(function () {
-    
 let timeFrame = 'day';
 let buildingOn = false;
 
@@ -419,6 +417,7 @@ $(window).on('resize load', function () {
     } else {
         $('.slide').removeClass('hidden');
         $('.arrow').addClass('hidden');
+        $('#hideSquare').removeClass('hidden');
     }
 });
 let ids = ['#slide1', '#slide2', '#slide3'];
@@ -481,11 +480,11 @@ function updateWeather() {
 
 // car section
 function carSection(productionTotal, timeFrame) {
-    let timeSpan = '';
-    if (timeFrame == 'month') timeSpan = 'THIS MONTH';
-    else if (timeFrame == 'day') timeSpan = 'TODAY';
-    else if (timeFrame == 'week') timeSpan = 'THIS WEEK';
-    document.getElementById('produced-text').innerHTML = timeSpan;
+    // let timeSpan = '';
+    // if (timeFrame == 'month') timeSpan = 'THIS MONTH';
+    // else if (timeFrame == 'day') timeSpan = 'TODAY';
+    // else if (timeFrame == 'week') timeSpan = 'THIS WEEK';
+    // document.getElementById('produced-text').innerHTML = timeSpan;
     document.getElementById('produced-number').innerHTML = String(Math.floor(productionTotal));
     document.getElementById('produced-km').innerHTML = String(Math.floor(productionTotal) * 5);
 }
@@ -605,4 +604,3 @@ $(function () {
         $("#CO2-popup").fadeOut(300);
     });
 });
-}());

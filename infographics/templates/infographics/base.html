@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
 
     <title>{% block title %}{% endblock %}</title>
     {% load staticfiles %}
+    {% load i18n %}
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -40,21 +41,21 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="{% url 'infographics:index' %}">DASHBOARD</a></li>
-            <li><a href="{% url 'infographics:about' %}">ABOUT</a></li>
+            <li><a href="{% url 'infographics:index' %}">{% trans 'DASHBOARD' %}</a></li>
+            <li><a href="{% url 'infographics:about' %}">{% trans 'ABOUT' %}</a></li>
 
             {% if user.is_authenticated %}
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">LOGOUT | ACCOUNT <b
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'LOGOUT | ACCOUNT' %}<b
                             class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Change Password</a></li>
+                        <li><a href="#">{% trans 'Change Password' %}</a></li>
                         <li class="divider"></li>
-                        <li><a href="{% url 'infographics:logout' %}">Log Out</a></li>
+                        <li><a href="{% url 'infographics:logout' %}">{% trans 'Log Out' %}</a></li>
                     </ul>
                 </li>
             {% else %}
-                <li><a href="{% url 'infographics:login' %}">LOGIN</a></li>
+                <li><a href="{% url 'infographics:login' %}">{% trans 'LOGIN' %}</a></li>
             {% endif %}
         </ul>
     </div><!-- /.navbar-collapse -->
@@ -65,7 +66,7 @@
 
 <footer class="footer">
     <div class="container">
-        {% if user.is_authenticated %}<p class="text-muted">contact: honkaantti@gmail.com</p>{% endif %}
+        {% if user.is_authenticated %}<p class="text-muted">{% trans 'contact:' %} honkaantti@gmail.com</p>{% endif %}
     </div>
 </footer>
 
