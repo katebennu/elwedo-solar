@@ -417,6 +417,7 @@ $(window).on('resize load', function () {
     } else {
         $('.slide').removeClass('hidden');
         $('.arrow').addClass('hidden');
+        $('#hideSquare').removeClass('hidden');
     }
 });
 let ids = ['#slide1', '#slide2', '#slide3'];
