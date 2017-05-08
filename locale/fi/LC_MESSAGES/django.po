@@ -64,7 +64,7 @@ msgstr "OMA SÄHKÖ"
 
 #: infographics/templates/infographics/graph-carousel.html:10
 msgid "Share of consumption that is covered by own solar energy production"
-msgstr "Osuus sähkönkäytöstäsi, jonka katat omalla aurinkosähköllä"
+msgstr "Osuus sähkönkäytöstäsi, jonka kautat omalla aurinkosähköllä"
 
 #: infographics/templates/infographics/graph-carousel.html:21
 msgid "PURCHASED GRID ENERGY"
@@ -96,7 +96,7 @@ msgstr "SÄHKÖN KÄYTTÖ"
 
 #: infographics/templates/infographics/graph-timeline.html:8
 msgid "Energy consumption in the apartment and building."
-msgstr "Sähkönkulutus asunnossasi ja talossasi"
+msgstr "Sähkönkulutus asunnossasi ja talossasi."
 
 #: infographics/templates/infographics/graph-timeline.html:9
 msgid "You can also see how charging electric car would affect consumption"
