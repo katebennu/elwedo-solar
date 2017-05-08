@@ -149,38 +149,23 @@ h1 {
 
 .click-to-popup .popupbox {
     display: none;
-    width: 400px;
+    width: 300px;
     background-color: #F4F1E4;
     color: #6D6A5C;
     text-align: left;
-    font-size: 18px;
-    padding: 29px;
+    font-size: 14px;
+    padding: 15px;
     position: absolute;
     outline: 0;
 }
 
 .popuptext {
-    width: 350px;
-}
+    width: 230px;
 
-@media screen and (max-width: 900px) {
-    .popupbox {
-        width: 350px;
-    }
-
-    .popuptext {
-        width: 300px;
-    }
 }
 
 #timeline-popup {
-    bottom: 210px;
     left: 20%;
-    width: 700px;
-}
-
-#timeline-popup .popuptext {
-    width: 630px;
 }
 
 #donut-popup {
@@ -211,8 +196,8 @@ h1 {
 
 .close {
     position: absolute;
-    right: 32px;
-    top: 32px;
+    right: 15px;
+    top: 15px;
     width: 32px;
     height: 32px;
     opacity: 1;
