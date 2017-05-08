@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-08 16:20+0000\n"
+"POT-Creation-Date: 2017-05-08 16:54+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,9 +46,69 @@ msgstr "KIRJAUDU"
 msgid "contact:"
 msgstr "yhteystiedot:"
 
+#: infographics/templates/infographics/car.html:5
+msgid "YOU HAVE PRODUCED"
+msgstr ""
+
+#: infographics/templates/infographics/car.html:11
+msgid "ENOUGH TO TRAVEL WITH"
+msgstr ""
+
+#: infographics/templates/infographics/car.html:11
+msgid "AN ELECTRIC CAR FOR"
+msgstr ""
+
+#: infographics/templates/infographics/graph-carousel.html:7
+msgid "SAVINGS"
+msgstr ""
+
+#: infographics/templates/infographics/graph-carousel.html:21
+msgid "PURCHASED GRID ENERGY"
+msgstr ""
+
+#: infographics/templates/infographics/graph-carousel.html:36
+msgid "CO2 EMISSIONS"
+msgstr ""
+
+#: infographics/templates/infographics/graph-carousel.html:62
+msgid "with solar"
+msgstr ""
+
+#: infographics/templates/infographics/graph-carousel.html:66
+msgid "without solar"
+msgstr ""
+
+#: infographics/templates/infographics/graph-timeline.html:5
+msgid "ENERGY USAGE AND SAVINGS"
+msgstr ""
+
+#: infographics/templates/infographics/graph-timeline.html:21
+msgid "APARTMENT"
+msgstr ""
+
+#: infographics/templates/infographics/graph-timeline.html:22
+msgid "BUILDING"
+msgstr ""
+
+#: infographics/templates/infographics/graph-timeline.html:23
+msgid "ELECTRIC CAR"
+msgstr ""
+
+#: infographics/templates/infographics/graph-timeline.html:42
+msgid "purchased energy"
+msgstr ""
+
+#: infographics/templates/infographics/graph-timeline.html:46
+msgid "produced energy"
+msgstr ""
+
 #: infographics/templates/infographics/index.html:8
 msgid "Welcome"
 msgstr "Tervetuloa"
+
+#: infographics/templates/infographics/weather.html:4
+msgid "TOMORROW"
+msgstr ""
 
 #: solarpilot/prod_settings.py:112 solarpilot/settings.py:119
 msgid "Finnish"
