@@ -160,27 +160,26 @@ h1 {
 }
 
 .popuptext {
-    width: 230px;
+    width: 240px;
 
 }
 
 #timeline-popup {
-    left: 20%;
+    left: 30%;
 }
 
 #donut-popup {
-    bottom: 30%;
+    bottom: 50%;
     /*left: 30%;*/
 }
 
 #euro-popup {
-    bottom: -10%;
+    bottom: 50%;
     /*left: -50%;*/
 }
 
 #CO2-popup {
-    bottom: 10%;
-    left: -20%;
+    bottom: 50%;
 }
 
 .click-to-popup .popupbox::after {
@@ -188,18 +187,18 @@ h1 {
     position: absolute;
     bottom: 100%;
     left: 50%;
-    border-left: 16px solid transparent;
-    border-right: 16px solid transparent;
-    border-bottom: 16px solid #F4F1E4;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #F4F1E4;
     outline: 0;
 }
 
 .close {
     position: absolute;
-    right: 15px;
+    right: 25px;
     top: 15px;
-    width: 32px;
-    height: 32px;
+    width: 20px;
+    height: 20px;
     opacity: 1;
     z-index: 3000;
     margin-right: 0;

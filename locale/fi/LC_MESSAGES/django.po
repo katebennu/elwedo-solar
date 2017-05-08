@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-08 21:24+0000\n"
+"POT-Creation-Date: 2017-05-08 22:01+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,31 +94,31 @@ msgstr "aurinkosähköllä"
 msgid "ENERGY USAGE AND SAVINGS"
 msgstr "SÄHKÖN KÄYTTÖ"
 
-#: infographics/templates/infographics/graph-timeline.html:7
-msgid "Energy consumption in the apartment and building"
+#: infographics/templates/infographics/graph-timeline.html:8
+msgid "Energy consumption in the apartment and building."
 msgstr "Sähkönkulutus asunnossasi ja talossasi"
 
-#: infographics/templates/infographics/graph-timeline.html:8
+#: infographics/templates/infographics/graph-timeline.html:9
 msgid "You can also see how charging electric car would affect consumption"
-msgstr "Voit myös kokeilla, miten sähköauton lataaminen vaikuttaisi sähkönkäyttöösi"
+msgstr "Voit myös kokeilla, miten sähköautonlataaminen vaikuttaisi sähkönkäyttöösi"
 
-#: infographics/templates/infographics/graph-timeline.html:16
+#: infographics/templates/infographics/graph-timeline.html:18
 msgid "APARTMENT"
 msgstr "OMA ASUNTO"
 
-#: infographics/templates/infographics/graph-timeline.html:17
+#: infographics/templates/infographics/graph-timeline.html:19
 msgid "BUILDING"
 msgstr "KOKO TALO"
 
-#: infographics/templates/infographics/graph-timeline.html:18
+#: infographics/templates/infographics/graph-timeline.html:20
 msgid "ELECTRIC CAR"
 msgstr "SÄHKÖAUTO"
 
-#: infographics/templates/infographics/graph-timeline.html:37
+#: infographics/templates/infographics/graph-timeline.html:39
 msgid "purchased energy"
 msgstr "ostosähkö"
 
-#: infographics/templates/infographics/graph-timeline.html:41
+#: infographics/templates/infographics/graph-timeline.html:43
 msgid "produced energy"
 msgstr "oma sähkö"
 
