@@ -5,15 +5,18 @@ from django.shortcuts import render
 from infographics.models import Building, Apartment\
     # , KmMultiplier, CO2Multiplier, EurMultiplier
 from django.contrib.auth.models import User
+from django.utils.translation import activate
 
 
 @login_required
 def index(request):
+    activate('fi')
     return render(request, "infographics/index.html")
 
 
 def about(request):
     return render(request, "infographics/about.html")
+
 
 @login_required
 def timeline_update(request):
