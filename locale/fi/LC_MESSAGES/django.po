@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-08 18:35+0000\n"
+"POT-Creation-Date: 2017-05-08 21:24+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -62,19 +62,31 @@ msgstr "SÄHKÖAUTOLLA"
 msgid "SAVINGS"
 msgstr "OMA SÄHKÖ"
 
+#: infographics/templates/infographics/graph-carousel.html:10
+msgid "Share of consumption that is covered by own solar energy production"
+msgstr "Osuus sähkönkäytöstäsi, jonka katat omalla aurinkosähköllä"
+
 #: infographics/templates/infographics/graph-carousel.html:21
 msgid "PURCHASED GRID ENERGY"
 msgstr "SÄHKÖLASKU"
 
-#: infographics/templates/infographics/graph-carousel.html:36
+#: infographics/templates/infographics/graph-carousel.html:24
+msgid "Approximate amount of money spent on electricity by the household"
+msgstr "Arvioitu rahamäärä, jonka kotitaloutesi käyttää sähköön"
+
+#: infographics/templates/infographics/graph-carousel.html:35
 msgid "CO2 EMISSIONS"
 msgstr "SÄHKÖNKÄYTTÖSI CO2-PÄÄSTÖT"
 
-#: infographics/templates/infographics/graph-carousel.html:62
+#: infographics/templates/infographics/graph-carousel.html:38
+msgid "CO2 emissions produced by the household"
+msgstr "CO2-päästömäärä kotitaloutesi sähkönkäytöstä"
+
+#: infographics/templates/infographics/graph-carousel.html:60
 msgid "with solar"
 msgstr "ilman aurinkosähköä"
 
-#: infographics/templates/infographics/graph-carousel.html:66
+#: infographics/templates/infographics/graph-carousel.html:64
 msgid "without solar"
 msgstr "aurinkosähköllä"
 
@@ -82,23 +94,31 @@ msgstr "aurinkosähköllä"
 msgid "ENERGY USAGE AND SAVINGS"
 msgstr "SÄHKÖN KÄYTTÖ"
 
-#: infographics/templates/infographics/graph-timeline.html:21
+#: infographics/templates/infographics/graph-timeline.html:7
+msgid "Energy consumption in the apartment and building"
+msgstr "Sähkönkulutus asunnossasi ja talossasi"
+
+#: infographics/templates/infographics/graph-timeline.html:8
+msgid "You can also see how charging electric car would affect consumption"
+msgstr "Voit myös kokeilla, miten sähköauton lataaminen vaikuttaisi sähkönkäyttöösi"
+
+#: infographics/templates/infographics/graph-timeline.html:16
 msgid "APARTMENT"
 msgstr "OMA ASUNTO"
 
-#: infographics/templates/infographics/graph-timeline.html:22
+#: infographics/templates/infographics/graph-timeline.html:17
 msgid "BUILDING"
 msgstr "KOKO TALO"
 
-#: infographics/templates/infographics/graph-timeline.html:23
+#: infographics/templates/infographics/graph-timeline.html:18
 msgid "ELECTRIC CAR"
 msgstr "SÄHKÖAUTO"
 
-#: infographics/templates/infographics/graph-timeline.html:42
+#: infographics/templates/infographics/graph-timeline.html:37
 msgid "purchased energy"
 msgstr "ostosähkö"
 
-#: infographics/templates/infographics/graph-timeline.html:46
+#: infographics/templates/infographics/graph-timeline.html:41
 msgid "produced energy"
 msgstr "oma sähkö"
 
