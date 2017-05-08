@@ -485,7 +485,7 @@ function carSection(productionTotal, timeFrame) {
     if (timeFrame == 'month') timeSpan = 'THIS MONTH';
     else if (timeFrame == 'day') timeSpan = 'TODAY';
     else if (timeFrame == 'week') timeSpan = 'THIS WEEK';
-    document.getElementById('produced-text').innerHTML = timeSpan;
+    // document.getElementById('produced-text').innerHTML = timeSpan;
     document.getElementById('produced-number').innerHTML = String(Math.floor(productionTotal));
     document.getElementById('produced-km').innerHTML = String(Math.floor(productionTotal) * 5);
 }

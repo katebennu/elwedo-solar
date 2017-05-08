@@ -1,7 +1,8 @@
 {% load staticfiles %}
 {% load i18n %}
 
-<div class="car-col"><h4>{% comment %}<span id="produced-text"></span>{% endcomment %}{% trans 'YOU HAVE PRODUCED' %}</h4>
+<div class="car-col"><h4>
+    {% comment %}<span id="produced-text"></span>{% endcomment %}{% trans 'YOU HAVE PRODUCED' %}</h4>
     <h1><span id="produced-number"></span>kWH</h1>
 </div>
 <div id="car-pic" class="car-col">
@@ -10,3 +11,15 @@
 <div class="car-col"><h4>{% trans 'ENOUGH TO TRAVEL WITH' %}<br/>{% trans 'AN ELECTRIC CAR FOR' %}</h4>
     <h1><span id="produced-km"></span>km</h1>
 </div>
+
+{% load staticfiles %}
+
+{#<div class="car-col"><h4><span id="produced-text"></span> YOU HAVE PRODUCED</h4>#}
+{#    <h1><span id="produced-number"></span>kWH</h1>#}
+{#</div>#}
+{#<div id="car-pic" class="car-col">#}
+{#    {% include 'infographics/svg/car.svg' %}#}
+{#</div>#}
+{#<div class="car-col"><h4>ENOUGH TO TRAVEL WITH <br/>AN ELECTRIC CAR FOR</h4>#}
+{#    <h1><span id="produced-km"></span>km</h1>#}
+{#</div>#}
