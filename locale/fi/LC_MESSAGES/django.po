@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-09 15:01+0000\n"
+"POT-Creation-Date: 2017-05-09 20:23+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,7 +24,10 @@ msgstr "YKSILÖLLISTÄ AURINKOSÄHKÖÄ"
 
 #: infographics/templates/infographics/about.html:14
 msgid "Elwedo provides digital applications for the future energy world."
-msgstr "Elwedo vie sinut uuteen energiamaailmaan. Palvelun avulla näet helposti ja läpinäkyvästi, kuinka paljon säästät rahaa ja ympäristöä käyttämällä aurinkosähköä."
+msgstr ""
+"Elwedo vie sinut uuteen energiamaailmaan. Palvelun avulla näet helposti ja "
+"läpinäkyvästi, kuinka paljon säästät rahaa ja ympäristöä käyttämällä "
+"aurinkosähköä."
 
 #: infographics/templates/infographics/base.html:44
 msgid "DASHBOARD"
@@ -65,6 +68,29 @@ msgstr "AJAT TUOTETULLA MÄÄRÄLLÄ"
 #: infographics/templates/infographics/car.html:12
 msgid "AN ELECTRIC CAR FOR"
 msgstr "SÄHKÖAUTOLLA"
+
+#: infographics/templates/infographics/explanation.html:4
+msgid ""
+"Electric car? You get 100km range with only 1.2 € when charging at daytime."
+msgstr "Ajatko sähköllä? Kun lataat aurinkoisina tunteina, saat akkuun 100 km ajomatkan 1,2 eurolla."
+
+#: infographics/templates/infographics/explanation.html:7
+msgid ""
+"Your solar power has helped you to reduce CO2 emissions in one day/week/"
+"month equaling to"
+msgstr "Aurinkosähköllä olet vähentänyt päivässä/viikossa/kuukaudessa CO2-päästöjä, jotka vastaavat"
+
+#: infographics/templates/infographics/explanation.html:7
+msgid "km air travel."
+msgstr "km lentomatkaa."
+
+#: infographics/templates/infographics/explanation.html:10
+msgid "You have produced solar power in one day/week/month equaling to"
+msgstr "Aurinkosähköllä olet tuottanut päivässä/viikossa/kuukaudessa energian, joka vastaa"
+
+#: infographics/templates/infographics/explanation.html:10
+msgid "km train trip."
+msgstr "km junamatkaa."
 
 #: infographics/templates/infographics/graph-carousel.html:8
 msgid "SAVINGS"

@@ -506,6 +506,12 @@ h1 {
     padding-top: 57px;
     padding-bottom: 64px;
     font-size: 20px;
+    text-align: center;
+}
+
+.expl {
+    display: inline-block;
+    max-width: 900px;
 }
 
 /*.explanation p {*/
