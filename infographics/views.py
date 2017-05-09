@@ -5,16 +5,21 @@ from django.shortcuts import render
 from infographics.models import Building, Apartment\
     # , KmMultiplier, CO2Multiplier, EurMultiplier
 from django.contrib.auth.models import User
-from django.utils.translation import activate
+from django.utils import translation
 
 
 @login_required
 def index(request):
-    activate('fi')
+    user_language = 'fi'
+    translation.activate(user_language)
+    request.session[translation.LANGUAGE_SESSION_KEY] = user_language
     return render(request, "infographics/index.html")
 
 
 def about(request):
+    user_language = 'fi'
+    translation.activate(user_language)
+    request.session[translation.LANGUAGE_SESSION_KEY] = user_language
     return render(request, "infographics/about.html")
 
 

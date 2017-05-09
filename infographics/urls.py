@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib.auth.views import login, logout
 
 from . import views
@@ -6,6 +6,7 @@ from . import views
 app_name = 'infographics'
 
 urlpatterns = [
+    url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^$', views.index, name='index'),
     url(r'^index/$', views.index, name='index'),  # default homepage
     url(r'^timeline-update/$', views.timeline_update),
