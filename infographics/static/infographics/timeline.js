@@ -259,6 +259,9 @@ function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY,
         })
 }
 
+// explanation ribbon
+
+
 // small graphs
 function euroChart(data) {
     let margin = {top: 20, right: 5, bottom: 0, left: 5};
