@@ -621,8 +621,7 @@ h1 {
     display: inline-block;
     width: 140px;
     white-space: normal;
-    margin-top: 49px;
-    margin-bottom: 69px;
+    margin: 49px 5px 69px 5px;
     font-weight: bold;
     vertical-align: text-top;
 }
