@@ -554,6 +554,10 @@ h1 {
 
 }
 
+#CO2-chart {
+    font-size: 12px;
+}
+
 .slide {
     width: 300px;
     height: 300px;
