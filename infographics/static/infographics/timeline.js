@@ -260,7 +260,11 @@ function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY,
 }
 
 // explanation ribbon
-
+function explanation() {
+    let show = '#expl' + String(Math.ceil(Math.random() * 3));
+    console.log(show);
+    $(show).removeClass('hidden');
+}
 
 // small graphs
 function euroChart(data) {
@@ -515,7 +519,7 @@ function updateTimeLine(timeFrame, buildingOn) {
 
         stackedChart(data, buildingOn, timeFrame, svg, width, height, maxY, x, y);
         appendXAxis(svg, height, xAxis);
-
+        explanation();
 
 // DEBUG
         // let out = document.getElementById('formatted');
