@@ -1,5 +1,6 @@
 {% extends 'infographics/base.html' %}
 {% load staticfiles %}
+{% load i18n %}
 {% block title %} Welcome to Elwedo Solar {% endblock %}
 
 {% block body %}
@@ -7,13 +8,10 @@
 
     <div id="about-logo-box" class="img-responsive">
         <img class="logo" src="{% static 'infographics/images/logo-login.svg' %}">
-        <h3>GREEN ENERGY SHAPED FOR YOU</h3>
+        <h3>{% trans 'GREEN ENERGY SHAPED FOR YOU' %}</h3>
     </div>
     <div id="about-body" class="container">
-        Text about elwedo.<br><br>
-        Lorem ipsum dolor sit amet, mei eu iisque euripidis assentior. His cu alii melius ullamcorper, et
-        duo blandit indoctum. Ei insolens abhorreant intellegam vel. In eripuit vivendum cum.<br><br>
-        Mei novum possim voluptatibus eu, iusto tacimates constituam his ne. Erant nonumy sensibus at usu.
+        {% trans 'Elwedo provides digital applications for the future energy world.' %}
     </div>
     <script>
         let body = $('body');
