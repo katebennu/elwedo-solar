@@ -406,8 +406,8 @@ function CO2Chart(data) {
     $('#green-circle').attr("r", String(consumptionRate * 0.75));
     $('#blue-circle').attr("r", String(consumptionLessSavingsRate * 0.75));
 
-    $('#co2-wO').text(Math.round(data[0] * 209 / 100));
-    $('#co2-w').text(Math.round(data[1] * 209 / 100));
+    $('#co2-wO').text(Math.round(data[0] * 209 / 100) + 'kg');
+    $('#co2-w').text(Math.round(data[1] * 209 / 100) + 'kg');
 }
 
 // small graphs - change view from one line to a carousel

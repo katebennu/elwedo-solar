@@ -1,13 +1,14 @@
+{% load staticfiles %}
 {% load i18n %}
 <div id="arrow-left" class="arrow hidden pointer" onclick="leftArrow(ids)">
 {% include 'infographics/svg/arrow-left.svg' %}
 </div>
 <div id="slide1" class="slide">
     <div class="click-to-popup">
-        <h3 id="donut-heading" class="pointer">{% trans 'SAVINGS' %}</h3>
+        <h3 id="donut-heading" class="pointer">{% trans 'SAVINGS' %} <img src="{% static 'infographics/images/info.png' %}" class="info-btn" /></h3>
         <div id="donut-popup" class="popupbox" tabindex="-1">
-            <div class="popuptext"><b>Savings:</b><br/><br/>
-                Savings as a percentage of total spending
+            <div class="popuptext">
+                {% trans 'Share of consumption that is covered by own solar energy production' %}
             </div>
             <div id="donut-popup-close" class="close">
             </div>
@@ -18,11 +19,10 @@
 </div>
 <div id="slide2" class="slide">
     <div class="click-to-popup">
-        <h3 id="euro-heading" class="pointer">{% trans 'PURCHASED GRID ENERGY' %}</h3>
+        <h3 id="euro-heading" class="pointer">{% trans 'PURCHASED GRID ENERGY' %} <img src="{% static 'infographics/images/info.png' %}" class="info-btn" /></h3>
         <div id="euro-popup" class="popupbox" tabindex="-1">
-            <div class="popuptext"><b>Purchased grid energy:</b><br/><br/>
-                Energy which has been purchased from the grid put in comparison with and without
-                solar energy. The comparison is expressed in Euros to visualize the apartment’s savings.
+            <div class="popuptext">
+                {% trans 'Approximate amount of money spent on electricity by the household' %}
             </div>
             <div id="euro-popup-close" class="close">
             </div>
@@ -33,11 +33,10 @@
 </div>
 <div id="slide3" class="slide">
     <div class="click-to-popup">
-        <h3 id="CO2-heading" class="pointer">{% trans 'CO2 EMISSIONS' %}</h3>
+        <h3 id="CO2-heading" class="pointer">{% trans 'CO2 EMISSIONS' %} <img src="{% static 'infographics/images/info.png' %}" class="info-btn" /></h3>
         <div id="CO2-popup" class="popupbox" tabindex="-1">
-            <div class="popuptext"><b>CO2 emissions:</b><br/><br/>
-                CO2 emissions without solar energy in comparison to those where
-                part of the consumed energy is solar.
+            <div class="popuptext">
+                {% trans 'CO2 emissions produced by the household' %}
             </div>
             <div id="CO2-popup-close" class="close">
             </div>

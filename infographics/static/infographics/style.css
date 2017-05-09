@@ -149,53 +149,37 @@ h1 {
 
 .click-to-popup .popupbox {
     display: none;
-    width: 400px;
+    width: 300px;
     background-color: #F4F1E4;
     color: #6D6A5C;
     text-align: left;
-    font-size: 18px;
-    padding: 29px;
+    font-size: 14px;
+    padding: 15px;
     position: absolute;
     outline: 0;
 }
 
 .popuptext {
-    width: 350px;
-}
+    width: 240px;
 
-@media screen and (max-width: 900px) {
-    .popupbox {
-        width: 350px;
-    }
-
-    .popuptext {
-        width: 300px;
-    }
 }
 
 #timeline-popup {
-    bottom: 210px;
-    left: 20%;
-    width: 700px;
-}
-
-#timeline-popup .popuptext {
-    width: 630px;
+    left: 30%;
 }
 
 #donut-popup {
-    bottom: 30%;
+    bottom: 50%;
     /*left: 30%;*/
 }
 
 #euro-popup {
-    bottom: -10%;
+    bottom: 50%;
     /*left: -50%;*/
 }
 
 #CO2-popup {
-    bottom: 10%;
-    left: -20%;
+    bottom: 50%;
 }
 
 .click-to-popup .popupbox::after {
@@ -203,18 +187,18 @@ h1 {
     position: absolute;
     bottom: 100%;
     left: 50%;
-    border-left: 16px solid transparent;
-    border-right: 16px solid transparent;
-    border-bottom: 16px solid #F4F1E4;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #F4F1E4;
     outline: 0;
 }
 
 .close {
     position: absolute;
-    right: 32px;
-    top: 32px;
-    width: 32px;
-    height: 32px;
+    right: 25px;
+    top: 15px;
+    width: 20px;
+    height: 20px;
     opacity: 1;
     z-index: 3000;
     margin-right: 0;
@@ -570,6 +554,10 @@ h1 {
 
 }
 
+#CO2-chart {
+    font-size: 12px;
+}
+
 .slide {
     width: 300px;
     height: 300px;
@@ -811,3 +799,7 @@ input:focus {
     margin-bottom: 100px;
 }
 
+.info-btn {
+    width: 20px;
+    vertical-align: top;
+}

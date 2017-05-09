@@ -2,15 +2,13 @@
 {% load i18n %}
 <div class="container">
 
-    <div class="click-to-popup"><h1 id="timeline-heading" class="pointer">{% trans 'ENERGY USAGE AND SAVINGS' %}</h1>
+    <div class="click-to-popup">
+        <h1 id="timeline-heading" class="pointer">{% trans 'ENERGY USAGE AND SAVINGS' %} <img src="{% static 'infographics/images/info.png' %}" class="info-btn" /></h1>
         <div id="timeline-popup" class="popupbox" tabindex="-1">
-            <div class="popuptext"><b>Graph showing the energy usage of the households.</b><br/><br/>
-                Selecting the green buttons you will see different data sets:<br/>
-                <b>Building</b>: compares data of your apartment and of the whole building.<br/>
-                <b>Savings</b>: shows saved energy thanks to the use of solar energy.<br/>
-                <b>Electric car</b>: shows estimated enrgy usage if the family owns an electric car.<br/><br/>
-                Selecting the top blue buttons you will change the scope of the data between the previous day, week
-                or month.
+            <div class="popuptext">
+                {% trans 'Energy consumption in the apartment and building.' %}
+                {% trans 'You can also see how charging electric car would affect consumption' %}
+
             </div>
             <div id="timeline-popup-close" class="close">
             </div>
