@@ -22,7 +22,7 @@ def get_data_for_range(
     :param range_generator: function producing a set of datetime ranges, must accept a date time parameter as a limit
     :param consumption_measurement_query_set: query set of consumption values
     :param building: building object where the measurements were taken
-    :param apartment_divisor: the number of apartments if the measurements were per apartment - 1 if for a building
+    :param apartment_divisor: the number of apartments.csv if the measurements were per apartment - 1 if for a building
     :return: generator of values
     """
     latest_consumption = consumption_measurement_query_set.order_by('-timestamp').first().timestamp
@@ -113,7 +113,7 @@ class Apartment(models.Model):
         return list(sum_for_each_day(self._get_data_estimates(partial(hourly, 24 * days))))
 
     def __str__(self):
-        return str(self.building.address) + ', Apartment #' + str(self.number)
+        return str(self.building.name) + ', Apartment #' + str(self.name)
 
 
 class Building(models.Model):
@@ -143,7 +143,7 @@ class Building(models.Model):
         return list(sum_for_each_day(self._get_data_estimates(partial(hourly, 24 * days))))
 
     def __str__(self):
-        return 'Building ' + str(self.address)
+        return 'Building ' + str(self.name)
 
 
 class ConsumptionMeasurement(models.Model):
@@ -235,6 +235,7 @@ class GridPriceMultiplier(models.Model):
         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
     use = models.BooleanField(default=True)
     apartment = models.ForeignKey('Apartment')
+
 
 class SolarPriceMultiplier(models.Model):
     name = models.fields.CharField(max_length=50, unique=True)

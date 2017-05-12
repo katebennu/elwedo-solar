@@ -22,7 +22,7 @@ class Command(BaseCommand):
 
     def run(self):
         building = Building.objects.all()[0]
-        apartments = Apartment.objects.order_by('number')[:5]
+        apartments = Apartment.objects.order_by('number')[:6]
         rates = [0.7, 0.88, 1.1, 1.21, 1.3]
         utc = timezone('UTC')
         module_dir = os.path.dirname(os.path.abspath(__file__))

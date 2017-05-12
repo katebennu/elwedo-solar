@@ -1,3 +1,5 @@
+import csv, os
+
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
 
@@ -17,27 +19,38 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('Successfully inserted dummy base data'))
 
     def run(self):
-
-
-        building, created = Building.objects.get_or_create(
+        fregatti, created = Building.objects.get_or_create(
             address='Fregatti',
             total_apartments=60,
             total_area=3000,
             total_inhabitants=120,
         )
 
-        TargetCapacity.objects.get_or_create(
-            building=building,
-            number_of_units=100,
-            name='from populator'
+        fiskari, created = Building.objects.get_or_create(
+            address='Fiskari',
+            total_apartments=60,
+            total_area=3000,
+            total_inhabitants=120,
         )
 
-        total_apartments = building.total_apartments
-        total_area = building.total_area
-        total_inhabitants = building.total_inhabitants
+        TargetCapacity.objects.get_or_create(
+            building=fiskari,
+            total_capacity=100,
+            name='fiskari from populator'
+        )
 
-        area = round(total_area / total_apartments)
-        inhabitants = round(total_inhabitants / total_apartments)
+        TargetCapacity.objects.get_or_create(
+            building=fregatti,
+            total_capacity=100,
+            name='fregatti from populator'
+        )
+
+        with open(os.path.join(module_dir, "fixtures", 'Fregatti_short.csv')) as file:
+            reader = csv.reader(file)
+            rows = list(reader)
+            total_rows = len(rows)
+            cursor = 0
+            for row in rows:
 
         for n in range(total_apartments):
             show_progress(n, total_apartments)
