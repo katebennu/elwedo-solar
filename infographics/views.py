@@ -8,6 +8,9 @@ from django.contrib.auth.models import User
 from django.utils import translation
 
 
+def cert(request):
+    return render(request, "infographics/godaddy.html")
+
 @login_required
 def index(request):
     user_language = 'fi'
