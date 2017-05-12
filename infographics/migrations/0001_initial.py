@@ -57,7 +57,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('value_per_unit', models.DecimalField(decimal_places=2, max_digits=8, validators=[django.core.validators.MinValueValidator(0.0), django.core.validators.MaxValueValidator(999999.99)])),
-                ('grid', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='infographics.Grid')),
+                ('grid', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='infographics.models.ExampleGrid')),
             ],
         ),
         migrations.CreateModel(

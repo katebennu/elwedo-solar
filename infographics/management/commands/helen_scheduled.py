@@ -2,7 +2,7 @@ import urllib.request
 from datetime import datetime
 from django.core.management.base import BaseCommand
 from pytz import timezone
-from infographics.models import Grid, ProductionMeasurement
+from infographics.models import ExampleGrid, ProductionMeasurement
 from apscheduler.schedulers.blocking import BlockingScheduler
 from django.db.utils import IntegrityError
 
@@ -21,7 +21,7 @@ def timed_job():
 
     print('*************** got the data')
 
-    grid = Grid.objects.all()[0]
+    grid = ExampleGrid.objects.all()[0]
     utc = timezone('UTC')
 
     print('**************** got the grid')

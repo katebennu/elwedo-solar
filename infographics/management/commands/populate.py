@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
 
-from infographics.models import Building, Apartment, Grid, PanelsToInstall
+from infographics.models import Building, Apartment, ExampleGrid, TargetCapacity
 
 from .progress_bar import show_progress
 
@@ -26,7 +26,7 @@ class Command(BaseCommand):
             total_inhabitants=120,
         )
 
-        PanelsToInstall.objects.get_or_create(
+        TargetCapacity.objects.get_or_create(
             building=building,
             number_of_units=100,
             name='from populator'
@@ -49,5 +49,5 @@ class Command(BaseCommand):
             a = Apartment(number=n + 1, area=area, inhabitants=inhabitants, building=building, user=u)
             a.save()
 
-        Grid.objects.get_or_create(name='Suvilahti', total_units=194)
+        ExampleGrid.objects.get_or_create(name='Suvilahti', total_units=194)
 

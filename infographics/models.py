@@ -28,7 +28,7 @@ def get_data_for_range(
     latest_consumption = consumption_measurement_query_set.order_by('-timestamp').first().timestamp
     latest_production = ProductionMeasurement.objects.order_by('-timestamp').first().timestamp
 
-    number_of_panels = PanelsToInstall.objects.filter(building=building, use=True)[0].number_of_units
+    number_of_panels = TargetCapacity.objects.filter(building=building, use=True)[0].number_of_units
 
     for time_range in range_generator(min(latest_consumption, latest_production)):
         consumption_measurements = consumption_measurement_query_set.filter(timestamp__range=time_range)
@@ -86,10 +86,7 @@ def sum_for_each_day(hourly_results):
 
 
 class Apartment(models.Model):
-    number = models.fields.IntegerField(
-        unique=True,
-        primary_key=True,
-        validators=[MinValueValidator(0), MaxValueValidator(9999)])
+    name = models.fields.CharField(max_length=50, unique=True)
     area = models.fields.DecimalField(
         max_digits=5,
         decimal_places=2,
@@ -120,7 +117,7 @@ class Apartment(models.Model):
 
 
 class Building(models.Model):
-    address = models.fields.CharField(max_length=50, unique=True)
+    name = models.fields.CharField(max_length=50, unique=True)
     total_apartments = models.fields.IntegerField(validators=[MinValueValidator(0),
                                                               MaxValueValidator(9999)])
     total_area = models.fields.DecimalField(max_digits=8,
@@ -149,9 +146,6 @@ class Building(models.Model):
         return 'Building ' + str(self.address)
 
 
-
-
-
 class ConsumptionMeasurement(models.Model):
     # one of the two is obligatory
     apartment = models.ForeignKey(Apartment, null=True)
@@ -171,11 +165,12 @@ class ConsumptionMeasurement(models.Model):
 
 class ProductionMeasurement(models.Model):
     timestamp = models.DateTimeField(null=True)
-    value_per_unit = models.DecimalField(
+    # kWh / kWp
+    percent_of_max_capacity = models.DecimalField(
         max_digits=8,
         decimal_places=2,
         validators=[MinValueValidator(0.0), MaxValueValidator(999999.99)])
-    grid = models.ForeignKey('Grid')
+    grid = models.ForeignKey('ExampleGrid')
 
     class Meta:
         unique_together = ('timestamp', 'grid')
@@ -184,21 +179,25 @@ class ProductionMeasurement(models.Model):
         return 'Production on ' + str(self.timestamp)
 
 
-class Grid(models.Model):
+class ExampleGrid(models.Model):
     name = models.fields.CharField(max_length=50, unique=True)
-    total_units = models.fields.IntegerField(default=200)
-    #total capacity, KW, instead of units
+    # kWP
+    max_capacity = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        validators=[MinValueValidator(0.0), MaxValueValidator(999999.99)])
 
     def __str__(self):
         return 'Grid ' + str(self.name)
 
 
-class PanelsToInstall(models.Model):
+class TargetCapacity(models.Model):
     building = models.ForeignKey(Building)
-    number_of_units = models.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(999999)])
+    total_capacity = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        validators=[MinValueValidator(0.0), MaxValueValidator(999999.99)])
     # estimated capacity, KW, instead of units
-
     name = models.CharField(
         max_length=100,
         unique=True,
@@ -206,42 +205,42 @@ class PanelsToInstall(models.Model):
     use = models.BooleanField(default=True)
 
     def __str__(self):
-        return str(self.number_of_units) + ' Panels estimation, building ' + str(
-            self.building.address) + ', name ' + str(self.name)
+        return str(self.total_capacity) + ' Capacity estimation, building ' + str(
+            self.building.name) + ', name ' + str(self.name)
 
 
-# class CO2Multiplier(models.Model):
-#     name = models.fields.CharField(max_length=50, unique=True)
-#     multiplier = models.DecimalField(
-#         max_digits=8,
-#         decimal_places=2,
-#         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
-#     use = models.BooleanField(default=True)
-#
-#
-# class KmMultiplier (models.Model):
-#     name = models.fields.CharField(max_length=50, unique=True)
-#     multiplier = models.DecimalField(
-#         max_digits=8,
-#         decimal_places=2,
-#         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
-#     use = models.BooleanField(default=True)
-#
-#
-# class GridPriceMultiplier(models.Model):
-#     name = models.fields.CharField(max_length=50, unique=True)
-#     multiplier = models.DecimalField(
-#         max_digits=8,
-#         decimal_places=2,
-#         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
-#     use = models.BooleanField(default=True)
-#     apartment = models.ForeignKey('Apartment')
+class CO2Multiplier(models.Model):
+    name = models.fields.CharField(max_length=50, unique=True)
+    multiplier = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
+    use = models.BooleanField(default=True)
 
-# class SolarPriceMultiplier(models.Model):
-#     name = models.fields.CharField(max_length=50, unique=True)
-#     multiplier = models.DecimalField(
-#         max_digits=8,
-#         decimal_places=2,
-#         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
-#     use = models.BooleanField(default=True)
-#     apartment = models.ForeignKey('Apartment')
+
+class KmMultiplier (models.Model):
+    name = models.fields.CharField(max_length=50, unique=True)
+    multiplier = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
+    use = models.BooleanField(default=True)
+
+
+class GridPriceMultiplier(models.Model):
+    name = models.fields.CharField(max_length=50, unique=True)
+    multiplier = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
+    use = models.BooleanField(default=True)
+    apartment = models.ForeignKey('Apartment')
+
+class SolarPriceMultiplier(models.Model):
+    name = models.fields.CharField(max_length=50, unique=True)
+    multiplier = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
+    use = models.BooleanField(default=True)
+    apartment = models.ForeignKey('Apartment')

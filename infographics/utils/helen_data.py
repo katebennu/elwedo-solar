@@ -2,7 +2,7 @@ import urllib.request
 from datetime import datetime
 from django.core.management.base import BaseCommand
 from pytz import timezone
-from infographics.models import Grid, ProductionMeasurement
+from infographics.models import ExampleGrid, ProductionMeasurement
 from infographics.management.commands.progress_bar import show_progress
 
 
@@ -19,7 +19,7 @@ class Command(BaseCommand):
         contents = open(file).read()
         rows = contents.splitlines()
 
-        grid = Grid.objects.all()[0]
+        grid = ExampleGrid.objects.all()[0]
         utc = timezone('UTC')
         total_rows = len(rows)
         cursor = 0
