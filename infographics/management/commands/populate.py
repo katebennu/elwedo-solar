@@ -7,7 +7,6 @@ from infographics.models import Building, Apartment, ExampleGrid, TargetCapacity
 
 from .progress_bar import show_progress
 
-
 User = get_user_model()
 
 
@@ -22,14 +21,14 @@ class Command(BaseCommand):
         fregatti, created = Building.objects.get_or_create(
             address='Fregatti',
             total_apartments=60,
-            total_area=3000,
+            total_area=5238,
             total_inhabitants=120,
         )
 
         fiskari, created = Building.objects.get_or_create(
             address='Fiskari',
             total_apartments=60,
-            total_area=3000,
+            total_area=5238,
             total_inhabitants=120,
         )
 
@@ -44,23 +43,21 @@ class Command(BaseCommand):
             total_capacity=100,
             name='fregatti from populator'
         )
-
-        with open(os.path.join(module_dir, "fixtures", 'Fregatti_short.csv')) as file:
+        module_dir = os.path.dirname(os.path.abspath(__file__))
+        with open(os.path.join(module_dir, "fixtures", 'apartments.csv')) as file:
             reader = csv.reader(file)
             rows = list(reader)
-            total_rows = len(rows)
-            cursor = 0
             for row in rows:
+                building = Building.objects.get(name=row[4])
+                a = Apartment(name=row[0], area=row[2], inhabitants=row[3], building=building)
+                a.save()
+                for i in range(2):
+                    username = row[0] + str(i + 1)
+                    password = row[0]
+                    u, _ = User.objects.get_or_create(username=username, is_active=True)
+                    u.set_password(password)
+                    u.save()
 
-        for n in range(total_apartments):
-            show_progress(n, total_apartments)
-            username = 'user_' + str(n + 1)
-            password = 'pass_' + str(n + 1)
-            u, _ = User.objects.get_or_create(username=username, is_active=True)
-            u.set_password(password)
-            u.save()
-            a = Apartment(number=n + 1, area=area, inhabitants=inhabitants, building=building, user=u)
-            a.save()
 
-        ExampleGrid.objects.get_or_create(name='Suvilahti', total_units=194)
 
+    ExampleGrid.objects.get_or_create(name='Suvilahti', total_units=194)

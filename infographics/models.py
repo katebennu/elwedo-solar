@@ -84,6 +84,7 @@ def sum_for_each_day(hourly_results):
             'consumptionLessSavings': float(day_consumption - day_savings)
         }
 
+class User()
 
 class Apartment(models.Model):
     name = models.fields.CharField(max_length=50, unique=True)
@@ -94,7 +95,7 @@ class Apartment(models.Model):
     inhabitants = models.fields.IntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(99)])
     building = models.ForeignKey('Building')
-    user = models.OneToOneField(User, related_name='apartment', default=1)
+
 
     def _get_data_estimates(self, range_generator):
         return list(get_data_for_range(
