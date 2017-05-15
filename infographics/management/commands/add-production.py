@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from infographics.models import Grid, ProductionMeasurement
+from infographics.models import ExampleGrid, ProductionMeasurement
 import csv
 import os
 from datetime import datetime
@@ -18,7 +18,7 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('Successfully inserted dummy production data'))
 
     def run(self):
-        grid = Grid.objects.all()[0]
+        grid = ExampleGrid.objects.all()[0]
         utc = timezone('UTC')
         module_dir = os.path.dirname(os.path.abspath(__file__))
 

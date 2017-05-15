@@ -8,6 +8,9 @@ from django.contrib.auth.models import User
 from django.utils import translation
 
 
+def cert(request):
+    return render(request, "infographics/godaddy.html")
+
 @login_required
 def index(request):
     user_language = 'fi'
@@ -27,12 +30,12 @@ def about(request):
 def timeline_update(request):
     from pprint import pprint
     pprint(request.user)
-    if request.user.username == '':
-        user = User.objects.get(username='user_5')
-    else:
-        user = request.user
+    # if request.user.username == '':
+    #     user = User.objects.get(username='Petja_user_1')
+    # else:
+    user = request.user
     building = Building.objects.first()
-    apartment = Apartment.objects.get(user=user)
+    apartment = user.profile.apartment
 
     time_frame = request.GET.get('timeFrame')
 

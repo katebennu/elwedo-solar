@@ -2,7 +2,7 @@ import urllib.request
 from datetime import datetime
 from django.core.management.base import BaseCommand
 from pytz import timezone
-from infographics.models import Grid, ProductionMeasurement
+from infographics.models import ExampleGrid, ProductionMeasurement
 from .progress_bar import show_progress
 from django.db.utils import IntegrityError
 
@@ -20,7 +20,7 @@ class Command(BaseCommand):
         contents = open(file).read()
         rows = contents.splitlines()
 
-        grid = Grid.objects.all()[0]
+        grid = ExampleGrid.objects.all()[0]
         utc = timezone('UTC')
         total_rows = len(rows)
         cursor = 0
@@ -32,9 +32,9 @@ class Command(BaseCommand):
             if 'Arvo (kWh)' in row:
                 continue
             try:
-                value_per_unit = float(row[1]) / grid.total_units
+                percent_of_max_capacity = float(row[1]) / float(grid.max_capacity)
             except ValueError:
-                value_per_unit = 0
+                percent_of_max_capacity = 0
 
             parse_time = datetime.strptime(row[0], '%Y-%m-%dT%H:%M:%S')
             try:
@@ -42,7 +42,7 @@ class Command(BaseCommand):
                     grid=grid,
                     timestamp=datetime(parse_time.year, parse_time.month, parse_time.day, parse_time.hour,
                                        parse_time.minute, tzinfo=utc),
-                    value_per_unit=float(value_per_unit)
+                    percent_of_max_capacity=float(percent_of_max_capacity)
                 )
 
                 cursor += 1

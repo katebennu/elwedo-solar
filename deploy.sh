@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REMOTE_HOST=elwedo@elwedo.kbennu.com
+REMOTE_HOST=elwedo@elwedo.fi
 REMOTE_DIR=/home/elwedo/solarpilot
 
 rsync -a --exclude='.git/' . ${REMOTE_HOST}:${REMOTE_DIR}
