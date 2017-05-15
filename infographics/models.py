@@ -1,5 +1,5 @@
 import datetime
-
+from django.conf import settings
 from collections import defaultdict
 from functools import partial
 
@@ -93,19 +93,19 @@ class Profile(models.Model):
     apartment = models.ForeignKey('Apartment')
 
 
-@receiver(post_save, sender=User)
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-
-
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
+# @receiver(post_save, sender=User)
+# def create_user_profile(sender, instance, created, **kwargs):
+#     if created:
+#         Profile.objects.create(user=instance)
+#
+#
+# @receiver(post_save, sender=User)
+# def save_user_profile(sender, instance, **kwargs):
+#     instance.profile.save()
 
 
 class Apartment(models.Model):
-    name = models.fields.CharField(max_length=50, unique=True)
+    name = models.fields.CharField(max_length=50)
     area = models.fields.DecimalField(
         max_digits=5,
         decimal_places=2,
@@ -228,7 +228,7 @@ class TargetCapacity(models.Model):
 
 
 class CO2Multiplier(models.Model):
-    name = models.fields.CharField(max_length=50, unique=True)
+    name = models.fields.CharField(max_length=50)
     multiplier = models.DecimalField(
         max_digits=8,
         decimal_places=2,
@@ -237,7 +237,7 @@ class CO2Multiplier(models.Model):
 
 
 class KmMultiplier (models.Model):
-    name = models.fields.CharField(max_length=50, unique=True)
+    name = models.fields.CharField(max_length=50)
     multiplier = models.DecimalField(
         max_digits=8,
         decimal_places=2,
@@ -246,7 +246,7 @@ class KmMultiplier (models.Model):
 
 
 class GridPriceMultiplier(models.Model):
-    name = models.fields.CharField(max_length=50, unique=True)
+    name = models.fields.CharField(max_length=50)
     multiplier = models.DecimalField(
         max_digits=8,
         decimal_places=2,
@@ -256,7 +256,7 @@ class GridPriceMultiplier(models.Model):
 
 
 class SolarPriceMultiplier(models.Model):
-    name = models.fields.CharField(max_length=50, unique=True)
+    name = models.fields.CharField(max_length=50)
     multiplier = models.DecimalField(
         max_digits=8,
         decimal_places=2,

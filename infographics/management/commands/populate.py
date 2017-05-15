@@ -8,7 +8,7 @@ from infographics.models import *
 from .progress_bar import show_progress
 
 User = get_user_model()
-
+from pprint import pprint
 
 class Command(BaseCommand):
     help = 'Create apartment objects for a building'
@@ -19,14 +19,14 @@ class Command(BaseCommand):
 
     def run(self):
         fregatti, created = Building.objects.get_or_create(
-            address='Fregatti',
+            name='Fregatti',
             total_apartments=60,
             total_area=5238,
             total_inhabitants=120,
         )
 
         fiskari, created = Building.objects.get_or_create(
-            address='Fiskari',
+            name='Fiskari',
             total_apartments=60,
             total_area=5238,
             total_inhabitants=120,
@@ -48,21 +48,24 @@ class Command(BaseCommand):
             reader = csv.reader(file)
             rows = list(reader)
             for row in rows:
+                pprint(row)
                 building = Building.objects.get(name=row[4])
                 a = Apartment(name=row[0], area=row[2], inhabitants=row[3], building=building)
                 a.save()
-                GridPriceMultiplier.objects.get_or_create(name='from populator', multiplier=0.12, apartment=a)
-                SolarPriceMultiplier.objects.get_or_create(name='from populator', multiplier=0.06, apartment=a)
+                pprint(a.name)
+                g, _ = GridPriceMultiplier.objects.get_or_create(name='grid price from populator ' + a.name, multiplier=0.12, apartment=a)
+                s, _ = SolarPriceMultiplier.objects.get_or_create(name='solar price from populator ' + a.name, multiplier=0.06, apartment=a)
+                pprint(g.name)
+                pprint(s.name)
                 for i in range(2):
                     username = row[0] + '_user_' + str(i + 1)
-                    password = row[0]
                     u, _ = User.objects.get_or_create(username=username)
-                    u.set_password(password)
-                    u.profile.apartment = a
+                    u.set_password('pass')
                     u.save()
+                    Profile.objects.get_or_create(user=u, apartment=a)
 
         ExampleGrid.objects.get_or_create(name='Suvilahti', max_capacity=300)
 
-        CO2Multiplier.objects.get_or_create(name='from populator', multiplier=2.09)
-        KmMultiplier.objects.get_or_create(name='from populator', multiplier=5)
+        CO2Multiplier.objects.get_or_create(name='co2 from populator', multiplier=2.09)
+        KmMultiplier.objects.get_or_create(name='km from populator', multiplier=5)
 
