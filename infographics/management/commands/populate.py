@@ -52,7 +52,7 @@ class Command(BaseCommand):
                 a = Apartment(name=row[0], area=row[2], inhabitants=row[3], building=building)
                 a.save()
                 for i in range(2):
-                    username = row[0] + str(i + 1)
+                    username = row[0] + '_user_' + str(i + 1)
                     password = row[0]
                     u, _ = User.objects.get_or_create(username=username, is_active=True)
                     u.set_password(password)
