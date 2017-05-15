@@ -499,14 +499,15 @@ function carSection(productionTotal, timeFrame) {
 // MAIN
 function updateTimeLine(timeFrame, buildingOn) {
 
-    $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (data, jqXHR) {
+    $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (dataBlob, jqXHR) {
+        console.log(dataBlob);
         // clean existing charts
         $('#timeline-chart').html('');
         $('#euro-chart').html('');
         $('#donut-chart').html('');
 
 
-        parseData(data);
+        let data = parseData(dataBlob.data);
         let [savingsRate, totals, productionTotal, CO2Rates] = getDataTotal(data);
 
         // update header

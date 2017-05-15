@@ -2,8 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from infographics.models import Building, Apartment\
-    # , KmMultiplier, CO2Multiplier, EurMultiplier
+from infographics.models import *
 from django.contrib.auth.models import User
 from django.utils import translation
 
@@ -51,12 +50,18 @@ def timeline_update(request):
         data_building = building.get_day_data()
         data_apartment = apartment.get_day_data()
 
-    # km_multiplier = KmMultiplier.objects.filter(use=True)
-    # co2_multiplier = CO2Multiplier.objects.filter(use=True)
-    # eur_multiplier = EurMultiplier.objects.filter(apartment=apartment)
+    km_multiplier = KmMultiplier.objects.get(use=True)
+    co2_multiplier = CO2Multiplier.objects.get(use=True)
+    grid_multiplier = GridPriceMultiplier.objects.get(apartment=apartment)
+    solar_multiplier = SolarPriceMultiplier.objects.get(apartment=apartment)
 
-    data = []
-    # data.append({'CO2Multiplier': co2_multiplier, 'eurMultiplier': eur_multiplier, 'co2Multiplier': co2_multiplier})
+    data = list()
+    multipliers = {
+        'CO2Multiplier': co2_multiplier.multiplier,
+        'kmMultiplier': km_multiplier.multiplier,
+        'gridMultiplier': grid_multiplier.multiplier,
+        'solarMultiplier': solar_multiplier.multiplier
+    }
 
     for i in data_building:
         row = {}
@@ -73,5 +78,4 @@ def timeline_update(request):
                 row['a_savings'] = float(j['savings'])
                 row['a_consumptionLessSavings'] = float(j['consumptionLessSavings'])
 
-
-    return JsonResponse(data, safe=False)
+    return JsonResponse({'multipliers': multipliers, 'data': data}, safe=False)
