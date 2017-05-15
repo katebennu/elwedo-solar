@@ -31,7 +31,7 @@ def get_data_for_range(
     latest_consumption = consumption_measurement_query_set.order_by('-timestamp').first().timestamp
     latest_production = ProductionMeasurement.objects.order_by('-timestamp').first().timestamp
 
-    number_of_panels = TargetCapacity.objects.filter(building=building, use=True)[0].number_of_units
+    total_capacity = TargetCapacity.objects.filter(building=building, use=True)[0].total_capacity
 
     for time_range in range_generator(min(latest_consumption, latest_production)):
         consumption_measurements = consumption_measurement_query_set.filter(timestamp__range=time_range)
@@ -40,7 +40,7 @@ def get_data_for_range(
         consumption = consumption_measurements.aggregate(Sum('value'))["value__sum"]
 
         production = production_measurements \
-            .aggregate(Sum('value_per_unit'))["value_per_unit__sum"] * number_of_panels / apartment_divisor
+            .aggregate(Sum('percent_of_max_capacity'))["percent_of_max_capacity__sum"] * total_capacity / apartment_divisor
 
         savings = production
         if production > consumption:
