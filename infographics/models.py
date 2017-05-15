@@ -84,7 +84,10 @@ def sum_for_each_day(hourly_results):
             'consumptionLessSavings': float(day_consumption - day_savings)
         }
 
-#class User()
+
+class Profile(models.Model):
+    user = models.OneToOneField(User)
+    apartment = models.ForeignKey('Apartment')
 
 
 class Apartment(models.Model):
