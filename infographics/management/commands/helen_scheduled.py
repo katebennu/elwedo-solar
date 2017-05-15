@@ -32,9 +32,9 @@ def timed_job():
         if 'Arvo (kWh)' in row:
             continue
         try:
-            value_per_unit = float(row[1]) / grid.total_units
+            percent_of_max_capacity = float(row[1]) / float(grid.max_capacity)
         except ValueError:
-            value_per_unit = 0
+            percent_of_max_capacity = 0
 
         parse_time = datetime.strptime(row[0], '%Y-%m-%dT%H:%M:%S')
         try:
@@ -42,7 +42,7 @@ def timed_job():
                 grid=grid,
                 timestamp=datetime(parse_time.year, parse_time.month, parse_time.day, parse_time.hour,
                                    parse_time.minute, tzinfo=utc),
-                value_per_unit=float(value_per_unit)
+                value_per_unit=float(percent_of_max_capacity)
             )
         except IntegrityError:
             pass
