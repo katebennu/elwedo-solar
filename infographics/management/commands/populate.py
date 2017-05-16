@@ -66,6 +66,6 @@ class Command(BaseCommand):
 
         ExampleGrid.objects.get_or_create(name='Suvilahti', max_capacity=300)
 
-        CO2Multiplier.objects.get_or_create(name='co2 from populator', multiplier=2.09)
+        CO2Multiplier.objects.get_or_create(name='co2 from populator', multiplier=0.21)
         KmMultiplier.objects.get_or_create(name='km from populator', multiplier=5)
 

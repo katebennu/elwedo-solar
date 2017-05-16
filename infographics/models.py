@@ -231,7 +231,7 @@ class CO2Multiplier(models.Model):
     name = models.fields.CharField(max_length=50)
     multiplier = models.DecimalField(
         max_digits=8,
-        decimal_places=2,
+        decimal_places=5,
         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
     use = models.BooleanField(default=True)
 
@@ -240,7 +240,7 @@ class KmMultiplier (models.Model):
     name = models.fields.CharField(max_length=50)
     multiplier = models.DecimalField(
         max_digits=8,
-        decimal_places=2,
+        decimal_places=5,
         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
     use = models.BooleanField(default=True)
 
@@ -249,7 +249,7 @@ class GridPriceMultiplier(models.Model):
     name = models.fields.CharField(max_length=50)
     multiplier = models.DecimalField(
         max_digits=8,
-        decimal_places=2,
+        decimal_places=5,
         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
     use = models.BooleanField(default=True)
     apartment = models.ForeignKey('Apartment')
@@ -259,7 +259,7 @@ class SolarPriceMultiplier(models.Model):
     name = models.fields.CharField(max_length=50)
     multiplier = models.DecimalField(
         max_digits=8,
-        decimal_places=2,
+        decimal_places=5,
         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
     use = models.BooleanField(default=True)
     apartment = models.ForeignKey('Apartment')
