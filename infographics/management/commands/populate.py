@@ -8,7 +8,6 @@ from infographics.models import *
 from .progress_bar import show_progress
 
 User = get_user_model()
-from pprint import pprint
 
 class Command(BaseCommand):
     help = 'Create apartment objects for a building'
@@ -48,15 +47,11 @@ class Command(BaseCommand):
             reader = csv.reader(file)
             rows = list(reader)
             for row in rows:
-                pprint(row)
                 building = Building.objects.get(name=row[4])
                 a = Apartment(name=row[0], area=row[2], inhabitants=row[3], building=building)
                 a.save()
-                pprint(a.name)
                 g, _ = GridPriceMultiplier.objects.get_or_create(name='grid price from populator ' + a.name, multiplier=0.12, apartment=a)
                 s, _ = SolarPriceMultiplier.objects.get_or_create(name='solar price from populator ' + a.name, multiplier=0.06, apartment=a)
-                pprint(g.name)
-                pprint(s.name)
                 for i in range(2):
                     username = row[0] + '_user_' + str(i + 1)
                     u, _ = User.objects.get_or_create(username=username)

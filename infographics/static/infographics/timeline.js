@@ -260,17 +260,17 @@ function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY,
 }
 
 // explanation ribbon
-function explanation(productionTotal, savingsTotal, multiplier) {
+function explanation(productionTotal, savingsTotal, CO2Multiplier) {
     $('#expl1, #expl2, #expl3').addClass('hidden');
     let show = '#expl' + String(Math.ceil(Math.random() * 3));
     $(show).removeClass('hidden');
-
-    
+    console.log(savingsTotal, CO2Multiplier);
+    $('#airKm').text(Math.round(savingsTotal * CO2Multiplier * 1000 / 184));
+    $('#trainKm').text(Math.round(productionTotal / 0.1));
 }
 
 // small graphs
 function euroChart(data, gridMult, solarMult) {
-    console.log(data, gridMult, solarMult);
     let margin = {top: 20, right: 5, bottom: 0, left: 5};
     let width = 190 - margin.left - margin.right;
     let height = 185 - margin.top - margin.bottom;
@@ -342,7 +342,6 @@ function euroChart(data, gridMult, solarMult) {
         .text(wS + ' €');
 }
 function donutChart(savingsRate) {
-    console.log(savingsRate);
     let o = 0, n = 50, x = savingsRate, m = 50 - x;
     if (x > 50) {
         o = x - 50;
@@ -406,7 +405,6 @@ function donutChart(savingsRate) {
 
 }
 function CO2Chart(data, multiplier) {
-    console.log(data, multiplier);
     let consumptionTotal = data[0];
     let consumptionLessSavingsTotal = data[1];
 

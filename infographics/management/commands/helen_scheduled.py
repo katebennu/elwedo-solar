@@ -10,7 +10,7 @@ from django.db.utils import IntegrityError
 sched = BlockingScheduler()
 
 
-@sched.scheduled_job('cron', minute=30)
+@sched.scheduled_job('cron', minute=20)
 def timed_job():
     print('********************* started timed_job')
 
@@ -42,7 +42,7 @@ def timed_job():
                 grid=grid,
                 timestamp=datetime(parse_time.year, parse_time.month, parse_time.day, parse_time.hour,
                                    parse_time.minute, tzinfo=utc),
-                value_per_unit=float(percent_of_max_capacity)
+                percent_of_max_capacity=float(percent_of_max_capacity)
             )
         except IntegrityError:
             pass
