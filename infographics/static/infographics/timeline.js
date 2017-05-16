@@ -42,7 +42,7 @@ function getDataTotal(data) {
     return [savingsRate,
         [{'value': consumptionTotal, title: 'consumptionTotal'},
             {'value': productionTotal, title: 'productionTotal'}],
-        productionTotal,
+        productionTotal, savingsTotal,
         [consumptionTotal, consumptionLessSavingsTotal]];
 }
 
@@ -260,10 +260,12 @@ function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY,
 }
 
 // explanation ribbon
-function explanation() {
+function explanation(productionTotal, savingsTotal, multiplier) {
     $('#expl1, #expl2, #expl3').addClass('hidden');
     let show = '#expl' + String(Math.ceil(Math.random() * 3));
     $(show).removeClass('hidden');
+
+    
 }
 
 // small graphs
@@ -510,7 +512,7 @@ function updateTimeLine(timeFrame, buildingOn) {
 
         let data = parseData(dataBlob.data),
             multipliers = dataBlob.multipliers;
-        let [savingsRate, totals, productionTotal, CO2Rates] = getDataTotal(data);
+        let [savingsRate, totals, productionTotal, savingsTotal, CO2Rates] = getDataTotal(data);
 
         // update header
         updateHeader(data);
@@ -523,7 +525,7 @@ function updateTimeLine(timeFrame, buildingOn) {
         stackedChart(data, buildingOn, timeFrame, svg, width, height, maxY, x, y);
         appendXAxis(svg, height, xAxis);
 
-        explanation();
+        explanation(productionTotal, savingsTotal, multipliers.CO2Multiplier);
 
 // DEBUG
         // let out = document.getElementById('formatted');
@@ -534,7 +536,7 @@ function updateTimeLine(timeFrame, buildingOn) {
 //
 
         donutChart(savingsRate);
-        euroChart(totals, multipliers['gridMultiplier'], multipliers['solarMultiplier']);
+        euroChart(totals, multipliers.gridMultiplier, multipliers.solarMultiplier);
         CO2Chart(CO2Rates, multipliers.CO2Multiplier);
 
         // update car section
