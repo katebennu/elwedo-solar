@@ -522,6 +522,7 @@ function updateTimeLine(timeFrame, buildingOn) {
 
         stackedChart(data, buildingOn, timeFrame, svg, width, height, maxY, x, y);
         appendXAxis(svg, height, xAxis);
+
         explanation();
 
 // DEBUG

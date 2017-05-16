@@ -10,7 +10,7 @@ from django.db.utils import IntegrityError
 sched = BlockingScheduler()
 
 
-@sched.scheduled_job('cron', minute=20)
+@sched.scheduled_job('cron', minute=30)
 def timed_job():
     print('********************* started timed_job')
 

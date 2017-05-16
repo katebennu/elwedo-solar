@@ -21,7 +21,7 @@ class Command(BaseCommand):
         fregatti, created = Building.objects.get_or_create(
             name='Fregatti',
             total_apartments=60,
-            total_area=5238,
+            total_area=2880.5,
             total_inhabitants=120,
         )
 
