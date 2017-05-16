@@ -267,78 +267,78 @@ function explanation() {
 }
 
 // small graphs
-// function euroChart(data, gridMult, solarMult) {
-//     console.log(data, gridMult, solarMult);
-//     let margin = {top: 20, right: 5, bottom: 0, left: 5};
-//     let width = 190 - margin.left - margin.right;
-//     let height = 185 - margin.top - margin.bottom;
-//     let svg = d3.select('#euro-chart')
-//         .append('svg')
-//         .attr('width', width + margin.left + margin.right)
-//         .attr('height', height + margin.top + margin.bottom)
-//         .append('g')
-//         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
-//
-//     let maxY = d3.max(data.map(d => d.value));
-//
-//     let y = d3.scaleLinear()
-//         .domain([0, maxY])
-//         .range([height, 0]);
-//
-//     let x = d3.scaleBand()
-//         .padding(0.5)
-//         .domain(data.map(d => d.title))
-//         .range([0, width]);
-//     let xAxis = d3.axisBottom(x);
-//
-//     let color = d3.scaleOrdinal().range(["#56eda8", "26B5DB"]);
-//
-//     svg.selectAll('rect')
-//         .data(data)
-//         .enter()
-//         .append('rect')
-//         .attr('fill', 'blue')
-//         .attr('x', d => x(d.title) - 5)
-//         .attr('y', d => y(d.value))
-//         .attr('width', '50px')
-//         .attr('height', d => height - y(d.value))
-//         .style('fill', ((d, i) => color(i)));
-//
-//     svg.append('line')
-//         .attr('x1', 0)
-//         .attr('y1', 166)
-//         .attr('x2', 180)
-//         .attr('y2', 166)
-//         .style('stroke', '#6D6A5C')
-//         .style('stroke-width', '2');
-//
-//     let wOS = (data[0]['value'] * gridMult).toFixed(1);
-//     if (wOS >= 10) wOS = Math.round(data[0]['value'] * gridMult);
-//
-//     let wOSHeight = $("#euro-chart rect:nth-of-type(2)").height();
-//
-//
-//     svg.append("text")
-//         .attr('x', 113)
-//         .attr('y', -8 + height - wOSHeight) // + height - height of the first rect
-//         .attr('fill', '#26B5DB')
-//         .attr('font-size', 16)
-//         .attr('font-weight', 'bold')
-//         .text(wOS + ' €');
-//
-//     let wS = (data[0]['value'] * gridMult - data[1]['value'] * solarMult).toFixed(1);
-//     if (wS >= 10) wS = Math.round(data[0]['value'] * gridMult - data[1]['value'] * solarMult);
-//
-//     let wSHeight = $("#euro-chart rect:first-of-type").height();
-//
-//     svg.append("text")
-//         .attr('x', 45)
-//         .attr('y', -8 + height - wSHeight) // + height - height of the first rect
-//         .attr('fill', '#56eda8')
-//         .attr('font-size', 16)
-//         .attr('font-weight', 'bold')
-//         .text(wS + ' €');
-// }
+function euroChart(data, gridMult, solarMult) {
+    console.log(data, gridMult, solarMult);
+    let margin = {top: 20, right: 5, bottom: 0, left: 5};
+    let width = 190 - margin.left - margin.right;
+    let height = 185 - margin.top - margin.bottom;
+    let svg = d3.select('#euro-chart')
+        .append('svg')
+        .attr('width', width + margin.left + margin.right)
+        .attr('height', height + margin.top + margin.bottom)
+        .append('g')
+        .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+
+    let maxY = d3.max(data.map(d => d.value));
+
+    let y = d3.scaleLinear()
+        .domain([0, maxY])
+        .range([height, 0]);
+
+    let x = d3.scaleBand()
+        .padding(0.5)
+        .domain(data.map(d => d.title))
+        .range([0, width]);
+    let xAxis = d3.axisBottom(x);
+
+    let color = d3.scaleOrdinal().range(["#56eda8", "26B5DB"]);
+
+    svg.selectAll('rect')
+        .data(data)
+        .enter()
+        .append('rect')
+        .attr('fill', 'blue')
+        .attr('x', d => x(d.title) - 5)
+        .attr('y', d => y(d.value))
+        .attr('width', '50px')
+        .attr('height', d => height - y(d.value))
+        .style('fill', ((d, i) => color(i)));
+
+    svg.append('line')
+        .attr('x1', 0)
+        .attr('y1', 166)
+        .attr('x2', 180)
+        .attr('y2', 166)
+        .style('stroke', '#6D6A5C')
+        .style('stroke-width', '2');
+
+    let wOS = (data[0]['value'] * gridMult).toFixed(1);
+    if (wOS >= 10) wOS = Math.round(data[0]['value'] * gridMult);
+
+    let wOSHeight = $("#euro-chart rect:nth-of-type(2)").height();
+
+
+    svg.append("text")
+        .attr('x', 113)
+        .attr('y', -8 + height - wOSHeight) // + height - height of the first rect
+        .attr('fill', '#26B5DB')
+        .attr('font-size', 16)
+        .attr('font-weight', 'bold')
+        .text(wOS + ' €');
+
+    let wS = (data[0]['value'] * gridMult - data[1]['value'] * solarMult).toFixed(1);
+    if (wS >= 10) wS = Math.round(data[0]['value'] * gridMult - data[1]['value'] * solarMult);
+
+    let wSHeight = $("#euro-chart rect:first-of-type").height();
+
+    svg.append("text")
+        .attr('x', 45)
+        .attr('y', -8 + height - wSHeight) // + height - height of the first rect
+        .attr('fill', '#56eda8')
+        .attr('font-size', 16)
+        .attr('font-weight', 'bold')
+        .text(wS + ' €');
+}
 function donutChart(savingsRate) {
     console.log(savingsRate);
     let o = 0, n = 50, x = savingsRate, m = 50 - x;
