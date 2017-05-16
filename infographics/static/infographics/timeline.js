@@ -41,7 +41,7 @@ function getDataTotal(data) {
 
     return [savingsRate,
         [{'value': consumptionTotal, title: 'consumptionTotal'},
-            {'value': consumptionLessSavingsTotal, title: 'consumptionLessSavingsTotal'}],
+            {'value': productionTotal, title: 'productionTotal'}],
         productionTotal,
         [consumptionTotal, consumptionLessSavingsTotal]];
 }
@@ -267,79 +267,80 @@ function explanation() {
 }
 
 // small graphs
-function euroChart(data) {
-    let margin = {top: 20, right: 5, bottom: 0, left: 5};
-    let width = 190 - margin.left - margin.right;
-    let height = 185 - margin.top - margin.bottom;
-    let svg = d3.select('#euro-chart')
-        .append('svg')
-        .attr('width', width + margin.left + margin.right)
-        .attr('height', height + margin.top + margin.bottom)
-        .append('g')
-        .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
-
-    let maxY = d3.max(data.map(d => d.value));
-
-    let y = d3.scaleLinear()
-        .domain([0, maxY])
-        .range([height, 0]);
-
-    let x = d3.scaleBand()
-        .padding(0.5)
-        .domain(data.map(d => d.title))
-        .range([0, width]);
-    let xAxis = d3.axisBottom(x);
-
-    let color = d3.scaleOrdinal().range(["#56eda8", "26B5DB"]);
-
-    svg.selectAll('rect')
-        .data(data)
-        .enter()
-        .append('rect')
-        .attr('fill', 'blue')
-        .attr('x', d => x(d.title) - 5)
-        .attr('y', d => y(d.value))
-        .attr('width', '50px')
-        .attr('height', d => height - y(d.value))
-        .style('fill', ((d, i) => color(i)));
-
-    svg.append('line')
-        .attr('x1', 0)
-        .attr('y1', 166)
-        .attr('x2', 180)
-        .attr('y2', 166)
-        .style('stroke', '#6D6A5C')
-        .style('stroke-width', '2');
-
-    let wS = (data[0]['value'] * 8 / 100).toFixed(1);
-    if (wS >= 10) wS = Math.round(data[0]['value'] * 8 / 100);
-
-    let wSHeight = $("#euro-chart rect:first-of-type").height();
-
-    svg.append("text")
-        .attr('x', 45)
-        .attr('y', -8 + height - wSHeight) // + height - height of the first rect
-        .attr('fill', '#56eda8')
-        .attr('font-size', 16)
-        .attr('font-weight', 'bold')
-        .text(wS + ' €');
-
-    let wOS = (data[1]['value'] * 8 / 100).toFixed(1);
-    if (wOS >= 10) wOS = Math.round(data[1]['value'] * 8 / 100);
-
-    let wSOHeight = $("#euro-chart rect:nth-of-type(2)").height();
-
-
-    svg.append("text")
-        .attr('x', 113)
-        .attr('y', -8 + height - wSOHeight) // + height - height of the first rect
-        .attr('fill', '#26B5DB')
-        .attr('font-size', 16)
-        .attr('font-weight', 'bold')
-        .text(wOS + ' €');
-
-}
+// function euroChart(data, gridMult, solarMult) {
+//     console.log(data, gridMult, solarMult);
+//     let margin = {top: 20, right: 5, bottom: 0, left: 5};
+//     let width = 190 - margin.left - margin.right;
+//     let height = 185 - margin.top - margin.bottom;
+//     let svg = d3.select('#euro-chart')
+//         .append('svg')
+//         .attr('width', width + margin.left + margin.right)
+//         .attr('height', height + margin.top + margin.bottom)
+//         .append('g')
+//         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
+//
+//     let maxY = d3.max(data.map(d => d.value));
+//
+//     let y = d3.scaleLinear()
+//         .domain([0, maxY])
+//         .range([height, 0]);
+//
+//     let x = d3.scaleBand()
+//         .padding(0.5)
+//         .domain(data.map(d => d.title))
+//         .range([0, width]);
+//     let xAxis = d3.axisBottom(x);
+//
+//     let color = d3.scaleOrdinal().range(["#56eda8", "26B5DB"]);
+//
+//     svg.selectAll('rect')
+//         .data(data)
+//         .enter()
+//         .append('rect')
+//         .attr('fill', 'blue')
+//         .attr('x', d => x(d.title) - 5)
+//         .attr('y', d => y(d.value))
+//         .attr('width', '50px')
+//         .attr('height', d => height - y(d.value))
+//         .style('fill', ((d, i) => color(i)));
+//
+//     svg.append('line')
+//         .attr('x1', 0)
+//         .attr('y1', 166)
+//         .attr('x2', 180)
+//         .attr('y2', 166)
+//         .style('stroke', '#6D6A5C')
+//         .style('stroke-width', '2');
+//
+//     let wOS = (data[0]['value'] * gridMult).toFixed(1);
+//     if (wOS >= 10) wOS = Math.round(data[0]['value'] * gridMult);
+//
+//     let wOSHeight = $("#euro-chart rect:nth-of-type(2)").height();
+//
+//
+//     svg.append("text")
+//         .attr('x', 113)
+//         .attr('y', -8 + height - wOSHeight) // + height - height of the first rect
+//         .attr('fill', '#26B5DB')
+//         .attr('font-size', 16)
+//         .attr('font-weight', 'bold')
+//         .text(wOS + ' €');
+//
+//     let wS = (data[0]['value'] * gridMult - data[1]['value'] * solarMult).toFixed(1);
+//     if (wS >= 10) wS = Math.round(data[0]['value'] * gridMult - data[1]['value'] * solarMult);
+//
+//     let wSHeight = $("#euro-chart rect:first-of-type").height();
+//
+//     svg.append("text")
+//         .attr('x', 45)
+//         .attr('y', -8 + height - wSHeight) // + height - height of the first rect
+//         .attr('fill', '#56eda8')
+//         .attr('font-size', 16)
+//         .attr('font-weight', 'bold')
+//         .text(wS + ' €');
+// }
 function donutChart(savingsRate) {
+    console.log(savingsRate);
     let o = 0, n = 50, x = savingsRate, m = 50 - x;
     if (x > 50) {
         o = x - 50;
@@ -402,8 +403,8 @@ function donutChart(savingsRate) {
 
 
 }
-function CO2Chart(data) {
-
+function CO2Chart(data, multiplier) {
+    console.log(data, multiplier);
     let consumptionTotal = data[0];
     let consumptionLessSavingsTotal = data[1];
 
@@ -413,8 +414,8 @@ function CO2Chart(data) {
     $('#green-circle').attr("r", String(consumptionRate * 0.75));
     $('#blue-circle').attr("r", String(consumptionLessSavingsRate * 0.75));
 
-    $('#co2-wO').text(Math.round(data[0] * 209 / 100) + 'kg');
-    $('#co2-w').text(Math.round(data[1] * 209 / 100) + 'kg');
+    $('#co2-wO').text(Math.round(data[0] * multiplier) + 'kg');
+    $('#co2-w').text(Math.round(data[1] * multiplier) + 'kg');
 }
 
 // small graphs - change view from one line to a carousel
@@ -507,7 +508,8 @@ function updateTimeLine(timeFrame, buildingOn) {
         $('#donut-chart').html('');
 
 
-        let data = parseData(dataBlob.data);
+        let data = parseData(dataBlob.data),
+            multipliers = dataBlob.multipliers;
         let [savingsRate, totals, productionTotal, CO2Rates] = getDataTotal(data);
 
         // update header
@@ -531,8 +533,8 @@ function updateTimeLine(timeFrame, buildingOn) {
 //
 
         donutChart(savingsRate);
-        euroChart(totals);
-        CO2Chart(CO2Rates);
+        euroChart(totals, multipliers['gridMultiplier'], multipliers['solarMultiplier']);
+        CO2Chart(CO2Rates, multipliers.CO2Multiplier);
 
         // update car section
         carSection(productionTotal, timeFrame);

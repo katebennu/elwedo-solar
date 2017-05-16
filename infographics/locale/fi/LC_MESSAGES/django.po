@@ -118,11 +118,11 @@ msgstr "CO2-päästömäärä kotitaloutesi sähkönkäytöstä"
 
 #: infographics/templates/infographics/graph-carousel.html:61
 msgid "with solar"
-msgstr "ilman aurinkosähköä"
+msgstr "aurinkosähköllä"
 
 #: infographics/templates/infographics/graph-carousel.html:65
 msgid "without solar"
-msgstr "aurinkosähköllä"
+msgstr "ilman aurinkosähköä"
 
 #: infographics/templates/infographics/graph-timeline.html:6
 msgid "ENERGY USAGE AND SAVINGS"

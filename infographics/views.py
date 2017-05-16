@@ -27,8 +27,6 @@ def about(request):
 
 @login_required
 def timeline_update(request):
-    from pprint import pprint
-    pprint(request.user)
     # if request.user.username == '':
     #     user = User.objects.get(username='Petja_user_1')
     # else:
