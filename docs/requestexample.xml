@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<Message xmlns="http://iec.ch/TC57/2011/schema/message" xmlns="http://iec.ch/TC57/2011/MeterReadings#">
+    <Header>
+        <Verb>create</Verb>
+        <Noun>MeterReadings</Noun>
+    </Header>
+    <Payload>
+        <MeterReadings>
+            <MeterReading xmlns="http://iec.ch/TC57/2011/MeterReadings#">
+                <Meter>
+                    <mRID>9176dd75-0512-eaf3-b543-426a71500ac1</mRID>
+                </Meter>
+                <Readings>
+                    <ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>
+                    <timePeriod>
+                        <end>2017-05-04T09:00:00.0000000Z</end>
+                        <start>2017-05-04T08:50:00.0000000Z</start>
+                    </timePeriod>
+                </Readings>
+                <Readings>
+                    <ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>
+                    <timePeriod>
+                        <end>2017-05-04T09:00:00.0000000Z</end>
+                        <start>2017-05-04T08:50:00.0000000Z</start>
+                    </timePeriod>
+                </Readings>
+                <valuesInterval>
+                    <end>2017-05-04T08:51:00.0000000Z</end>
+                    <start>2017-05-04T08:50:00.0000000Z</start>
+                </valuesInterval>
+            </MeterReading>
+        </MeterReadings>
+    </Payload>
+</Message>

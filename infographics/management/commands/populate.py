@@ -59,6 +59,12 @@ class Command(BaseCommand):
                     u.save()
                     Profile.objects.get_or_create(user=u, apartment=a)
 
+        username = 'Guest'
+        u, _ = User.objects.get_or_create(username=username)
+        u.set_password('pass')
+        u.save()
+        Profile.objects.get_or_create(user=u, apartment=Apartment.objects.first())
+
         ExampleGrid.objects.get_or_create(name='Suvilahti', max_capacity=300)
 
         CO2Multiplier.objects.get_or_create(name='co2 from populator', multiplier=0.21)
