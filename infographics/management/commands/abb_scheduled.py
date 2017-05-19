@@ -16,7 +16,7 @@ class Command(BaseCommand):
         module_dir = os.path.dirname(os.path.abspath(__file__))
         apartments = Apartment.objects.all()
 
-        xml_req = """<?xml version="1.0"?>
+        base_req = """<?xml version="1.0"?>
                 <Message>
                     <Header>
                         <Verb>create</Verb>
@@ -43,7 +43,7 @@ class Command(BaseCommand):
                         </MeterReadings>
                     </Payload>
                 </Message>"""
-        root = ET.fromstring(xml_req)
+        root = ET.fromstring(base_req)
 
         headers = {'Content-Type': 'application/xml'}
         with open(os.path.join(module_dir, "fixtures", 'auth.csv')) as file:
@@ -59,5 +59,7 @@ class Command(BaseCommand):
 
             root.find(".//mRID").text = a.mRID
 
-            resp = requests.get(url=url, auth=auth, verify=False, headers=headers)
+            req = ET.tostring(root)
+
+            resp = requests.get(url=url, auth=auth, verify=False, headers=headers, data=req)
             print(resp.text)
