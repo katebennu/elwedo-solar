@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Message>
+    <Header>
+        <Verb>create</Verb>
+        <Noun>MeterReadings</Noun>
+    </Header>
+    <Payload>
+        <MeterReadings>
+            <MeterReading>
+                <Meter>
+                    <mRID>08accb89-7ced-1af1-f235-d67dff5e8585</mRID>
+                </Meter>
+                <Readings>
+                    <ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>
+                    <timePeriod>
+                        <end>2017-05-15T09:00:00.0000000Z</end>
+                        <start>2017-05-15T08:00:00.0000000Z</start>
+                    </timePeriod>
+                </Readings>
+                <valuesInterval>
+                    <end>2017-05-15T09:00:00.0000000Z</end>
+                    <start>2017-05-15T08:00:00.0000000Z</start>
+                </valuesInterval>
+            </MeterReading>
+        </MeterReadings>
+    </Payload>
+</Message>
