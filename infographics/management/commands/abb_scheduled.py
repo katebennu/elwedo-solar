@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 import os, csv
 from infographics.models import Apartment, ConsumptionMeasurement
-# import requests
+import requests
 
 
 class Command(BaseCommand):
@@ -22,10 +22,11 @@ class Command(BaseCommand):
             for row in rows:
                 auth = (row[0],row[1])
 
-        for a in apartments:
-            up = a.up_code
-            url = a.building.server_ip + '/gc=' + str(up)
-            print(url)
-            # resp = requests.get(url=url, auth=auth, verify=False)
+            for a in apartments:
+                up = a.up_code
+                url = a.building.server_ip + '/gc=' + str(up)
+                print(url)
+                resp = requests.get(url=url, auth=auth, verify=False)
+                print(resp.text)
 
 
