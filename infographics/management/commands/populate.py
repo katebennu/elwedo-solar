@@ -17,32 +17,25 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('Successfully inserted dummy base data'))
 
     def run(self):
-        fregatti, created = Building.objects.get_or_create(
-            name='Fregatti',
-            total_apartments=60,
-            total_area=2880.5,
-            total_inhabitants=120,
-        )
-
-        fiskari, created = Building.objects.get_or_create(
-            name='Fiskari',
-            total_apartments=60,
-            total_area=5238,
-            total_inhabitants=120,
-        )
-
-        TargetCapacity.objects.get_or_create(
-            building=fiskari,
-            total_capacity=100,
-            name='fiskari from populator'
-        )
-
-        TargetCapacity.objects.get_or_create(
-            building=fregatti,
-            total_capacity=100,
-            name='fregatti from populator'
-        )
         module_dir = os.path.dirname(os.path.abspath(__file__))
+        with open(os.path.join(module_dir, "fixtures", 'buildings.csv')) as file:
+            reader = csv.reader(file)
+            rows = list(reader)
+            for row in rows:
+                building, created = Building.objects.get_or_create(
+                    name=row[0],
+                    total_apartments=row[3],
+                    total_area=row[1],
+                    total_inhabitants=row[4],
+                    server_ip=row[2]
+                )
+
+                TargetCapacity.objects.get_or_create(
+                    building=building,
+                    total_capacity=100,
+                    name= building.name + ' from populator'
+                )
+
         with open(os.path.join(module_dir, "fixtures", 'apartments.csv')) as file:
             reader = csv.reader(file)
             rows = list(reader)
