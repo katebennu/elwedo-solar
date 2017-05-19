@@ -53,6 +53,8 @@ class Command(BaseCommand):
                 s, _ = SolarPriceMultiplier.objects.get_or_create(name='solar price from populator ' + a.name, multiplier=0.06, apartment=a)
                 for i in range(2):
                     username = row[0] + '_user_' + str(i + 1)
+                    if username == 'Riina_user_1':
+                        username = 'Riina'
                     if username == 'Riina_user_2':
                         username = 'Jaana'
                     u, _ = User.objects.get_or_create(username=username)
