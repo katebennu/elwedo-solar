@@ -41,7 +41,13 @@ class Command(BaseCommand):
             rows = list(reader)
             for row in rows:
                 building = Building.objects.get(name=row[4])
-                a = Apartment(name=row[0], area=row[2], inhabitants=row[3], building=building)
+                a = Apartment(
+                    name=row[0],
+                    area=row[2],
+                    inhabitants=row[3],
+                    up_code=row[6],
+                    mRID=row[7],
+                    building=building)
                 a.save()
                 g, _ = GridPriceMultiplier.objects.get_or_create(name='grid price from populator ' + a.name, multiplier=0.12, apartment=a)
                 s, _ = SolarPriceMultiplier.objects.get_or_create(name='solar price from populator ' + a.name, multiplier=0.06, apartment=a)
