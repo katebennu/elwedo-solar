@@ -136,6 +136,7 @@ class Building(models.Model):
                                                         MaxValueValidator(999999.99)])
     total_inhabitants = models.fields.IntegerField(validators=[MinValueValidator(0),
                                                                MaxValueValidator(9999)])
+    server_ip = models.fields.CharField(max_length=50)
 
     def _get_data_estimates(self, range_generator):
         return list(get_data_for_range(
