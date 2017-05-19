@@ -40,7 +40,8 @@ def get_data_for_range(
         consumption = consumption_measurements.aggregate(Sum('value'))["value__sum"]
 
         production = production_measurements \
-            .aggregate(Sum('percent_of_max_capacity'))["percent_of_max_capacity__sum"] * total_capacity / apartment_divisor
+                         .aggregate(Sum('percent_of_max_capacity'))[
+                         "percent_of_max_capacity__sum"] * total_capacity / apartment_divisor
 
         savings = production
         if production > consumption:
@@ -56,7 +57,6 @@ def get_data_for_range(
 
 
 def sum_for_each_day(hourly_results):
-
     day_results = defaultdict(list)
     for result in hourly_results:
         timestamp = result["timestamp"]
@@ -93,17 +93,6 @@ class Profile(models.Model):
     apartment = models.ForeignKey('Apartment')
 
 
-# @receiver(post_save, sender=User)
-# def create_user_profile(sender, instance, created, **kwargs):
-#     if created:
-#         Profile.objects.create(user=instance)
-#
-#
-# @receiver(post_save, sender=User)
-# def save_user_profile(sender, instance, **kwargs):
-#     instance.profile.save()
-
-
 class Apartment(models.Model):
     name = models.fields.CharField(max_length=50)
     area = models.fields.DecimalField(
@@ -113,6 +102,9 @@ class Apartment(models.Model):
     inhabitants = models.fields.IntegerField(
         validators=[MinValueValidator(0), MaxValueValidator(99)])
     building = models.ForeignKey('Building')
+    up_code = models.fields.IntegerField(validators=[MinValueValidator(0),
+                                                     MaxValueValidator(9999999)])
+    mRID = models.fields.CharField(max_length=50)
 
     def _get_data_estimates(self, range_generator):
         return list(get_data_for_range(
@@ -236,7 +228,7 @@ class CO2Multiplier(models.Model):
     use = models.BooleanField(default=True)
 
 
-class KmMultiplier (models.Model):
+class KmMultiplier(models.Model):
     name = models.fields.CharField(max_length=50)
     multiplier = models.DecimalField(
         max_digits=8,
