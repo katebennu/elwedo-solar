@@ -1,4 +1,4 @@
-import csv, os
+import csv, os, requests
 
 from datetime import datetime
 
@@ -12,6 +12,7 @@ from .progress_bar import show_progress
 
 from django.db.utils import IntegrityError
 
+import xml.etree.ElementTree as ET
 
 class Command(BaseCommand):
     help = 'Parse and save example consumption data'
@@ -51,3 +52,47 @@ class Command(BaseCommand):
                     pass
 
         # then request 2-week data from building servers
+        base_req = """<?xml version="1.0"?>
+                        <Message>
+                            <Header>
+                                <Verb>create</Verb>
+                                <Noun>MeterReadings</Noun>
+                            </Header>
+                            <Payload>
+                                <MeterReadings>
+                                    <MeterReading>
+                                        <Meter>
+                                            <mRID></mRID>
+                                        </Meter>
+                                        <Readings>
+                                            <ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>
+                                            <timePeriod>
+                                                <end>2017-05-15T09:00:00.0000000Z</end>
+                                                <start>2017-05-15T08:00:00.0000000Z</start>
+                                            </timePeriod>
+                                        </Readings>
+                                        <valuesInterval>
+                                            <end>2017-05-15T09:00:00.0000000Z</end>
+                                            <start>2017-05-15T08:00:00.0000000Z</start>
+                                        </valuesInterval>
+                                    </MeterReading>
+                                </MeterReadings>
+                            </Payload>
+                        </Message>"""
+        root = ET.fromstring(base_req)
+
+        headers = {'Content-Type': 'application/xml'}
+        with open(os.path.join(module_dir, "fixtures", 'auth.csv')) as file:
+            reader = csv.reader(file)
+            rows = list(reader)
+            for row in rows:
+                auth = (row[0], row[1])
+
+        for a in apartments:
+            url = a.building.server_ip
+            print(url)
+            root.find(".//mRID").text = a.mRID
+            resp = requests.get(
+                url=a.building.server_ip,
+                auth=auth, verify=False, headers=headers,
+                data=ET.tostring(root))
