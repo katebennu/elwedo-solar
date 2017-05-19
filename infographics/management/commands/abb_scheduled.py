@@ -54,7 +54,7 @@ class Command(BaseCommand):
 
         for a in apartments:
             up = a.up_code
-            url = a.building.server_ip + '/gc=' + str(up)
+            url = a.building.server_ip
             print(url)
 
             root.find(".//mRID").text = a.mRID
