@@ -1,6 +1,6 @@
 import csv, os, requests
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from pytz import timezone
 
@@ -82,7 +82,14 @@ class Command(BaseCommand):
                         </Message>"""
         req_root = ET.fromstring(base_req)
 
+        end = datetime.now().replace(minute=0, second=0, microsecond=0)
+        start = end - timedelta(days=13)
+
+        req_root.find('.//Readings').find('.//end').text = end.isoformat() + '.0000000Z'
+        req_root.find('.//Readings').find('.//start').text = start.isoformat() + '.0000000Z'
+
         headers = {'Content-Type': 'application/xml'}
+
         with open(os.path.join(module_dir, "fixtures", 'auth.csv')) as file:
             reader = csv.reader(file)
             rows = list(reader)
@@ -93,6 +100,7 @@ class Command(BaseCommand):
             url = a.building.server_ip
             print(url, a.name)
             req_root.find(".//mRID").text = a.mRID
+            print(ET.tostring(req_root))
             resp = requests.get(
                 url=a.building.server_ip,
                 auth=auth, verify=False, headers=headers,
