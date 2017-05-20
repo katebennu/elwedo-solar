@@ -14,6 +14,7 @@ from django.db.utils import IntegrityError
 
 import xml.etree.ElementTree as ET
 
+
 class Command(BaseCommand):
     help = 'Parse and save example consumption data'
 
@@ -45,7 +46,7 @@ class Command(BaseCommand):
                             apartment=a,
                             timestamp=datetime(parse_time.year + 1, parse_time.month, parse_time.day, parse_time.hour,
                                                parse_time.minute, tzinfo=utc),
-                            value=float(row[1]) / a.building.total_area * a.area
+                            value=float(row[1]) / float(a.building.total_area) * float(a.area)
                         )
 
                 except IntegrityError:
@@ -68,7 +69,7 @@ class Command(BaseCommand):
                                             <ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>
                                             <timePeriod>
                                                 <end>2017-05-15T09:00:00.0000000Z</end>
-                                                <start>2017-05-15T08:00:00.0000000Z</start>
+                                                <start>2017-05-14T08:00:00.0000000Z</start>
                                             </timePeriod>
                                         </Readings>
                                         <valuesInterval>
@@ -79,7 +80,7 @@ class Command(BaseCommand):
                                 </MeterReadings>
                             </Payload>
                         </Message>"""
-        root = ET.fromstring(base_req)
+        req_root = ET.fromstring(base_req)
 
         headers = {'Content-Type': 'application/xml'}
         with open(os.path.join(module_dir, "fixtures", 'auth.csv')) as file:
@@ -90,9 +91,21 @@ class Command(BaseCommand):
 
         for a in apartments:
             url = a.building.server_ip
-            print(url)
-            root.find(".//mRID").text = a.mRID
+            print(url, a.name)
+            req_root.find(".//mRID").text = a.mRID
             resp = requests.get(
                 url=a.building.server_ip,
                 auth=auth, verify=False, headers=headers,
-                data=ET.tostring(root))
+                data=ET.tostring(req_root))
+
+            resp_root = ET.fromstring(resp.text)
+            for reading in resp_root.findall('.//Readings'):
+                value = reading.find('value').text
+                parse_time = datetime.strptime(reading.find('.//end').text, '%Y-%m-%dT%H:%M:%S.0000000Z')
+                _, created = ConsumptionMeasurement.objects.update_or_create(
+                    apartment=a,
+                    timestamp=datetime(parse_time.year + 1, parse_time.month, parse_time.day, parse_time.hour,
+                                       parse_time.minute, tzinfo=utc),
+                    value=float(value)
+                )
+                print(parse_time, created)

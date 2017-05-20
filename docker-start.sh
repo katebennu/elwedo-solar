@@ -6,7 +6,6 @@ python manage.py populate
 python manage.py add-consumption
 python manage.py helen_data
 python manage.py helen_scheduled &
-python manage.py abb_scheduled
 
 
 chown -R www-data:www-data /mount
