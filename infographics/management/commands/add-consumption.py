@@ -110,10 +110,20 @@ class Command(BaseCommand):
             for reading in resp_root.findall('.//Readings'):
                 value = reading.find('value').text
                 parse_time = datetime.strptime(reading.find('.//end').text, '%Y-%m-%dT%H:%M:%S.0000000Z')
+                try:
+                    ConsumptionMeasurement.objects.get(
+                        apartment=a,
+                        timestamp=datetime(parse_time.year, parse_time.month, parse_time.day, parse_time.hour,
+                                           parse_time.minute, tzinfo=utc),
+                    ).delete()
+                except ConsumptionMeasurement.DoesNotExist:
+                    pass
                 _, created = ConsumptionMeasurement.objects.update_or_create(
                     apartment=a,
-                    timestamp=datetime(parse_time.year + 1, parse_time.month, parse_time.day, parse_time.hour,
+                    timestamp=datetime(parse_time.year, parse_time.month, parse_time.day, parse_time.hour,
                                        parse_time.minute, tzinfo=utc),
                     value=float(value)
                 )
                 print(parse_time, created)
+
+
