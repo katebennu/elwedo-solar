@@ -3,7 +3,7 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 
 from infographics.models import *
-from django.contrib.auth.models import User
+from django.contrib.auth.decorators import user_passes_test
 from django.utils import translation
 
 import csv
@@ -83,29 +83,54 @@ def timeline_update(request):
     return JsonResponse({'multipliers': multipliers, 'data': data}, safe=False)
 
 
-@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def summary(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = \
-        'attachment; filename="summary_' + request.user.username + '_' + datetime.now().strftime("%Y-%m-%d %H:00") + '.csv"'
+        'attachment; filename="summary_' + '_' + datetime.now().strftime(
+            "%Y-%m-%d %H:00") + '.csv"'
     writer = csv.writer(response)
-    writer.writerow(['Timestamp','Apartment Riina Consumption, kWh',
-                    'Apartment Sofia Consumption','Apartment Petja Consumption','Apartment Pia Consumption', 'Apartment Ville Consumption',
-                     'Apartment Riina Production, kWh',
-                     'CO2 no-solar, kg','CO2 with-solar, kg',
-                     'Spent no-solar, EUR', 'Spent with-solar, EUR',
-                     'Building Consumption, kWh', 'Building Production, kWh'])
+    writer.writerow(['Timestamp',
+                     'Consumption, kWh',
+                     'Production, kWh',
+                     'CO2 no-solar, kg', 'CO2 with-solar, kg',
+                     'Spent no-solar, EUR', 'Spent with-solar, EUR'])
+    building = Building.objects.first()
+    apartments = Apartment.objects.all()
+    co2 = float(CO2Multiplier.objects.filter(use=True)[0].multiplier)
+    eur_grid = float(GridPriceMultiplier.objects.filter(use=True)[0].multiplier)
+    eur_sol = float(SolarPriceMultiplier.objects.filter(use=True)[0].multiplier)
 
-    riina = Apartment.objects.get(name='Riina')
-    sofia = Apartment.objects.get(name='Sofia')
-    petja = Apartment.objects.get(name='Petja')
-    pia = Apartment.objects.get(name='Pia')
-    ville = Apartment.objects.get(name='Ville')
-
-    
-
-
-    writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
+    writer.writerow(['***Building***'])
+    b_data = building.get_day_data()
+    for i in b_data:
+        n = i['consumption'] * eur_grid - i['production'] * eur_sol
+        if n < 0:
+            n = 0
+        writer.writerow([
+            i['timestamp'].strftime("%Y-%m-%d %H:00"),
+            i['consumption'],
+            i['production'],
+            i['consumption'] * co2,
+            i['consumptionLessSavings'] * co2,
+            i['consumption'] * eur_grid,
+            n
+        ])
+    for a in apartments:
+        writer.writerow(['***Apartment ', a.name + '***'])
+        a_data = a.get_day_data()
+        for i in a_data:
+            n = i['consumption'] * eur_grid - i['production'] * eur_sol
+            if n < 0:
+                n = 0
+            writer.writerow([
+                i['timestamp'].strftime("%Y-%m-%d %H:00"),
+                i['consumption'],
+                i['production'],
+                i['consumption'] * co2,
+                i['consumptionLessSavings'] * co2,
+                i['consumption'] * eur_grid,
+                n
+            ])
 
     return response
-
