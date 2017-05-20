@@ -1,14 +1,18 @@
 from django.contrib.auth.decorators import login_required
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 
 from infographics.models import *
 from django.contrib.auth.models import User
 from django.utils import translation
 
+import csv
+from datetime import datetime
+
 
 def cert(request):
     return render(request, "infographics/godaddy.html")
+
 
 @login_required
 def index(request):
@@ -77,3 +81,16 @@ def timeline_update(request):
                 row['a_consumptionLessSavings'] = float(j['consumptionLessSavings'])
 
     return JsonResponse({'multipliers': multipliers, 'data': data}, safe=False)
+
+
+@login_required
+def summary(request):
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = \
+        'attachment; filename="summary_' + request.user.username + '_' + datetime.now().strftime("%Y-%m-%d %H:00") + '.csv"'
+    writer = csv.writer(response)
+    writer.writerow(['First row', 'Foo', 'Bar', 'Baz'])
+    writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
+
+    return response
+
