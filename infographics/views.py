@@ -89,7 +89,22 @@ def summary(request):
     response['Content-Disposition'] = \
         'attachment; filename="summary_' + request.user.username + '_' + datetime.now().strftime("%Y-%m-%d %H:00") + '.csv"'
     writer = csv.writer(response)
-    writer.writerow(['First row', 'Foo', 'Bar', 'Baz'])
+    writer.writerow(['Timestamp','Apartment Riina Consumption, kWh',
+                    'Apartment Sofia Consumption','Apartment Petja Consumption','Apartment Pia Consumption', 'Apartment Ville Consumption',
+                     'Apartment Riina Production, kWh',
+                     'CO2 no-solar, kg','CO2 with-solar, kg',
+                     'Spent no-solar, EUR', 'Spent with-solar, EUR',
+                     'Building Consumption, kWh', 'Building Production, kWh'])
+
+    riina = Apartment.objects.get(name='Riina')
+    sofia = Apartment.objects.get(name='Sofia')
+    petja = Apartment.objects.get(name='Petja')
+    pia = Apartment.objects.get(name='Pia')
+    ville = Apartment.objects.get(name='Ville')
+
+    
+
+
     writer.writerow(['Second row', 'A', 'B', 'C', '"Testing"', "Here's a quote"])
 
     return response
