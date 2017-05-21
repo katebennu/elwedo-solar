@@ -8,7 +8,6 @@ from django.core.management.base import BaseCommand
 
 from infographics.models import Building, Apartment, ConsumptionMeasurement
 
-
 from django.db.utils import IntegrityError
 
 
@@ -17,7 +16,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.run()
-        self.stdout.write(self.style.SUCCESS('Successfully inserted dummy building consumption data'))
+        self.stdout.write(self.style.SUCCESS('Successfully inserted dummy apartment consumption data'))
 
     def run(self):
         buildings = Building.objects.all()
@@ -31,11 +30,12 @@ class Command(BaseCommand):
             for row in rows:
                 parse_time = datetime.strptime(row[0], '%d.%m.%Y %H:%M:%S')
                 try:
-                    for building in buildings:
+                    for a in apartments:
                         _, created = ConsumptionMeasurement.objects.get_or_create(
-                            building=building,
-                            timestamp=datetime(parse_time.year + 1, parse_time.month, parse_time.day, parse_time.hour, parse_time.minute, tzinfo=utc),
-                            value=float(row[1])
+                            apartment=a,
+                            timestamp=datetime(parse_time.year + 1, parse_time.month, parse_time.day, parse_time.hour,
+                                               parse_time.minute, tzinfo=utc),
+                            value=float(row[1]) / float(a.building.total_area) * float(a.area)
                         )
 
                 except IntegrityError:
