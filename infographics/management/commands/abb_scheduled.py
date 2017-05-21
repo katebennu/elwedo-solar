@@ -14,7 +14,7 @@ from infographics.models import Apartment, ConsumptionMeasurement
 sched = BlockingScheduler()
 
 
-@sched.scheduled_job('cron', minute=25)
+@sched.scheduled_job('cron', minute=50)
 def timed_job():
     print('********************* started timed_job')
 
@@ -105,7 +105,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.stdout.write(self.style.SUCCESS('Started listening to house servers'))
-        self.run()
+        sched.start()
         self.stdout.write(self.style.SUCCESS('Successfully inserted real consumption data'))
 
 
