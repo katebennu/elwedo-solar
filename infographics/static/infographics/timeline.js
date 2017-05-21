@@ -31,10 +31,10 @@ function parseData(data) {
 function getDataTotal(data) {
     let consumptionTotal = 0, productionTotal = 0, consumptionLessSavingsTotal = 0, savingsTotal = 0;
     for (let i = 0; i < data.length; i++) {
-        consumptionTotal += data[i]['a_consumption'];
-        consumptionLessSavingsTotal += data[i]['a_consumptionLessSavings'];
-        productionTotal += data[i]['a_production'];
-        savingsTotal += data[i]['a_savings'];
+        consumptionTotal += data[i]['consumption'];
+        consumptionLessSavingsTotal += data[i]['consumptionLessSavings'];
+        productionTotal += data[i]['production'];
+        savingsTotal += data[i]['savings'];
     }
     let savingsRate = Math.round(savingsTotal / consumptionTotal * 100);
 
@@ -96,7 +96,7 @@ $('#building-switch').click(function () {
     updateTimeLine(timeFrame, buildingOn);
 });
 
-function drawAxes(data, timeFrame, buildingOn) {
+function drawAxes(data, timeFrame) {
     // time format for X axis
     let t = '%d.%m.';
     if (timeFrame == 'day') t = '%H:%M';
@@ -114,8 +114,7 @@ function drawAxes(data, timeFrame, buildingOn) {
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
     let maxY = d3.max(data.map(function (d) {
-        if (buildingOn == true) return d.b_consumption;
-        else return d.a_consumption;
+        return d.consumption;
     }));
 
     let y = d3.scaleLinear()
@@ -158,25 +157,16 @@ function appendXAxis(svg, height, xAxis) {
         .call(xAxis);
 }
 
-function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY, x, y) {
+function stackedChart(fullData, timeFrame, svg, width, height, maxY, x, y) {
     data = [];
-    if (buildingOn == true) {
-        for (let i = 0; i < fullData.length; i++) {
-            data.push({
-                'timestamp': fullData[i]['timestamp'],
-                'savings': fullData[i]['b_savings'],
-                'consumptionLessSavings': fullData[i]['b_consumptionLessSavings']
-            });
-        }
-    } else {
-        for (let i = 0; i < fullData.length; i++) {
-            data.push({
-                'timestamp': fullData[i]['timestamp'],
-                'savings': fullData[i]['a_savings'],
-                'consumptionLessSavings': fullData[i]['a_consumptionLessSavings']
-            });
-        }
+    for (let i = 0; i < fullData.length; i++) {
+        data.push({
+            'timestamp': fullData[i]['timestamp'],
+            'savings': fullData[i]['savings'],
+            'consumptionLessSavings': fullData[i]['consumptionLessSavings']
+        });
     }
+
     data.push({'columns': ['timestamp', 'consumptionLessSavings', 'savings']});
 
     let keys = ['savings', 'consumptionLessSavings'];
@@ -499,7 +489,6 @@ function carSection(productionTotal, timeFrame) {
 
 // MAIN
 function updateTimeLine(timeFrame, buildingOn) {
-    console.log(buildingOn);
     $.getJSON('/timeline-update/', {'timeFrame': timeFrame, 'buildingOn': buildingOn}, function (dataBlob, jqXHR) {
         console.log(dataBlob);
         // clean existing charts
@@ -515,12 +504,12 @@ function updateTimeLine(timeFrame, buildingOn) {
         // update header
         updateHeader(data);
 
-        let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame, buildingOn);
+        let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame);
         $(".tick > text").filter(function () {
             return $(this).text() === "0.00";
         }).css("display", "none");
 
-        stackedChart(data, buildingOn, timeFrame, svg, width, height, maxY, x, y);
+        stackedChart(data, timeFrame, svg, width, height, maxY, x, y);
         appendXAxis(svg, height, xAxis);
 
         explanation(productionTotal, savingsTotal, multipliers.CO2Multiplier);
