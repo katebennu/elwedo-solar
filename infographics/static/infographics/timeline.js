@@ -41,7 +41,7 @@ function getDataTotal(data) {
 
     return [savingsRate,
         [{'value': consumptionTotal, title: 'consumptionTotal'},
-            {'value': productionTotal, title: 'productionTotal'}],
+            {'value': savingsTotal, title: 'savingsTotal'}],
         productionTotal, savingsTotal,
         [consumptionTotal, consumptionLessSavingsTotal]];
 }
@@ -304,16 +304,16 @@ function euroChart(data, gridMult, solarMult) {
         .style('stroke', '#6D6A5C')
         .style('stroke-width', '2');
 
+
     let wOS = (data[0]['value'] * gridMult).toFixed(1);
     if (wOS >= 10) wOS = Math.round(data[0]['value'] * gridMult);
 
-    let wOSHeight = $("#euro-chart rect:nth-of-type(2)").height();
-
+    let wOSHeight = $("#euro-chart rect:first-of-type").height();
 
     svg.append("text")
-        .attr('x', 113)
+        .attr('x', 45)
         .attr('y', -8 + height - wOSHeight) // + height - height of the first rect
-        .attr('fill', '#26B5DB')
+        .attr('fill', '#56eda8')
         .attr('font-size', 16)
         .attr('font-weight', 'bold')
         .text(wOS + ' €');
@@ -321,12 +321,12 @@ function euroChart(data, gridMult, solarMult) {
     let wS = (data[0]['value'] * gridMult - data[1]['value'] * solarMult).toFixed(1);
     if (wS >= 10) wS = Math.round(data[0]['value'] * gridMult - data[1]['value'] * solarMult);
 
-    let wSHeight = $("#euro-chart rect:first-of-type").height();
+    let wSHeight = $("#euro-chart rect:nth-of-type(2)").height();
 
     svg.append("text")
-        .attr('x', 45)
+        .attr('x', 113)
         .attr('y', -8 + height - wSHeight) // + height - height of the first rect
-        .attr('fill', '#56eda8')
+        .attr('fill', '#26B5DB')
         .attr('font-size', 16)
         .attr('font-weight', 'bold')
         .text(wS + ' €');
@@ -404,8 +404,13 @@ function CO2Chart(data, multiplier) {
     $('#green-circle').attr("r", String(consumptionRate * 0.75));
     $('#blue-circle').attr("r", String(consumptionLessSavingsRate * 0.75));
 
-    $('#co2-wO').text(Math.round(data[0] * multiplier) + 'kg');
-    $('#co2-w').text(Math.round(data[1] * multiplier) + 'kg');
+    let wO = (data[0] * multiplier).toFixed(1),
+        w = (data[1] * multiplier).toFixed(1);
+    if (wO >=10) wO = Math.round(wO);
+    if (w >=10) w = Math.round(w);
+
+    $('#co2-wO').text(wO + 'kg');
+    $('#co2-w').text(w + 'kg');
 }
 
 // small graphs - change view from one line to a carousel

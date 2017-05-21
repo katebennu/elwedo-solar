@@ -78,7 +78,7 @@ msgstr "Ajatko sähköllä? Kun lataat aurinkoisina tunteina, saat akkuun 100 km
 msgid ""
 "Your solar power has helped you to reduce CO2 emissions in one day/week/"
 "month equaling to"
-msgstr "Aurinkosähköllä olet vähentänyt päivässä/viikossa/kuukaudessa CO2-päästöjä, jotka vastaavat"
+msgstr "Aurinkosähköllä olet vähentänyt CO2-päästöjä, jotka vastaavat"
 
 #: infographics/templates/infographics/explanation.html:7
 msgid "km air travel."
@@ -86,7 +86,7 @@ msgstr "km lentomatkaa."
 
 #: infographics/templates/infographics/explanation.html:10
 msgid "You have produced solar power in one day/week/month equaling to"
-msgstr "Aurinkosähköllä olet tuottanut päivässä/viikossa/kuukaudessa energian, joka vastaa"
+msgstr "Aurinkosähköllä olet tuottanut energian, joka vastaa"
 
 #: infographics/templates/infographics/explanation.html:10
 msgid "km train trip."

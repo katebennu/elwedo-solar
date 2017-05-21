@@ -17,6 +17,8 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('Successfully inserted dummy base data'))
 
     def run(self):
+
+
         module_dir = os.path.dirname(os.path.abspath(__file__))
         with open(os.path.join(module_dir, "fixtures", 'buildings.csv')) as file:
             reader = csv.reader(file)
