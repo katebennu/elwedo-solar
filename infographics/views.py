@@ -34,28 +34,31 @@ def timeline_update(request):
     # if request.user.username == '':
     #     user = User.objects.get(username='Petja_user_1')
     # else:
-    user = request.user
-    building = Building.objects.first()
-    apartment = user.profile.apartment
 
     time_frame = request.GET.get('timeFrame')
+    building_on = request.GET.get('buildingOn')
+
+    user = request.user
+
+    from pprint import pprint
+    pprint(building_on)
+
+    if building_on == 'true':
+        obj = Building.objects.first()
+    else:
+        obj = user.profile.apartment
 
     if time_frame == 'month':
-        data_building = building.get_multiple_days_data(31)
-        data_apartment = apartment.get_multiple_days_data(31)
-
+        query = obj.get_multiple_days_data(31)
     elif time_frame == 'week':
-        data_building = building.get_multiple_days_data(8)
-        data_apartment = apartment.get_multiple_days_data(8)
-
+        query = obj.get_multiple_days_data(8)
     else:
-        data_building = building.get_day_data()
-        data_apartment = apartment.get_day_data()
+        query = obj.get_day_data()
 
     km_multiplier = KmMultiplier.objects.get(use=True)
     co2_multiplier = CO2Multiplier.objects.get(use=True)
-    grid_multiplier = GridPriceMultiplier.objects.get(apartment=apartment)
-    solar_multiplier = SolarPriceMultiplier.objects.get(apartment=apartment)
+    grid_multiplier = GridPriceMultiplier.objects.get(apartment=user.profile.apartment)
+    solar_multiplier = SolarPriceMultiplier.objects.get(apartment=user.profile.apartment)
 
     data = list()
     multipliers = {
@@ -65,20 +68,14 @@ def timeline_update(request):
         'solarMultiplier': solar_multiplier.multiplier
     }
 
-    for i in data_building:
+    for i in query:
         row = {}
         data.append(row)
         row['timestamp'] = i['timestamp'].isoformat() + 'Z'
-        row['b_consumption'] = float(i['consumption'])
-        row['b_production'] = float(i['production'])
-        row['b_savings'] = float(i['savings'])
-        row['b_consumptionLessSavings'] = float(i['consumptionLessSavings'])
-        for j in data_apartment:
-            if i['timestamp'] == j['timestamp']:
-                row['a_consumption'] = float(j['consumption'])
-                row['a_production'] = float(j['production'])
-                row['a_savings'] = float(j['savings'])
-                row['a_consumptionLessSavings'] = float(j['consumptionLessSavings'])
+        row['consumption'] = float(i['consumption'])
+        row['production'] = float(i['production'])
+        row['savings'] = float(i['savings'])
+        row['consumptionLessSavings'] = float(i['consumptionLessSavings'])
 
     return JsonResponse({'multipliers': multipliers, 'data': data}, safe=False)
 

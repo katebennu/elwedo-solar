@@ -499,8 +499,8 @@ function carSection(productionTotal, timeFrame) {
 
 // MAIN
 function updateTimeLine(timeFrame, buildingOn) {
-
-    $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (dataBlob, jqXHR) {
+    console.log(buildingOn);
+    $.getJSON('/timeline-update/', {'timeFrame': timeFrame, 'buildingOn': buildingOn}, function (dataBlob, jqXHR) {
         console.log(dataBlob);
         // clean existing charts
         $('#timeline-chart').html('');
