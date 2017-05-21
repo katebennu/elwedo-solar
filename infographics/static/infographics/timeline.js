@@ -28,7 +28,7 @@ function parseData(data) {
     data.forEach(process);
     return data;
 }
-function getDataTotal(data) {
+function getDataTotal(data, gridMult, solarMult) {
     let consumptionTotal = 0, productionTotal = 0, consumptionLessSavingsTotal = 0, savingsTotal = 0;
     for (let i = 0; i < data.length; i++) {
         consumptionTotal += data[i]['consumption'];
@@ -38,10 +38,14 @@ function getDataTotal(data) {
     }
     let savingsRate = Math.round(savingsTotal / consumptionTotal * 100);
 
+    let wOS = (consumptionTotal * gridMult).toFixed(1);
+    if (wOS >= 10) wOS = Math.round(wOS);
+    let wS = (consumptionTotal * gridMult - savingsTotal * solarMult).toFixed(1);
+    if (wS >= 10) wS = Math.round(wS);
 
     return [savingsRate,
-        [{'value': consumptionTotal, title: 'consumptionTotal'},
-            {'value': savingsTotal, title: 'savingsTotal'}],
+        [{'value': wOS, title: 'wOS'},
+            {'value': wS, title: 'wS'}],
         productionTotal, savingsTotal,
         [consumptionTotal, consumptionLessSavingsTotal]];
 }
@@ -260,7 +264,8 @@ function explanation(productionTotal, savingsTotal, CO2Multiplier) {
 }
 
 // small graphs
-function euroChart(data, gridMult, solarMult) {
+function euroChart(data) {
+    console.log(data);
     let margin = {top: 20, right: 5, bottom: 0, left: 5};
     let width = 190 - margin.left - margin.right;
     let height = 185 - margin.top - margin.bottom;
@@ -305,9 +310,6 @@ function euroChart(data, gridMult, solarMult) {
         .style('stroke-width', '2');
 
 
-    let wOS = (data[0]['value'] * gridMult).toFixed(1);
-    if (wOS >= 10) wOS = Math.round(data[0]['value'] * gridMult);
-
     let wOSHeight = $("#euro-chart rect:first-of-type").height();
 
     svg.append("text")
@@ -316,10 +318,7 @@ function euroChart(data, gridMult, solarMult) {
         .attr('fill', '#56eda8')
         .attr('font-size', 16)
         .attr('font-weight', 'bold')
-        .text(wOS + ' €');
-
-    let wS = (data[0]['value'] * gridMult - data[1]['value'] * solarMult).toFixed(1);
-    if (wS >= 10) wS = Math.round(data[0]['value'] * gridMult - data[1]['value'] * solarMult);
+        .text(data[0].value + ' €');
 
     let wSHeight = $("#euro-chart rect:nth-of-type(2)").height();
 
@@ -329,7 +328,7 @@ function euroChart(data, gridMult, solarMult) {
         .attr('fill', '#26B5DB')
         .attr('font-size', 16)
         .attr('font-weight', 'bold')
-        .text(wS + ' €');
+        .text(data[1].value + ' €');
 }
 function donutChart(savingsRate) {
     let o = 0, n = 50, x = savingsRate, m = 50 - x;
@@ -504,7 +503,7 @@ function updateTimeLine(timeFrame, buildingOn) {
 
         let data = parseData(dataBlob.data),
             multipliers = dataBlob.multipliers;
-        let [savingsRate, totals, productionTotal, savingsTotal, CO2Rates] = getDataTotal(data);
+        let [savingsRate, totals, productionTotal, savingsTotal, CO2Rates] = getDataTotal(data, multipliers.gridMultiplier, multipliers.solarMultiplier);
 
         // update header
         updateHeader(data);
