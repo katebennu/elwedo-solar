@@ -55,6 +55,7 @@ def get_data_for_range(
             'consumptionLessSavings': float(consumption - savings)
         }
 
+
 def sum_for_each_day(hourly_results):
     day_results = defaultdict(list)
     for result in hourly_results:
@@ -122,7 +123,7 @@ class Apartment(models.Model):
         return list(sum_for_each_day(self._get_data_estimates(partial(hourly, 24 * days))))
 
     def __str__(self):
-        return str(self.building.name) + ', Apartment #' + str(self.name)
+        return str(self.building.name) + ', Apartment ' + str(self.name)
 
 
 class Building(models.Model):
