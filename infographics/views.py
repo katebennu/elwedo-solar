@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.utils import translation
 
 import csv
-from datetime import datetime
+from datetime import datetime,timedelta
 
 
 def cert(request):
@@ -41,7 +41,6 @@ def timeline_update(request):
     user = request.user
 
     from pprint import pprint
-    pprint(building_on)
 
     if building_on == 'true':
         obj = Building.objects.first()
@@ -49,7 +48,33 @@ def timeline_update(request):
         obj = user.profile.apartment
 
     if time_frame == 'month':
-        query = obj.get_multiple_days_data(31)
+        original = obj.get_multiple_days_data(13)[::-1]
+        # pprint(original)
+
+        stamps = [original[-1]['timestamp']]
+        for i in range(18):
+            stamps.append(stamps[-1] - timedelta(days=1))
+        stamps.pop(0)
+        pprint(stamps)
+
+
+        # project the pattern into the past
+        addition = original + original[:7]
+
+
+        for i in range(len(addition)-1):
+            addition[i]['timestamp'] = stamps[i]
+            pprint(addition[i]['timestamp'])
+
+        # query = original + addition
+        pprint(addition)
+
+        query = addition
+        # for i in query[1:31]:
+        #     i['timestamp'] = i['timestamp'] - timedelta(days=1)
+        # query = query[::-1]
+
+
     elif time_frame == 'week':
         query = obj.get_multiple_days_data(8)
     else:

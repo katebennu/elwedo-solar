@@ -55,7 +55,6 @@ def get_data_for_range(
             'consumptionLessSavings': float(consumption - savings)
         }
 
-
 def sum_for_each_day(hourly_results):
     day_results = defaultdict(list)
     for result in hourly_results:
