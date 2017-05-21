@@ -232,7 +232,7 @@ function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY,
                 legendBox.style("padding-top", "20px");
             }
             consInfo
-                .text(": " + (d.data.consumptionLessSavings + d.data.savings).toFixed(2) + " kWh");
+                .text(": " + (d.data.consumptionLessSavings).toFixed(2) + " kWh");
             prodInfo
                 .text(": " + (d.data.savings).toFixed(2) + " kWh");
             square
