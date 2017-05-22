@@ -20,12 +20,12 @@ def get_data_for_range(
         range_generator,
         consumption_measurement_query_set,
         building,
-        apartment_divisor=1):
+        place_area):
     """
     :param range_generator: function producing a set of datetime ranges, must accept a date time parameter as a limit
     :param consumption_measurement_query_set: query set of consumption values
     :param building: building object where the measurements were taken
-    :param apartment_divisor: the number of apartments.csv if the measurements were per apartment - 1 if for a building
+    :param place_area: area of a given location - should be less or equal to the area of the building
     :return: generator of values
     """
     latest_consumption = consumption_measurement_query_set.order_by('-timestamp').first().timestamp
@@ -41,7 +41,7 @@ def get_data_for_range(
 
         production = production_measurements \
                          .aggregate(Sum('percent_of_max_capacity'))[
-                         "percent_of_max_capacity__sum"] * total_capacity / apartment_divisor
+                         "percent_of_max_capacity__sum"] * total_capacity * (place_area / building.total_area)
 
         savings = production
         if production > consumption:
@@ -54,7 +54,6 @@ def get_data_for_range(
             'savings': float(savings),
             'consumptionLessSavings': float(consumption - savings)
         }
-
 
 def sum_for_each_day(hourly_results):
     day_results = defaultdict(list)
@@ -111,7 +110,7 @@ class Apartment(models.Model):
             consumption_measurement_query_set=self.consumptionmeasurement_set,
             range_generator=range_generator,
             building=self.building,
-            apartment_divisor=int(self.building.total_apartments)
+            place_area=self.area
         ))
 
     def get_day_data(self):
@@ -123,7 +122,7 @@ class Apartment(models.Model):
         return list(sum_for_each_day(self._get_data_estimates(partial(hourly, 24 * days))))
 
     def __str__(self):
-        return str(self.building.name) + ', Apartment ' + str(self.name)
+        return str(self.building.name) + ', Apartment #' + str(self.name)
 
 
 class Building(models.Model):
@@ -142,7 +141,8 @@ class Building(models.Model):
         return list(get_data_for_range(
             consumption_measurement_query_set=self.consumptionmeasurement_set,
             range_generator=range_generator,
-            building=self
+            building=self,
+            place_area=self.total_area
         ))
 
     def get_day_data(self):

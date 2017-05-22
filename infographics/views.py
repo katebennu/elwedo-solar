@@ -136,7 +136,6 @@ def summary(request):
             i['consumption'] * co2,
             i['consumptionLessSavings'] * co2,
             i['consumption'] * eur_grid,
-            n
         ])
     for a in apartments:
         writer.writerow(['***Apartment ', a.name + '***'])

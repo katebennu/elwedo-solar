@@ -34,7 +34,7 @@ class Command(BaseCommand):
 
                 TargetCapacity.objects.get_or_create(
                     building=building,
-                    total_capacity=100,
+                    total_capacity=40,
                     name= building.name + ' from populator'
                 )
 
@@ -70,7 +70,7 @@ class Command(BaseCommand):
         u.save()
         Profile.objects.get_or_create(user=u, apartment=Apartment.objects.first())
 
-        ExampleGrid.objects.get_or_create(name='Suvilahti', max_capacity=300)
+        ExampleGrid.objects.get_or_create(name='Suvilahti', max_capacity=340)
 
         CO2Multiplier.objects.get_or_create(name='co2 from populator', multiplier=0.21)
         KmMultiplier.objects.get_or_create(name='km from populator', multiplier=5)

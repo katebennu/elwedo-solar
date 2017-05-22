@@ -14,7 +14,7 @@ from infographics.models import Apartment, ConsumptionMeasurement
 sched = BlockingScheduler()
 
 
-@sched.scheduled_job('cron', minute=50)
+@sched.scheduled_job('cron', minute=10)
 def timed_job():
     print('********************* started timed_job')
 
@@ -53,7 +53,7 @@ def timed_job():
     req_root = ET.fromstring(base_req)
 
     end = datetime.now().replace(minute=0, second=0, microsecond=0)
-    start = end - timedelta(days=13)
+    start = end - timedelta(days=3)
 
     req_root.find('.//Readings').find('.//end').text = end.isoformat() + '.0000000Z'
     req_root.find('.//Readings').find('.//start').text = start.isoformat() + '.0000000Z'
