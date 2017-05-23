@@ -10,7 +10,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import Sum
 
-from .utils.range import hourly
+from .utils.range import hourly, Range
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -34,8 +34,14 @@ def get_data_for_range(
     total_capacity = TargetCapacity.objects.filter(building=building, use=True)[0].total_capacity
 
     for time_range in range_generator(min(latest_consumption, latest_production)):
-        consumption_measurements = consumption_measurement_query_set.filter(timestamp__range=time_range)
-        production_measurements = ProductionMeasurement.objects.filter(timestamp__range=time_range)
+        start = time_range.start
+        end = time_range.end
+
+        # This is a trick to make sure that the start of the range is exclusive
+        actual_range = Range(start + datetime.timedelta(seconds=1), end)
+
+        consumption_measurements = consumption_measurement_query_set.filter(timestamp__range=actual_range)
+        production_measurements = ProductionMeasurement.objects.filter(timestamp__range=actual_range)
 
         consumption = consumption_measurements.aggregate(Sum('value'))["value__sum"]
 
@@ -48,7 +54,7 @@ def get_data_for_range(
             savings = consumption
 
         yield {
-            'timestamp': time_range.end,
+            'timestamp': actual_range.end,
             'consumption': float(consumption),
             'production': float(production),
             'savings': float(savings),

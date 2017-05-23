@@ -43,12 +43,16 @@ def timeline_update(request):
     from pprint import pprint
 
     if building_on == 'true':
-        obj = Building.objects.first()
+        obj = Building.objects.get(pk=1)
     else:
         obj = user.profile.apartment
 
     if time_frame == 'month':
-        query = obj.get_multiple_days_data(13)
+        if building_on == 'true':
+            query = obj.get_multiple_days_data(30)
+        else:
+            query = obj.get_multiple_days_data(13)
+
         # pprint(original)
 
         # stamps = [original[-1]['timestamp']]
