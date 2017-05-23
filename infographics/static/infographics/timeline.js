@@ -40,7 +40,7 @@ function getDataTotal(data, gridMult, solarMult) {
 
     let wOS = (consumptionTotal * gridMult).toFixed(1);
     if (wOS >= 10) wOS = Math.round(wOS);
-    let wS = (consumptionTotal * gridMult - savingsTotal * solarMult).toFixed(1);
+    let wS = ((consumptionTotal - savingsTotal) * gridMult + savingsTotal * solarMult).toFixed(1);
     if (wS >= 10) wS = Math.round(wS);
 
     return [savingsRate,
