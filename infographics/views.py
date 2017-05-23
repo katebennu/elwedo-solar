@@ -129,6 +129,8 @@ def summary(request):
     writer = csv.writer(response)
     writer.writerow(['Timestamp',
                      'Consumption, kWh',
+                     'Savings, kWh',
+                     'Consumption Less Savings, kWh',
                      'Production, kWh',
                      'CO2 no-solar, kg', 'CO2 with-solar, kg',
                      'Spent no-solar, EUR', 'Spent with-solar, EUR'])
@@ -156,4 +158,7 @@ def summary(request):
         for i in a_day:
             writer.writerow(makerow(i, co2, eur_grid, eur_sol))
         writer.writerow(['***Week***'])
+        a_week = building.get_multiple_days_data(7)
+        for i in a_week:
+            writer.writerow(makerow(i, co2, eur_grid, eur_sol))
     return response
