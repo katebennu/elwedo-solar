@@ -1,19 +1,14 @@
 import datetime
-from django.conf import settings
 from collections import defaultdict
 from functools import partial
 
 import pytz
-
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 from django.db.models import Sum
 
 from .utils.range import hourly, Range
-
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 
 
 def get_data_for_range(
@@ -49,6 +44,8 @@ def get_data_for_range(
                          .aggregate(Sum('percent_of_max_capacity'))[
                          "percent_of_max_capacity__sum"] * total_capacity * (place_area / building.total_area)
 
+
+
         savings = production
         if production > consumption:
             savings = consumption
@@ -60,6 +57,7 @@ def get_data_for_range(
             'savings': float(savings),
             'consumptionLessSavings': float(consumption - savings)
         }
+
 
 def sum_for_each_day(hourly_results):
     day_results = defaultdict(list)

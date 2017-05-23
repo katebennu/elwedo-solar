@@ -109,12 +109,23 @@ def timeline_update(request):
     return JsonResponse({'multipliers': multipliers, 'data': data}, safe=False)
 
 
+def makerow(i, co2, eur_grid, eur_sol):
+    return [
+        i['timestamp'].strftime("%Y-%m-%d %H:00"),
+        i['consumption'],
+        i['production'],
+        i['consumption'] * co2,
+        i['consumptionLessSavings'] * co2,
+        i['consumption'] * eur_grid,
+        (i['consumption'] - i['savings']) * eur_grid + i['savings'] * eur_sol
+    ]
+
+
 @user_passes_test(lambda u: u.is_superuser)
 def summary(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = \
-        'attachment; filename="summary_' + '_' + datetime.now().strftime(
-            "%Y-%m-%d %H:00") + '.csv"'
+        'attachment; filename="summary_' + '_' + datetime.now().strftime("%Y-%m-%d %H:00") + '.csv"'
     writer = csv.writer(response)
     writer.writerow(['Timestamp',
                      'Consumption, kWh',
@@ -122,40 +133,27 @@ def summary(request):
                      'CO2 no-solar, kg', 'CO2 with-solar, kg',
                      'Spent no-solar, EUR', 'Spent with-solar, EUR'])
     building = Building.objects.first()
-    apartments = Apartment.objects.all()
+    apartments = Apartment.objects.all()[:2]
     co2 = float(CO2Multiplier.objects.filter(use=True)[0].multiplier)
     eur_grid = float(GridPriceMultiplier.objects.filter(use=True)[0].multiplier)
     eur_sol = float(SolarPriceMultiplier.objects.filter(use=True)[0].multiplier)
 
-    writer.writerow(['***Building***'])
-    b_data = building.get_day_data()
-    for i in b_data:
-        n = i['consumption'] * eur_grid - i['production'] * eur_sol
-        if n < 0:
-            n = 0
-        writer.writerow([
-            i['timestamp'].strftime("%Y-%m-%d %H:00"),
-            i['consumption'],
-            i['production'],
-            i['consumption'] * co2,
-            i['consumptionLessSavings'] * co2,
-            i['consumption'] * eur_grid,
-        ])
-    for a in apartments:
-        writer.writerow(['***Apartment ', a.name + '***'])
-        a_data = a.get_day_data()
-        for i in a_data:
-            n = i['consumption'] * eur_grid - i['production'] * eur_sol
-            if n < 0:
-                n = 0
-            writer.writerow([
-                i['timestamp'].strftime("%Y-%m-%d %H:00"),
-                i['consumption'],
-                i['production'],
-                i['consumption'] * co2,
-                i['consumptionLessSavings'] * co2,
-                i['consumption'] * eur_grid,
-                n
-            ])
+    writer.writerow(['*******Building*******'])
+    writer.writerow(['***Day***'])
+    b_day = building.get_day_data()
+    for i in b_day:
+        writer.writerow(makerow(i, co2, eur_grid, eur_sol))
 
+    writer.writerow(['***Week***'])
+    b_week = building.get_multiple_days_data(7)
+    for i in b_week:
+        writer.writerow(makerow(i, co2, eur_grid, eur_sol))
+
+    for a in apartments:
+        writer.writerow(['*******Apartment ', a.name + '*******'])
+        writer.writerow(['***Day***'])
+        a_day = a.get_day_data()
+        for i in a_day:
+            writer.writerow(makerow(i, co2, eur_grid, eur_sol))
+        writer.writerow(['***Week***'])
     return response

@@ -17,8 +17,6 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('Successfully inserted dummy base data'))
 
     def run(self):
-
-
         module_dir = os.path.dirname(os.path.abspath(__file__))
         with open(os.path.join(module_dir, "fixtures", 'buildings.csv')) as file:
             reader = csv.reader(file)
@@ -55,10 +53,6 @@ class Command(BaseCommand):
                 s, _ = SolarPriceMultiplier.objects.get_or_create(name='solar price from populator ' + a.name, multiplier=0.06, apartment=a)
                 for i in range(2):
                     username = row[0] + '_user_' + str(i + 1)
-                    if username == 'Riina_user_1':
-                        username = 'Riina'
-                    if username == 'Riina_user_2':
-                        username = 'Jaana'
                     u, _ = User.objects.get_or_create(username=username)
                     u.set_password('pass')
                     u.save()
