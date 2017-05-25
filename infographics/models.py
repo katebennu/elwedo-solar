@@ -200,7 +200,7 @@ class ExampleGrid(models.Model):
     max_capacity = models.DecimalField(
         max_digits=8,
         decimal_places=2,
-        validators=[MinValueValidator(0.0), MaxValueValidator(999999.99)])
+        validators=[MinValueValidator(0.0), MaxValueValidator(999999.99)], default=340)
 
     def __str__(self):
         return 'Grid ' + str(self.name)
@@ -211,7 +211,7 @@ class TargetCapacity(models.Model):
     total_capacity = models.DecimalField(
         max_digits=8,
         decimal_places=2,
-        validators=[MinValueValidator(0.0), MaxValueValidator(999999.99)])
+        validators=[MinValueValidator(0.0), MaxValueValidator(999999.99)], default=40)
     # estimated capacity, KW, instead of units
     name = models.CharField(
         max_length=100,
