@@ -54,7 +54,7 @@ class Command(BaseCommand):
                 for i in range(2):
                     username = row[0] + '_user_' + str(i + 1)
                     u, _ = User.objects.get_or_create(username=username)
-                    u.set_password('pass')
+                    u.set_password(row[8+i])
                     u.save()
                     Profile.objects.get_or_create(user=u, apartment=a)
 
