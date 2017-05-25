@@ -21,7 +21,7 @@ class Command(BaseCommand):
     def run(self):
         buildings = Building.objects.all()
         apartments = Apartment.objects.all()
-        utc = timezone('UTC')
+        tz = timezone('Europe/Helsinki')
         module_dir = os.path.dirname(os.path.abspath(__file__))
 
         with open(os.path.join(module_dir, "fixtures", 'Fregatti_twoweeks.csv')) as file:
@@ -33,8 +33,8 @@ class Command(BaseCommand):
                     for a in apartments:
                         _, created = ConsumptionMeasurement.objects.get_or_create(
                             apartment=a,
-                            timestamp=datetime(parse_time.year + 1, parse_time.month, parse_time.day, parse_time.hour,
-                                               parse_time.minute, tzinfo=utc),
+                            timestamp=tz.localize(datetime(parse_time.year + 1, parse_time.month, parse_time.day, parse_time.hour,
+                                               parse_time.minute)),
                             value=float(row[1]) / float(a.building.total_area) * float(a.area)
                         )
 

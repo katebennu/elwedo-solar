@@ -29,7 +29,6 @@ class Command(BaseCommand):
             rows = list(reader)
             for row in rows:
                 parse_time = datetime.strptime(row[0], '%d.%m.%Y %H:%M:%S')
-                print(row[0], row[1])
                 try:
                     _, created = ConsumptionMeasurement.objects.get_or_create(
                         building=building,

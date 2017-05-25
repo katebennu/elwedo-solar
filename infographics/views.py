@@ -100,7 +100,8 @@ def timeline_update(request):
     for i in query:
         row = {}
         data.append(row)
-        row['timestamp'] = i['timestamp'].isoformat() + 'Z'
+        time = i['timestamp'] + timedelta(hours=3)
+        row['timestamp'] = time.isoformat() + 'Z'
         row['consumption'] = float(i['consumption'])
         row['production'] = float(i['production'])
         row['savings'] = float(i['savings'])
