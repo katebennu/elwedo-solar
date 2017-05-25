@@ -21,7 +21,7 @@ class Command(BaseCommand):
 
     def run(self):
         building = Building.objects.get(pk=1)
-        utc = timezone('UTC')
+        tz = timezone('Europe/Helsinki')
         module_dir = os.path.dirname(os.path.abspath(__file__))
 
         with open(os.path.join(module_dir, "fixtures", 'Fregatti_short.csv')) as file:
@@ -33,7 +33,7 @@ class Command(BaseCommand):
                 try:
                     _, created = ConsumptionMeasurement.objects.get_or_create(
                         building=building,
-                        timestamp=datetime(parse_time.year + 1, parse_time.month, parse_time.day, parse_time.hour, parse_time.minute, tzinfo=utc),
+                        timestamp=tz.localize(datetime(parse_time.year + 1, parse_time.month, parse_time.day, parse_time.hour, parse_time.minute)),
                         value=float(row[1])
                     )
 

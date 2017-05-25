@@ -130,7 +130,7 @@ def summary(request):
     writer.writerow(['Timestamp',
                      'Consumption, kWh',
                      'Savings, kWh',
-                     'Consumption Less Savings, kWh',
+                     'Consumption Less Savings, kW',
                      'Production, kWh',
                      'CO2 no-solar, kg', 'CO2 with-solar, kg',
                      'Spent no-solar, EUR', 'Spent with-solar, EUR'])
