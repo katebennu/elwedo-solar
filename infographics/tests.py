@@ -50,20 +50,23 @@ class DataTestCase(TestCase):
         self.assertEqual(round(float(a.get_hour_production(time)), 2), 0.22)
 
     # test that spendings withot solar energy are calculated correctly
-    def test_without_solar_calculation(self):
-        # for apartment
+    # for apartment
+    def test_without_solar_price(self):
         a = Apartment.objects.get(name='Test Apartment')
         time = timezone('Europe/Helsinki').localize(datetime(2017, 5, 21, 9))
-        self.assertEqual(round(float(a.get_nosolar_price_one_hour(time)), 3), 0.016)
+        self.assertEqual(round(float(a.get_nosolar_price_one_hour(time)), 2), 0.02)
 
 
         # and for building
 
 
     # test that spending with account for solar energy is calulated correctly
-    # for building
+    # for apartment
+    def test_with_solar_price(self):
+        a = Apartment.objects.get(name='Test Apartment')
+        time = timezone('Europe/Helsinki').localize(datetime(2017, 5, 21, 9))
+        self.assertEqual(round(float(a.get_withsolar_price_one_hour(time)), 2), 0.01)
 
-
-    # and for apartment
+    # and for building
 
 

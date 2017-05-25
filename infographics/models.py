@@ -141,8 +141,14 @@ class Apartment(models.Model):
         return self.get_grid_multiplier() * self.get_hour_consumption(timestamp)
 
     def get_withsolar_price_one_hour(self, timestamp):
-        return self.get_grid_multiplier() * (self.get_hour_consumption(timestamp) - self.get_hour_production(timestamp)) + \
-               self.get_solar_multiplier() * self.get_hour_production(timestamp)
+        g = self.get_grid_multiplier()
+        s = self.get_solar_multiplier()
+        c = self.get_hour_consumption(timestamp)
+        p = self.get_hour_production(timestamp)
+        if c > p:
+            return g * (c - p) + s * p
+        else:
+            return s * p
 
     def get_nosolar_price_one_day(self):
         pass
