@@ -196,6 +196,9 @@ class ProductionMeasurement(models.Model):
     def scale_for_building(self, building):
         return self.percent_of_max_capacity * building.get_target_capacity()
 
+    def scale_for_apartment(self, apartment):
+        return self.scale_for_building(apartment.building) * apartment.area / apartment.building.total_area
+
     def __str__(self):
         return 'Production on ' + str(self.timestamp)
 

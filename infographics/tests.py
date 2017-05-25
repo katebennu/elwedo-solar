@@ -6,9 +6,9 @@ from pytz import timezone
 
 class DataTestCase(TestCase):
     def setUp(self):
-        b = Building.objects.create(name='Test Building')
+        b = Building.objects.create(name='Test Building', total_area=5238)
         TargetCapacity.objects.create(building=b)
-        a = Apartment.objects.create(name='Test Apartment', building=b)
+        a = Apartment.objects.create(name='Test Apartment', building=b, area=94.5)
         g = ExampleGrid.objects.create(name='Test Grid', max_capacity=340)
 
         tz = timezone('Europe/Helsinki')
@@ -36,16 +36,15 @@ class DataTestCase(TestCase):
     # test that production scales to building correctly
     def test_production_scaling_to_building(self):
         b = Building.objects.get(name='Test Building')
-        g = ExampleGrid.objects.get(name='Test Grid')
-        p = ProductionMeasurement.objects.get(grid=g)
+        p = ProductionMeasurement.objects.get()
         t = TargetCapacity.objects.get(building=b)
         self.assertEqual(round(p.scale_for_building(b)), round(12.24))
 
     # test that production is allocated to apartment correctly
-    # def test_production_allocation_to_apartment(self):
-    #     a = Apartment.objects.get(name='Test Apartment')
-    #     pa = ProductionMeasurement.objects.get(grid=g)
-    #     self.assertEqual()
+    def test_production_allocation_to_apartment(self):
+        a = Apartment.objects.get(name='Test Apartment')
+        pa = ProductionMeasurement.objects.get()
+        self.assertEqual(round(float(pa.scale_for_apartment(a)), 2), 0.22)
 
     # test that spendings withot solar energy are calculated correctly
 
