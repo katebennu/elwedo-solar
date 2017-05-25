@@ -44,14 +44,18 @@ def get_data_for_range(
                          .aggregate(Sum('percent_of_max_capacity'))[
                          "percent_of_max_capacity__sum"] * total_capacity * (place_area / building.total_area)
 
-        savings = max(production, consumption)
+        savings = min(production, consumption)
 
         yield {
             'timestamp': actual_range.end,
             'consumption': float(consumption),
             'production': float(production),
             'savings': float(savings),
-            'consumptionLessSavings': float(consumption - savings)
+            'consumptionLessSavings': float(consumption - savings),
+            # 'priceNoSolar':
+            # 'priceWithSolar':
+            # 'co2NoSolar':
+            # 'co2WithSolar':
         }
 
 
@@ -113,6 +117,12 @@ class Apartment(models.Model):
             place_area=self.area
         ))
 
+    def get_hour_production(self, timestamp):
+        return ProductionMeasurement.objects.get(timestamp=timestamp).scale_for_apartment(self)
+
+    def get_hour_consumption(self, timestamp):
+        return ConsumptionMeasurement.objects.get(timestamp=timestamp, apartment=self).value
+
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
         return self._get_data_estimates(partial(hourly, 24))
@@ -120,6 +130,25 @@ class Apartment(models.Model):
     def get_multiple_days_data(self, days):
         """ Returns consumption and production data for the latest N days in the database"""
         return list(sum_for_each_day(self._get_data_estimates(partial(hourly, 24 * days))))
+
+    def get_grid_multiplier(self):
+        return GridPriceMultiplier.objects.get(apartment=self, use=True).multiplier
+
+    def get_solar_multiplier(self):
+        return SolarPriceMultiplier.objects.get(apartment=self, use=True).multiplier
+
+    def get_nosolar_price_one_hour(self, timestamp):
+        return self.get_grid_multiplier() * self.get_hour_consumption(timestamp)
+
+    def get_withsolar_price_one_hour(self, timestamp):
+        return self.get_grid_multiplier() * (self.get_hour_consumption(timestamp) - self.get_hour_production(timestamp)) + \
+               self.get_solar_multiplier() * self.get_hour_production(timestamp)
+
+    def get_nosolar_price_one_day(self):
+        pass
+
+    def get_withsolar_price_one_day(self):
+        pass
 
     def __str__(self):
         return str(self.building.name) + ', Apartment #' + str(self.name)
@@ -147,6 +176,9 @@ class Building(models.Model):
             building=self,
             place_area=self.total_area
         ))
+
+    def get_hour_production(self, timestamp):
+        return ProductionMeasurement.objects.get(timestamp=timestamp).scale_for_building(self)
 
     def get_day_data(self):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
@@ -230,7 +262,7 @@ class TargetCapacity(models.Model):
 
 
 class CO2Multiplier(models.Model):
-    name = models.fields.CharField(max_length=50)
+    name = models.fields.CharField(max_length=50, default='default')
     multiplier = models.DecimalField(
         max_digits=8,
         decimal_places=5,
@@ -239,7 +271,7 @@ class CO2Multiplier(models.Model):
 
 
 class KmMultiplier(models.Model):
-    name = models.fields.CharField(max_length=50)
+    name = models.fields.CharField(max_length=50, default='default')
     multiplier = models.DecimalField(
         max_digits=8,
         decimal_places=5,
@@ -248,7 +280,7 @@ class KmMultiplier(models.Model):
 
 
 class GridPriceMultiplier(models.Model):
-    name = models.fields.CharField(max_length=50)
+    name = models.fields.CharField(max_length=50, default='default')
     multiplier = models.DecimalField(
         max_digits=8,
         decimal_places=5,
@@ -258,7 +290,7 @@ class GridPriceMultiplier(models.Model):
 
 
 class SolarPriceMultiplier(models.Model):
-    name = models.fields.CharField(max_length=50)
+    name = models.fields.CharField(max_length=50, default='default')
     multiplier = models.DecimalField(
         max_digits=8,
         decimal_places=5,

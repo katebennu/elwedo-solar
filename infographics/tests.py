@@ -11,6 +11,9 @@ class DataTestCase(TestCase):
         a = Apartment.objects.create(name='Test Apartment', building=b, area=94.5)
         g = ExampleGrid.objects.create(name='Test Grid', max_capacity=340)
 
+        GridPriceMultiplier.objects.create(apartment=a, multiplier=0.12)
+        SolarPriceMultiplier.objects.create(apartment=a, multiplier=0.06)
+
         tz = timezone('Europe/Helsinki')
         t = datetime(2017, 5, 21, 9)
 
@@ -19,7 +22,7 @@ class DataTestCase(TestCase):
                                               value=23.94)
         ConsumptionMeasurement.objects.create(timestamp=datetime(2017, 5, 21, 6, tzinfo=timezone('UTC')),
                                               apartment=a,
-                                              value=0.12)
+                                              value=0.13)
         ProductionMeasurement.objects.create(timestamp=tz.localize(t),
                                              grid=g,
                                              percent_of_max_capacity=104/g.max_capacity)
@@ -36,20 +39,31 @@ class DataTestCase(TestCase):
     # test that production scales to building correctly
     def test_production_scaling_to_building(self):
         b = Building.objects.get(name='Test Building')
-        p = ProductionMeasurement.objects.get()
         t = TargetCapacity.objects.get(building=b)
-        self.assertEqual(round(p.scale_for_building(b)), round(12.24))
+        time = timezone('Europe/Helsinki').localize(datetime(2017, 5, 21, 9))
+        self.assertEqual(round(b.get_hour_production(time)), round(12.24))
 
     # test that production is allocated to apartment correctly
     def test_production_allocation_to_apartment(self):
         a = Apartment.objects.get(name='Test Apartment')
-        pa = ProductionMeasurement.objects.get()
-        self.assertEqual(round(float(pa.scale_for_apartment(a)), 2), 0.22)
+        time = timezone('Europe/Helsinki').localize(datetime(2017, 5, 21, 9))
+        self.assertEqual(round(float(a.get_hour_production(time)), 2), 0.22)
 
     # test that spendings withot solar energy are calculated correctly
+    def test_without_solar_calculation(self):
+        # for apartment
+        a = Apartment.objects.get(name='Test Apartment')
+        time = timezone('Europe/Helsinki').localize(datetime(2017, 5, 21, 9))
+        self.assertEqual(round(float(a.get_nosolar_price_one_hour(time)), 3), 0.016)
+
+
+        # and for building
 
 
     # test that spending with account for solar energy is calulated correctly
+    # for building
 
 
-# LATER: test that
+    # and for apartment
+
+

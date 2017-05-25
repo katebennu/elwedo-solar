@@ -148,7 +148,7 @@ def summary(request):
         writer.writerow(makerow(i, co2, eur_grid, eur_sol))
 
     writer.writerow(['***Week***'])
-    b_week = building.get_multiple_days_data(7)
+    b_week = building.get_multiple_days_data(8)
     for i in b_week:
         writer.writerow(makerow(i, co2, eur_grid, eur_sol))
 
@@ -159,7 +159,7 @@ def summary(request):
         for i in a_day:
             writer.writerow(makerow(i, co2, eur_grid, eur_sol))
         writer.writerow(['***Week***'])
-        a_week = building.get_multiple_days_data(7)
+        a_week = a.get_multiple_days_data(8)
         for i in a_week:
             writer.writerow(makerow(i, co2, eur_grid, eur_sol))
     return response

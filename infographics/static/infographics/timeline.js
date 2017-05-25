@@ -162,7 +162,7 @@ function appendXAxis(svg, height, xAxis) {
 }
 
 function stackedChart(fullData, timeFrame, svg, width, height, maxY, x, y) {
-    data = [];
+    let data = [];
     for (let i = 0; i < fullData.length; i++) {
         data.push({
             'timestamp': fullData[i]['timestamp'],
@@ -172,6 +172,8 @@ function stackedChart(fullData, timeFrame, svg, width, height, maxY, x, y) {
     }
 
     data.push({'columns': ['timestamp', 'consumptionLessSavings', 'savings']});
+
+    console.log(data);
 
     let keys = ['savings', 'consumptionLessSavings'];
     let z = d3.scaleOrdinal()
@@ -531,6 +533,7 @@ function updateTimeLine(timeFrame, buildingOn) {
         CO2Chart(CO2Rates, multipliers.CO2Multiplier);
 
         // update car section
+        console.log(productionTotal);
         carSection(productionTotal, timeFrame);
     });
     return [timeFrame, buildingOn]
