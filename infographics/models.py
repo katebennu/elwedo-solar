@@ -44,11 +44,7 @@ def get_data_for_range(
                          .aggregate(Sum('percent_of_max_capacity'))[
                          "percent_of_max_capacity__sum"] * total_capacity * (place_area / building.total_area)
 
-
-
-        savings = production
-        if production > consumption:
-            savings = consumption
+        savings = max(production, consumption)
 
         yield {
             'timestamp': actual_range.end,

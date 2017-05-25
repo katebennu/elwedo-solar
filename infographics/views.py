@@ -135,7 +135,7 @@ def summary(request):
                      'Production, kWh',
                      'CO2 no-solar, kg', 'CO2 with-solar, kg',
                      'Spent no-solar, EUR', 'Spent with-solar, EUR'])
-    building = Building.objects.first()
+    building = Building.objects.get(pk=1)
     apartments = Apartment.objects.all()[:2]
     co2 = float(CO2Multiplier.objects.filter(use=True)[0].multiplier)
     eur_grid = float(GridPriceMultiplier.objects.filter(use=True)[0].multiplier)
