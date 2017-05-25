@@ -15,18 +15,20 @@ def get_data_for_range(
         range_generator,
         consumption_measurement_query_set,
         building,
-        place_area):
+        place_area,
+        apartment=None):
     """
     :param range_generator: function producing a set of datetime ranges, must accept a date time parameter as a limit
     :param consumption_measurement_query_set: query set of consumption values
     :param building: building object where the measurements were taken
     :param place_area: area of a given location - should be less or equal to the area of the building
+    :param apartment: apartment object where the measurements were taken
     :return: generator of values
     """
     latest_consumption = consumption_measurement_query_set.order_by('-timestamp').first().timestamp
     latest_production = ProductionMeasurement.objects.order_by('-timestamp').first().timestamp
 
-    total_capacity = TargetCapacity.objects.filter(building=building, use=True)[0].total_capacity
+    total_capacity = building.get_target_capacity()
 
     for time_range in range_generator(min(latest_consumption, latest_production)):
         start = time_range.start
@@ -46,13 +48,18 @@ def get_data_for_range(
 
         savings = min(production, consumption)
 
+        # if apartment:
+        #     price_no_solar = apartment.get_nosolar_price(time_range)
+        # else:
+
+
         yield {
             'timestamp': actual_range.end,
             'consumption': float(consumption),
             'production': float(production),
             'savings': float(savings),
             'consumptionLessSavings': float(consumption - savings),
-            # 'priceNoSolar':
+            # 'priceNoSolar': price_no_solar
             # 'priceWithSolar':
             # 'co2NoSolar':
             # 'co2WithSolar':
@@ -114,7 +121,8 @@ class Apartment(models.Model):
             consumption_measurement_query_set=self.consumptionmeasurement_set,
             range_generator=range_generator,
             building=self.building,
-            place_area=self.area
+            place_area=self.area,
+            apartment=self,
         ))
 
     def get_hour_production(self, timestamp):
@@ -137,10 +145,10 @@ class Apartment(models.Model):
     def get_solar_multiplier(self):
         return SolarPriceMultiplier.objects.get(apartment=self, use=True).multiplier
 
-    def get_nosolar_price_one_hour(self, timestamp):
+    def get_nosolar_price(self, timestamp):
         return self.get_grid_multiplier() * self.get_hour_consumption(timestamp)
 
-    def get_withsolar_price_one_hour(self, timestamp):
+    def get_withsolar_price(self, timestamp):
         g = self.get_grid_multiplier()
         s = self.get_solar_multiplier()
         c = self.get_hour_consumption(timestamp)
@@ -150,11 +158,19 @@ class Apartment(models.Model):
         else:
             return s * p
 
-    def get_nosolar_price_one_day(self):
-        pass
+    def get_building_nosolar_price(self, timestamp):
+        return self.get_grid_multiplier() * self.building.get_hour_consumption(timestamp)
 
-    def get_withsolar_price_one_day(self):
-        pass
+    def get_building_withsolar_price(self, timestamp):
+        g = self.get_grid_multiplier()
+        s = self.get_solar_multiplier()
+        c = self.get_hour_consumption(timestamp)
+        p = self.get_hour_production(timestamp)
+        if c > p:
+            return g * (c - p) + s * p
+        else:
+            return s * p
+
 
     def __str__(self):
         return str(self.building.name) + ', Apartment #' + str(self.name)

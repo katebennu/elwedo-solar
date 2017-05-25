@@ -28,7 +28,7 @@ function parseData(data) {
     data.forEach(process);
     return data;
 }
-function getDataTotal(data, gridMult, solarMult) {
+function getDataTotal(data, gridMult, solarMult, buildingOn) {
     let consumptionTotal = 0, productionTotal = 0, consumptionLessSavingsTotal = 0, savingsTotal = 0;
     for (let i = 0; i < data.length; i++) {
         consumptionTotal += data[i]['consumption'];
@@ -42,6 +42,10 @@ function getDataTotal(data, gridMult, solarMult) {
     if (wOS >= 10) wOS = Math.round(wOS);
     let wS = ((consumptionTotal - savingsTotal) * gridMult + savingsTotal * solarMult).toFixed(1);
     if (wS >= 10) wS = Math.round(wS);
+
+    if (!buildingOn) {
+        [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal] = [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal].map(i => i * Math.round(30/13));
+    }
 
     return [savingsRate,
         [{'value': wOS, title: 'wOS'},
@@ -489,8 +493,8 @@ function carSection(productionTotal, timeFrame) {
     // else if (timeFrame == 'day') timeSpan = 'TODAY';
     // else if (timeFrame == 'week') timeSpan = 'THIS WEEK';
     // document.getElementById('produced-text').innerHTML = timeSpan;
-    document.getElementById('produced-number').innerHTML = String(Math.floor(productionTotal));
-    document.getElementById('produced-km').innerHTML = String(Math.floor(productionTotal) * 5);
+    document.getElementById('produced-number').innerHTML = String(Math.round(productionTotal));
+    document.getElementById('produced-km').innerHTML = String(Math.round(productionTotal) * 5);
 }
 
 // MAIN
@@ -505,7 +509,11 @@ function updateTimeLine(timeFrame, buildingOn) {
 
         let data = parseData(dataBlob.data),
             multipliers = dataBlob.multipliers;
-        let [savingsRate, totals, productionTotal, savingsTotal, CO2Rates] = getDataTotal(data, multipliers.gridMultiplier, multipliers.solarMultiplier);
+        let [savingsRate, totals, productionTotal, savingsTotal, CO2Rates] = getDataTotal(
+                                                                                data,
+                                                                                multipliers.gridMultiplier,
+                                                                                multipliers.solarMultiplier,
+                                                                                buildingOn);
 
         // update header
         updateHeader(data);

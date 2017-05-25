@@ -54,7 +54,7 @@ class DataTestCase(TestCase):
     def test_without_solar_price(self):
         a = Apartment.objects.get(name='Test Apartment')
         time = timezone('Europe/Helsinki').localize(datetime(2017, 5, 21, 9))
-        self.assertEqual(round(float(a.get_nosolar_price_one_hour(time)), 2), 0.02)
+        self.assertEqual(round(float(a.get_nosolar_price(time)), 2), 0.02)
 
 
         # and for building
@@ -65,7 +65,7 @@ class DataTestCase(TestCase):
     def test_with_solar_price(self):
         a = Apartment.objects.get(name='Test Apartment')
         time = timezone('Europe/Helsinki').localize(datetime(2017, 5, 21, 9))
-        self.assertEqual(round(float(a.get_withsolar_price_one_hour(time)), 2), 0.01)
+        self.assertEqual(round(float(a.get_withsolar_price(time)), 2), 0.01)
 
     # and for building
 
