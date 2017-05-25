@@ -101,13 +101,13 @@ class Apartment(models.Model):
     area = models.fields.DecimalField(
         max_digits=5,
         decimal_places=2,
-        validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
+        validators=[MinValueValidator(0.0), MaxValueValidator(999.99)], default=94.5)
     inhabitants = models.fields.IntegerField(
-        validators=[MinValueValidator(0), MaxValueValidator(99)])
+        validators=[MinValueValidator(0), MaxValueValidator(99)], default=3)
     building = models.ForeignKey('Building')
     up_code = models.fields.IntegerField(validators=[MinValueValidator(0),
-                                                     MaxValueValidator(9999999)])
-    mRID = models.fields.CharField(max_length=50)
+                                                     MaxValueValidator(9999999)], default=0)
+    mRID = models.fields.CharField(max_length=50, default='None')
 
     def _get_data_estimates(self, range_generator):
         return list(get_data_for_range(
@@ -132,13 +132,13 @@ class Apartment(models.Model):
 class Building(models.Model):
     name = models.fields.CharField(max_length=50, unique=True)
     total_apartments = models.fields.IntegerField(validators=[MinValueValidator(0),
-                                                              MaxValueValidator(9999)])
+                                                              MaxValueValidator(9999)], default=60)
     total_area = models.fields.DecimalField(max_digits=8,
                                             decimal_places=2,
                                             validators=[MinValueValidator(0.0),
-                                                        MaxValueValidator(999999.99)])
+                                                        MaxValueValidator(999999.99)], default=5238)
     total_inhabitants = models.fields.IntegerField(validators=[MinValueValidator(0),
-                                                               MaxValueValidator(9999)])
+                                                               MaxValueValidator(9999)], default=120)
     server_ip = models.fields.CharField(max_length=50)
 
     def _get_data_estimates(self, range_generator):
