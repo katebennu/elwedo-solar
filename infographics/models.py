@@ -58,7 +58,7 @@ def get_data_for_range(
             'consumption': float(consumption),
             'production': float(production),
             'savings': float(savings),
-            'consumptionLessSavings': float(consumption - savings),
+            'consumptionLessSavings': float(consumption - savings)
             # 'priceNoSolar': price_no_solar
             # 'priceWithSolar':
             # 'co2NoSolar':

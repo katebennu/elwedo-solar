@@ -115,6 +115,8 @@ def makerow(i, co2, eur_grid, eur_sol):
         i['timestamp'].strftime("%Y-%m-%d %H:00"),
         i['consumption'],
         i['production'],
+        i['savings'],
+        i['consumptionLessSavings'],
         i['consumption'] * co2,
         i['consumptionLessSavings'] * co2,
         i['consumption'] * eur_grid,
@@ -130,9 +132,9 @@ def summary(request):
     writer = csv.writer(response)
     writer.writerow(['Timestamp',
                      'Consumption, kWh',
+                     'Production, kWh',
                      'Savings, kWh',
                      'Consumption Less Savings, kW',
-                     'Production, kWh',
                      'CO2 no-solar, kg', 'CO2 with-solar, kg',
                      'Spent no-solar, EUR', 'Spent with-solar, EUR'])
     building = Building.objects.get(pk=1)
