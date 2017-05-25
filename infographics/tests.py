@@ -39,12 +39,13 @@ class DataTestCase(TestCase):
         g = ExampleGrid.objects.get(name='Test Grid')
         p = ProductionMeasurement.objects.get(grid=g)
         t = TargetCapacity.objects.get(building=b)
-        self.assertEqual(round(p.percent_of_max_capacity * t.total_capacity), round(12.24))
+        self.assertEqual(round(p.scale_for_building(b)), round(12.24))
 
     # test that production is allocated to apartment correctly
     # def test_production_allocation_to_apartment(self):
     #     a = Apartment.objects.get(name='Test Apartment')
-    #     pass
+    #     pa = ProductionMeasurement.objects.get(grid=g)
+    #     self.assertEqual()
 
     # test that spendings withot solar energy are calculated correctly
 

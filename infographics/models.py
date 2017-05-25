@@ -141,6 +141,9 @@ class Building(models.Model):
                                                                MaxValueValidator(9999)], default=120)
     server_ip = models.fields.CharField(max_length=50)
 
+    def get_target_capacity(self):
+        return TargetCapacity.objects.get(building=self, use=True).total_capacity
+
     def _get_data_estimates(self, range_generator):
         return list(get_data_for_range(
             consumption_measurement_query_set=self.consumptionmeasurement_set,
@@ -189,6 +192,9 @@ class ProductionMeasurement(models.Model):
 
     class Meta:
         unique_together = ('timestamp', 'grid')
+
+    def scale_for_building(self, building):
+        return self.percent_of_max_capacity * building.get_target_capacity()
 
     def __str__(self):
         return 'Production on ' + str(self.timestamp)
