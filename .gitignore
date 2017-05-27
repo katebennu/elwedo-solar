@@ -7,3 +7,5 @@ __pycache__
 solarpilot/settings.py
 solarpilot/prod_settings.py
 geckodriver.log
+infographics/management/commands/fixtures
+/docker-start.sh

@@ -1,0 +1,891 @@
+<?xml version="1.0"?>\r\n
+<ResponseMessage>\r\n
+	<Header>\r\n
+		<Verb>reply</Verb>\r\n
+		<Noun>MeterReadings</Noun>\r\n
+	</Header>\r\n
+	<Reply>\r\n
+		<Result>OK</Result>\r\n
+		<Error>\r\n
+			<code>0.0</code>\r\n
+		</Error>\r\n
+	</Reply>\r\n
+	<Payload>\r\n
+		<MeterReadings>\r\n
+			<MeterReading>\r\n
+				<IntervalBlocks>\r\n
+					<IntervalReadings>\r\n
+						<timeStamp>2017-05-06T08:00:00.0000000Z</timeStamp>\r\n
+						<value>4439.782</value>\r\n
+						<ReadingQualities>\r\n
+							<ReadingQualityType ref="2.0.0"/>\r\n
+						</ReadingQualities>\r\n
+					</IntervalReadings>\r\n
+					<IntervalReadings>\r\n
+						<timeStamp>2017-05-15T09:00:00.0000000Z</timeStamp>\r\n
+						<value>4486.179</value>\r\n
+						<ReadingQualities>\r\n
+							<ReadingQualityType ref="2.0.0"/>\r\n
+						</ReadingQualities>\r\n
+					</IntervalReadings>\r\n
+					<ReadingType ref="0.26.0.3.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+				</IntervalBlocks>\r\n
+				<Meter>\r\n
+					<mRID>08accb89-7ced-1af1-f235-d67dff5e8585</mRID>\r\n
+				</Meter>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.059</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-06T09:00:00.0000000Z</end>\r\n
+						<start>2017-05-06T08:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.053</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-06T10:00:00.0000000Z</end>\r\n
+						<start>2017-05-06T09:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.080</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-06T11:00:00.0000000Z</end>\r\n
+						<start>2017-05-06T10:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.078</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-06T12:00:00.0000000Z</end>\r\n
+						<start>2017-05-06T11:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.070</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-06T13:00:00.0000000Z</end>\r\n
+						<start>2017-05-06T12:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.162</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-06T14:00:00.0000000Z</end>\r\n
+						<start>2017-05-06T13:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.156</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-06T15:00:00.0000000Z</end>\r\n
+						<start>2017-05-06T14:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.154</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-06T16:00:00.0000000Z</end>\r\n
+						<start>2017-05-06T15:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>4.742</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-06T17:00:00.0000000Z</end>\r\n
+						<start>2017-05-06T16:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.256</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-06T18:00:00.0000000Z</end>\r\n
+						<start>2017-05-06T17:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.096</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-06T19:00:00.0000000Z</end>\r\n
+						<start>2017-05-06T18:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.066</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-06T20:00:00.0000000Z</end>\r\n
+						<start>2017-05-06T19:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.064</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-06T21:00:00.0000000Z</end>\r\n
+						<start>2017-05-06T20:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.061</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-06T22:00:00.0000000Z</end>\r\n
+						<start>2017-05-06T21:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.070</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-06T23:00:00.0000000Z</end>\r\n
+						<start>2017-05-06T22:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.065</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T00:00:00.0000000Z</end>\r\n
+						<start>2017-05-06T23:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.062</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T01:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T00:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.055</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T02:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T01:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.055</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T03:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T02:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.060</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T04:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T03:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.070</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T05:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T04:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.287</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T06:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T05:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.183</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T07:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T06:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.164</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T08:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T07:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.193</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T09:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T08:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.050</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T10:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T09:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.227</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T11:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T10:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.231</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T12:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T11:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.201</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T13:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T12:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.189</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T14:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T13:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>1.590</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T15:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T14:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.248</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T16:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T15:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.968</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T17:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T16:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.259</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T18:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T17:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.153</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T19:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T18:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.060</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T20:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T19:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.063</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T21:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T20:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.064</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T22:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T21:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.067</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-07T23:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T22:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.070</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T00:00:00.0000000Z</end>\r\n
+						<start>2017-05-07T23:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.063</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T01:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T00:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.070</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T02:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T01:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.055</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T03:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T02:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.262</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T04:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T03:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.121</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T05:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T04:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.126</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T06:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T05:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.474</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T07:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T06:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.184</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T08:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T07:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>1.942</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T09:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T08:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>1.036</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T10:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T09:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.165</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T11:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T10:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.172</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T12:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T11:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.172</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T13:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T12:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.185</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T14:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T13:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.175</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T15:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T14:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>1.062</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T16:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T15:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.640</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T17:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T16:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.213</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T18:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T17:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.166</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T19:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T18:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.082</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T20:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T19:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.084</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T21:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T20:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.084</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T22:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T21:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.076</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-08T23:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T22:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.075</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-09T00:00:00.0000000Z</end>\r\n
+						<start>2017-05-08T23:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.076</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-09T01:00:00.0000000Z</end>\r\n
+						<start>2017-05-09T00:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.072</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-09T02:00:00.0000000Z</end>\r\n
+						<start>2017-05-09T01:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.074</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-09T03:00:00.0000000Z</end>\r\n
+						<start>2017-05-09T02:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.221</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-09T04:00:00.0000000Z</end>\r\n
+						<start>2017-05-09T03:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.252</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-09T05:00:00.0000000Z</end>\r\n
+						<start>2017-05-09T04:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.209</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-09T06:00:00.0000000Z</end>\r\n
+						<start>2017-05-09T05:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+				<Readings>\r\n
+					<reason>inquiry</reason>\r\n
+					<value>0.113</value>\r\n
+					<ReadingQualities>\r\n
+						<ReadingQualityType ref="2.0.0"/>\r\n
+					</ReadingQualities>\r\n
+					<ReadingType ref="32.26.0.0.1.1.12.0.0.0.0.0.0.0.224.3.72.0"/>\r\n
+					<timePeriod>\r\n
+						<end>2017-05-09T07:00:00.0000000Z</end>\r\n
+						<start>2017-05-09T06:00:00.0000000Z</start>\r\n
+					</timePeriod>\r\n
+				</Readings>\r\n
+            </MeterReading>\r\n
+		</MeterReadings>\r\n
+	</Payload>\r\n
+</ResponseMessage>\r\n

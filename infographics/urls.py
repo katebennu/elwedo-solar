@@ -16,5 +16,6 @@ urlpatterns = [
     ), name='login'),
     url(r'^logout/$', logout, dict(next_page='/'), name='logout'),
     url(r'^about/$', views.about, name='about'),
-    url(r'^.well-known/pki-validation/godaddy.html$', views.cert, name='cert')
+    url(r'^.well-known/pki-validation/godaddy.html$', views.cert, name='cert'),
+    url(r'^summary/$', views.summary, name='summary')
 ]

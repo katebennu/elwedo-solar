@@ -28,20 +28,28 @@ function parseData(data) {
     data.forEach(process);
     return data;
 }
-function getDataTotal(data) {
+function getDataTotal(data, gridMult, solarMult, buildingOn) {
     let consumptionTotal = 0, productionTotal = 0, consumptionLessSavingsTotal = 0, savingsTotal = 0;
     for (let i = 0; i < data.length; i++) {
-        consumptionTotal += data[i]['a_consumption'];
-        consumptionLessSavingsTotal += data[i]['a_consumptionLessSavings'];
-        productionTotal += data[i]['a_production'];
-        savingsTotal += data[i]['a_savings'];
+        consumptionTotal += data[i]['consumption'];
+        consumptionLessSavingsTotal += data[i]['consumptionLessSavings'];
+        productionTotal += data[i]['production'];
+        savingsTotal += data[i]['savings'];
     }
     let savingsRate = Math.round(savingsTotal / consumptionTotal * 100);
 
+    let wOS = (consumptionTotal * gridMult).toFixed(1);
+    if (wOS >= 10) wOS = Math.round(wOS);
+    let wS = ((consumptionTotal - savingsTotal) * gridMult + savingsTotal * solarMult).toFixed(1);
+    if (wS >= 10) wS = Math.round(wS);
+
+    if (!buildingOn) {
+        [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal] = [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal].map(i => i * Math.round(30/13));
+    }
 
     return [savingsRate,
-        [{'value': consumptionTotal, title: 'consumptionTotal'},
-            {'value': productionTotal, title: 'productionTotal'}],
+        [{'value': wOS, title: 'wOS'},
+            {'value': wS, title: 'wS'}],
         productionTotal, savingsTotal,
         [consumptionTotal, consumptionLessSavingsTotal]];
 }
@@ -96,13 +104,13 @@ $('#building-switch').click(function () {
     updateTimeLine(timeFrame, buildingOn);
 });
 
-function drawAxes(data, timeFrame, buildingOn) {
+function drawAxes(data, timeFrame) {
     // time format for X axis
     let t = '%d.%m.';
     if (timeFrame == 'day') t = '%H:%M';
     let formatTime = d3.timeFormat(t);
 
-    let margin = {top: 10, right: 10, bottom: 60, left: 30};
+    let margin = {top: 10, right: 30, bottom: 60, left: 50};
     let width = 700 - margin.left - margin.right;
     let height = 350 - margin.top - margin.bottom;
     let svg = d3.select('#timeline-chart')
@@ -114,8 +122,7 @@ function drawAxes(data, timeFrame, buildingOn) {
         .attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')');
 
     let maxY = d3.max(data.map(function (d) {
-        if (buildingOn == true) return d.b_consumption;
-        else return d.a_consumption;
+        return d.consumption;
     }));
 
     let y = d3.scaleLinear()
@@ -158,26 +165,19 @@ function appendXAxis(svg, height, xAxis) {
         .call(xAxis);
 }
 
-function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY, x, y) {
-    data = [];
-    if (buildingOn == true) {
-        for (let i = 0; i < fullData.length; i++) {
-            data.push({
-                'timestamp': fullData[i]['timestamp'],
-                'savings': fullData[i]['b_savings'],
-                'consumptionLessSavings': fullData[i]['b_consumptionLessSavings']
-            });
-        }
-    } else {
-        for (let i = 0; i < fullData.length; i++) {
-            data.push({
-                'timestamp': fullData[i]['timestamp'],
-                'savings': fullData[i]['a_savings'],
-                'consumptionLessSavings': fullData[i]['a_consumptionLessSavings']
-            });
-        }
+function stackedChart(fullData, timeFrame, svg, width, height, maxY, x, y) {
+    let data = [];
+    for (let i = 0; i < fullData.length; i++) {
+        data.push({
+            'timestamp': fullData[i]['timestamp'],
+            'savings': fullData[i]['savings'],
+            'consumptionLessSavings': fullData[i]['consumptionLessSavings']
+        });
     }
+
     data.push({'columns': ['timestamp', 'consumptionLessSavings', 'savings']});
+
+    console.log(data);
 
     let keys = ['savings', 'consumptionLessSavings'];
     let z = d3.scaleOrdinal()
@@ -232,7 +232,7 @@ function stackedChart(fullData, buildingOn, timeFrame, svg, width, height, maxY,
                 legendBox.style("padding-top", "20px");
             }
             consInfo
-                .text(": " + (d.data.consumptionLessSavings + d.data.savings).toFixed(2) + " kWh");
+                .text(": " + (d.data.consumptionLessSavings).toFixed(2) + " kWh");
             prodInfo
                 .text(": " + (d.data.savings).toFixed(2) + " kWh");
             square
@@ -270,7 +270,8 @@ function explanation(productionTotal, savingsTotal, CO2Multiplier) {
 }
 
 // small graphs
-function euroChart(data, gridMult, solarMult) {
+function euroChart(data) {
+    console.log(data);
     let margin = {top: 20, right: 5, bottom: 0, left: 5};
     let width = 190 - margin.left - margin.right;
     let height = 185 - margin.top - margin.bottom;
@@ -314,32 +315,26 @@ function euroChart(data, gridMult, solarMult) {
         .style('stroke', '#6D6A5C')
         .style('stroke-width', '2');
 
-    let wOS = (data[0]['value'] * gridMult).toFixed(1);
-    if (wOS >= 10) wOS = Math.round(data[0]['value'] * gridMult);
 
-    let wOSHeight = $("#euro-chart rect:nth-of-type(2)").height();
-
-
-    svg.append("text")
-        .attr('x', 113)
-        .attr('y', -8 + height - wOSHeight) // + height - height of the first rect
-        .attr('fill', '#26B5DB')
-        .attr('font-size', 16)
-        .attr('font-weight', 'bold')
-        .text(wOS + ' €');
-
-    let wS = (data[0]['value'] * gridMult - data[1]['value'] * solarMult).toFixed(1);
-    if (wS >= 10) wS = Math.round(data[0]['value'] * gridMult - data[1]['value'] * solarMult);
-
-    let wSHeight = $("#euro-chart rect:first-of-type").height();
+    let wOSHeight = $("#euro-chart rect:first-of-type").height();
 
     svg.append("text")
         .attr('x', 45)
-        .attr('y', -8 + height - wSHeight) // + height - height of the first rect
+        .attr('y', -8 + height - wOSHeight) // + height - height of the first rect
         .attr('fill', '#56eda8')
         .attr('font-size', 16)
         .attr('font-weight', 'bold')
-        .text(wS + ' €');
+        .text(data[0].value + ' €');
+
+    let wSHeight = $("#euro-chart rect:nth-of-type(2)").height();
+
+    svg.append("text")
+        .attr('x', 113)
+        .attr('y', -8 + height - wSHeight) // + height - height of the first rect
+        .attr('fill', '#26B5DB')
+        .attr('font-size', 16)
+        .attr('font-weight', 'bold')
+        .text(data[1].value + ' €');
 }
 function donutChart(savingsRate) {
     let o = 0, n = 50, x = savingsRate, m = 50 - x;
@@ -414,8 +409,13 @@ function CO2Chart(data, multiplier) {
     $('#green-circle').attr("r", String(consumptionRate * 0.75));
     $('#blue-circle').attr("r", String(consumptionLessSavingsRate * 0.75));
 
-    $('#co2-wO').text(Math.round(data[0] * multiplier) + 'kg');
-    $('#co2-w').text(Math.round(data[1] * multiplier) + 'kg');
+    let wO = (data[0] * multiplier).toFixed(1),
+        w = (data[1] * multiplier).toFixed(1);
+    if (wO >=10) wO = Math.round(wO);
+    if (w >=10) w = Math.round(w);
+
+    $('#co2-wO').text(wO + 'kg');
+    $('#co2-w').text(w + 'kg');
 }
 
 // small graphs - change view from one line to a carousel
@@ -493,14 +493,13 @@ function carSection(productionTotal, timeFrame) {
     // else if (timeFrame == 'day') timeSpan = 'TODAY';
     // else if (timeFrame == 'week') timeSpan = 'THIS WEEK';
     // document.getElementById('produced-text').innerHTML = timeSpan;
-    document.getElementById('produced-number').innerHTML = String(Math.floor(productionTotal));
-    document.getElementById('produced-km').innerHTML = String(Math.floor(productionTotal) * 5);
+    document.getElementById('produced-number').innerHTML = String(Math.round(productionTotal));
+    document.getElementById('produced-km').innerHTML = String(Math.round(productionTotal) * 5);
 }
 
 // MAIN
 function updateTimeLine(timeFrame, buildingOn) {
-
-    $.getJSON('/timeline-update/', {'timeFrame': timeFrame}, function (dataBlob, jqXHR) {
+    $.getJSON('/timeline-update/', {'timeFrame': timeFrame, 'buildingOn': buildingOn}, function (dataBlob, jqXHR) {
         console.log(dataBlob);
         // clean existing charts
         $('#timeline-chart').html('');
@@ -510,17 +509,21 @@ function updateTimeLine(timeFrame, buildingOn) {
 
         let data = parseData(dataBlob.data),
             multipliers = dataBlob.multipliers;
-        let [savingsRate, totals, productionTotal, savingsTotal, CO2Rates] = getDataTotal(data);
+        let [savingsRate, totals, productionTotal, savingsTotal, CO2Rates] = getDataTotal(
+                                                                                data,
+                                                                                multipliers.gridMultiplier,
+                                                                                multipliers.solarMultiplier,
+                                                                                buildingOn);
 
         // update header
         updateHeader(data);
 
-        let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame, buildingOn);
+        let [svg, xAxis, yAxis, width, height, maxY, x, y] = drawAxes(data, timeFrame);
         $(".tick > text").filter(function () {
             return $(this).text() === "0.00";
         }).css("display", "none");
 
-        stackedChart(data, buildingOn, timeFrame, svg, width, height, maxY, x, y);
+        stackedChart(data, timeFrame, svg, width, height, maxY, x, y);
         appendXAxis(svg, height, xAxis);
 
         explanation(productionTotal, savingsTotal, multipliers.CO2Multiplier);
@@ -538,6 +541,7 @@ function updateTimeLine(timeFrame, buildingOn) {
         CO2Chart(CO2Rates, multipliers.CO2Multiplier);
 
         // update car section
+        console.log(productionTotal);
         carSection(productionTotal, timeFrame);
     });
     return [timeFrame, buildingOn]

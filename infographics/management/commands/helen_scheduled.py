@@ -22,7 +22,7 @@ def timed_job():
     print('*************** got the data')
 
     grid = ExampleGrid.objects.all()[0]
-    utc = timezone('UTC')
+    tz = timezone('Europe/Helsinki')
 
     print('**************** got the grid')
 
@@ -40,8 +40,8 @@ def timed_job():
         try:
             _, created = ProductionMeasurement.objects.get_or_create(
                 grid=grid,
-                timestamp=datetime(parse_time.year, parse_time.month, parse_time.day, parse_time.hour,
-                                   parse_time.minute, tzinfo=utc),
+                timestamp=tz.localize(datetime(parse_time.year, parse_time.month, parse_time.day, parse_time.hour,
+                                   parse_time.minute)),
                 percent_of_max_capacity=float(percent_of_max_capacity)
             )
         except IntegrityError:

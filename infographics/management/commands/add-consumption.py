@@ -6,9 +6,8 @@ from pytz import timezone
 
 from django.core.management.base import BaseCommand
 
-from infographics.models import Building, Apartment, ConsumptionMeasurement
+from infographics.models import Building, ConsumptionMeasurement
 
-from .progress_bar import show_progress
 
 from django.db.utils import IntegrityError
 
@@ -18,12 +17,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.run()
-        self.stdout.write(self.style.SUCCESS('Successfully inserted dummy consumption data'))
+        self.stdout.write(self.style.SUCCESS('Successfully inserted dummy building consumption data'))
 
     def run(self):
-        building = Building.objects.first()
-        apartments = Apartment.objects.all()
-        utc = timezone('UTC')
+        building = Building.objects.get(pk=1)
+        tz = timezone('Europe/Helsinki')
         module_dir = os.path.dirname(os.path.abspath(__file__))
 
         with open(os.path.join(module_dir, "fixtures", 'Fregatti_short.csv')) as file:
@@ -34,17 +32,12 @@ class Command(BaseCommand):
                 try:
                     _, created = ConsumptionMeasurement.objects.get_or_create(
                         building=building,
-                        timestamp=datetime(parse_time.year + 1, parse_time.month, parse_time.day, parse_time.hour, parse_time.minute, tzinfo=utc),
+                        timestamp=tz.localize(datetime(parse_time.year + 1, parse_time.month, parse_time.day, parse_time.hour, parse_time.minute)),
                         value=float(row[1])
                     )
 
-                    for a in apartments:
-                        _, created = ConsumptionMeasurement.objects.get_or_create(
-                            apartment=a,
-                            timestamp=datetime(parse_time.year + 1, parse_time.month, parse_time.day, parse_time.hour,
-                                               parse_time.minute, tzinfo=utc),
-                            value=float(row[1]) / building.total_apartments
-                        )
-
                 except IntegrityError:
                     pass
+
+
+
