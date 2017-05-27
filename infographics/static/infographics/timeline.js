@@ -44,7 +44,8 @@ function getDataTotal(data, gridMult, solarMult, buildingOn) {
     if (wS >= 10) wS = Math.round(wS);
 
     if (!buildingOn) {
-        [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal] = [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal].map(i => i * Math.round(30/13));
+        [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal] =
+            [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal].map(i => i * Math.round(30/13));
     }
 
     return [savingsRate,

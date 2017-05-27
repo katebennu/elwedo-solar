@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-09 20:23+0000\n"
+"POT-Creation-Date: 2017-05-26 14:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,23 +37,15 @@ msgstr "ETUSIVU"
 msgid "ABOUT"
 msgstr "LISÄTIETOA"
 
-#: infographics/templates/infographics/base.html:49
-msgid "LOGOUT | ACCOUNT"
-msgstr "KIRJAUTUMINEN | OMA TILI"
+#: infographics/templates/infographics/base.html:48
+msgid "LOGOUT"
+msgstr "KIRJAUDU ULOS"
 
-#: infographics/templates/infographics/base.html:52
-msgid "Change Password"
-msgstr "Vaihda Salasana"
-
-#: infographics/templates/infographics/base.html:54
-msgid "Log Out"
-msgstr "Kirjaudu Ulos"
-
-#: infographics/templates/infographics/base.html:58
+#: infographics/templates/infographics/base.html:59
 msgid "LOGIN"
 msgstr "KIRJAUDU"
 
-#: infographics/templates/infographics/base.html:69
+#: infographics/templates/infographics/base.html:70
 msgid "contact:"
 msgstr "yhteystiedot:"
 
@@ -72,7 +64,9 @@ msgstr "SÄHKÖAUTOLLA"
 #: infographics/templates/infographics/explanation.html:4
 msgid ""
 "Electric car? You get 100km range with only 1.2 € when charging at daytime."
-msgstr "Ajatko sähköllä? Kun lataat aurinkoisina tunteina, saat akkuun 100 km ajomatkan 1,2 eurolla."
+msgstr ""
+"Ajatko sähköllä? Kun lataat aurinkoisina tunteina, saat akkuun 100 km "
+"ajomatkan 1,2 eurolla."
 
 #: infographics/templates/infographics/explanation.html:7
 msgid ""
@@ -188,3 +182,12 @@ msgstr "Suomi"
 #: solarpilot/prod_settings.py:113 solarpilot/settings.py:120
 msgid "English"
 msgstr "Englanti"
+
+#~ msgid "LOGOUT | ACCOUNT"
+#~ msgstr "KIRJAUTUMINEN | OMA TILI"
+
+#~ msgid "Change Password"
+#~ msgstr "Vaihda Salasana"
+
+#~ msgid "Log Out"
+#~ msgstr "Kirjaudu Ulos"

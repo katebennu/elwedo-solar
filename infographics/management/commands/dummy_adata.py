@@ -24,7 +24,7 @@ class Command(BaseCommand):
         tz = timezone('Europe/Helsinki')
         module_dir = os.path.dirname(os.path.abspath(__file__))
 
-        with open(os.path.join(module_dir, "fixtures", 'Fregatti_twoweeks.csv')) as file:
+        with open(os.path.join(module_dir, "fixtures", 'Fregatti_short.csv')) as file:
             reader = csv.reader(file)
             rows = list(reader)
             for row in rows:
