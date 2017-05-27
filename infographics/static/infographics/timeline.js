@@ -136,7 +136,7 @@ function drawAxes(data, timeFrame) {
 
     svg.append("text")
       .attr("transform", "rotate(-90)")
-      .attr("y", 0 - 40)
+      .attr("y", 0 - 45)
       .attr("x",0 - (height / 2))
       .attr("dy", "1em")
       .style("text-anchor", "middle")
