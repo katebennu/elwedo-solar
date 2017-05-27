@@ -134,6 +134,16 @@ function drawAxes(data, timeFrame) {
         .tickSize(-width)
         .tickFormat(d3.format(",.2f"));
 
+    svg.append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0 - 40)
+      .attr("x",0 - (height / 2))
+      .attr("dy", "1em")
+      .style("text-anchor", "middle")
+        .style('font-size', '10px')
+        .style('color', '#6D6A5C')
+      .text("kWh");
+
     let x = d3.scaleBand()
         .padding(0.2)
         .domain(data.map(d => d.timestamp))
