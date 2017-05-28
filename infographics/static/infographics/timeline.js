@@ -1,5 +1,6 @@
 let timeFrame = 'day';
 let buildingOn = false;
+let eCarOn = false;
 
 updateTimeLine(timeFrame = 'day', buildingOn = false);
 updateWeather();
@@ -91,7 +92,7 @@ $("#monthSwitch").click(function () {
 $('#apartment-switch').click(function () {
     $('#apartment-switch').removeClass('graph-control-off').addClass('graph-control-on');
     $('#building-switch').removeClass('graph-control-on').addClass('graph-control-off');
-    $('#eCar-switch').removeClass('graph-control-on').addClass('graph-control-off');
+    // $('#eCar-switch').removeClass('graph-control-on').addClass('graph-control-off');
     buildingOn = false;
     //// Update only timeline graph instead
     updateTimeLine(timeFrame, buildingOn);
@@ -99,10 +100,21 @@ $('#apartment-switch').click(function () {
 $('#building-switch').click(function () {
     $('#apartment-switch').removeClass('graph-control-on').addClass('graph-control-off');
     $('#building-switch').removeClass('graph-control-off').addClass('graph-control-on');
-    $('#eCar-switch').removeClass('graph-control-on').addClass('graph-control-off');
+    // $('#eCar-switch').removeClass('graph-control-on').addClass('graph-control-off');
     buildingOn = true;
     //// Update only timeline graph instead
     updateTimeLine(timeFrame, buildingOn);
+});
+
+$('#eCar-switch').click(function () {
+    if (eCarOn) {
+        $('#eCar-switch').removeClass('graph-control-on').addClass('graph-control-off');
+        eCarOn = false;
+    } else {
+        $('#eCar-switch').removeClass('graph-control-off').addClass('graph-control-on');
+        eCarOn = true;
+    }
+    console.log(eCarOn);
 });
 
 function drawAxes(data, timeFrame) {
