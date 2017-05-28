@@ -732,7 +732,8 @@ h1 {
 
 .input-field {
     background-color: #FFFFFF;
-    padding: 10px;
+    padding: 7px;
+    /*padding-right: 10;*/
     border-radius: 100px;
     width: 219px;
     height: 43px;
@@ -742,14 +743,12 @@ h1 {
 .input-field input {
     border-style: hidden;
     display: inline-block;
-    background-color: #FFFFFF !important;
     vertical-align: top;
     margin-left: 8px;
     width: 130px;
 }
 
 input:focus {
-    background-color: #FFFFFF !important;
 }
 
 .login-btn {
@@ -757,18 +756,19 @@ input:focus {
     float: right;
     vertical-align: top;
     background-color: #FFFFFF;
-    width: 30px;
+    width: 40px;
     height: 30px;
     border-style: hidden;
-    margin-left: 5px;
-    margin-top: -4px;
-    margin-right: 5px;
+    /*margin-left: 5px;*/
+    margin-top: -6px;
+    /*margin-right: 5px;*/
+    /*padding-right: 5px;*/
     text-align: center;
 }
 
-.login-btn-safari {
-    width: 35px;
-}
+/*.login-btn-safari {*/
+    /*width: 35px;*/
+/*}*/
 
 #login-div {
 
