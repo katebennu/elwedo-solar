@@ -112,7 +112,7 @@ def timeline_update(request):
         row['production'] = float(i['production'])
         row['savings'] = float(i['savings'])
         row['consumptionLessSavings'] = float(i['consumptionLessSavings'])
-
+    pprint(data)
     return JsonResponse({'multipliers': multipliers, 'data': data}, safe=False)
 
 

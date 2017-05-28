@@ -29,7 +29,7 @@ function parseData(data) {
     data.forEach(process);
     return data;
 }
-function getDataTotal(data, gridMult, solarMult, buildingOn) {
+function getDataTotal(data, gridMult, solarMult, buildingOn, timeFrame) {
     let consumptionTotal = 0, productionTotal = 0, consumptionLessSavingsTotal = 0, savingsTotal = 0;
     for (let i = 0; i < data.length; i++) {
         consumptionTotal += data[i]['consumption'];
@@ -43,8 +43,8 @@ function getDataTotal(data, gridMult, solarMult, buildingOn) {
     if (wOS >= 10) wOS = Math.round(wOS);
     let wS = ((consumptionTotal - savingsTotal) * gridMult + savingsTotal * solarMult).toFixed(1);
     if (wS >= 10) wS = Math.round(wS);
-
-    if (!buildingOn) {
+    console.log(productionTotal);
+    if (!buildingOn && timeFrame == 'month') {
         [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal] =
             [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal].map(i => i * Math.round(30/13));
     }
@@ -201,8 +201,6 @@ function stackedChart(fullData, timeFrame, svg, width, height, maxY, x, y) {
 
     data.push({'columns': ['timestamp', 'consumptionLessSavings', 'savings']});
 
-    console.log(data);
-
     let keys = ['savings', 'consumptionLessSavings'];
     let z = d3.scaleOrdinal()
         .range(["#56eda8", "#F4F1E4"]);
@@ -288,14 +286,12 @@ function explanation(productionTotal, savingsTotal, CO2Multiplier) {
     $('#expl1, #expl2, #expl3').addClass('hidden');
     let show = '#expl' + String(Math.ceil(Math.random() * 3));
     $(show).removeClass('hidden');
-    console.log(savingsTotal, CO2Multiplier);
     $('#airKm').text(Math.round(savingsTotal * CO2Multiplier * 1000 / 184));
     $('#trainKm').text(Math.round(productionTotal / 0.1));
 }
 
 // small graphs
 function euroChart(data) {
-    console.log(data);
     let margin = {top: 20, right: 5, bottom: 0, left: 5};
     let width = 190 - margin.left - margin.right;
     let height = 185 - margin.top - margin.bottom;
@@ -537,7 +533,8 @@ function updateTimeLine(timeFrame, buildingOn, eCarOn) {
                                                                                 data,
                                                                                 multipliers.gridMultiplier,
                                                                                 multipliers.solarMultiplier,
-                                                                                buildingOn);
+                                                                                buildingOn,
+                                                                                timeFrame);
 
         // update header
         updateHeader(data);
@@ -565,7 +562,6 @@ function updateTimeLine(timeFrame, buildingOn, eCarOn) {
         CO2Chart(CO2Rates, multipliers.CO2Multiplier);
 
         // update car section
-        console.log(productionTotal);
         carSection(productionTotal, timeFrame);
     });
     return [timeFrame, buildingOn]
