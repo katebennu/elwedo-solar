@@ -37,6 +37,7 @@ def timeline_update(request):
 
     time_frame = request.GET.get('timeFrame')
     building_on = request.GET.get('buildingOn')
+    car = request.GET.get('eCarOn')
 
     user = request.user
 
@@ -49,9 +50,9 @@ def timeline_update(request):
 
     if time_frame == 'month':
         if building_on == 'true':
-            query = obj.get_multiple_days_data(30)
+            query = obj.get_multiple_days_data(30, car)
         else:
-            query = obj.get_multiple_days_data(13)
+            query = obj.get_multiple_days_data(13, car)
 
         # pprint(original)
 
@@ -80,9 +81,9 @@ def timeline_update(request):
 
 
     elif time_frame == 'week':
-        query = obj.get_multiple_days_data(8)
+        query = obj.get_multiple_days_data(8, car)
     else:
-        query = obj.get_day_data()
+        query = obj.get_day_data(car)
 
     km_multiplier = KmMultiplier.objects.get(use=True)
     co2_multiplier = CO2Multiplier.objects.get(use=True)
@@ -142,26 +143,27 @@ def summary(request):
     co2 = float(CO2Multiplier.objects.filter(use=True)[0].multiplier)
     eur_grid = float(GridPriceMultiplier.objects.filter(use=True)[0].multiplier)
     eur_sol = float(SolarPriceMultiplier.objects.filter(use=True)[0].multiplier)
+    car = False
 
     writer.writerow(['*******Building*******'])
     writer.writerow(['***Day***'])
-    b_day = building.get_day_data()
+    b_day = building.get_day_data(car)
     for i in b_day:
         writer.writerow(makerow(i, co2, eur_grid, eur_sol))
 
     writer.writerow(['***Week***'])
-    b_week = building.get_multiple_days_data(8)
+    b_week = building.get_multiple_days_data(8, car)
     for i in b_week:
         writer.writerow(makerow(i, co2, eur_grid, eur_sol))
 
     for a in apartments:
         writer.writerow(['*******Apartment ', a.name + '*******'])
         writer.writerow(['***Day***'])
-        a_day = a.get_day_data()
+        a_day = a.get_day_data(car)
         for i in a_day:
             writer.writerow(makerow(i, co2, eur_grid, eur_sol))
         writer.writerow(['***Week***'])
-        a_week = a.get_multiple_days_data(8)
+        a_week = a.get_multiple_days_data(8, car)
         for i in a_week:
             writer.writerow(makerow(i, co2, eur_grid, eur_sol))
     return response
