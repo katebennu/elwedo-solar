@@ -125,22 +125,22 @@ class Apartment(models.Model):
     def get_day_data(self, car):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
         data = self._get_data_estimates(partial(hourly, 24))
-        if car:
-            for i in data:
-                if 14 <= i['timestamp'] <= 18:
+        for i in data:
+            if car:
+                if 14 <= i['timestamp'].hour <= 18:
                     i['consumption'] += 3
-                i['savings'] = float(min(i['production'], i['consumption']))
-                i['consumptionLessSavings'] = float(i['consumption'] - i['savings'])
+            i['savings'] = float(min(i['production'], i['consumption']))
+            i['consumptionLessSavings'] = float(i['consumption'] - i['savings'])
         return data
 
     def get_multiple_days_data(self, days, car):
         """ Returns consumption and production data for the latest N days in the database"""
         data = list(sum_for_each_day(self._get_data_estimates(partial(hourly, 24 * days))))
-        if car:
-            for i in data:
+        for i in data:
+            if car:
                 i['consumption'] += 15
-                i['savings'] = float(min(i['production'], i['consumption']))
-                i['consumptionLessSavings'] = float(i['consumption'] - i['savings'])
+            i['savings'] = float(min(i['production'], i['consumption']))
+            i['consumptionLessSavings'] = float(i['consumption'] - i['savings'])
 
         return data
 
@@ -210,22 +210,22 @@ class Building(models.Model):
     def get_day_data(self, car):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
         data = self._get_data_estimates(partial(hourly, 24))
-        if car:
-            for i in data:
-                if 14 <= i['timestamp'] <= 18:
+        for i in data:
+            if car:
+                if 14 <= i['timestamp'].hour <= 18:
                     i['consumption'] += 3
-                i['savings'] = float(min(i['production'], i['consumption']))
-                i['consumptionLessSavings'] = float(i['consumption'] - i['savings'])
+            i['savings'] = float(min(i['production'], i['consumption']))
+            i['consumptionLessSavings'] = float(i['consumption'] - i['savings'])
         return data
 
     def get_multiple_days_data(self, days, car):
         """ Returns consumption and production data for the latest N days in the database"""
         data = list(sum_for_each_day(self._get_data_estimates(partial(hourly, 24 * days))))
-        if car:
-            for i in data:
+        for i in data:
+            if car:
                 i['consumption'] += 15
-                i['savings'] = float(min(i['production'], i['consumption']))
-                i['consumptionLessSavings'] = float(i['consumption'] - i['savings'])
+            i['savings'] = float(min(i['production'], i['consumption']))
+            i['consumptionLessSavings'] = float(i['consumption'] - i['savings'])
         return data
 
     def __str__(self):

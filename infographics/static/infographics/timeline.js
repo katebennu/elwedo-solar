@@ -2,7 +2,7 @@ let timeFrame = 'day';
 let buildingOn = false;
 let eCarOn = false;
 
-updateTimeLine(timeFrame = 'day', buildingOn = false);
+updateTimeLine(timeFrame = 'day', buildingOn = false, eCarOn = false);
 updateWeather();
 
 // stick the timeFrame switching div to the top
@@ -70,7 +70,7 @@ $("#daySwitch").click(function () {
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'day';
-    updateTimeLine(timeFrame, buildingOn);
+    updateTimeLine(timeFrame, buildingOn, eCarOn);
 
 });
 $("#weekSwitch").click(function () {
@@ -78,14 +78,14 @@ $("#weekSwitch").click(function () {
     $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#monthSwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'week';
-    updateTimeLine(timeFrame, buildingOn);
+    updateTimeLine(timeFrame, buildingOn, eCarOn);
 });
 $("#monthSwitch").click(function () {
     $('#monthSwitch').removeClass('time-control-off').addClass('time-control-on');
     $('#weekSwitch').removeClass('time-control-on').addClass('time-control-off');
     $('#daySwitch').removeClass('time-control-on').addClass('time-control-off');
     timeFrame = 'month';
-    updateTimeLine(timeFrame, buildingOn);
+    updateTimeLine(timeFrame, buildingOn, eCarOn);
 });
 
 // timeline
@@ -95,7 +95,7 @@ $('#apartment-switch').click(function () {
     // $('#eCar-switch').removeClass('graph-control-on').addClass('graph-control-off');
     buildingOn = false;
     //// Update only timeline graph instead
-    updateTimeLine(timeFrame, buildingOn);
+    updateTimeLine(timeFrame, buildingOn, eCarOn);
 });
 $('#building-switch').click(function () {
     $('#apartment-switch').removeClass('graph-control-on').addClass('graph-control-off');
@@ -103,18 +103,19 @@ $('#building-switch').click(function () {
     // $('#eCar-switch').removeClass('graph-control-on').addClass('graph-control-off');
     buildingOn = true;
     //// Update only timeline graph instead
-    updateTimeLine(timeFrame, buildingOn);
+    updateTimeLine(timeFrame, buildingOn, eCarOn);
 });
 
 $('#eCar-switch').click(function () {
     if (eCarOn) {
         $('#eCar-switch').removeClass('graph-control-on').addClass('graph-control-off');
         eCarOn = false;
+        updateTimeLine(timeFrame, buildingOn, eCarOn);
     } else {
         $('#eCar-switch').removeClass('graph-control-off').addClass('graph-control-on');
         eCarOn = true;
+        updateTimeLine(timeFrame, buildingOn, eCarOn);
     }
-    console.log(eCarOn);
 });
 
 function drawAxes(data, timeFrame) {
@@ -521,8 +522,8 @@ function carSection(productionTotal, timeFrame) {
 }
 
 // MAIN
-function updateTimeLine(timeFrame, buildingOn) {
-    $.getJSON('/timeline-update/', {'timeFrame': timeFrame, 'buildingOn': buildingOn}, function (dataBlob, jqXHR) {
+function updateTimeLine(timeFrame, buildingOn, eCarOn) {
+    $.getJSON('/timeline-update/', {'timeFrame': timeFrame, 'buildingOn': buildingOn, 'eCarOn': eCarOn}, function (dataBlob, jqXHR) {
         console.log(dataBlob);
         // clean existing charts
         $('#timeline-chart').html('');
