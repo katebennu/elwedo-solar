@@ -732,7 +732,7 @@ h1 {
 
 .input-field {
     background-color: #FFFFFF;
-    padding: 7px;
+    padding: 9px 9px 7px 9px;
     /*padding-right: 10;*/
     border-radius: 100px;
     width: 219px;
@@ -757,10 +757,10 @@ input:focus {
     vertical-align: top;
     background-color: #FFFFFF;
     width: 40px;
-    height: 30px;
+    height: 35px;
     border-style: hidden;
     /*margin-left: 5px;*/
-    margin-top: -6px;
+    margin-top: -5px;
     /*margin-right: 5px;*/
     /*padding-right: 5px;*/
     text-align: center;
