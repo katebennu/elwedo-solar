@@ -21,7 +21,7 @@
                     {{ form.password.errors }}
                     {{ form.password }}
 
-                    <button type="submit" id="login-btn">
+                    <button type="submit" class="login-btn">
                         <div id="login-div" onClick="this.form.submit();">
                             {% include 'infographics/svg/submit-btn.svg' %}
                         </div>
@@ -34,8 +34,22 @@
     <script>
         let body = $('body');
         if (body.has('#login-body')) {
-            console.log('form');
             body.css('background-color', '#56EDA8');
         }
+
+            let userAgent = navigator.userAgent.toLowerCase();
+            if (userAgent .indexOf('safari')!=-1){
+               if(userAgent .indexOf('chrome')  > -1){
+                    //browser is chrome
+                     console.log('chrome');
+               }else{
+                    //browser is safari, add css
+                    console.log('safari');
+                    $('.login-btn').addClass('login-btn-safari');
+               }
+              }
+
+
+{#        #login-btn#}
     </script>
 {% endblock %}

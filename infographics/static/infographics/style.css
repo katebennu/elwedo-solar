@@ -752,7 +752,7 @@ input:focus {
     background-color: #FFFFFF !important;
 }
 
-#login-btn {
+.login-btn {
     display: inline-block;
     float: right;
     vertical-align: top;
@@ -763,6 +763,11 @@ input:focus {
     margin-left: 5px;
     margin-top: -4px;
     margin-right: 5px;
+    text-align: center;
+}
+
+.login-btn-safari {
+    width: 35px;
 }
 
 #login-div {

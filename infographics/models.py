@@ -73,19 +73,19 @@ def sum_for_each_day(hourly_results):
             continue
         day_consumption = 0.0
         day_production = 0.0
-        # day_savings = 0.0
+        day_savings = 0.0
 
         for result in day_results[day]:
             day_consumption += result["consumption"]
             day_production += result["production"]
-            # day_savings += result["savings"]
+            day_savings += result["savings"]
 
         yield {
             'timestamp': day,
             'consumption': float(day_consumption),
             'production': float(day_production),
-            # 'savings': float(day_savings),
-            # 'consumptionLessSavings': float(day_consumption - day_savings)
+            'savings': float(day_savings),
+            'consumptionLessSavings': float(day_consumption - day_savings)
         }
 
 
@@ -135,14 +135,15 @@ class Apartment(models.Model):
 
     def get_multiple_days_data(self, days, car=False):
         """ Returns consumption and production data for the latest N days in the database"""
-        data = list(sum_for_each_day(self._get_data_estimates(partial(hourly, 24 * days))))
+        data = self._get_data_estimates(partial(hourly, 24 * days))
         for i in data:
             if car:
-                i['consumption'] += 15
+                if 14 <= i['timestamp'].hour <= 18:
+                    i['consumption'] += 3
             i['savings'] = float(min(i['production'], i['consumption']))
             i['consumptionLessSavings'] = float(i['consumption'] - i['savings'])
 
-        return data
+        return list(sum_for_each_day(data))
 
     def get_grid_multiplier(self):
         return GridPriceMultiplier.objects.get(apartment=self, use=True).multiplier
@@ -220,13 +221,14 @@ class Building(models.Model):
 
     def get_multiple_days_data(self, days, car=False):
         """ Returns consumption and production data for the latest N days in the database"""
-        data = list(sum_for_each_day(self._get_data_estimates(partial(hourly, 24 * days))))
+        data = self._get_data_estimates(partial(hourly, 24 * days))
         for i in data:
             if car:
-                i['consumption'] += 150
+                if 14 <= i['timestamp'].hour <= 18:
+                    i['consumption'] += 30
             i['savings'] = float(min(i['production'], i['consumption']))
             i['consumptionLessSavings'] = float(i['consumption'] - i['savings'])
-        return data
+        return list(sum_for_each_day(data))
 
     def __str__(self):
         return 'Building ' + str(self.name)
