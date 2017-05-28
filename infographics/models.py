@@ -213,7 +213,7 @@ class Building(models.Model):
         for i in data:
             if car:
                 if 14 <= i['timestamp'].hour <= 18:
-                    i['consumption'] += 3
+                    i['consumption'] += 30
             i['savings'] = float(min(i['production'], i['consumption']))
             i['consumptionLessSavings'] = float(i['consumption'] - i['savings'])
         return data
@@ -223,7 +223,7 @@ class Building(models.Model):
         data = list(sum_for_each_day(self._get_data_estimates(partial(hourly, 24 * days))))
         for i in data:
             if car:
-                i['consumption'] += 15
+                i['consumption'] += 150
             i['savings'] = float(min(i['production'], i['consumption']))
             i['consumptionLessSavings'] = float(i['consumption'] - i['savings'])
         return data
