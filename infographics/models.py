@@ -122,7 +122,7 @@ class Apartment(models.Model):
     def get_hour_consumption(self, timestamp):
         return ConsumptionMeasurement.objects.get(timestamp=timestamp, apartment=self).value
 
-    def get_day_data(self, car):
+    def get_day_data(self, car=False):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
         data = self._get_data_estimates(partial(hourly, 24))
         for i in data:
@@ -133,7 +133,7 @@ class Apartment(models.Model):
             i['consumptionLessSavings'] = float(i['consumption'] - i['savings'])
         return data
 
-    def get_multiple_days_data(self, days, car):
+    def get_multiple_days_data(self, days, car=False):
         """ Returns consumption and production data for the latest N days in the database"""
         data = list(sum_for_each_day(self._get_data_estimates(partial(hourly, 24 * days))))
         for i in data:
@@ -207,7 +207,7 @@ class Building(models.Model):
     def get_hour_production(self, timestamp):
         return ProductionMeasurement.objects.get(timestamp=timestamp).scale_for_building(self)
 
-    def get_day_data(self, car):
+    def get_day_data(self, car=False):
         """ Returns consumption and production data for latest 24 hours that both in the database"""
         data = self._get_data_estimates(partial(hourly, 24))
         for i in data:
@@ -218,7 +218,7 @@ class Building(models.Model):
             i['consumptionLessSavings'] = float(i['consumption'] - i['savings'])
         return data
 
-    def get_multiple_days_data(self, days, car):
+    def get_multiple_days_data(self, days, car=False):
         """ Returns consumption and production data for the latest N days in the database"""
         data = list(sum_for_each_day(self._get_data_estimates(partial(hourly, 24 * days))))
         for i in data:

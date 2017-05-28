@@ -118,7 +118,7 @@ def timeline_update(request):
 
 def makerow(i, co2, eur_grid, eur_sol):
     return [
-        i['timestamp'].strftime("%Y-%m-%d %H:00"),
+        (i['timestamp'] + timedelta(hours=3)).strftime("%Y-%m-%d %H:00"),
         i['consumption'],
         i['production'],
         i['savings'],
@@ -134,7 +134,7 @@ def makerow(i, co2, eur_grid, eur_sol):
 def summary(request):
     response = HttpResponse(content_type='text/csv')
     response['Content-Disposition'] = \
-        'attachment; filename="summary_' + '_' + datetime.now().strftime("%Y-%m-%d %H:00") + '.csv"'
+        'attachment; filename="summary_' + '_' + (datetime.now() + timedelta(hours=3)).strftime("%Y-%m-%d %H:00") + '.csv"'
     writer = csv.writer(response)
     writer.writerow(['Timestamp',
                      'Consumption, kWh',
@@ -148,27 +148,26 @@ def summary(request):
     co2 = float(CO2Multiplier.objects.filter(use=True)[0].multiplier)
     eur_grid = float(GridPriceMultiplier.objects.filter(use=True)[0].multiplier)
     eur_sol = float(SolarPriceMultiplier.objects.filter(use=True)[0].multiplier)
-    car = False
 
     writer.writerow(['*******Building*******'])
     writer.writerow(['***Day***'])
-    b_day = building.get_day_data(car)
+    b_day = building.get_day_data()
     for i in b_day:
         writer.writerow(makerow(i, co2, eur_grid, eur_sol))
 
     writer.writerow(['***Week***'])
-    b_week = building.get_multiple_days_data(8, car)
+    b_week = building.get_multiple_days_data(8)
     for i in b_week:
         writer.writerow(makerow(i, co2, eur_grid, eur_sol))
 
     for a in apartments:
         writer.writerow(['*******Apartment ', a.name + '*******'])
         writer.writerow(['***Day***'])
-        a_day = a.get_day_data(car)
+        a_day = a.get_day_data()
         for i in a_day:
             writer.writerow(makerow(i, co2, eur_grid, eur_sol))
         writer.writerow(['***Week***'])
-        a_week = a.get_multiple_days_data(8, car)
+        a_week = a.get_multiple_days_data(8)
         for i in a_week:
             writer.writerow(makerow(i, co2, eur_grid, eur_sol))
     return response
