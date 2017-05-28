@@ -35,13 +35,18 @@ def timeline_update(request):
     #     user = User.objects.get(username='Petja_user_1')
     # else:
 
+    from pprint import pprint
+
     time_frame = request.GET.get('timeFrame')
     building_on = request.GET.get('buildingOn')
     car = request.GET.get('eCarOn')
+    if car == 'true':
+        car = True
+    else:
+        car = False
 
     user = request.user
 
-    from pprint import pprint
 
     if building_on == 'true':
         obj = Building.objects.get(pk=1)
