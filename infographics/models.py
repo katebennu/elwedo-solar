@@ -179,7 +179,7 @@ class Apartment(models.Model):
 
 
     def __str__(self):
-        return str(self.building.name) + ', Apartment #' + str(self.name)
+        return str(self.building.name) + ', Apartment ' + str(self.name)
 
 
 class Building(models.Model):
@@ -310,6 +310,8 @@ class CO2Multiplier(models.Model):
         decimal_places=5,
         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
     use = models.BooleanField(default=True)
+    def __str__(self):
+        return 'CO2 multiplier ' + self.name + '. In use: ' + str(self.use)
 
 
 class KmMultiplier(models.Model):
@@ -319,6 +321,8 @@ class KmMultiplier(models.Model):
         decimal_places=5,
         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
     use = models.BooleanField(default=True)
+    def __str__(self):
+        return 'Km multiplier ' + self.name + '. In use: ' + str(self.use)
 
 
 class GridPriceMultiplier(models.Model):
@@ -329,6 +333,8 @@ class GridPriceMultiplier(models.Model):
         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
     use = models.BooleanField(default=True)
     apartment = models.ForeignKey('Apartment')
+    def __str__(self):
+        return 'Grid multiplier, apartment ' + self.apartment.name + ', '+ self.name + '. In use: ' + str(self.use)
 
 
 class SolarPriceMultiplier(models.Model):
@@ -339,3 +345,5 @@ class SolarPriceMultiplier(models.Model):
         validators=[MinValueValidator(0.0), MaxValueValidator(999.99)])
     use = models.BooleanField(default=True)
     apartment = models.ForeignKey('Apartment')
+    def __str__(self):
+        return 'Solar multiplier, apartment ' + self.apartment.name + ', '+ self.name + '. In use: ' + str(self.use)

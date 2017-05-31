@@ -10,3 +10,4 @@ geckodriver.log
 infographics/management/commands/fixtures/
 /docker-start.sh
 docs/
+*.crt

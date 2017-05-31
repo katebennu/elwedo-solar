@@ -52,17 +52,17 @@ class Command(BaseCommand):
                 g, _ = GridPriceMultiplier.objects.get_or_create(name='grid price from populator ' + a.name, multiplier=0.12, apartment=a)
                 s, _ = SolarPriceMultiplier.objects.get_or_create(name='solar price from populator ' + a.name, multiplier=0.06, apartment=a)
                 for i in range(2):
-                    username = row[0] + '_user_' + str(i + 1)
+                    if row[0] == 'Guest':
+                        if i == 0:
+                            username = 'Guest'
+                        else:
+                            username = 'Vieras'
+                    else:
+                        username = row[0] + '_user_' + str(i + 1)
                     u, _ = User.objects.get_or_create(username=username)
                     u.set_password(row[8+i])
                     u.save()
                     Profile.objects.get_or_create(user=u, apartment=a)
-
-        username = 'Guest'
-        u, _ = User.objects.get_or_create(username=username)
-        u.set_password('pass')
-        u.save()
-        Profile.objects.get_or_create(user=u, apartment=Apartment.objects.first())
 
         ExampleGrid.objects.get_or_create(name='Suvilahti', max_capacity=340)
 

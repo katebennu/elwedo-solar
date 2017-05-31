@@ -37,7 +37,8 @@ RUN apt-get -y install less
 
 RUN apt-get -y install postgresql-client
 
-RUN apt-get -y install wget && \
+RUN apt-get update && \
+    apt-get -y install wget && \
     cd /usr/bin && \
     wget https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh && \
     chmod +x wait-for-it.sh && \
