@@ -19,7 +19,8 @@ def index(request):
     user_language = 'fi'
     translation.activate(user_language)
     request.session[translation.LANGUAGE_SESSION_KEY] = user_language
-    return render(request, "infographics/index.html")
+    context = {'available_languages': ['en', 'es', 'fr']}
+    return render(request, "infographics/index.html", context)
 
 
 def about(request):
