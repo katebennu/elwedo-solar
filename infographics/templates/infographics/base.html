@@ -56,25 +56,27 @@
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
         <ul class="nav navbar-nav navbar-right">
-            {% get_current_language as LANGUAGE_CODE %}
-            {% get_available_languages as LANGUAGES %}
-            {% get_language_info_list for LANGUAGES as languages %}
-            {% for language in languages %}
-                <form action="{% url 'set_language' %}" method="post" id="form_{{ language.code }}">
-                    {% csrf_token %}
-                    <input name="next" type="hidden" value="{{ redirect_to }}"/>
-                    <input name="language" type="hidden" value="{{ language.code }}"/>
+        {% get_current_language as LANGUAGE_CODE %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+        {% for language in languages %}
+            <li class="lang-button" >
+            <form action="{% url 'set_language' %}" method="post" id="form_{{ language.code }}">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ redirect_to }}"/>
+                <input name="language" type="hidden" value="{{ language.code }}"/>
 
-                    <li><a class="lang-button" id="switch_{{ language.code }}" type="submit" >{{ language.code }}</a></li>
-                </form>
+                <a id="switch_{{ language.code }}" type="submit">{{ language.code|upper }}</a>
+
                 <script>
                     document.getElementById("switch_{{ language.code }}").onclick = function () {
                         document.getElementById("form_{{ language.code }}").submit();
                     }
                 </script>
-            {% endfor %}
+            </form>
+            </li>
+        {% endfor %}
 
             <li><a href="{% url 'infographics:index' %}">{% trans 'DASHBOARD' %}</a></li>
             <li><a href="{% url 'infographics:about' %}">{% trans 'ABOUT' %}</a></li>
