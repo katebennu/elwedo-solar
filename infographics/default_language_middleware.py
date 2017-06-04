@@ -1,6 +1,8 @@
 from django.utils import translation
 from django.conf import settings
 
+from django.utils.deprecation import MiddlewareMixin
+
 
 DOMAIN_LANGUAGE_MAP = {
     "elwedo.com": "en",
@@ -8,7 +10,7 @@ DOMAIN_LANGUAGE_MAP = {
 }
 
 
-class DefaultLanguageMiddleware(object):
+class DefaultLanguageMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         site = request.META['HTTP_HOST']
