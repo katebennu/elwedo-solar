@@ -2,6 +2,7 @@ let timeFrame = 'day';
 let buildingOn = false;
 let eCarOn = false;
 
+
 updateTimeLine(timeFrame = 'day', buildingOn = false, eCarOn = false);
 updateWeather();
 
@@ -46,7 +47,7 @@ function getDataTotal(data, gridMult, solarMult, buildingOn, timeFrame) {
     console.log(productionTotal);
     if (!buildingOn && timeFrame == 'month') {
         [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal] =
-            [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal].map(i => i * Math.round(30/13));
+            [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal].map(i => i * Math.round(30 / 13));
     }
 
     return [savingsRate,
@@ -148,14 +149,14 @@ function drawAxes(data, timeFrame) {
         .tickFormat(d3.format(",.2f"));
 
     svg.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - 45)
-      .attr("x",0 - (height / 2))
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - 45)
+        .attr("x", 0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
         .style('font-size', '10px')
         .style('color', '#6D6A5C')
-      .text("kWh");
+        .text("kWh");
 
     let x = d3.scaleBand()
         .padding(0.2)
@@ -239,6 +240,11 @@ function stackedChart(fullData, timeFrame, svg, width, height, maxY, x, y) {
         legendBox = d3.select("#timeline-legend"),
         square = d3.select("#frame-me");
 
+    let dateString = '%d %B %Y';
+    if ($('div.click-to-popup h1').text() === 'SÄHKÖN KÄYTTÖ ') {
+        dateString = '%d.%m.%Y';
+    }
+
     svg.selectAll("rect")
         .on("mousemove", (d, i, j) => {
             // d3.selectAll("rect.stack" + i).attr("class", "yellow-fill");
@@ -248,7 +254,7 @@ function stackedChart(fullData, timeFrame, svg, width, height, maxY, x, y) {
             legendBox
                 .classed("legend-info", true);
             date
-                .text(d3.timeFormat('%d %B %Y')(d.data.timestamp));
+                .text(d3.timeFormat(dateString)(d.data.timestamp));
             if (timeFrame == "day") {
                 time.text(d3.timeFormat('%H:%M')(d.data.timestamp));
                 legendBox.style("padding-top", "20px");
@@ -431,8 +437,8 @@ function CO2Chart(data, multiplier) {
 
     let wO = (data[0] * multiplier).toFixed(1),
         w = (data[1] * multiplier).toFixed(1);
-    if (wO >=10) wO = Math.round(wO);
-    if (w >=10) w = Math.round(w);
+    if (wO >= 10) wO = Math.round(wO);
+    if (w >= 10) w = Math.round(w);
 
     $('#co2-wO').text(wO + 'kg');
     $('#co2-w').text(w + 'kg');
@@ -522,7 +528,11 @@ function carSection(productionTotal, timeFrame) {
 
 // MAIN
 function updateTimeLine(timeFrame, buildingOn, eCarOn) {
-    $.getJSON('/timeline-update/', {'timeFrame': timeFrame, 'buildingOn': buildingOn, 'eCarOn': eCarOn}, function (dataBlob, jqXHR) {
+    $.getJSON('/timeline-update/', {
+        'timeFrame': timeFrame,
+        'buildingOn': buildingOn,
+        'eCarOn': eCarOn
+    }, function (dataBlob, jqXHR) {
         console.log(dataBlob);
         // clean existing charts
         $('#timeline-chart').html('');
@@ -533,11 +543,11 @@ function updateTimeLine(timeFrame, buildingOn, eCarOn) {
         let data = parseData(dataBlob.data),
             multipliers = dataBlob.multipliers;
         let [savingsRate, totals, productionTotal, savingsTotal, CO2Rates] = getDataTotal(
-                                                                                data,
-                                                                                multipliers.gridMultiplier,
-                                                                                multipliers.solarMultiplier,
-                                                                                buildingOn,
-                                                                                timeFrame);
+            data,
+            multipliers.gridMultiplier,
+            multipliers.solarMultiplier,
+            buildingOn,
+            timeFrame);
 
         // update header
         updateHeader(data);
