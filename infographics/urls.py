@@ -1,9 +1,11 @@
 from django.conf.urls import url, include
 from django.contrib.auth.views import login, logout
 
+
 from . import views
 
 app_name = 'infographics'
+
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),

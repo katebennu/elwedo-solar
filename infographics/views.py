@@ -8,10 +8,22 @@ from django.utils import translation
 
 import csv
 from datetime import datetime,timedelta
+from pprint import pprint
 
 
 def cert(request):
     return render(request, "infographics/godaddy.html")
+
+
+def login(request):
+    site = request.META['HTTP_HOST']
+    if site == '127.0.0.1:8000' and not request.COOKIES.get('sessionid'):
+        pprint('ENABLE ENGLISH')
+        user_language = 'en'
+        translation.activate(user_language)
+        request.session[translation.LANGUAGE_SESSION_KEY] = user_language
+    # pprint(request.COOKIES.get('sessionid'))
+    return render(request, 'infographics/login.html')
 
 
 @login_required
@@ -28,8 +40,6 @@ def timeline_update(request):
     # if request.user.username == '':
     #     user = User.objects.get(username='Petja_user_1')
     # else:
-
-    from pprint import pprint
 
     time_frame = request.GET.get('timeFrame')
     building_on = request.GET.get('buildingOn')
@@ -51,7 +61,7 @@ def timeline_update(request):
         if building_on == 'true':
             query = obj.get_multiple_days_data(30, car)
         else:
-            query = obj.get_multiple_days_data(13, car)
+            query = obj.get_multiple_days_data(14, car)
 
         # pprint(original)
 
@@ -106,7 +116,6 @@ def timeline_update(request):
         row['production'] = float(i['production'])
         row['savings'] = float(i['savings'])
         row['consumptionLessSavings'] = float(i['consumptionLessSavings'])
-    pprint(data)
     return JsonResponse({'multipliers': multipliers, 'data': data}, safe=False)
 
 
