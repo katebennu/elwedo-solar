@@ -28,7 +28,6 @@ DEBUG = True
 # https://www.digitalocean.com/community/tutorials/how-to-use-postgresql-with-your-django-application-on-ubuntu-16-04
 ALLOWED_HOSTS = ['*']
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -73,7 +72,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'solarpilot.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
 
@@ -84,7 +82,6 @@ DATABASES = {
     },
 
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
@@ -104,14 +101,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/
 
 
 LANGUAGES = [
-  ('fi', _('Finnish')),
-  ('en', _('English')),
+    ('fi', _('Finnish')),
+    ('en', _('English')),
 ]
 
 LANGUAGE_CODE = 'fi'
@@ -150,4 +146,3 @@ STATIC_URL = '/static/'
 LOGIN_URL = 'infographics:login'
 LOGIN_REDIRECT_URL = 'infographics:index'
 LOGOUT_REDIRECT_URL = 'infographics:login'
-

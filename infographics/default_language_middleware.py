@@ -13,5 +13,8 @@ class DefaultLanguageMiddleware(MiddlewareMixin):
 
     def process_request(self, request):
         site = request.META['HTTP_HOST'].split(":")[0]
+        # print(site)
+        # print(request.session.load())
+        # print(translation.LANGUAGE_SESSION_KEY)
         if translation.LANGUAGE_SESSION_KEY not in request.session:
             request.session[translation.LANGUAGE_SESSION_KEY] = DOMAIN_LANGUAGE_MAP.get(site, "en")
