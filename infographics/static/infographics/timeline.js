@@ -42,12 +42,12 @@ function getDataTotal(data, gridMult, solarMult, buildingOn, timeFrame) {
 
     let wOS = (consumptionTotal * gridMult).toFixed(1);
     if (wOS >= 10) wOS = Math.round(wOS);
-    let wS = ((consumptionTotal - savingsTotal) * gridMult + savingsTotal * solarMult).toFixed(1);
+    let wS = ((consumptionTotal - savingsTotal) * gridMult + savingsTotal * solarMult);
     if (wS >= 10) wS = Math.round(wS);
     console.log(productionTotal);
     if (!buildingOn && timeFrame == 'month') {
         [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal] =
-            [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal].map(i => i * Math.round(30 / 13));
+            [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal].map(i => i * 30 / 13);
     }
 
     return [savingsRate,
@@ -344,13 +344,16 @@ function euroChart(data) {
 
     let wOSHeight = $("#euro-chart rect:first-of-type").height();
 
+    let n = 1;
+    if (data[0].value > 10) n = 0;
+
     svg.append("text")
         .attr('x', 45)
         .attr('y', -8 + height - wOSHeight) // + height - height of the first rect
         .attr('fill', '#56eda8')
         .attr('font-size', 16)
         .attr('font-weight', 'bold')
-        .text(data[0].value + ' €');
+        .text(parseFloat(data[0].value).toFixed(n) + ' €');
 
     let wSHeight = $("#euro-chart rect:nth-of-type(2)").height();
 
@@ -360,7 +363,7 @@ function euroChart(data) {
         .attr('fill', '#26B5DB')
         .attr('font-size', 16)
         .attr('font-weight', 'bold')
-        .text(data[1].value + ' €');
+        .text(parseFloat(data[1].value).toFixed(n) + ' €');
 }
 function donutChart(savingsRate) {
     let o = 0, n = 50, x = savingsRate, m = 50 - x;
