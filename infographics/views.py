@@ -1,29 +1,16 @@
+import csv
+from datetime import datetime,timedelta
+
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 
 from infographics.models import *
-from django.contrib.auth.decorators import user_passes_test
-from django.utils import translation
-
-import csv
-from datetime import datetime,timedelta
-from pprint import pprint
 
 
 def cert(request):
     return render(request, "infographics/godaddy.html")
-
-
-def login(request):
-    site = request.META['HTTP_HOST']
-    if site == '127.0.0.1:8000' and not request.COOKIES.get('sessionid'):
-        pprint('ENABLE ENGLISH')
-        user_language = 'en'
-        translation.activate(user_language)
-        request.session[translation.LANGUAGE_SESSION_KEY] = user_language
-    # pprint(request.COOKIES.get('sessionid'))
-    return render(request, 'infographics/login.html')
 
 
 @login_required
