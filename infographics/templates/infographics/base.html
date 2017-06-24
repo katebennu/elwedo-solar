@@ -2,11 +2,18 @@
 <html lang="fi">
 <head>
     <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-5GVJBGN');</script>
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({
+            'gtm.start': new Date().getTime(), event: 'gtm.js'
+        });
+        var f = d.getElementsByTagName(s)[0],
+            j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+    })(window, document, 'script', 'dataLayer', 'GTM-5GVJBGN');</script>
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
@@ -29,8 +36,10 @@
 
 <body id="body">
 <!-- Google Tag Manager (noscript) -->
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5GVJBGN"
-height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5GVJBGN"
+            height="0" width="0" style="display:none;visibility:hidden"></iframe>
+</noscript>
 <!-- End Google Tag Manager (noscript) -->
 
 <nav class="navbar navbar-default navbar-static-top" role="navigation">
@@ -47,28 +56,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
         <ul class="nav navbar-nav navbar-right">
+        {% get_current_language as CURRENT_LANGUAGE %}
+        {% get_language_info for CURRENT_LANGUAGE as current_lang %}
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+        {% for language in languages %}
+            {% if language != current_lang %}
+            <li class="lang-button" >
+            <form action="{% url 'set_language' %}" method="post" id="form_{{ language.code }}">
+                {% csrf_token %}
+                <input name="next" type="hidden" value="{{ redirect_to }}"/>
+                <input name="language" type="hidden" value="{{ language.code }}"/>
+
+                <a id="switch_{{ language.code }}" type="submit">{{ language.code|upper }}</a>
+
+                <script>
+                    document.getElementById("switch_{{ language.code }}").onclick = function () {
+                        document.getElementById("form_{{ language.code }}").submit();
+                    }
+                </script>
+            </form>
+            </li>
+            {% endif %}
+        {% endfor %}
+
             <li><a href="{% url 'infographics:index' %}">{% trans 'DASHBOARD' %}</a></li>
             <li><a href="{% url 'infographics:about' %}">{% trans 'ABOUT' %}</a></li>
 
             {% if user.is_authenticated %}
                 <li><a href="{% url 'infographics:logout' %}">{% trans 'LOGOUT' %}</a></li>
-{#                <li class="dropdown">#}
-{#                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'LOGOUT | ACCOUNT' %}<b#}
-{#                            class="caret"></b></a>#}
-{#                    <ul class="dropdown-menu">#}
-{#                        <li><a href="#">{% trans 'Change Password' %}</a></li>#}
-{#                        <li class="divider"></li>#}
-{#                        <li><a href="{% url 'infographics:logout' %}">{% trans 'Log Out' %}</a></li>#}
-{#                    </ul>#}
-{#                </li>#}
+                {#                <li class="dropdown">#}
+                {#                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">{% trans 'LOGOUT | ACCOUNT' %}<b#}
+                {#                            class="caret"></b></a>#}
+                {#                    <ul class="dropdown-menu">#}
+                {#                        <li><a href="#">{% trans 'Change Password' %}</a></li>#}
+                {#                        <li class="divider"></li>#}
+                {#                        <li><a href="{% url 'infographics:logout' %}">{% trans 'Log Out' %}</a></li>#}
+                {#                    </ul>#}
+                {#                </li>#}
             {% else %}
                 <li><a href="{% url 'infographics:login' %}">{% trans 'LOGIN' %}</a></li>
             {% endif %}
         </ul>
     </div><!-- /.navbar-collapse -->
 </nav>
+
+
 
 {% block body %}
 {% endblock %}

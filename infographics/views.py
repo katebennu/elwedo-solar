@@ -1,13 +1,12 @@
+import csv
+from datetime import datetime,timedelta
+
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 
 from infographics.models import *
-from django.contrib.auth.decorators import user_passes_test
-from django.utils import translation
-
-import csv
-from datetime import datetime,timedelta
 
 
 def cert(request):
@@ -16,16 +15,10 @@ def cert(request):
 
 @login_required
 def index(request):
-    user_language = 'fi'
-    translation.activate(user_language)
-    request.session[translation.LANGUAGE_SESSION_KEY] = user_language
     return render(request, "infographics/index.html")
 
 
 def about(request):
-    user_language = 'fi'
-    translation.activate(user_language)
-    request.session[translation.LANGUAGE_SESSION_KEY] = user_language
     return render(request, "infographics/about.html")
 
 
@@ -34,8 +27,6 @@ def timeline_update(request):
     # if request.user.username == '':
     #     user = User.objects.get(username='Petja_user_1')
     # else:
-
-    from pprint import pprint
 
     time_frame = request.GET.get('timeFrame')
     building_on = request.GET.get('buildingOn')
@@ -112,7 +103,6 @@ def timeline_update(request):
         row['production'] = float(i['production'])
         row['savings'] = float(i['savings'])
         row['consumptionLessSavings'] = float(i['consumptionLessSavings'])
-    pprint(data)
     return JsonResponse({'multipliers': multipliers, 'data': data}, safe=False)
 
 

@@ -1,12 +1,13 @@
 from django.conf.urls import url, include
 from django.contrib.auth.views import login, logout
 
+
 from . import views
 
 app_name = 'infographics'
 
+
 urlpatterns = [
-    url(r'^i18n/', include('django.conf.urls.i18n')),
     url(r'^$', views.index, name='index'),
     url(r'^index/$', views.index, name='index'),  # default homepage
     url(r'^timeline-update/$', views.timeline_update),
@@ -19,3 +20,5 @@ urlpatterns = [
     url(r'^.well-known/pki-validation/godaddy.html$', views.cert, name='cert'),
     url(r'^summary/$', views.summary, name='summary')
 ]
+
+

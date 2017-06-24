@@ -14,7 +14,7 @@ sched = BlockingScheduler()
 def timed_job():
     print('********************* started timed_job')
 
-    url = 'https://www.helen.fi/sahko/kodit/aurinkosahko/suvilahti/DownloadData/'
+    url = 'https://www.helen.fi/aurinko/kodit/aurinkosahko/suvilahti/DownloadData/'
     file, headers = urllib.request.urlretrieve(url)
     contents = open(file).read()
     rows = contents.splitlines()

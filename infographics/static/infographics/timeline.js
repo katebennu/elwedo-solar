@@ -2,6 +2,7 @@ let timeFrame = 'day';
 let buildingOn = false;
 let eCarOn = false;
 
+
 updateTimeLine(timeFrame = 'day', buildingOn = false, eCarOn = false);
 updateWeather();
 
@@ -41,12 +42,12 @@ function getDataTotal(data, gridMult, solarMult, buildingOn, timeFrame) {
 
     let wOS = (consumptionTotal * gridMult).toFixed(1);
     if (wOS >= 10) wOS = Math.round(wOS);
-    let wS = ((consumptionTotal - savingsTotal) * gridMult + savingsTotal * solarMult).toFixed(1);
+    let wS = ((consumptionTotal - savingsTotal) * gridMult + savingsTotal * solarMult);
     if (wS >= 10) wS = Math.round(wS);
     console.log(productionTotal);
     if (!buildingOn && timeFrame == 'month') {
         [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal] =
-            [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal].map(i => i * Math.round(30/13));
+            [wOS, wS, productionTotal, consumptionTotal, consumptionLessSavingsTotal].map(i => i * 30 / 13);
     }
 
     return [savingsRate,
@@ -148,14 +149,14 @@ function drawAxes(data, timeFrame) {
         .tickFormat(d3.format(",.2f"));
 
     svg.append("text")
-      .attr("transform", "rotate(-90)")
-      .attr("y", 0 - 45)
-      .attr("x",0 - (height / 2))
-      .attr("dy", "1em")
-      .style("text-anchor", "middle")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - 45)
+        .attr("x", 0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
         .style('font-size', '10px')
         .style('color', '#6D6A5C')
-      .text("kWh");
+        .text("kWh");
 
     let x = d3.scaleBand()
         .padding(0.2)
@@ -239,6 +240,11 @@ function stackedChart(fullData, timeFrame, svg, width, height, maxY, x, y) {
         legendBox = d3.select("#timeline-legend"),
         square = d3.select("#frame-me");
 
+    let dateString = '%d %B %Y';
+    if ($('div.click-to-popup h1').text() === 'SÄHKÖN KÄYTTÖ ') {
+        dateString = '%d.%m.%Y';
+    }
+
     svg.selectAll("rect")
         .on("mousemove", (d, i, j) => {
             // d3.selectAll("rect.stack" + i).attr("class", "yellow-fill");
@@ -248,7 +254,7 @@ function stackedChart(fullData, timeFrame, svg, width, height, maxY, x, y) {
             legendBox
                 .classed("legend-info", true);
             date
-                .text(d3.timeFormat('%d %B %Y')(d.data.timestamp));
+                .text(d3.timeFormat(dateString)(d.data.timestamp));
             if (timeFrame == "day") {
                 time.text(d3.timeFormat('%H:%M')(d.data.timestamp));
                 legendBox.style("padding-top", "20px");
@@ -338,13 +344,16 @@ function euroChart(data) {
 
     let wOSHeight = $("#euro-chart rect:first-of-type").height();
 
+    let n = 1;
+    if (data[0].value > 10) n = 0;
+
     svg.append("text")
         .attr('x', 45)
         .attr('y', -8 + height - wOSHeight) // + height - height of the first rect
         .attr('fill', '#56eda8')
         .attr('font-size', 16)
         .attr('font-weight', 'bold')
-        .text(data[0].value + ' €');
+        .text(parseFloat(data[0].value).toFixed(n) + ' €');
 
     let wSHeight = $("#euro-chart rect:nth-of-type(2)").height();
 
@@ -354,7 +363,7 @@ function euroChart(data) {
         .attr('fill', '#26B5DB')
         .attr('font-size', 16)
         .attr('font-weight', 'bold')
-        .text(data[1].value + ' €');
+        .text(parseFloat(data[1].value).toFixed(n) + ' €');
 }
 function donutChart(savingsRate) {
     let o = 0, n = 50, x = savingsRate, m = 50 - x;
@@ -431,8 +440,8 @@ function CO2Chart(data, multiplier) {
 
     let wO = (data[0] * multiplier).toFixed(1),
         w = (data[1] * multiplier).toFixed(1);
-    if (wO >=10) wO = Math.round(wO);
-    if (w >=10) w = Math.round(w);
+    if (wO >= 10) wO = Math.round(wO);
+    if (w >= 10) w = Math.round(w);
 
     $('#co2-wO').text(wO + 'kg');
     $('#co2-w').text(w + 'kg');
@@ -485,6 +494,9 @@ function updateWeather() {
         '50d': '<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<svg width=\"142px\" height=\"88px\" viewBox=\"0 0 142 88\" version=\"1.1\" xmlns=\"http:\/\/www.w3.org\/2000\/svg\" xmlns:xlink=\"http:\/\/www.w3.org\/1999\/xlink\">\r\n    <!-- Generator: Sketch 41 (35326) - http:\/\/www.bohemiancoding.com\/sketch -->\r\n    <title>mist<\/title>\r\n    <desc>Created with Sketch.<\/desc>\r\n    <defs><\/defs>\r\n    <g id=\"Welcome\" stroke=\"none\" stroke-width=\"1\" fill=\"none\" fill-rule=\"evenodd\">\r\n        <g id=\"Weather\" transform=\"translate(-1547.000000, -101.000000)\">\r\n            <g id=\"Weather-Section\" transform=\"translate(-2.000000, -8.000000)\">\r\n                <g id=\"mist\" transform=\"translate(1551.000000, 109.000000)\">\r\n                    <path d=\"M0.04271795,42.1976472 L137.042718,42.1976472 C137.042718,42.1976472 139.010415,17.7655302 111.004182,23.1612296 C93.4157955,-2.33410029 64.3110813,10.2666294 64.3110813,10.2666294 C61.551925,2.298965 40.2973258,-9.55331329 25.0504548,13.2923344 C-2.15898779,13.2923344 0.04271795,42.1976472 0.04271795,42.1976472 Z\" id=\"Cloud\" fill=\"#FFFFFF\"><\/path>\r\n                    <path d=\"M1,51.5 L136.611578,51.5\" id=\"Path-2\" stroke=\"#FFFFFF\" stroke-width=\"5\" stroke-linecap=\"round\"><\/path>\r\n                    <path d=\"M36,62 L69,62\" id=\"Path-2-Copy-6\" stroke=\"#FFFFFF\" stroke-width=\"4\" stroke-linecap=\"round\"><\/path>\r\n                    <path d=\"M82,62 L122,62\" id=\"Path-2-Copy-6\" stroke=\"#FFFFFF\" stroke-width=\"4\" stroke-linecap=\"round\"><\/path>\r\n                    <path d=\"M19.5,75 L130.5,75\" id=\"Path-2-Copy-7\" stroke=\"#FFFFFF\" stroke-width=\"3\" stroke-linecap=\"round\"><\/path>\r\n                    <path d=\"M34,87 L95,87\" id=\"Path-2-Copy-8\" stroke=\"#FFFFFF\" stroke-width=\"2\" stroke-linecap=\"round\"><\/path>\r\n                <\/g>\r\n            <\/g>\r\n        <\/g>\r\n    <\/g>\r\n<\/svg>'
     };
     let days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+    if ($('div.click-to-popup h1').text() === 'SÄHKÖN KÄYTTÖ ') {
+        days = ['SU', 'MA', 'TI', 'KE', 'TO', 'PE', 'LA'];
+    }
 
     let url = 'http://api.openweathermap.org/data/2.5/forecast/daily?q=Helsinki,FI&cnt=7&appid=cf704fd01f3c91f15bdf00a58b867142'
     $.getJSON(url, function (json) {
@@ -519,7 +531,11 @@ function carSection(productionTotal, timeFrame) {
 
 // MAIN
 function updateTimeLine(timeFrame, buildingOn, eCarOn) {
-    $.getJSON('/timeline-update/', {'timeFrame': timeFrame, 'buildingOn': buildingOn, 'eCarOn': eCarOn}, function (dataBlob, jqXHR) {
+    $.getJSON('/timeline-update/', {
+        'timeFrame': timeFrame,
+        'buildingOn': buildingOn,
+        'eCarOn': eCarOn
+    }, function (dataBlob, jqXHR) {
         console.log(dataBlob);
         // clean existing charts
         $('#timeline-chart').html('');
@@ -530,11 +546,11 @@ function updateTimeLine(timeFrame, buildingOn, eCarOn) {
         let data = parseData(dataBlob.data),
             multipliers = dataBlob.multipliers;
         let [savingsRate, totals, productionTotal, savingsTotal, CO2Rates] = getDataTotal(
-                                                                                data,
-                                                                                multipliers.gridMultiplier,
-                                                                                multipliers.solarMultiplier,
-                                                                                buildingOn,
-                                                                                timeFrame);
+            data,
+            multipliers.gridMultiplier,
+            multipliers.solarMultiplier,
+            buildingOn,
+            timeFrame);
 
         // update header
         updateHeader(data);

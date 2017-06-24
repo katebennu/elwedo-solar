@@ -4,6 +4,7 @@
 {% load i18n %}
 
 {% block body %}
+
     <div class="ribbon welcome">
         <h4>{% trans 'Welcome' %}, {% if user.is_authenticated %}{{ user.username }}{% else %}Guest{% endif %}!</h4>
         <p>{% trans 'Last updated' %} <span id="updated"></span></p>
@@ -18,8 +19,8 @@
 
 
 
-{% include 'infographics/graph-timeline.html' %}
-{% include 'infographics/explanation.html' %}
+    {% include 'infographics/graph-timeline.html' %}
+    {% include 'infographics/explanation.html' %}
 
 
     <div id="small-graphs-div">
