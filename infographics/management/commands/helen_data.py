@@ -15,7 +15,7 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('Successfully updated production data'))
 
     def run(self):
-        url = 'https://www.helen.fi/sahko/kodit/aurinkosahko/suvilahti/DownloadData/'
+        url = 'https://www.helen.fi/aurinko/kodit/aurinkosahko/suvilahti/DownloadData/'
         file, headers = urllib.request.urlretrieve(url)
         contents = open(file).read()
         rows = contents.splitlines()

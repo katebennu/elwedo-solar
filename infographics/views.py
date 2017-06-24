@@ -48,7 +48,7 @@ def timeline_update(request):
         if building_on == 'true':
             query = obj.get_multiple_days_data(30, car)
         else:
-            query = obj.get_multiple_days_data(14, car)
+            query = obj.get_multiple_days_data(13, car)
 
         # pprint(original)
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-26 14:45+0000\n"
+"POT-Creation-Date: 2017-06-23 15:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,23 +29,23 @@ msgstr ""
 "läpinäkyvästi, kuinka paljon säästät rahaa ja ympäristöä käyttämällä "
 "aurinkosähköä."
 
-#: infographics/templates/infographics/base.html:44
+#: infographics/templates/infographics/base.html:84
 msgid "DASHBOARD"
 msgstr "ETUSIVU"
 
-#: infographics/templates/infographics/base.html:45
+#: infographics/templates/infographics/base.html:85
 msgid "ABOUT"
 msgstr "LISÄTIETOA"
 
-#: infographics/templates/infographics/base.html:48
+#: infographics/templates/infographics/base.html:88
 msgid "LOGOUT"
 msgstr "KIRJAUDU ULOS"
 
-#: infographics/templates/infographics/base.html:59
+#: infographics/templates/infographics/base.html:99
 msgid "LOGIN"
 msgstr "KIRJAUDU"
 
-#: infographics/templates/infographics/base.html:70
+#: infographics/templates/infographics/base.html:112
 msgid "contact:"
 msgstr "yhteystiedot:"
 
@@ -69,9 +69,7 @@ msgstr ""
 "ajomatkan 1,2 eurolla."
 
 #: infographics/templates/infographics/explanation.html:7
-msgid ""
-"Your solar power has helped you to reduce CO2 emissions in one day/week/"
-"month equaling to"
+msgid "Your solar power has helped you to reduce CO2 emissions equaling to"
 msgstr "Aurinkosähköllä olet vähentänyt CO2-päästöjä, jotka vastaavat"
 
 #: infographics/templates/infographics/explanation.html:7
@@ -79,7 +77,7 @@ msgid "km air travel."
 msgstr "km lentomatkaa."
 
 #: infographics/templates/infographics/explanation.html:10
-msgid "You have produced solar power in one day/week/month equaling to"
+msgid "You have produced solar power equaling to"
 msgstr "Aurinkosähköllä olet tuottanut energian, joka vastaa"
 
 #: infographics/templates/infographics/explanation.html:10
@@ -95,7 +93,7 @@ msgid "Share of consumption that is covered by own solar energy production"
 msgstr "Osuus sähkönkäytöstäsi, jonka katat omalla aurinkosähköllä"
 
 #: infographics/templates/infographics/graph-carousel.html:22
-msgid "PURCHASED GRID ENERGY"
+msgid "ELECTRICITY BILL"
 msgstr "SÄHKÖLASKU"
 
 #: infographics/templates/infographics/graph-carousel.html:25
@@ -151,23 +149,23 @@ msgstr "ostosähkö"
 msgid "produced energy"
 msgstr "oma sähkö"
 
-#: infographics/templates/infographics/index.html:8
+#: infographics/templates/infographics/index.html:9
 msgid "Welcome"
 msgstr "Tervetuloa"
 
-#: infographics/templates/infographics/index.html:9
+#: infographics/templates/infographics/index.html:10
 msgid "Last updated"
 msgstr "Viimeksi päivitetty"
 
-#: infographics/templates/infographics/index.html:14
+#: infographics/templates/infographics/index.html:15
 msgid "DAY"
 msgstr "PÄIVÄ"
 
-#: infographics/templates/infographics/index.html:15
+#: infographics/templates/infographics/index.html:16
 msgid "WEEK"
 msgstr "VIIKKO"
 
-#: infographics/templates/infographics/index.html:16
+#: infographics/templates/infographics/index.html:17
 msgid "MONTH"
 msgstr "KUUKAUSI"
 
@@ -175,11 +173,13 @@ msgstr "KUUKAUSI"
 msgid "TOMORROW"
 msgstr "HUOMENNA"
 
-#: solarpilot/prod_settings.py:112 solarpilot/settings.py:119
+#: solarpilot/dev_settings.py:109 solarpilot/prod_settings.py:113
+#: solarpilot/settings.py:116
 msgid "Finnish"
 msgstr "Suomi"
 
-#: solarpilot/prod_settings.py:113 solarpilot/settings.py:120
+#: solarpilot/dev_settings.py:110 solarpilot/prod_settings.py:114
+#: solarpilot/settings.py:117
 msgid "English"
 msgstr "Englanti"
 
